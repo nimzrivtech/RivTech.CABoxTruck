@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Taxes.Tax">
+    <Position X="17" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Billing\Taxes\Tax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Taxes.StateTax">
+    <Position X="14" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACCAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Billing\Taxes\StateTax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Taxes.SLTaxKind">
+    <Position X="16.5" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAACAAAAAAABAAAAAA=</HashCode>
+      <FileName>Billing\Taxes\SurplusLineTax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Taxes.StampingFeeTax">
+    <Position X="18.75" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Billing\Taxes\StampingFeeTax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Taxes.StampingFeePercentageTax">
+    <Position X="17.5" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Billing\Taxes\StampingFeeTax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Taxes.StampingFeeFlatRateTax">
+    <Position X="20" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Billing\Taxes\StampingFeeTax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Taxes.StampingFeeTaxType">
+    <Position X="14.25" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Billing\Taxes\StampingFeeTax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Taxes.TaxType">
+    <Position X="18.75" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Billing\Taxes\Tax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Taxes.SurplusLineTax">
+    <Position X="15.75" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Billing\Taxes\SurplusLineTax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Premiums.AdditionalPremium">
+    <Position X="7.25" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Billing\Premiums\AdditionalPremium.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Premiums.AdditionalPremiumKind">
+    <Position X="7.25" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAABAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Billing\Premiums\AdditionalPremium.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Premiums.RegularPremium">
+    <Position X="4.25" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Billing\Premiums\RegularPremium.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Premiums.RegularPremiumKind">
+    <Position X="4.25" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAgAAABAA=</HashCode>
+      <FileName>Billing\Premiums\RegularPremium.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.DTO.Billing.Fees.Fee">
+    <Position X="10.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Billing\Fees\Fee.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="RivTech.CABoxTruck.WebService.DTO.Billing.Premiums.IPremium">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Billing\Premiums\IPremium.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RivTech.CABoxTruck.WebService.DTO.Billing.IAmount" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Billing\IAmount.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

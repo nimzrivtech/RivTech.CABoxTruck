@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RivTech.CABoxTruck.WebService.Data.Entity.Vehicles.VehiclePremium">
+    <Position X="1.75" Y="2" Width="3.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAIDwALACIDAhyBAQAACIEGAAhIghHIBQgAAEBAAIJE=</HashCode>
+      <FileName>Entity\Vehicles\VehiclePremium.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Collision" />
+      <Property Name="CompFT" />
+      <Property Name="Cargo" />
+      <Property Name="Refrigeration" />
+      <Property Name="PD" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.Data.Entity.Vehicles.VehiclePremiumItem">
+    <Position X="7.75" Y="2.75" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABACAAAAAAAgAEIAoAAAAAAAIgAAggAgAAgAAAAJA=</HashCode>
+      <FileName>Entity\Vehicles\VehiclePremiumItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

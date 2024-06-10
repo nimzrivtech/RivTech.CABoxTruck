@@ -1,0 +1,24 @@
+2024-03-13 08:03:28,770 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2024000035?itemCount=0&fromPolicy=False
+2024-03-13 08:03:28,771 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2024000035?itemCount=0&fromPolicy=False
+2024-03-13 08:03:28,778 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2024000035?itemCount=0&fromPolicy=False
+2024-03-13 08:03:28,782 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2024000035?itemCount=0&fromPolicy=False
+2024-03-13 08:03:29,067 [102] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 274.87ms - 200
+2024-03-13 08:03:29,068 [102] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 274.87ms - 200
+2024-03-13 08:03:29,078 [102] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 304.9534ms - 200
+2024-03-13 08:03:29,090 [102] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 304.9534ms - 200
+2024-03-13 08:03:33,568 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-boxtruckagency-api-prodtest.azurewebsites.net/api/Agencies/getagencydetails/1a191b67-10f1-4f90-0cb9-08dbbb77e488
+2024-03-13 08:03:33,569 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-boxtruckagency-api-prodtest.azurewebsites.net/api/Agencies/getagencydetails/1a191b67-10f1-4f90-0cb9-08dbbb77e488
+2024-03-13 08:03:33,572 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-boxtruckagency-api-prodtest.azurewebsites.net/api/Agencies/getagencydetails/1a191b67-10f1-4f90-0cb9-08dbbb77e488
+2024-03-13 08:03:33,573 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-boxtruckagency-api-prodtest.azurewebsites.net/api/Agencies/getagencydetails/1a191b67-10f1-4f90-0cb9-08dbbb77e488
+2024-03-13 08:03:36,782 [102] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 3206.8931ms - 200
+2024-03-13 08:03:36,783 [102] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 3206.8931ms - 200
+2024-03-13 08:03:36,786 [102] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 3218.6514ms - 200
+2024-03-13 08:03:36,787 [102] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 3218.6514ms - 200
+2024-03-13 08:03:36,791 [102] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-boxtruckagency-api-prodtest.azurewebsites.net/api/Agent/dd39f503-7a27-4ed5-ed8c-08dbb9c81092
+2024-03-13 08:03:36,792 [102] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-boxtruckagency-api-prodtest.azurewebsites.net/api/Agent/dd39f503-7a27-4ed5-ed8c-08dbb9c81092
+2024-03-13 08:03:36,795 [102] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-boxtruckagency-api-prodtest.azurewebsites.net/api/Agent/dd39f503-7a27-4ed5-ed8c-08dbb9c81092
+2024-03-13 08:03:36,796 [102] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-boxtruckagency-api-prodtest.azurewebsites.net/api/Agent/dd39f503-7a27-4ed5-ed8c-08dbb9c81092
+2024-03-13 08:03:37,087 [102] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 286.5964ms - 200
+2024-03-13 08:03:37,089 [102] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 286.5964ms - 200
+2024-03-13 08:03:37,114 [102] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 305.0485ms - 200
+2024-03-13 08:03:37,115 [102] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 305.0485ms - 200
