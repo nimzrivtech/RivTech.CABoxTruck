@@ -1,0 +1,8 @@
+<app-table
+    [tableHeaders]="genericAddressData.tableHeaders"
+    [tableRows]="genericAddressData.addressTableRows"
+    [formControls]="genericAddressData.addresstableFormControls"
+    [customAddEvent]="true" (customAddTableItem)="showAddAddress()"
+    (deleteTableItem)="deleteTableItem($event, 'addressTableRows')"
+    [customEditEvent]="true" (customEditTableItem)="editAddress($event, 'addressTableRows')">
+</app-table>

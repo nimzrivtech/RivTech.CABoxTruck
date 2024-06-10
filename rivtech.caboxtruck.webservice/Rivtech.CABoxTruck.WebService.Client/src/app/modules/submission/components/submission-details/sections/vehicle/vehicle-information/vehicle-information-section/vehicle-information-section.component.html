@@ -1,0 +1,255 @@
+<div role="document">
+  <div class="modal-content">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title">{{modalButton === 'Save' ? 'Edit' : 'Add'}} Vehicle Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form [formGroup]="this.vehicleData.form">
+      <div class="modal-body container">
+        <!-- <rows> -->
+        <div class="form-group row field">
+          <ng-container *ngTemplateOutlet="textInput; context:
+          {formControl: fc.age, label: 'Age', readonly: true}">
+          </ng-container>
+          <ng-container
+            *ngTemplateOutlet="dropdownInput; context: {formControl: fc.year, options: lists.yearList, label: 'Year', order: 'name', id: 'year'}">
+          </ng-container>
+          <ng-container *ngTemplateOutlet="textInput; context: {formControl: fc.make, label: 'Make'}"></ng-container>
+        </div>
+
+        <div class="form-group row field">
+          <ng-container *ngTemplateOutlet="textInput; context: {formControl: fc.model, label: 'Model'}"></ng-container>
+          <div class="col-lg-4">
+              <label class="required">VIN</label>
+              <input type="text" class="form-control w-100" [formControl]="fc.vin" (ngModelChange)="this.vehicleData.validateVinState()" maxlength="17"/>
+              <app-validation-error [control]="fc.vin" inputName="VIN"></app-validation-error>
+              <ng-container *ngTemplateOutlet="vinValidator; context: {form: form}"></ng-container>
+          </div>
+          <ng-container
+            *ngTemplateOutlet="dropdownStateInput; context: {formControl: fc.registeredState, options: lists.stateList, label: 'Registered State', id: 'registeredState'}">
+           </ng-container>
+        </div>
+        <div class="form-group row field">
+          <ng-container *ngTemplateOutlet="textInput; context: {formControl: fc.style, label: 'Style', required: false}"></ng-container>
+          <ng-container
+            *ngTemplateOutlet="dropdownInput; context: {formControl: fc.vehicleType, options: lists.vehicleTypeList, label: 'Vehicle Type', id: 'vehicleType'}">
+          </ng-container>
+          <ng-container
+            *ngTemplateOutlet="dropdownInput; context: {formControl: fc.grossVehicleWeightId, options: lists.grossVehicleWeightList, label: 'Gross Vehicle Weight (lbs)', id: 'grossVehicleWeight'}">
+          </ng-container>
+        </div>
+        <div class="form-group row field">
+          <div class="col-lg-4">
+            <label>GVW Category</label>
+            <select class="form-control w-100" [formControl]="fc.grossVehicleWeightCategoryId" disabled="disabled">
+              <option value="0"></option>
+                <option *ngFor="let option of lists.grossVehicleWeightCategoryList | orderBy: 'name'"
+                [value]="option.value">
+                {{option.label}}
+              </option>
+              <!-- <ng-container *ngIf="submissionData.raterVersionSupport(); else gvwCategoryOldVersion">
+                <option *ngFor="let option of grossVehicleWeightCategoryList | orderBy: 'name'"
+                  [value]="option.value">
+                  {{option.label}}
+                </option>
+              </ng-container>
+              <ng-template #gvwCategoryOldVersion>
+                <option *ngFor="let option of grossVehicleWeightCategoryList | orderBy: 'name'"
+                  [value]="option.value">
+                  {{option.label}}
+                </option>
+              </ng-template> --> 
+            </select>
+          </div>
+          <ng-container
+              *ngTemplateOutlet="dropdownInputNoSorting; context: {formControl: fc.vehicleDescriptionId, options: lists.vehicleDescriptionList, label: 'Vehicle Description', id: 'vehicleDescription'}">
+          </ng-container>
+          <ng-container
+            *ngTemplateOutlet="dropdownInput; context: {formControl: fc.vehicleBusinessClassId, options: lists.vehicleBusinessClassList, label: 'Vehicle Business Class', id: 'vehicleClass'}">
+          </ng-container>
+        </div>
+        <div class="form-group row field">
+          <div class="col-md-4 form-field">
+            <div class="switch-wrapper mt-3">
+              <label>Auto Liability</label>
+              <toggle-switch [formGroup]="vehicleData.form" formName="vehicleForm" fieldName="isAutoLiability">
+              </toggle-switch>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row field">
+          <div class="col-md-4 form-field mt-3">
+            <div class="switch-wrapper">
+              <label>Comprehensive / Fire & Theft</label>
+              <toggle-switch [formGroup]="vehicleData.form" formName="vehicleForm" fieldName="isCoverageFireTheft"
+              (change)="toggleCoverage('FireTheft', $event.target.checked)">
+              </toggle-switch>
+            </div>
+          </div>
+          <div class="col-md-4 mt-3" *ngIf="fc.isCoverageFireTheft.value">
+            <label class="required">Comprehensive / Fire & Theft Deductible</label>
+            <select class="form-control w-100" [formControl]="fc.coverageFireTheftDeductibleId" (change)="vehicleData.checkStatedAmountLimits()">
+              <option [ngValue]="null">Please Select</option>
+              <option *ngFor="let option of lists.comprehensiveDeductibleList | orderBy: 'name'" [value]="option.value">
+                {{option.label}}
+              </option>
+            </select>
+            <app-validation-error [control]="fc.coverageFireTheftDeductibleId" inputName="Comprehensive / Fire & Theft Deductible"></app-validation-error>
+          </div>
+        </div>
+        <div class="form-group row field">
+          <div class="col-md-4 form-field mt-3">
+            <div class="switch-wrapper">
+              <label>Collision</label>
+              <toggle-switch [formGroup]="vehicleData.form" formName="vehicleForm" fieldName="isCoverageCollision"
+              (change)="toggleCoverage('Collision', $event.target.checked)">
+              </toggle-switch>
+            </div>
+          </div>
+          <div class="col-md-4 mt-3" *ngIf="fc.isCoverageCollision.value">
+            <label class="required">Collision Deductible</label>
+            <select class="form-control w-100" [formControl]="fc.coverageCollisionDeductibleId" (change)="vehicleData.checkStatedAmountLimits()">
+              <option [ngValue]="null">Please Select</option>
+              <option *ngFor="let option of lists.collisionDeductibleList | orderBy: 'name'" [value]="option.value">
+                {{option.label}}
+              </option>
+            </select>
+            <app-validation-error [control]="fc.coverageCollisionDeductibleId" inputName="Collision Deductible"></app-validation-error>
+          </div>
+        </div>
+        <div class="form-group row field">
+          <div  class="col-lg-4">
+            <label [ngClass]="{ 'required': vehicleData.isReqStatedAmount }">Stated Amount</label>
+            <input maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," type="text" class="form-control w-100" [formControl]="fc.statedAmount"/>
+            <div *ngIf="fc.statedAmount.touched && fc.statedAmount.errors" class="invalid-feedback">
+              <div *ngIf="fc.statedAmount.errors?.min?.min">Stated Amount is required</div>
+              <div *ngIf="fc.statedAmount.errors?.required">Stated Amount is required</div>
+            </div>
+        </div>
+        </div>
+        <div class="form-group row field">
+          <div class="col-md-4 form-field">
+            <div class="switch-wrapper mt-3">
+              <label>Cargo</label>
+              <toggle-switch [formGroup]="vehicleData.form" formName="vehicleForm" fieldName="hasCoverageCargo"
+              (change)="toggleCargo($event.target.checked)">
+              </toggle-switch>
+            </div>
+          </div>
+          <div class="col-md-4 form-field">
+            <div class="switch-wrapper mt-3">
+              <label>Refrigeration</label>
+              <toggle-switch [formGroup]="vehicleData.form" formName="vehicleForm" fieldName="hasCoverageRefrigeration">
+              </toggle-switch>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row field">
+          <ng-container
+            *ngTemplateOutlet="dropdownInput; context: {formControl: fc.useClassId, options: lists.useClassList, label: 'Use Class', id: 'useClass'}">
+          </ng-container>
+          <div *ngIf="submissionData.riskDetail.raterVersionId > 3 || submissionData.riskDetail?.raterVersionId == null" class="col-md-4">
+            <label class="required">Radius</label>
+            <select class="form-control w-100" [formControl]="fc.radius">
+              <option [ngValue]="null">Please Select</option>
+              <option *ngFor="let option of lists.radiusList" [value]="option.value">
+                {{option.label}}
+              </option>
+            </select>
+            <app-validation-error [control]="fc.radius" inputName="Radius"></app-validation-error>
+          </div>
+        </div>
+        <div class="form-group row field">
+          <ng-container
+          *ngTemplateOutlet="dropdownInput; context: {formControl: fc.garagingAddressId, options: lists.garagingAddressList, label: 'Garaging Address', id: 'garagingAddress'}">
+        </ng-container>
+        </div>
+        <div class="form-group row field">
+          <ng-container
+            *ngTemplateOutlet="textInput; context: 
+            {formControl: fc.primaryOperatingZipCode, options: lists.zipCodeList, label: 'Primary Operating Zip Code', id: 'primaryOperatingZipCode', readonly: false, required: false}">
+          </ng-container>
+          <!-- <ng-container *ngTemplateOutlet="textInput; context:
+          {formControl: fc.state, label: 'State', readonly: true}">
+          </ng-container> -->
+          <div class="col-lg-4">
+            <label>State</label>
+            <input type="text" class="form-control w-100 required" [formControl]="fc.state" (change)="onStateCodeChange($event)" readonly/>
+            <app-validation-error [control]="fc.state" [inputName]="'State'"></app-validation-error>
+          </div>
+          <ng-container *ngTemplateOutlet="textInput; context:
+          {formControl: fc.radiusTerritory, label: 'Radius Territory', readonly: true, required: false, onChange: onRadiusTerritoryChange, component: this}">
+          </ng-container>
+        </div>
+      </div>
+      <div class="modal-footer sticky-modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" [disabled]="!form.valid" (click)='onSubmit()'>{{modalButton}}</button>
+        <button class="btn btn-danger" data-dismiss="modal" #btnCloseModal (click)='onCancel()'>Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #textInput let-formControl="formControl" let-label="label" let-readonly="readonly" let-required="required" let-onChange="onChange" let-component="component">
+    <div class="col-lg-4">
+      <label [ngClass]="{'required' : required || required == null}">{{label}}</label>
+      <input type="text" class="form-control w-100" [formControl]="formControl" [readonly]="readonly" (change)="onChange ? onChange($event) : null"/>
+      <app-validation-error [control]="formControl" [inputName]="label"></app-validation-error>
+  </div>
+</ng-template>
+
+<ng-template #dropdownInput let-formControl="formControl" let-label="label" let-options="options" let-order="order" let-id="id">
+  <div class="col-lg-4">
+      <label class="required">{{label}}</label>
+      <select class="form-control w-100" [formControl]="formControl" [id]="id">
+        <option [ngValue]="null">Please Select</option>
+        <option *ngFor="let option of options | orderBy: order ? order : 'label'" [value]="option.value">
+          {{option.label}}
+        </option>
+      </select>
+      <app-validation-error [control]="formControl" [inputName]="label"></app-validation-error>
+  </div>
+</ng-template>
+<ng-template #dropdownInputNoSorting let-formControl="formControl" let-label="label" let-options="options" let-order="order" let-id="id">
+  <div class="col-lg-4">
+      <label class="required">{{label}}</label>
+      <select class="form-control w-100" [formControl]="formControl" [id]="id">
+        <option [ngValue]="null">Please Select</option>
+        <option *ngFor="let option of options" [value]="option.value">
+          {{option.label}}
+        </option>
+      </select>
+      <app-validation-error [control]="formControl" [inputName]="label"></app-validation-error>
+  </div>
+</ng-template>
+<ng-template #dropdownStateInput let-formControl="formControl" let-label="label" let-options="options" let-order="order" let-id="id">
+  <div class="col-lg-4">
+      <label class="required">{{label}}</label>
+      <select class="form-control w-100" [formControl]="formControl" (ngModelChange)="this.vehicleData.validateVinState()" [id]="id">
+        <option [ngValue]="null">Please Select</option>
+        <option *ngFor="let option of options | orderBy: order ? order : 'label'" [value]="option.value">
+          {{option.label}}
+        </option>
+      </select>
+      <app-validation-error [control]="formControl" [inputName]="label"></app-validation-error>
+      <span *ngIf="this.vehicleData.isValidVinState" class="invalid-feedback">{{ messages.vinDuplicate }}</span>
+  </div>
+</ng-template>
+<!-- <ng-template #stateValidator let-formControl="form">
+  <div *ngIf="form.errors?.vinDuplicate" class="invalid-feedback" >
+    {{ messages.vinDuplicate }}
+  </div>
+</ng-template> -->
+<ng-template #vinValidator let-form="form">
+  <div *ngIf="this.vehicleData.isValidVinState && (form.get('vin').touched || form.get('vin').dirty)" class="invalid-feedback">
+    {{ messages.vinDuplicate }}
+  </div>
+  <div *ngIf="form.get('vin').errors?.vinInvalidChar && (form.get('vin').touched || form.get('vin').dirty)" class="invalid-feedback">
+    {{ messages.vinInvalid }}
+  </div>
+  <div *ngIf="!form.get('vin').errors?.vinInvalidChar && form.get('vin').errors?.vinInvalidLength && (form.get('vin').touched || form.get('vin').dirty)" class="invalid-feedback">
+    {{ messages.vinInvalid }}
+  </div>
+</ng-template>

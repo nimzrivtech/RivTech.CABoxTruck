@@ -1,0 +1,212 @@
+.page-header-details-card {
+  // border-top: unset;
+  // border-right: unset;
+  // border-left: unset;
+  // border-radius: unset;
+  margin-left: -30px;
+  margin-right: -30px;
+  // max-width: 100%;
+  // width: 93.5%;
+}
+
+label.page-header-details-label  {
+  font-size: medium;;
+  margin-bottom: unset;
+}
+
+.title {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+.status-btn {
+  align-self: center;
+  margin-top: 10px;
+}
+.field-text {
+  font-weight: 500;
+}
+.col-1-width {
+  max-width: 35.666667%;
+}
+.col-2-width {
+  max-width: 10.666667%;
+}
+.col-3-width {
+  max-width: 22%; //23
+}
+.col-4-width {
+  max-width: 15.666667%; //16.666667%
+}
+.est-field-text {
+  font-weight: 700;
+  font-size: 25px;
+  color:#20a8d8;
+  padding-left: 10px;
+}
+.est-field-text-2 {
+  color:#20a8d8;
+  font-weight: 500;
+}
+.col-5-width {
+  padding-right: 0;
+  padding-top: 1rem;
+  max-width: 16%;
+}
+.col-border {
+  border-right: 1px solid lightgray;
+}
+.sub-title-label {
+  margin-bottom: 0;
+}
+.position-fixed {
+  z-index: 3;
+}
+.fixed-top .col-md-3 {
+  text-align: center;
+}
+@media only screen and (max-width: 936px) {
+  .est-field-text {
+    font-size: 20px;
+    padding-left: 0px;
+  }
+}
+@media (max-width: 767px) {
+  .col-border {
+    border-right: 0px;
+    margin-bottom: 5px;
+  }
+  .col-md-2.col-border {
+    columns: 2;
+  }
+}
+.policyStatus-field-text {
+  font-weight: 700;
+  font-size: 20px;
+  color:#20a8d8;
+}
+.fixed-top {
+  top: 54px;
+  right: 30px;
+  left: 230px;
+  height: auto;
+  width: auto;
+  box-shadow: 0 8px 6px -6px grey;
+  z-index: 5;
+}
+
+@media (max-width: 992px) {
+  .fixed-top {
+    left: 0;
+  }
+}
+
+
+.taxfee-field-text {
+  font-weight: 700;
+  font-size: 15px;
+  color:#20a8d8;
+}
+
+.card-body{
+  padding: 0.5rem 1.3%;
+  padding-bottom: 5px;
+}
+
+.summary-title {
+  margin-bottom: 0;
+}
+.quote-status {
+  color: #20a8d8;
+}
+
+.agency{
+  font-size:12px;
+}
+
+.sk-three-bounce {
+  margin-left: 25px;
+}
+
+.sk-three-bounce > div {
+  width: 12px;
+  height: 12px;
+  background-color:#20a8d8;
+}
+
+.policy-action {
+  text-align: right;
+}
+
+.dropdown-menu-left {
+  left: -72px !important;
+  padding: .5rem 0 !important;
+}
+
+.flex-end {
+  align-self: flex-end;
+}
+
+.dropdown-item {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.dropdown-toggle {
+  margin-top: 20px;
+}
+
+.policyStatus-field-text {
+  font-weight: 700;
+  font-size: 20px;
+  color:#20a8d8;
+}
+
+.orangeFontColor {
+  color: rgb(255,128,41);
+}
+
+.redFontColor {
+  color: #DC143C;
+}
+
+.disabled-action {
+  background-color: rgba(240, 243, 245, .20);
+  cursor: not-allowed;
+  color: rgba(150, 150, 150);
+
+  &:hover {
+    color: rgba(150, 150, 150);
+  }
+}
+
+.dropdown-policy {
+  border: 0;
+  margin-left: -4px;
+  font-size: 13px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.broker-commission-label {
+  white-space: nowrap;
+}
+
+@media (min-width: 1920px) {
+  .broker-commission-div {
+    flex: 0 0 15% !important;
+    max-width: 15% !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .broker-commission-div {
+    flex: 0 0 20% !important;
+    max-width: 20% !important;
+  }
+  .power-units-div {
+    flex: 0 0 11% !important;
+    max-width: 11% !important;
+  }
+}

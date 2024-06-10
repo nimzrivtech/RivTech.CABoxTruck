@@ -1,0 +1,440 @@
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('dvDiscSection', $event)">
+    <app-toggle-collapse toggleName="dvDiscSection"></app-toggle-collapse> <strong>Discount Section</strong>
+    </div>
+    <div class="card-body collapse show" id="dvDiscSection">
+        <form [formGroup]="underwritingGeneralInformation" (ngSubmit)="onSubmit()">
+
+        <div class="form-group row margin-bottom0">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="col-md-3 form-field">
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <label class="col-form-label">Camera Discount?<span class="spandata">*</span> :</label>
+                    </div>
+                </div>
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <div class="form-check">
+                            <div class="form-group row margin-bottom0">
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="cameraDiscountSwitchYes" name="cameraDiscountSwitch" formControlName="cameraDiscountSwitch" type="radio" [value]=true (change)="isCameraDiscountSwitch($event.target.checked ? 'on' : 'off')" [(ngModel)]="hasIsCameraDiscount">
+                                    <label class="form-check-label" for="cameraDiscountSwitchYes"> Yes </label>
+                                </div>
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="cameraDiscountSwitchNo" name="cameraDiscountSwitch" formControlName="cameraDiscountSwitch" type="radio" [value]=false (change)="isCameraDiscountSwitch($event.target.checked ? 'off' : 'on')" [(ngModel)]="hasIsCameraDiscount">
+                                    <label class="form-check-label" for="cameraDiscountSwitchNo"> No </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 form-field">
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <label class="col-form-label">Crash Avoidance Equipment Discount?<span class="spandata">*</span> :</label>
+                    </div>
+                </div>
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <div class="form-check">
+                            <div class="form-group row margin-bottom0">
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="crashAvoidDiscountSwitchYes" name="crashAvoidDiscountSwitch" formControlName="crashAvoidDiscountSwitch" type="radio" [value]=true (change)="isCrashAvoidDiscountSwitch($event.target.checked ? 'on' : 'off')" [(ngModel)]="hasIsCrashAvoidDiscount">
+                                    <label class="form-check-label" for="crashAvoidDiscountSwitchYes"> Yes </label>
+                                </div>
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="crashAvoidDiscountSwitchNo" name="crashAvoidDiscountSwitch" formControlName="crashAvoidDiscountSwitch" type="radio" [value]=false (change)="isCrashAvoidDiscountSwitch($event.target.checked ? 'off' : 'on')" [(ngModel)]="hasIsCrashAvoidDiscount">
+                                    <label class="form-check-label" for="crashAvoidDiscountSwitchNo"> No </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 form-field">
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <label class="col-form-label">Distracted Driving Equipment Discount?<span class="spandata">*</span> :</label>
+                    </div>
+                </div>
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <div class="form-check">
+                            <div class="form-group row margin-bottom0">
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="distractedDiscountSwitchYes" name="distractedDiscountSwitch" formControlName="distractedDiscountSwitch" type="radio" [value]=true (change)="isDistractedDiscountSwitch($event.target.checked ? 'on' : 'off')" [(ngModel)]="hasIsDistractedDiscount">
+                                    <label class="form-check-label" for="distractedDiscountSwitchYes"> Yes </label>
+                                </div>
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="distractedAvoidDiscountSwitchNo" name="distractedDiscountSwitch" formControlName="distractedDiscountSwitch" type="radio" [value]=false (change)="isDistractedDiscountSwitch($event.target.checked ? 'off' : 'on')" [(ngModel)]="hasIsDistractedDiscount">
+                                    <label class="form-check-label" for="distractedAvoidDiscountSwitchNo"> No </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        <div class="form-group row margin-bottom0">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="col-md-3 form-field">
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <label class="col-form-label">Mileage Tracking Equipment (Verified)?<span class="spandata">*</span> :</label>
+                    </div>
+                </div>
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <div class="form-check">
+                            <div class="form-group row margin-bottom0">
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="mileageTrackingEquipmentSwitchYes" name="mileageTrackingEquipmentSwitch" formControlName="mileageTrackingEquipmentSwitch" type="radio" [value]=true (change)="isMileageTrackingEquipmentSwitch($event.target.checked ? 'on' : 'off')" [(ngModel)]="hasIsMileageTrackingEquipment">
+                                    <label class="form-check-label" for="mileageTrackingEquipmentSwitchYes"> Yes </label>
+                                </div>
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="mileageTrackingEquipmentSwitchNo" name="mileageTrackingEquipmentSwitch" formControlName="mileageTrackingEquipmentSwitch" type="radio" [value]=false (change)="isMileageTrackingEquipmentSwitch($event.target.checked ? 'off' : 'on')" [(ngModel)]="hasIsMileageTrackingEquipment">
+                                    <label class="form-check-label" for="mileageTrackingEquipmentSwitchNo"> No </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 form-field">
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <label class="col-form-label">Navigation/GPS Data Available (Verified)?<span class="spandata">*</span> :</label>
+                    </div>
+                </div>
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <div class="form-check">
+                            <div class="form-group row margin-bottom0">
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="navigationGPSSwitchYes" name="navigationGPSSwitch" formControlName="navigationGPSSwitch" type="radio" [value]=true (change)="isNavigationGPSSwitch($event.target.checked ? 'on' : 'off')" [(ngModel)]="hasIsNavigationGPS">
+                                    <label class="form-check-label" for="navigationGPSSwitchYes"> Yes </label>
+                                </div>
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="navigationGPSSwitchNo" name="navigationGPSSwitch" formControlName="navigationGPSSwitch" type="radio" [value]=false (change)="isNavigationGPSSwitch($event.target.checked ? 'off' : 'on')" [(ngModel)]="hasIsNavigationGPS">
+                                    <label class="form-check-label" for="navigationGPSSwitchNo"> No </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('dvFinancial', $event)">
+    <app-toggle-collapse toggleName="dvFinancial"></app-toggle-collapse><strong>Financial Strength/Online Presence</strong>
+    </div>
+    <div class="card-body  collapse show"  id="dvFinancial">
+        <form [formGroup]="underwritingGeneralInformation" (ngSubmit)="onSubmit()">
+
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="creditScoreDropdown" class="form-field__label">Credit Score - Owner<span class="spandata">*</span></label>
+                    <select class="form-field__input" id="creditScoreDropdown" formControlName="creditScoreDropdown">
+                        <option hidden [value]="" selected>Please Select</option>
+                        <!-- <option *ngFor="let option of brokerData.agencyList | orderBy: 'label'" [value]="option.value">{{option.label}}</option> -->
+                    </select>
+                    <app-validation-error [control]="f.creditScoreDropdown"></app-validation-error>
+                </div>
+            </div>
+
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="onlineProfileScoreDropdown" class="form-field__label">Online Profile Score<span class="spandata">*</span></label>
+                    <select class="form-field__input" id="onlineProfileScoreDropdown" formControlName="onlineProfileScoreDropdown">
+                        <option hidden [value]="" selected>Please Select</option>
+                        <!-- <option *ngFor="let option of brokerData.agencyList | orderBy: 'label'" [value]="option.value">{{option.label}}</option> -->
+                    </select>
+                    <app-validation-error [control]="f.onlineProfileScoreDropdown"></app-validation-error>
+                </div>
+            </div>
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('dvHiring', $event)">
+    <app-toggle-collapse toggleName="dvHiring"></app-toggle-collapse><strong>Hiring Criteria/Safety Procedures/Vehicle Maintenance</strong>
+    </div>
+    <div class="card-body collapse show" id="dvHiring">
+        <form [formGroup]="underwritingGeneralInformation" (ngSubmit)="onSubmit()">
+
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="hiringCriteriaDropdown" class="form-field__label">Hiring Criteria - # of "Ns"<span class="spandata">*</span></label>
+                    <select class="form-field__input" id="hiringCriteriaDropdown" formControlName="hiringCriteriaDropdown">
+                        <option hidden [value]="" selected>Please Select</option>
+                        <!-- <option *ngFor="let option of brokerData.agencyList | orderBy: 'label'" [value]="option.value">{{option.label}}</option> -->
+                    </select>
+                    <app-validation-error [control]="f.hiringCriteriaDropdown"></app-validation-error>
+                </div>
+            </div>
+
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="highLowTurnOverDropdown" class="form-field__label">High/Low Employee Turnover<span class="spandata">*</span></label>
+                    <select class="form-field__input" id="highLowTurnOverDropdown" formControlName="highLowTurnOverDropdown">
+                        <option hidden [value]="" selected>Please Select</option>
+                        <!-- <option *ngFor="let option of brokerData.agencyList | orderBy: 'label'" [value]="option.value">{{option.label}}</option> -->
+                    </select>
+                    <app-validation-error [control]="f.highLowTurnOverDropdown"></app-validation-error>
+                </div>
+            </div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="safetyCriteriaDropdown" class="form-field__label">Safety Criteria - # of "Ns"<span class="spandata">*</span></label>
+                    <select class="form-field__input" id="safetyCriteriaDropdown" formControlName="safetyCriteriaDropdown">
+                        <option hidden [value]="" selected>Please Select</option>
+                        <!-- <option *ngFor="let option of brokerData.agencyList | orderBy: 'label'" [value]="option.value">{{option.label}}</option> -->
+                    </select>
+                    <app-validation-error [control]="f.safetyCriteriaDropdown"></app-validation-error>
+                </div>
+            </div>
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="driverLicenseInput" class="form-field__label">Driver Licensing Questions - # of "Ns"</label>
+                    <input type="text" id="driverLicenseInput" class="form-field__input" mask="000000000000"  formControlName="driverLicenseInput"/>
+                    <app-validation-error [control]="f.driverLicenseInput"></app-validation-error>
+                </div>
+            </div>
+
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('dvMisc', $event)">
+    <app-toggle-collapse toggleName="dvMisc"></app-toggle-collapse>
+    <strong>Miscellaneous</strong>
+  </div>
+    <div class="card-body collapse show" id="dvMisc">
+        <form [formGroup]="underwritingGeneralInformation" (ngSubmit)="onSubmit()">
+
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="anyVehiclesOperatedDropdown" class="form-field__label">Will any vehicles be operated for personal use?<span class="spandata">*</span></label>
+                    <select class="form-field__input" id="anyVehiclesOperatedDropdown" formControlName="anyVehiclesOperatedDropdown">
+                        <option hidden [value]="" selected>Please Select</option>
+                        <!-- <option *ngFor="let option of brokerData.agencyList | orderBy: 'label'" [value]="option.value">{{option.label}}</option> -->
+                    </select>
+                    <app-validation-error [control]="f.anyVehiclesOperatedDropdown"></app-validation-error>
+                </div>
+            </div>
+
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="policyLevelAccidentInput" class="form-field__label">Policy Level Accidents (From Other Drivers not listed)<span class="spandata">*</span></label>
+                    <input type="text" id="policyLevelAccidentInput" class="form-field__input" mask="0000"  formControlName="policyLevelAccidentInput" value="0"/>
+                    <app-validation-error [control]="f.policyLevelAccidentInput"></app-validation-error>
+                </div>
+            </div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="ownerOperatorInput" class="form-field__label">Owner Operator %<span class="spandata">*</span></label>
+                    <input id="ownerOperatorInput" type="text" class="form-field__input" mask="000" (ngModelChange)="modelOwnerOperatorChanged($event)" formControlName="ownerOperatorInput"/>
+                    <app-validation-error [control]="f.ownerOperatorInput"></app-validation-error>
+                </div>
+            </div>
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('dvAdditionalCoverage', $event)">
+    <app-toggle-collapse toggleName="dvAdditionalCoverage"></app-toggle-collapse>
+    <strong>Additional Coverages</strong></div>
+    <div class="card-body container-fluid collapse show" id="dvAdditionalCoverage">
+        <div class="p-4 m-3 shadow-sm">
+            <div class="float-left">
+                <h3>Additional Coverages</h3>
+            </div>
+            <div class="float-right">
+                <button type="button" class="btn btn-primary btn" data-toggle="modal"
+                data-target="#addAdditionalStructureModal">
+                <span class="icon-plus"></span> Add Additional Coverages
+                </button>
+            </div>
+            <div class="clearfix"></div>
+            <hr class="hr-header" />
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th># of Additional Insured</th>
+                        <th>Waiver of Subrogation</th>
+                        <th>Primary Non-Contributory Coverage</th>
+                        <th>Effective Date</th>
+                        <th>Expiration Date</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+
+                        <td><span class="ml-2">10</span></td>
+                        <td><span class="ml-2">100</span></td>
+                        <td><span class="ml-2">2</span></td>
+                        <td><span class="ml-2">January 7,2020</span></td>
+                        <td><span class="ml-2">January 2,2022</span></td>
+                        <td>
+                        <span class="ml-2">
+                            <button type="button" class="btn  btn-primary" data-placement="top" ><i
+                                class="icon-note"></i></button>
+                        </span>
+                        <span class="ml-2">
+                            <button type="button" class="btn  btn-danger" data-placement="top" (click)="onDelete()"><i
+                                class="icon-trash"></i></button>
+                        </span>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td><span class="ml-2">10</span></td>
+                        <td><span class="ml-2">100</span></td>
+                        <td><span class="ml-2">2</span></td>
+                        <td><span class="ml-2">January 7,2020</span></td>
+                        <td><span class="ml-2">January 2,2022</span></td>
+                        <td>
+                        <span class="ml-2">
+                            <button type="button" class="btn  btn-primary" data-placement="top" ><i
+                                class="icon-note"></i></button>
+                        </span>
+                        <span class="ml-2">
+                            <button type="button" class="btn  btn-danger" data-placement="top" (click)="onDelete()"><i
+                                class="icon-trash"></i></button>
+                        </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addAdditionalStructureModal" tabindex="-1" role="dialog"
+  aria-labelledby="addAdditionalStructureModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addAdditionalStructureModalTitle">Additional Coverages</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form [formGroup]="additionalInterestForm" (ngSubmit)="onSubmit()">
+
+        <div class="modal-body">
+          <div class="form-group col-12 field">
+            <div>
+                <div class="form-field__control">
+                    <label for="additionalInsuredInput" class="form-field__label"># of Additional Insured?<span class="spandata">*</span></label>
+                    <input type="text" id="additionalInsuredInput" class="form-field__input" (ngModelChange)="modelAdditionalInsuredChanged($event)" formControlName="additionalInsuredInput" mask="0000"/>
+                    <app-validation-error [control]="f.additionalInsuredInput"></app-validation-error>
+                </div>
+            </div>
+
+          </div>
+          <div class="form-group col-12 field">
+            <div>
+                <div class="form-field__control">
+                    <label for="waiverSubrogationInput" class="form-field__label">Waiver of Subrogation?<span class="spandata">*</span></label>
+                    <input type="text" class="form-field__input" id="waiverSubrogationInput" (ngModelChange)="modelWaiverSubrogationChanged($event)" formControlName="waiverSubrogationInput" mask="0000"/>
+                    <app-validation-error [control]="f.waiverSubrogationInput"></app-validation-error>
+                </div>
+            </div>
+          </div>
+          <div class="form-group col-12 field">
+            <div>
+                <div class="form-field__control">
+                    <label for="primaryContributorCoverageInput" class="form-field__label">Primary Non-Contributory Coverage?<span class="spandata">*</span></label>
+                    <input type="text" class="form-field__input" id="primaryContributorCoverageInput" (ngModelChange)="modelPrimaryCoverageChanged($event)" formControlName="primaryContributorCoverageInput" mask="0000"/>
+                    <app-validation-error [control]="f.primaryContributorCoverageInput"></app-validation-error>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" [disabled]="true">Save</button>
+          <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('dvDot', $event)">
+    <app-toggle-collapse toggleName="dvDot"></app-toggle-collapse>
+     <strong>DOT/BASIC/SAFER Section Only</strong>
+    </div>
+    <div class="card-body collapse show" id="dvDot">
+        <form [formGroup]="underwritingGeneralInformation" (ngSubmit)="onSubmit()">
+
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="claimsFreeLastThreeYearsDropdown" class="form-field__label">Claims free last 3 years<span class="spandata">*</span></label>
+                    <select class="form-field__input" id="claimsFreeLastThreeYearsDropdown" formControlName="claimsFreeLastThreeYearsDropdown">
+                        <option hidden [value]="" selected>Please Select</option>
+                        <!-- <option *ngFor="let option of brokerData.agencyList | orderBy: 'label'" [value]="option.value">{{option.label}}</option> -->
+                    </select>
+                    <app-validation-error [control]="f.claimsFreeLastThreeYearsDropdown"></app-validation-error>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary ml-2">Next</button>
+
+        </form>
+
+    </div>
+</div>
+
+

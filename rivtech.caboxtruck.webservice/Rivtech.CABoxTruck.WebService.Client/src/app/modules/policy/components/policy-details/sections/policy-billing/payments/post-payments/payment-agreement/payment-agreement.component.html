@@ -1,0 +1,20 @@
+<ng-container *ngIf="isPaymentMethodRecurring || isPaymentMethodOneTimeAuth">
+  <div [formGroup]="paymentForm">
+    <div class="row px-3 pt-2 payment-language-container">
+      <div *ngIf="isPaymentMethodRecurring">{{BillingLabelConstants.enrollAutoPayTermsAndCondition}}</div>
+      <div *ngIf="isPaymentMethodOneTimeAuth">{{BillingLabelConstants.oneTimePaymentLanguage}}</div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="checkbox-container">
+        <ng-container *ngIf="isPaymentMethodRecurring">
+          <input formControlName="agreeEnrollAutoPay" type="checkbox" id="agree-payment" class="hover-pointer">
+        </ng-container>
+        <ng-container *ngIf="isPaymentMethodOneTimeAuth">
+          <input formControlName="agreeOneTimePayment" type="checkbox" id="agree-payment" class="hover-pointer">
+        </ng-container>
+      </div>
+      <label class="col-form-label hover-pointer" for="agree-payment"><b>{{BillingLabelConstants.enrollAutoPayAgree
+          | uppercase }}</b></label>
+    </div>
+  </div>
+</ng-container>

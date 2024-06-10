@@ -1,0 +1,88 @@
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('bindrequirements', $event)">
+    <app-toggle-collapse toggleName="bindrequirements"></app-toggle-collapse>
+        <strong> &nbsp; Bind Requirements</strong>
+    </div>
+    <div class="card-body standard-padding collapse show" id="bindrequirements" style="padding-top: 1.5%">
+      <div class="col">
+        <div class="row pb-2">
+          <div class="col-9">
+            <label style="margin-bottom: -20px; padding-top: 1rem;">
+            <h4>Bind Requirements</h4></label>
+          </div>
+        </div>
+        <div class="table-responsive dynamic-table" [style.padding-top.px]="0" [style.padding-botton.px]="0">
+          <table id='tblBindRequirements'[dtOptions]="this.dtOptions" [dtTrigger]="this.dtTrigger" datatable #tblBindRequirements class="table mb-2">
+            <thead>
+            <tr>
+                <th (click)="Data.sortBindRequirements($event.target)" data-order="desc" data-name="bindRequirementsOption" id="bindRequirementsOption" style="width: 35%;" class="text-left">Requirements</th>
+                <th (click)="Data.sortBindRequirements($event.target)" data-order="desc" data-name="isPreBind" style="width: 10%;" class="text-center">Pre-Bind?</th>
+                <th (click)="Data.sortBindRequirements($event.target)" data-order="desc" data-name="bindStatus" style="width: 10%;" class="text-left">Status</th>
+                <th (click)="Data.sortBindRequirements($event.target)" data-order="desc" data-name="comments" style="width: 35%;" class="text-left">Comments</th>
+                <th style="width: 10%; padding:5px;" class="text-center">Actions<br/>
+                  <button tabindex="" type="button" class="btn btn-primary mx-2" data-placement="top" (click)='this.openAddItemModal()' [tooltip]="TableConstants.add">
+                    <i class="icon-plus"></i>
+                  </button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+              <!-- <ng-container *ngFor="let driver of this.Data.driverInfoList | driverFilter: this.Data.filterValue" [ngTemplateOutlet]="driverRow" [ngTemplateOutletContext]="{driverObj : driver}"></ng-container> -->
+              <ng-container *ngFor="let obj of this.Data.requirementsPagedItems" [ngTemplateOutlet]="tableRow" [ngTemplateOutletContext]="{Obj : obj}"></ng-container>
+            </tbody>
+          </table>
+          <div *ngIf="this.Data.bindingRequirementsList.length < 1">
+            <div class="text-center col-lg-12 no-data-message">
+                <span>No Data To Display</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="this.Data.currentTotalItemsRequirements > 10">
+          <nav style="margin-top: -8px;" class="navbar navbar-light bg-light justify-content-between">
+            <div class="btn-group dropup" >
+                <div class="input-group-prepend">
+                    <div class="input-group-text" id="btnGroupAddon">Show rows</div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-describedby="btnGroupAddon" aria-haspopup="true" aria-expanded="false">
+                    {{ Data.showRowsNumberRequirements }}
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" style="min-width: 3rem;">
+                    <span (click)="changeShowRowsNumberRequirements(TableConstants.Search.showRowsNumber10)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber10 }}</span>
+                    <span (click)="changeShowRowsNumberRequirements(TableConstants.Search.showRowsNumber25)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber25 }}</span>
+                    <span (click)="changeShowRowsNumberRequirements(TableConstants.Search.showRowsNumber50)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber50 }}</span>
+                    <span (click)="changeShowRowsNumberRequirements(TableConstants.Search.showRowsNumber100)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber100 }}</span>
+                </div>
+            </div>
+            <app-table-pagination-mod (setPage)="this.setRequirementsPage($event)" [pager]="this.Data.requirementsPager" [loading]="this.Data.loadingRequirements"></app-table-pagination-mod>
+          </nav>    
+        </div>
+      </div>
+      <div class="row pb-2 pl-3" hidden>
+        <button type="button" class="btn btn-primary text-nowrap mr-1" style="float: right;">
+            <!-- <i class="fa fa-download"></i> -->
+            Download Forms
+        </button>
+      </div>
+
+  </div>
+</div>
+
+<ng-template #tableRow let-Obj="Obj" >
+  <tr>
+      <td sty class="verticalMiddle text-left"><span class="mtext-left">{{ Obj.bindRequirementsOptionId|selectItemIdToLabel:this.Data.dropdownList.bindRequirementList }}</span></td>
+
+      <td class="verticalMiddle text-center">
+        <input tabindex="-1" type="checkbox" [id]="'isPreBind' + this.Obj.id" [checked]="Obj.isPreBind" (change)="checkChanged(this.Obj, $event.target.checked)">
+      </td>
+
+      <td class="verticalMiddle text-left" >{{ Obj.bindStatusId|selectItemIdToLabel:this.Data.dropdownList.bindStatusList  }}</td>
+      <td class="verticalMiddle text-left description-col"><span class="mtext-left">{{ Obj.comments }}</span></td>
+      <td  class="verticalMiddle">
+        <div class="table-button-fixed d-flex justify-content-center">
+          <i *ngIf="Obj.filePath != null" class="icon-doc" (click)="this.viewDocument(Obj)" [tooltip]="TableConstants.view"></i>
+          <i class="icon-note" (click)="this.openEditItemModal(Obj)" [tooltip]="TableConstants.edit"></i>
+          <i class="icon-trash" (click)="this.Data.DeleteRequirements(Obj)" [tooltip]="TableConstants.delete"></i>
+        </div>
+      </td>
+  </tr>
+  </ng-template>

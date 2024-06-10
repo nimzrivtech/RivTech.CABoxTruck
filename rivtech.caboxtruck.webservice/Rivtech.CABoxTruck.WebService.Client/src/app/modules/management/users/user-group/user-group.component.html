@@ -1,0 +1,53 @@
+<div class="card mt-2 user-list">
+    <div class="card-header">
+        <i class="icon-arrow-down icons header-icon" (click)="toggleList()" *ngIf="isListHidden"></i>
+        <i class="icon-arrow-up icons header-icon" (click)="toggleList()" *ngIf="!isListHidden">
+        </i>
+        <b>User Group</b>
+    </div>
+    <div class="card-body show" *ngIf="!isListHidden">
+        <div class="col-auto">
+            <div class="d-flex flex-row-reverse">
+                <app-search-field (onInputSearch)="groupData.searchUserGroup($event)"></app-search-field>
+            </div>
+            <div class="table-responsive dynamic-table">
+                <table class="table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Internal</th>
+                            <th class="text-center" style="padding:5px; width: 100px;">
+                                Actions<br />
+                                <button type="button" class="btn btn-primary" data-placement="top" (click)='addGroup()'>
+                                    <i class="icon-plus"></i>
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of groupData.groupPageItems">
+                            <td><span>{{item.name}}</span></td>
+                            <td><span>{{item.description}}</span></td>
+                            <td><span>{{item.removedProcessDate ? 'In-Active' : 'Active'}}</span></td>
+                            <td><span>{{item.isInternalGroup ? 'Yes': 'No'}}</span></td>
+                            <td>
+                                <div class="table-button-fixed">
+                                    <i class="icon-note" (click)="editGroup(item)"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="groupData.groupPageItems.length === 0" class="row">
+                <div class="text-center col-lg-12 no-data-message">
+                    <span> {{ messageIfNoData }} </span>
+                </div>
+            </div>
+            <app-table-pagination (setPage)="setPage($event)" [pager]="groupData.groupPager" [loading]="isloading">
+            </app-table-pagination>
+        </div>
+    </div>
+</div>

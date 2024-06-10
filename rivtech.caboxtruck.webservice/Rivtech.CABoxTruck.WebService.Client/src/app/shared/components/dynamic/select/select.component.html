@@ -1,0 +1,15 @@
+<div class="form-group row" [formGroup]="group" *ngIf="field.isVisible">
+  <label class="col-form-label text-md-right" [ngClass]="field.parentField ? 'offset-md-3 col-md-2 group-body' : 'col-md-4'">
+    {{field.label}}
+    <span *ngIf="field.required" class="spandata">*</span> :
+  </label>
+
+  <div class="col-md-4">
+    <select [id]="field.name" [formControlName]="field.name" class="form-control">
+      <option disabled *ngIf="!field.options">-- No Data --</option>
+      <option disabled *ngIf="field.options">Please Select</option>
+      <option *ngFor="let item of field.options | orderBy: 'label'; trackBy: trackByFn" [value]="item.value">{{item.label}}</option>
+    </select>
+    <app-validation-error [control]="formControl"></app-validation-error>
+  </div>
+</div>

@@ -1,0 +1,257 @@
+<div class="card sticky-body">
+  <div class="card-header">
+    <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#vehicleCard" (click)="ToggleHiding()"></i>
+    <strong>{{VehicleTexts.sectionHeader}}&nbsp;</strong>
+    <span class="badge badge-pill badge-secondary text-white">{{ vehicleCount }}</span>
+  </div>
+  <div id="vehicleCard" class="show">
+    <div class="card-body collapse show" id="vehicleList">
+      <div class="col">
+        <div class="row">
+          <div class="col-md-3">
+            <!-- <label for="vinSearch">VIN</label> -->
+            <div class="input-group  my-0">
+              <input type="text" id="vinSearch" #vin class="form-control" placeholder="Search" #Search  title="Search VIN" (keydown.enter)="searchByVin(vin.value)" >
+              <div class="input-group-append">
+                <button class="btn btn-secondary search-button" type="button" (click)="searchByVin(vin.value)">
+                  <i class="fa fa-search customized-blue"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <form [formGroup]="vehicleData.vehicleHeaderForm" >
+        <div class="col field">
+          <div class="row">
+            <div *ngIf="limitsData.raterVersionSupport()" class="col-md-4">
+              <div>
+                <label for="trailerTypeLimitId" class="required">Trailer Type</label>
+                <select *ngIf="this.disableTrailerType" class="readonly" disabled title="NONE">
+                    <option></option>
+                </select>
+                <select *ngIf="!this.disableTrailerType" formControlName="trailerTypeLimitId" id="trailerTypeLimitId" name="trailerTypeLimitId" class="form-control"
+                [attr.title]="setTooltip(f.trailerTypeLimitId.value, limitsData.trailerTypeList)">
+                    <option [ngValue]="0">Please Select</option>
+                    <option *ngFor="let option of limitsData.trailerTypeList" [value]="option.value">{{option.label}}</option>
+                </select>
+                <div *ngIf="this.vehicleData.vehicleHeaderForm.errors?.invalidTrailerTypeLimitId && (this.vehicleData.vehicleHeaderForm.touched || this.vehicleData.vehicleHeaderForm.dirty)" class="invalid-feedback">
+                  Trailer Type is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="mainUseDropdown" class="required">Main use (Choose most applicable)</label>
+              <select id='mainUseDropdown' formControlName="mainUseDropdown">
+                <option [ngValue]="0">Please Select</option>
+                <option *ngFor="let option of mainUseList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+              </select>
+              <div *ngIf="this.vehicleData.vehicleHeaderForm.errors?.invalidMainUseDropdown && (this.vehicleData.vehicleHeaderForm.touched || this.vehicleData.vehicleHeaderForm.dirty)" class="invalid-feedback">
+                Main Use is required
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="accountCategoryDropdown" >Account Category (Choose most applicable)</label>
+              <select id='accountCategoryDropdown' formControlName="accountCategoryDropdown" (change)="changeAccountCategory()"
+              [attr.title]="setTooltip(f.accountCategoryDropdown.value, accountCategoryList)" >
+                <option [ngValue]="0">Please Select</option>
+                <option *ngFor="let option of accountCategoryList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-4">
+              <label for="mainGVW" class="required">Main GVW</label>
+              <select id='mainGVW' formControlName="mainGVW">
+                <option [ngValue]="0">Please Select</option>
+                <option *ngFor="let option of applicantList.mainGVWList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+              </select>
+              <div *ngIf="this.vehicleData.vehicleHeaderForm.errors?.invalidMainGVW && (this.vehicleData.vehicleHeaderForm.touched || this.vehicleData.vehicleHeaderForm.dirty)" class="invalid-feedback">
+                Main GVW is required
+              </div>
+            </div>
+            <div *ngIf="(submissionData?.riskDetail?.raterVersionId == null) || submissionData.riskDetail.raterVersionId > 6" class="col-md-4">
+              <label for="secondaryBusinessGroupDropdown" class="required">Secondary Business Group</label>
+              <select id='secondaryBusinessGroupDropdown' formControlName="secondaryBusinessGroupDropdown">
+                <option [ngValue]="0">Please Select</option>
+                <option *ngFor="let option of applicantList.secondaryBusinessGroupList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+              </select>
+              <div *ngIf="this.vehicleData.vehicleHeaderForm.errors?.invalidSecondaryBusinessGroup && (this.vehicleData.vehicleHeaderForm.touched || this.vehicleData.vehicleHeaderForm.dirty)" class="invalid-feedback">
+                Secondary Business Group is required
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="accountCategoryUWDropdown" class="required">Account Category (UW)</label>
+              <select id='accountCategoryUWDropdown' formControlName="accountCategoryUWDropdown"
+              [attr.title]="setTooltip(f.accountCategoryUWDropdown.value, accountCategoryList)" >
+                <option [ngValue]="0">Please Select</option>
+                <option *ngFor="let option of accountCategoryList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+              </select>
+              <div *ngIf="this.vehicleData.vehicleHeaderForm.errors?.invalidAccountCategoryUWDropdown && (this.vehicleData.vehicleHeaderForm.touched || this.vehicleData.vehicleHeaderForm.dirty)" class="invalid-feedback">
+                Account Category UW is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      
+
+      <div class="col">
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div class="row" style="">
+
+          <div class="col-md-8">
+            <h4 style="padding-top: 1rem; margin-bottom: 0rem;">{{VehicleTexts.sectionHeader}}</h4>
+          </div>
+          <!-- <div class="col-md-8">
+            <h4 style="padding-top: 1rem; margin-bottom: 0rem;">Driver Information</h4>
+          </div> -->
+
+          <div class="col-md-4">
+            <div class="btn-group" role="group" style="float: right; padding-top:3px;">
+              <input type="file" #fileSelection placeholder="Choose File" class="d-none"
+              (change)="this.uploadFile(this.fileSelection.files)"
+              [accept]="this.acceptedFileTypes">
+
+              <button class="btn btn-primary mr-1 text-nowrap" (click)='generateExcelReportV1()' [disabled]="this.submissionData?.isIssued" style="border-radius: 0.25rem;">Export to Excel
+                <!-- <i class="fa fa-file-excel-o" ></i> -->
+              </button>
+              <button class="btn btn-primary mr-1 text-nowrap" (click)='selectFile()' [disabled]="this.submissionData?.isIssued" style="border-radius: 0.25rem;">Upload
+              <!-- <i class="fa fa-upload" ></i> -->
+            </button>
+            <button class="btn btn-primary mr-1 text-nowrap" (click)='deleteAllVins()' [disabled]="this.submissionData?.isIssued || vehicleData.pagedItems?.length < 1 " style="border-radius: 0.25rem;">Delete All
+            </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive dynamic-table" style="padding-top: 0.5rem;padding-bottom: 0.5rem;">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" #tbVehicle class="table">
+            <thead>
+              <tr class="text-center">
+                <th>
+                    <span [style.margin-left.px]="-9">OPTION</span><br />
+                    <span class="options">1234</span>
+                </th>
+                <th [className]="isCheckboxColumns(header) ? 'text-center' : 'text-left'" (click)="vehicleData.sort($event.target)" data-order="desc" [attr.data-name]="header.value" *ngFor="let header of tableHeaders" >{{header.text}}</th>
+                <th class="text-center" style="padding:5px;width:5%;">Actions<br />
+                  <button type="button" class="btn btn-primary mx-2" data-placement="top" (click)='addNewVehicle()' [tooltip]="TableConstants.add" [disabled]="this.submissionData?.isIssued">
+                    <i class="icon-plus"></i>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let vehicle of vehicleData.pagedItems" [ngTemplateOutlet]="vehicleRow"
+                [ngTemplateOutletContext]="{vehicle : vehicle}"></ng-container>
+            </tbody>
+          </table>
+
+          <div *ngIf="this.vehicleData.pagedItems?.length < 1">
+            <div class="text-center col-lg-12 no-data-message">
+                <span>No Data To Display</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="this.vehicleData.currentTotalItems > 10">
+          <nav style="margin-top: 7px;" class="navbar navbar-light bg-light justify-content-between">
+            <div class="btn-group dropup" >
+                <div class="input-group-prepend">
+                    <div class="input-group-text" id="btnGroupAddon">Show rows</div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-describedby="btnGroupAddon" aria-haspopup="true" aria-expanded="false">
+                    {{ vehicleData.showRowsNumber }}
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" style="min-width: 3rem;">
+                    <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber10)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber10 }}</span>
+                    <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber25)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber25 }}</span>
+                    <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber50)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber50 }}</span>
+                    <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber100)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber100 }}</span>
+                </div>
+            </div>
+            <app-table-pagination-mod (setPage)="this.setPage($event)" [pager]="this.vehicleData.pager" [loading]="this.vehicleData.loading"></app-table-pagination-mod>
+          </nav>    
+        </div>        
+      </div>
+    </div>
+  </div>
+  <ng-template #vehicleRow let-vehicle="vehicle">
+    <tr>
+      <td class="text-center">
+        <span title='Please update the information' *ngIf="this.vehicle.isValidated == false " class="badge badge-warning" style="z-index: 2; margin-left: -45px;  position: absolute; cursor: pointer;">!</span>
+        <app-options-checkbox [vehicleId]="vehicle.id" [optionsCsv]="vehicle.options"></app-options-checkbox>
+      </td>
+      <td><span>{{ vehicle.vin }}</span></td>
+      <td><span>{{ vehicle.year }}</span></td>
+      <td><span>{{ vehicle.make }}</span></td>
+      <td><span>{{ vehicle.model }}</span></td>
+      <td><span>{{ vehicle.vehicleType }}</span></td>
+      <td><span>{{ vehicle.vehicleDescription }}</span></td>
+      <td><span>{{ vehicle.registeredState }}</span></td>
+      <td class="text-center">
+        <ng-container *ngTemplateOutlet="checkboxView; context: {checked: vehicle.isAutoLiability}">
+        </ng-container>
+      </td>
+      <td>
+        <div class="text-center">
+          <input type="checkbox" [checked]="vehicle.isCoverageFireTheft" [disabled]="!limitsData.hasComprehensive || this.submissionData?.isIssued"
+            (change)="coverageChanged(vehicle, $event.target.checked, 'isCoverageFireTheft')">
+        </div>
+      </td>
+      <td>
+        <div class="text-center">
+          <input type="checkbox" [checked]="vehicle.isCoverageCollision" [disabled]="!limitsData.hasCollision || this.submissionData?.isIssued"
+            (change)="coverageChanged(vehicle, $event.target.checked, 'isCoverageCollision')">
+        </div>
+      </td>
+      <td>
+        <div class="text-center">
+          <input type="checkbox" [checked]="vehicle.hasCoverageCargo" [disabled]="!limitsData.hasCargo || this.submissionData?.isIssued"
+            (change)="coverageChanged(vehicle, $event.target.checked, 'hasCoverageCargo')">
+        </div>
+      </td>
+      <td>
+        <div class="text-center">
+          <input type="checkbox" [checked]="vehicle.hasCoverageRefrigeration" [disabled]="!limitsData.hasRefrigeration || this.submissionData?.isIssued || !vehicle.hasCoverageCargo"
+            (change)="coverageChanged(vehicle, $event.target.checked, 'hasCoverageRefrigeration')">
+        </div>
+      </td>
+      <td><span>{{ vehicle.statedAmount | currency : 'USD' : 'symbol' : '1.0-0' }}</span></td>
+      <td><span>{{ vehicle.coverageFireTheftDeductible }}</span></td>
+      <td><span>{{ vehicle.coverageCollisionDeductible }}</span></td>
+      <td><span>{{ vehicle.autoLiabilityPremium | currency : 'USD' : 'symbol' : '1.0-0'  }}</span></td>
+      <td><span>{{ vehicle.cargoPremium | currency : 'USD' : 'symbol' : '1.0-0'  }}</span></td>
+      <td><span>{{ vehicle.physicalDamagePremium | currency : 'USD' : 'symbol' : '1.0-0'  }}</span></td>
+      <td><span>{{ vehicle.totalPremium | currency : 'USD' : 'symbol' : '1.0-0'  }}</span></td>
+      <td>
+          <div class="table-button-fixed d-flex justify-content-end">
+            <i class="icon-note" (click)="editVehicle(vehicle)" [tooltip]="TableConstants.edit"></i>
+            <i class="icon-trash" (click)="deleteVehicle(vehicle)" [tooltip]="TableConstants.delete"></i>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template #checkboxView let-checked="checked">
+    <input type="checkbox" id="options" [checked]="checked" disabled>
+  </ng-template>
+  <div class="modal fade" id='addUpdateVehicle' tabindex="-1" role="dialog" aria-labelledby="#addUpdateVehicle"
+    aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <app-vehicle-information-section [modalButton]="modalButton"></app-vehicle-information-section>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id='addVehiclesFromExcel' tabindex="-1" role="dialog" aria-labelledby="#addVehiclesFromExcel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-vehicles-excel-upload [excelVehicles]="excelVehicles"></app-vehicles-excel-upload>
+    </div>
+  </div>
+</div>
+  <div #btnAddVehicle class="d-none" data-toggle="modal" data-target='#addUpdateVehicle'></div>
+  <div #btnAddVehiclesFromExcel class="d-none" data-toggle="modal" data-target='#addVehiclesFromExcel'></div>

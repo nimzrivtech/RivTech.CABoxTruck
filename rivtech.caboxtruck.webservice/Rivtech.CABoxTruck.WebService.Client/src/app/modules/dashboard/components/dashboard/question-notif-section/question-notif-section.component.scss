@@ -1,0 +1,29 @@
+.c-vr {
+    width: 1px;
+    margin-right: 1px;
+    background-color: rgba(0,0,21,.2);
+
+}
+
+.notif-count :hover{
+    background-color: #321fdb; //#8a93a2;
+    color: #fff;
+}
+
+.list-group-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.text-value-xl {
+    font-size: 32px;
+}
+
+#notification-section a:hover, a:visited, a:link, a:active 
+{
+    text-decoration: none;
+}
+
+#notification-section a {
+    color: #4f5d73;
+}

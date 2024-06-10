@@ -1,0 +1,60 @@
+<form [formGroup]="coverageData.coverageForms.historicalCoverageForm" >
+<div class="col-md-12 row table-responsive dynamic-table">
+    <table class="table">
+        <thead>
+            <tr class="text-center">
+                <th colspan="6">Projections & Historical Figures</th>
+            </tr>
+            <tr>
+                <th scope="col">Coverage</th>
+                <th scope="col" class="w-15">Current/Expiring</th>
+                <th scope="col" class="w-15">1st Prior</th>
+                <th scope="col" class="w-15">2nd Prior</th>
+                <th scope="col" class="w-15">3rd Prior</th>
+                <th scope="col" class="w-15">4th Prior</th>
+            </tr>
+        </thead>
+        <tbody class="field">
+            <tr formArrayName="grossRevenues">
+                <td scope="col"> Gross Revenues </td>
+                <td scope="row">
+                    <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+                    <div *ngIf="f.grossRevenues.touched && f.grossRevenues.errors" class="invalid-feedback">
+                        <div *ngIf="f.grossRevenues.errors?.invalid0">Gross Revenues is required</div>
+                    </div>
+                </td>
+                <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+            </tr>
+            <tr formArrayName="totalFleetMileage">
+                <td scope="col" [class.required]="coverageData.required"> Total Fleet Mileage </td>
+                <td scope="row">
+                    <input type="text" formControlName="0" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," />
+                    <div *ngIf="f.totalFleetMileage.touched && f.totalFleetMileage.errors" class="invalid-feedback">
+                        <div *ngIf="f.totalFleetMileage.errors?.invalid0">Total Fleet Mileage is required</div>
+                    </div>
+                </td>
+                <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /></td>
+                <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /></td>
+                <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+            </tr>
+            <tr formArrayName="numberOfOneWayTrips">
+                <td scope="col"> # of One-Way Trips </td>
+                <td scope="row">
+                    <input type="text" formControlName="0" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," />
+                    <div *ngIf="f.numberOfOneWayTrips.touched && f.numberOfOneWayTrips.errors" class="invalid-feedback">
+                        <div *ngIf="f.numberOfOneWayTrips.errors?.invalid0"># of One-Way Trips is required</div>
+                    </div>
+                </td>
+                <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /></td>
+                <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+            </tr>
+       </tbody> 
+    </table>
+</div>
+</form>

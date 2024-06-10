@@ -1,0 +1,57 @@
+<div class="pt-2" style="margin:auto;width:60%">
+  <div class="col">
+    <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+    <table class="table mt-4 mb-2" style="width:100%">
+      <thead>
+        <tr>
+          <th (click)="sort($event.target)" data-order="desc" data-name="commodity" style="width: 65%">Commodities Hauled (Must equal 100%)<span class="required"></span></th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="percentageOfCarry" style="width: 20%">% of Carry</th>
+          <th style="padding:5px; text-align: center;">Actions<br /> 
+            <button type="button" class="btn btn-primary" [disabled]="this.submissionData?.isIssued" *ngIf="commoditiesHauled.length < 5" (click)="setEdit(null)" [tooltip]="TableConstants.add">
+              <i class="icon-plus"></i>
+            </button>
+            <div #btnAddCommodity class="d-none" data-toggle="modal" data-target="#addUpdateDestination"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let commodity of this.data.pagedItems">
+          <td><span>{{commodity.commodity}}</span></td>
+          <td><span>{{commodity.percentageOfCarry | number : '0.1-1'}}</span></td>
+          <td>
+            <div class="table-button-fixed">
+              <i class="icon-note" (click)="setEdit(commodity)" data-toggle="modal" data-target="#addUpdateDestination" [tooltip]="TableConstants.edit"></i>
+              <i class="icon-trash" (click)="delete(commodity)" [tooltip]="TableConstants.delete"></i>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="commoditiesHauled.length < 1">
+      <div class="text-center col-lg-12 no-data-message">
+          <span>Commodities Hauled is required</span>
+      </div>
+    </div>
+    <div *ngIf="!is100pct && commoditiesHauled.length > 0">
+      <div class="text-center col-lg-12 no-data-message">
+          <span>Commodities must equal to 100%</span>
+      </div>
+    </div>
+  </div>
+  <app-table-pagination (setPage)="this.data.setPage($event, this.data.commoditiesHauled)" [pager]="this.data.pager" [loading]="this.data.loading"></app-table-pagination>
+</div>
+
+<div class="modal fade" id='addUpdateDestination' tabindex="-1" role="dialog" aria-labelledby="#addUpdateDestination"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header sticky-modal-header">
+        <h5 class="modal-title">Commodities Hauled</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <app-commodities-chart-form [modalButton]="modalButton"></app-commodities-chart-form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<div class="page-position">
+    <app-driver-information-section></app-driver-information-section>
+    <app-driving-hiring-criteria-section *ngIf="driverInfoData.shouldShowDriverHiringCriteria">
+    </app-driving-hiring-criteria-section>
+    <app-next-back-button [isScrollPage]="true" (clickType)="onClick($event)"></app-next-back-button>
+</div>

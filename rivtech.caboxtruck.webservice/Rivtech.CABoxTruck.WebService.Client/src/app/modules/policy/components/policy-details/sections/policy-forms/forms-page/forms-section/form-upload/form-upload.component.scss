@@ -1,0 +1,39 @@
+.field input, .field select {
+    width: 100% !important;
+}
+
+.no-padding {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.readonly {
+    background-color: #f0f3f5;
+}
+
+.filename {
+   margin-top: 5px;
+}
+
+.btnUpload {
+    max-height: 30px;
+    min-height: 30px;
+    border-radius: revert;
+}
+
+.note {
+    font-size: 80% !important;
+}
+
+.ellipse {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+    span {
+      white-space: pre;
+    }
+
+    div {
+        font-style: italic
+    }
+}

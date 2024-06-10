@@ -1,0 +1,50 @@
+<div class="card mt-2 user-list">
+    <div class="card-header">
+        <i class="icon-arrow-down icons header-icon" (click)="toggleUsersList()" *ngIf="isListHidden"></i>
+        <i class="icon-arrow-up icons header-icon" (click)="toggleUsersList()" *ngIf="!isListHidden">
+        </i>
+        <b>{{TableLabel.sectionLabel}}</b>
+    </div>
+    <div class="card-body show" *ngIf="!isListHidden">
+        <div class="col-auto">
+            <div class="d-flex flex-row-reverse">
+                <app-search-field (onInputSearch)="userRoleData.searchRoleAccess($event)"></app-search-field>
+            </div>
+            <div class="table-responsive dynamic-table">
+                <table class="table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th class="text-center" style="padding:5px; width: 100px;">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of userRoleData.userRolePageItems">
+                            <td><span>{{item.userName}}</span></td>
+                            <td><span>{{item.fullName}}</span></td>
+                            <td><span>{{item.emailAddress}}</span></td>
+                            <td><span>{{item.isActive ? 'Active': 'In-Active'}}</span></td>
+                            <td>
+                                <div class="table-button-fixed">
+                                    <i class="icon-note" (click)="editUserRole(item)"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf=" userRoleData.userRolePageItems.length === 0" class="row">
+                <div class="text-center col-lg-12 no-data-message">
+                    <span> {{ messageIfNoData }} </span>
+                </div>
+            </div>
+            <app-table-pagination (setPage)="setPage($event)" [pager]="userRoleData.userRolePager"
+                [loading]="isloading"></app-table-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="card sticky-body">
+    <div class="card-header"><strong>Driver Information</strong></div>
+    <br>
+    <div class="card-body">
+        <app-dynamic-form [fields]="riskSpecificsData.driverInfoTemplate.FieldConfigs" (parentOnInit)="onChildInit($event)"></app-dynamic-form> <br>
+        <app-driver-information-chart></app-driver-information-chart> <br>
+    </div>
+</div>

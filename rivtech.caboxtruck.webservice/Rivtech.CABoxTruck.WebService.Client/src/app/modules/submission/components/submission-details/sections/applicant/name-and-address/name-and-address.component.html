@@ -1,0 +1,5 @@
+<div class="page-position">
+    <app-name-and-address-section></app-name-and-address-section>
+    <app-next-back-button [disableCalculate]="applicantData.applicantForms.nameAndAddressForm.invalid" [isScrollPage]="true" [showBack]='false' [showIssue]="false" (clickType)="onClick($event)" [disableNext]="!applicantData.formvalidateRequired"></app-next-back-button>
+</div>
+

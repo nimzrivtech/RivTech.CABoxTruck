@@ -1,0 +1,33 @@
+textarea {
+  outline: 0;
+  border: 0;
+  border-bottom: 1px solid #999999;
+  border-radius: 0;
+  padding: 0;
+  width: 100%;
+  background-image: none !important;
+  height: unset;
+  resize: none;
+}
+
+.btnUpload {
+  max-height: 30px;
+  min-height: 30px;
+  border-radius: revert;
+}
+
+.drag-over-border {
+  border: 2px dashed #007bff; /* Example border color: blue */
+}
+
+.ellipse {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  span {
+    white-space: pre;
+  }
+  div {
+    font-style: italic
+  }
+}

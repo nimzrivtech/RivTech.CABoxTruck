@@ -1,0 +1,13 @@
+<div class="w-100">
+    <div (keyup.enter)="onSearch()" class="input-group">
+        <input class="form-control py-2" type="search" placeholder="Search" [(ngModel)]="searchInput"
+            (input)="onChange()">
+        <span class="input-group-append">
+            <a (click)="onSearch()">
+                <button class="btn btn-outline-secondary search-button" type="button">
+                    <i class="fa fa-search customized-blue"></i>
+                </button>
+            </a>
+        </span>
+    </div>
+</div>

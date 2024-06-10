@@ -1,0 +1,6 @@
+ <div class="page-position">
+  <form [formGroup]="this.driverData.formDriverInfo" id="frmDriverInfo">
+    <app-d-driver-information></app-d-driver-information>
+    <app-next-back-button [disableCalculate]="!isPageValid" [isScrollPage]="true" (clickType)="onClick($event)"></app-next-back-button>
+  </form>
+</div>

@@ -1,0 +1,80 @@
+<div role="document">
+  <div class="modal-content">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title" id="addAdditionalStructureModalTitle">{{title}}</h5>
+      <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div [formGroup]="this.blacklistedDriverData.blackListedDriverForm">
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="form-group row field">
+            <div class="col-lg-6">
+              <label for="firstNameInput" [ngClass]="'required'">First Name</label>
+              <input id="firstNameInput" type="text" class="form-control w-100" [formControl]="fc.firstName"
+                     maxlength="100"/>
+              <app-validation-error [control]="fc.firstName" [inputName]="'First Name'"></app-validation-error>
+              <div *ngIf="this.fg.errors?.invalidDuplicateDriverName" class="invalid-feedback">
+                There is an active driver information with the same Driver name
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <label for="lastNameInput" [ngClass]="'required'">Last Name</label>
+              <input id="lastNameInput" type="text" class="form-control w-100" [formControl]="fc.lastName"
+                     maxlength="100"/>
+              <app-validation-error [control]="fc.lastName" [inputName]="'Last Name'"></app-validation-error>
+              <div *ngIf="this.fg.errors?.invalidDuplicateDriverName" class="invalid-feedback">
+                There is an active driver information with the same Driver name
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row field">
+            <div class="col-lg-6">
+              <label for="licenseNumberInput" [ngClass]="'required'">License Number</label>
+              <input id="licenseNumberInput" type="text" class="form-control w-100"
+                     [formControl]="fc.driverLicenseNumber" maxlength="20"/>
+              <app-validation-error [control]="fc.driverLicenseNumber"
+                                    [inputName]="'License Number'"></app-validation-error>
+              <div *ngIf="this.fg.errors?.invalidDuplicateDriverId" class="invalid-feedback">
+                There is an active driver information using this Driver's License Number
+              </div>
+            </div>
+
+            <div class="col-md-6 form-field">
+              <div class="switch-wrapper mt-3">
+                <label for="isActive">Is Active</label>
+                <toggle-switch formName="blackListedDriverForm" [formGroup]="fg" fieldName="isActive"
+                               id="isActive"></toggle-switch>
+              </div>
+              <div *ngIf="this.fg.errors?.unableToActivateBlacklistDriver" class="invalid-feedback" [style.padding-top.px]="2">
+                {{this.blacklistedDriverData.existingActiveDriverErrorMessage}}
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <label for="commentsInput">Comments</label>
+              <textarea id='commentsInput' class="field-text-area-border" maxlength="1000"
+                        [formControl]="fc.comments"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer sticky-modal-footer text-right ">
+      <button class="btn btn-primary" [disabled]="!this.blacklistedDriverData.validateRequired()"
+              (click)="onSubmit()">{{this.mode === 'Add' ? 'Add Blacklisted Driver' : 'Save'}}
+      </button>
+      <div class="right-side-action-button">
+        <button class="btn btn-danger" (click)="this.onCancel()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>

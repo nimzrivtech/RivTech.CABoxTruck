@@ -1,0 +1,23 @@
+
+#news-notification a:hover, a:visited, a:link, a:active 
+{
+    text-decoration: none;
+}
+
+.text-value-xl {
+    font-size: 32px;
+}
+
+.notification-pending {
+    display: flex;
+    justify-content: center;
+}
+
+.news-notif-content-value :hover{
+    background-color: #321fdb; //#8a93a2;
+    color: #fff;
+}
+
+.card-body a {
+    color: #4f5d73;
+}

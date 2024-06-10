@@ -1,0 +1,48 @@
+<div class="card sticky-body field">
+    <div class="card-header">
+      <i class="icons header-icon" [ngClass]="hidePremiumChanges ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+          href="#premium-changes" (click)="TogglePremiumChanges()"></i>
+        <strong>Premium Changes</strong>
+    </div>
+    <div id="premium-changes" class="card-body standard-padding container-fluid show">
+      <div class="col-auto">
+        <div class="premium-changes">
+          <app-custom-table>
+            <thead class="custom-table-header">
+              <th *ngFor="let header of premiumChangesHeaders">{{ header }}</th>
+            </thead>
+            <tbody *ngIf="this.policyIssuanceData.premiumChangeList != null" class="custom-table-body">
+              <tr *ngFor="let change of this.policyIssuanceData.premiumChangeList.vehicleChangeList" [ngClass]="{ 'total': highlightTotalRows(change)  }">
+                <td [innerHTML]="change.description"></td>
+                <td>{{ change.currentPremium | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumBeforeEndorsement | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumAfterEndorsement | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumDifference | currency }}</td>
+              </tr>
+              <tr *ngFor="let change of policyIssuanceData.premiumChangeList.policyChangeList" [ngClass]="{ 'total': highlightTotalRows(change)  }">
+                <td [innerHTML]="change.description"></td>
+                <td>{{ change.currentPremium | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumBeforeEndorsement | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumAfterEndorsement | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumDifference | currency }}</td>
+              </tr>
+              <tr *ngFor="let change of policyIssuanceData.premiumChangeList.totalPremiumChangeList" [ngClass]="{ 'total': highlightTotalRows(change)  }">
+                <td [innerHTML]="change.description"></td>
+                <td>{{ change.currentPremium | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumBeforeEndorsement | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumAfterEndorsement | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumDifference | currency }}</td>
+              </tr>
+              <tr *ngFor="let change of policyIssuanceData.premiumChangeList.feesChangeList" [ngClass]="{ 'total': highlightTotalRows(change)  }">
+                <td [innerHTML]="change.description"></td>
+                <td>{{ change.currentPremium | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumBeforeEndorsement | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumAfterEndorsement | currency }}</td>
+                <td>{{ change.endorsementPendingChange.premiumDifference | currency }}</td>
+              </tr>
+            </tbody>
+          </app-custom-table>
+        </div>
+      </div>
+    </div>
+  </div>

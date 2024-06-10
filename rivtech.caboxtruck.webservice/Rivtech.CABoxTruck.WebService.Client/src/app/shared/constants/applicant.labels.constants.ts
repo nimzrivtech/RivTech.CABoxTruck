@@ -1,0 +1,23 @@
+export const ApplicantLabelsConstants = {
+    entityType: 'Entity Type',
+    name: 'Name',
+    address: 'Address',
+    effectiveDate: 'Effective Date',
+    expirationDate: 'Expiration Date',
+    waiverOfSub: 'Waiver of Subrogation',
+    primaryNonCont: 'Primary Non-contributory',
+    autoLiability: 'Auto Liability',
+    generalLiability: 'General Liability',
+    thirtyDayNotice: '30 Day Notice',
+    requireArated: 'Does applicant require an A-rated carrier?',
+    anyFilingsRequired: 'Are there any filings required?',
+    checkRequiredFilings: 'Please check all required filings',
+    usDotNo: 'USDOT#',
+    allowOthersToOperate: 'Does applicant allow others to operate under their authority?',
+    previouslyAllowedOthersToOperate: 'Has applicant previously allowed others to operate under their authority?',
+    operatorsWorkExclusively: 'Do all owner operators work exclusively for insured?',
+    doesHaveMotorCarrierNumber: 'Does the insured have a Motor Carrier Number?',
+    mcNo: 'Please Provide MC#',
+    operatedOnDifferentDotNo: 'Has applicant operated under a different DOT number in the past 5 years?',
+    provideDotNo: 'Please provide DOT#'
+}

@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Configurations>Debug;Release;Staging;DevTest;Test;ProdTest;Production</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Billing\DepositPremium.cs" />
+    <Compile Remove="Billing\Fees\FeeType.cs" />
+    <Compile Remove="Billing\Fees\IFeeRepository.cs" />
+    <Compile Remove="Billing\INonTaxableFeesRepository.cs" />
+    <Compile Remove="Billing\ITaxableAmount.cs" />
+    <Compile Remove="Billing\Taxes\FlatRateTax.cs" />
+    <Compile Remove="Billing\Taxes\INontaxableFeeRepository.cs" />
+    <Compile Remove="Billing\Taxes\IStateTaxRepository.cs" />
+    <Compile Remove="Billing\Taxes\ITaxableAmountsFitler.cs" />
+    <Compile Remove="Billing\Taxes\ITaxDetailsFactory.cs" />
+    <Compile Remove="Billing\Taxes\PercentageTax.cs" />
+    <Compile Remove="Billing\Taxes\TaxableFee.cs" />
+    <Compile Remove="Billing\Taxes\TaxableItemCollection.cs" />
+    <Compile Remove="Billing\Taxes\TaxablePremium.cs" />
+    <Compile Remove="Billing\Taxes\TaxCalculationResult.cs" />
+    <Compile Remove="Billing\Taxes\TaxCalculator.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RivTech.CABoxTruck.WebService.Common\RivTech.CABoxTruck.WebService.Common.csproj" />
+    <ProjectReference Include="..\RivTech.CABoxTruck.WebService.Data\RivTech.CABoxTruck.WebService.Data.csproj" />
+    <ProjectReference Include="..\Rivtech.CABoxTruck.Webservice.ExternalData\RivTech.CABoxTruck.WebService.ExternalData.csproj" />
+  </ItemGroup>
+
+</Project>

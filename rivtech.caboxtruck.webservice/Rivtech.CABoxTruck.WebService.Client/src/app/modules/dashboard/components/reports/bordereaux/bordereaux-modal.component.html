@@ -1,0 +1,48 @@
+<div role="document">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title">Bordereaux Report
+      </h5>
+      <button type="button" class="close" (click)="hideModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  
+    <form *ngIf="bordereauxReportData.bordereauxReportForm as bordereauxReportFormGroup" [formGroup]="bordereauxReportFormGroup">
+      <div class="modal-body">
+        <div class="row">
+          <!-- <div class="form-group col-lg-6 field">
+            <label class="required">From</label>
+            <div>
+              <app-date-picker [isInvalid]="bordereauxReportFormGroup.get('fromDate').errors?.required"
+                formControlName="fromDate" [options]="datePickerDateOption">
+              </app-date-picker>
+            </div>
+            <span class="invalid-feedback d-flex"
+              *ngIf="bordereauxReportFormGroup.get('fromDate').errors?.required && bordereauxReportFormGroup.get('fromDate').touched">
+              {{errorMessageConstant.genericRequiredErrorMessage}}
+            </span>
+          </div> -->
+          
+          <div class="form-group col-lg-12 field">
+            <label class="required">To</label>
+            <div>
+              <app-date-picker [isInvalid]="bordereauxReportFormGroup.get('toDate').errors?.required"
+                formControlName="toDate" [options]="datePickerDateOption">
+              </app-date-picker>
+            </div>
+            <span class="invalid-feedback d-flex"
+              *ngIf="bordereauxReportFormGroup.get('toDate').errors?.required && bordereauxReportFormGroup.get('toDate').touched">
+              {{errorMessageConstant.genericRequiredErrorMessage}}
+            </span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal-footer sticky-modal-footer">
+        <button class="btn btn-primary" [disabled]="bordereauxReportFormGroup.invalid"
+          (click)="exportBordereauxReport()">Export to Excel</button>
+  
+        <button class="btn btn-danger" (click)="hideModal()">Cancel</button>
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,49 @@
+<div class="agency-table">
+  <label class="label-title"><b>{{ AgentLabelConstants.licenses }}</b></label> <br>
+    <table class="table table-hover" [mfData]="licenseListLocal" #mf="mfDataTable" [mfRowsOnPage]="3">
+      <thead class="custom-table-header">
+          <th class="headers" *ngFor="let header of licenseListHeader">
+            <mfDefaultSorter by="{{header.columnName}}">{{ header.name }}</mfDefaultSorter>
+          </th>
+          <th class="headers text-center">
+            Actions
+            <div>
+                <button type="button" class="btn btn-primary mx-1" [tooltip]="TableConstants.add"
+                  data-placement="top" (click)="addLicense()"><i class="icon-plus"></i></button>
+            </div>
+          </th>
+      </thead>
+      <tbody class="custom-table-body">
+          <tr class="noresultfound" *ngIf="mf.data.length === 0">
+              <td colspan="4" *ngIf="isLoading"><div class="spinner-border text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div></td>
+              <td colspan="4" *ngIf="!isLoading"> {{ genericLabel.noResultsFound }}</td>
+          </tr>
+          <ng-container *ngFor="let item of mf.data">
+              <tr>
+                  <td>{{item?.stateCode}}</td>
+                  <td>{{item?.licenseEffectiveDate | date: 'MM/dd/yyyy'}}</td>
+                  <td>{{item?.licenseExpirationDate | date: 'MM/dd/yyyy'}}</td>
+                  <td><div class="control-icons text-center">
+                    <button type="button" [tooltip]="TableConstants.edit" (click)="editLicense(item)">
+                      <i class="icon-note"
+                        readonly></i>
+                    </button>
+                    <button type="button" [tooltip]="TableConstants.delete" (click)="deleteLicense(item)">
+                      <i class="icon-trash"
+                        readonly></i>
+                    </button>
+                  </div></td>
+              </tr>
+          </ng-container>
+      </tbody>
+      <tfoot *ngIf="licenseListLocal.length > 3">
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator style="display: flex;" class="justify-content-end text-center pt-3"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+  </table>
+</div>

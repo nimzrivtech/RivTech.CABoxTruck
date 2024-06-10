@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-10">
+                <span class="text-uppercase">Policies</span>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-hover table-striped"> 
+        <thead> 
+            <tr> 
+                <th>Policy #</th>
+                <th>Insured Name</th>
+                <th>Broker</th>
+                <th>Inception Date</th>
+                <th>Expiration Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a [routerLink]="['/policies', '1']">UTO-CA-123456</a></td>
+                <td>M&M Specialty Services LLC</td>
+                <td>RT Specialty, LLC - Hartford</td>
+                <td>Jan 1, 2020</td>
+                <td>Jan 1, 2021</td>
+            </tr> 
+            <tr>
+                <td><a [routerLink]="['/policies', '2']">UTO-CA-123457</a></td>
+                <td>Jollibee</td>
+                <td>RT Specialty, LLC - Hartford</td>
+                <td>Jan 1, 2020</td>
+                <td>Jan 1, 2021</td>
+            </tr> 
+            <tr>
+                <td><a [routerLink]="['/policies', '3']">UTO-CA-123458</a></td>
+                <td>McDonalds</td>
+                <td>RT Specialty, LLC - Hartford</td>
+                <td>Jan 1, 2020</td>
+                <td>Jan 1, 2021</td>
+            </tr> 
+            <tr>
+                <td><a [routerLink]="['/policies', '4']">UTO-CA-123459</a></td>
+                <td>KFC</td>
+                <td>RT Specialty, LLC - Hartford</td>
+                <td>Jan 1, 2020</td>
+                <td>Jan 1, 2021</td>
+            </tr> 
+        </tbody>
+    </table>
+    <div class="container-fluid" >
+        <div class="row">
+            <div class="col-md-12">
+
+            <ul class="pagination pull-right">
+                <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+                <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+<div role="document">
+  <div class="modal-content" class="interest-page">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title" id="addAdditionalStructureModalTitle">{{modalTitle}}</h5>
+      <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form [formGroup]="form">
+      <div class="modal-body">
+        <div class="form-group col-12 field">
+          <label for="additionalInterestTypeId" class="required">{{LabelMessage.entityType}}</label>
+          <select class="form-control" id="additionalInterestTypeId"
+            formControlName="additionalInterestTypeId">
+            <option [ngValue]="null">Please Select</option>          
+            <option *ngFor="let entityType of applicantData.entityTypesList | orderBy: 'label'" [value]="entityType.value">
+              {{entityType.label}}
+            </option>
+          </select>
+          <app-validation-error [control]="fc.additionalInterestTypeId" [inputName]="LabelMessage.entityType"></app-validation-error>
+        </div>
+        <div class="form-group col-12 field">
+          <label for="name" class="required">{{LabelMessage.name}}</label>
+          <input type="text" class="form-control" id="name" maxlength="100" formControlName="name" />
+          <app-validation-error [control]="fc.name" [inputName]="LabelMessage.name" ></app-validation-error>
+          <div *ngIf="form.errors?.interestDuplicate && (form.touched || form.dirty)" class="invalid-feedback">
+            Additional Interest already exists
+          </div>
+        </div>
+        <div class="form-group col-12 field">
+          <label for="address" class="required">{{LabelMessage.address}}</label>
+          <input type="text" class="form-control" id="address" maxlength="100" formControlName="address" />
+          <app-validation-error [control]="fc.address" [inputName]="LabelMessage.address"></app-validation-error>
+        </div>
+
+        <div class="container">
+          <div class="form-group row field">
+            <div class="col-md-6">
+              <label for="city" class="required">City</label>
+              <select id="city" class="form-control" formControlName="city" tabindex="-1" [attr.disabled]="cityDisabled ? true : null">
+                <option [ngValue]="null">Please Select</option>
+                <option *ngFor="let option of cityList | orderBy: 'label'" [value]="option">{{option}}</option>
+              </select>
+              <app-validation-error [control]="fc.city" [inputName]="'City'"></app-validation-error>
+            </div>
+            <div class="col-md-3">
+              <label class="required">State</label>
+              <input type="text" class="form-control" formControlName="state" readonly tabindex="-1"/>
+              <app-validation-error [control]="fc.state" [inputName]="'State'"></app-validation-error>
+            </div>
+            <div class="col-md-3">
+              <label class="required">Zip Code</label>
+              <input type="text" class="form-control" formControlName="zipCode" numberOnly maxLength="5" (change)="searchZipCode()" />
+              <app-validation-error [control]="fc.zipCode" [inputName]="'Zip Code'"></app-validation-error>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-12 field">
+          <label for="effectiveDate" class="required">{{LabelMessage.effectiveDate}}</label>          
+          <app-date-picker [options]="datepickerOptions" formControlName="effectiveDate"
+          (dateChange)="onChangeDate($event, 'effectiveDate')"
+          [isInvalid]="form.get('effectiveDate').errors?.required" 
+          customErrorMessage="Please enter a valid date"
+          customRequiredErrorMessage="Effective Date is required"></app-date-picker>          
+        </div>
+        <div class="form-group col-12 field">
+          <label for="expirationDate" class="required">{{LabelMessage.expirationDate}}</label>          
+          <app-date-picker [options]="datepickerOptions" formControlName="expirationDate"
+          [isInvalid]="form.get('expirationDate').errors?.required"
+          customErrorMessage="Please enter a valid date"
+          customRequiredErrorMessage="Expiration Date is required"></app-date-picker>          
+          <div *ngIf="form.errors?.invalidEffectiveExpirationDate && (form.touched || form.dirty)" class="invalid-feedback">
+            Expiration Date should be later than Effective Date
+          </div>
+        </div>
+        <div class="form-group col-12 field">
+          <div class="switch-wrapper">
+            <label>{{LabelMessage.waiverOfSub}}</label>
+            <toggle-switch [formGroup]="form" formName="additionalInterestForm" fieldName="isWaiverOfSubrogation">
+            </toggle-switch>
+          </div>
+        </div>
+        <div class="form-group col-12 field">
+          <div class="switch-wrapper">
+            <label>{{LabelMessage.primaryNonCont}}</label>
+            <toggle-switch [formGroup]="form" formName="additionalInterestForm" fieldName="isPrimaryNonContributory">
+            </toggle-switch>
+          </div>
+        </div>
+        <div class="form-group col-12 field">
+          <div class="switch-wrapper">
+            <label>{{LabelMessage.autoLiability}}</label>
+            <toggle-switch [formGroup]="form" formName="additionalInterestForm" fieldName="isAutoLiability">
+            </toggle-switch>
+          </div>
+        </div>
+        <div class="form-group col-12 field">
+          <div class="switch-wrapper">
+            <label>{{LabelMessage.generalLiability}}</label>
+            <toggle-switch [formGroup]="form" formName="additionalInterestForm" fieldName="isGeneralLiability">
+            </toggle-switch>
+          </div>
+        </div>
+        <div class="form-group col-12 field">
+          <div class="switch-wrapper">
+            <label>{{LabelMessage.thirtyDayNotice}}</label>
+            <toggle-switch [formGroup]="form" formName="additionalInterestForm" fieldName="is30DayNotice">
+            </toggle-switch>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer sticky-modal-footer">
+        <button class="btn btn-primary" [disabled]="!form.valid" (click)="saveForm()">{{modalButton}}</button>
+        <button class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

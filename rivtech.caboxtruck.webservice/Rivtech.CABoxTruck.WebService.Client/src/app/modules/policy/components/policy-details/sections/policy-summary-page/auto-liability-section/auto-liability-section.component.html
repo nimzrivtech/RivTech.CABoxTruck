@@ -1,0 +1,42 @@
+<div class="card sticky-body" *ngIf="policySummaryData.autoLiabilityCoverages.length > 0">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+            href="#autoLiabilityCard" (click)="ToggleHiding()"></i>
+        <strong>Auto Liability</strong>
+    </div>
+    <div id="autoLiabilityCard" class="show">
+        <!-- <div class="card-body standard-padding col-lg-12">
+        </div> -->
+        <div class="card-body standard-padding collapse show" id="policySummaryPage" style="padding-top: 1.5%">
+          <div class="col">
+            <div class="row">
+              <div class="table-responsive dynamic-table" [style.padding-top.px]="0" [style.padding-bottom.px]="0">
+                <table class="table mb-2" style="width:100%;" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" #tbVehicle>
+                  <thead>
+                    <tr>
+                      <th width="25%">Coverages</th>
+                      <th width="25%">Covered Autos</th>
+                      <th width="25%">Limit</th>
+                      <th width="25%">Premium</th>
+                    </tr>
+                  </thead>
+                  <tbody>          
+                      <tr *ngFor="let item of policySummaryData.autoLiabilityCoverages">
+                        <td><span >{{ item.name }}</span></td>
+                        <td><span >{{ item.symbol }}</span></td>
+                        <td><span >{{ item.limit }}</span></td>
+                        <td><span >{{ (isNaN(item.premium)) ? item.premium : item.premium | currency : 'USD' : 'symbol' : '1.0-2' }}</span></td>
+                      </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="policySummaryData.autoLiabilityCoverages.length < 1">
+                  <div class="text-center col-lg-12 no-data-message">
+                      <span>No Data To Display</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

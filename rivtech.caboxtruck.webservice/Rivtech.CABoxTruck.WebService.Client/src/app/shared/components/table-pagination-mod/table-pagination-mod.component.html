@@ -1,0 +1,28 @@
+<div class="" *ngIf="!loading">
+  <div class="row">
+    <div class="col-xs-12 col-12 d-sm-down-none">
+      <ul *ngIf="pager.pages && pager.pages.length > 0" class="pagination pull-right">
+        <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPageNumber(1)"
+          class="page-link">
+          <a>First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPageNumber(pager.currentPage - 1)"
+          class="page-link">
+          <a>Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}"
+          (click)="setPageNumber(page)" class="page-link">
+          <a>{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="setPageNumber(pager.currentPage + 1)"
+          class="page-link">
+          <a>Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
+          (click)="setPageNumber(pager.totalPages)" class="page-link">
+          <a>Last</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

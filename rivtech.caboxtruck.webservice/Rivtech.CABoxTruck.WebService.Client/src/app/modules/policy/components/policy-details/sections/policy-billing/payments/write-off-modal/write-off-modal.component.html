@@ -1,0 +1,122 @@
+<div role="document">
+  <div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">{{WriteOffConstants.title}}</h5>
+    <button type="button" class="close" (click)="hideModal()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <form *ngIf="writeOffForm as writeOffForm" [formGroup]="writeOffForm">
+    <div class="modal-body">
+
+      <div [formGroup]="writeOffForm">
+
+        <div class="row">
+          <div class="form-group col-md-6 field">
+            <label class="required">{{WriteOffConstants.method}}</label>
+            <div>
+              <select class="form-control full-width" formControlName="method"
+                [ngClass]="writeOffForm.get('method').invalid && writeOffForm.get('method').touched ? 'is-invalid' :  ''">
+                <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+                <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+                <option value="writeOff">{{ WriteOffConstants.writeOffMethod }}</option>
+
+              </select>
+              <span class="invalid-feedback d-flex"
+                *ngIf="writeOffForm.get('method').errors?.required && writeOffForm.get('method').touched">
+                {{ErrorMessageConstant.requiredErrorMessage.format(WriteOffConstants.method)}}
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4 field">
+            <label class="required">{{WriteOffConstants.amount}}</label>
+            <div>
+              <input type="text" class="form-control full-width" placeholder="" formControlName="amount" currencyMask
+                maxlength="11" [options]="currencySettings"
+                [ngClass]="writeOffForm.get('amount').invalid && writeOffForm.get('amount').touched ? 'is-invalid' :  ''">
+              <span class="invalid-feedback d-flex"
+                *ngIf="writeOffForm.get('amount').errors?.required && writeOffForm.get('amount').touched">
+                {{ErrorMessageConstant.requiredErrorMessage.format(WriteOffConstants.amount)}}
+              </span>
+              <span class="invalid-feedback d-flex"
+                *ngIf="writeOffForm.get('amount').hasError(BillingErrorConstants.amountCannotBeZeroErrorMessage.key) && writeOffForm.get('amount').touched && !writeOffForm.get('amount').errors?.required">
+                {{BillingErrorConstants.amountCannotBeZeroErrorMessage.value}}
+              </span>
+              <span class="invalid-feedback d-flex"
+                *ngIf="isAmountNotMatched && writeOffForm.get('amount').touched && !writeOffForm.get('amount').errors?.required">
+                {{WriteOffConstants.notMatchAmountError}}
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <b>{{WriteOffConstants.writeOffDetails | uppercase}}</b>
+
+        <div class="row mt-2">
+
+          <div class="form-group col-md-4 field">
+            <label>{{WriteOffConstants.premium}}</label>
+            <div>
+              <input type="text" class="form-control full-width" placeholder="" formControlName="premium" currencyMask
+                maxlength="11" [options]="currencySettings"
+                [ngClass]="writeOffForm.get('premium').invalid && writeOffForm.get('premium').touched ? 'is-invalid' :  ''">
+              <span class="invalid-feedback d-flex"
+                *ngIf="writeOffForm.get('premium').errors?.required && writeOffForm.get('premium').touched">
+                {{ErrorMessageConstant.requiredErrorMessage.format(WriteOffConstants.premium)}}
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4 field">
+            <label>{{WriteOffConstants.tax}}</label>
+            <div>
+              <input type="text" class="form-control full-width" placeholder="" formControlName="tax" currencyMask
+                maxlength="11" [options]="currencySettings"
+                [ngClass]="writeOffForm.get('tax').invalid && writeOffForm.get('tax').touched ? 'is-invalid' :  ''">
+              <span class="invalid-feedback d-flex"
+                *ngIf="writeOffForm.get('tax').errors?.required && writeOffForm.get('tax').touched">
+                {{ErrorMessageConstant.requiredErrorMessage.format(WriteOffConstants.tax)}}
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4 field">
+            <label>{{WriteOffConstants.fee}}</label>
+            <div>
+              <input type="text" class="form-control full-width" placeholder="" formControlName="fee" currencyMask
+                maxlength="11" [options]="currencySettings"
+                [ngClass]="writeOffForm.get('fee').invalid && writeOffForm.get('fee').touched ? 'is-invalid' :  ''">
+              <span class="invalid-feedback d-flex"
+                *ngIf="writeOffForm.get('fee').errors?.required && writeOffForm.get('fee').touched">
+                {{ErrorMessageConstant.requiredErrorMessage.format(WriteOffConstants.fee)}}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12 field">
+            <label>{{WriteOffConstants.comment}}</label>
+
+            <div>
+              <textarea type="text" class="form-control field-text-area" placeholder="" formControlName="comment"
+                maxlength="1000"
+                [ngClass]="writeOffForm.get('comment').invalid && writeOffForm.get('comment').touched ? 'is-invalid' :  ''">
+                </textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="modal-footer sticky-modal-footer">
+      <button class="btn btn-primary" [disabled]="!writeOffForm.valid || isAmountNotMatched"
+        (click)="onSave()">{{WriteOffConstants.save}}</button>
+      <button class="btn btn-danger" (click)="hideModal()">{{WriteOffConstants.cancel}}</button>
+    </div>
+  </form>
+</div>

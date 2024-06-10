@@ -1,0 +1,43 @@
+<div class="col-md-12 row dynamic-table category" *ngIf="fg(0)">
+    <table class="table table-outline table-bordered">
+        <thead class="text-left">
+            <tr>
+                <th scope="col" class="col-l" style="vertical-align: middle;"
+                (click)="sort($event.target)" data-order="desc" data-name="categoryLabel">{{SafetyDeviceConstants.safetyDeviceCategoryHeader}}</th>
+                <th scope="col" class="col-s" style="vertical-align: middle;"
+                (click)="sort($event.target)" data-order="desc" data-name="isInPlace">{{SafetyDeviceConstants.isInPlace}}</th>
+                <th scope="col" class="col-l" style="vertical-align: middle;"
+                (click)="sort($event.target)" data-order="desc" data-name="unitDescription">Unit Description<br>(i.e. Manufacturer/Device Name)</th>
+                <th scope="col" class="col-m" style="vertical-align: middle;"
+                (click)="sort($event.target)" data-order="desc" data-name="yearsInPlace">{{SafetyDeviceConstants.yearsInPlace}}</th>
+                <th scope="col" class="col-m" style="vertical-align: middle;"
+                (click)="sort($event.target)" data-order="desc" data-name="percentageOfFleet">{{SafetyDeviceConstants.percentageOfFleet}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let _ of formArray.controls; index as i" [ngTemplateOutlet]="dataCell"
+            [ngTemplateOutletContext]="{formGroup: fg(i), label: categoryLabel(fc(i).safetyDeviceCategoryId.value)}">
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #dataCell let-label="label" let-formGroup="formGroup" >
+    <tr [formGroup]="formGroup">
+        <td scope="col">{{label}}</td>
+        <td scope="col" class="text-center" class="text-center">
+            <label class="switch switch-label switch-primary">
+                <toggle-switch [formGroup]="formGroup" [formName]="fn" fieldName="isInPlace"></toggle-switch>
+            </label>
+        </td>
+        <td scope="col">
+            <textarea class='form-control' id="unitDescription" formControlName="unitDescription" placeholder="Unit description" maxlength="1000"></textarea>
+        </td>
+        <td scope="col">
+            <input placeholder="0" class="form-control" id="yearsInPlace" formControlName="yearsInPlace" mask="000" />
+        </td>
+        <td scope="col">
+            <input placeholder="0" class="form-control" id="percentageOfFleet" formControlName="percentageOfFleet" mask="percent.1" suffix="%" [dropSpecialCharacters]="false" />
+        </td>
+    </tr>
+</ng-template>

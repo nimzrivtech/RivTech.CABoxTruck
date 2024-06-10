@@ -1,0 +1,23 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "target": "es5",
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@angular/*": [
+        "../node_modules/@angular/*"
+      ],
+      "@app/*": ["app/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
+  },
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ]
+}

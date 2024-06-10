@@ -1,0 +1,25 @@
+<div class="agency-modal field">
+    <div class="alert-box">
+      <div class="modal-header sticky-modal-header">
+          <h4 class="modal-title">{{modalTitle}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="closeDialog()">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <tabset #tab>
+          <tab heading="Details" class="mt-2" (select)="onSelect($event)">
+            <app-agent-details [isEdit]="isEdit"></app-agent-details>
+          </tab>
+          <!-- <tab heading="Program-State" class="mt-2" (select)="onSelect($event)" disabled>
+            <app-agent-details-program-state></app-agent-details-program-state>
+          </tab> -->
+        </tabset>
+      </div>
+      <div class="modal-footer sticky-modal-footer">
+          <button *ngIf="!isEdit" type="button" class="btn btn-primary" [disabled]="!isValid || !isUpdated" (click)="save()">Add Agent</button>
+          <button *ngIf="isEdit" type="button" class="btn btn-primary" [disabled]="!isValid || !isUpdated" (click)="save()">Save</button>
+          <button  type="button" class="btn btn-danger" (click)="closeDialog()">Cancel</button>
+      </div>
+    </div>
+  </div>

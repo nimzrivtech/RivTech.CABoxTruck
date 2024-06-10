@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-header">
+    <i class="icon-arrow-down icons header-icon" (click)="toggleAgencyList()" *ngIf="isListHidden"></i>
+    <i class="icon-arrow-up icons header-icon" (click)="toggleAgencyList()" *ngIf="!isListHidden"></i>
+    <b>Agencies</b>
+  </div>
+  <div class="card-body show" *ngIf="!isListHidden">
+    <div class="d-flex flex-row-reverse">
+      <app-search-field (onInputSearch)="searchRecords($event)"></app-search-field>
+    </div>
+    <div class="agency-table">
+    <table class="table table-hover" [mfData]="agencyData.agencyListData" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <thead class="custom-table-header">
+          <th class="headers" *ngFor="let header of agencyData.agencyListHeader">
+            <mfDefaultSorter by="{{header.columnName}}">{{ header.name }}</mfDefaultSorter>
+          </th>
+          <th class="headers text-center">
+            Actions
+            <div>
+                <button type="button" class="btn btn-primary mx-1" [tooltip]="TableConstants.add"
+                  data-placement="top" (click)="addAgency()"><i class="icon-plus"></i></button>
+            </div>
+          </th>
+      </thead>
+      <tbody class="custom-table-body">
+          <tr class="noresultfound" *ngIf="mf.data.length === 0">
+              <td colspan="6" *ngIf="agencyData.isAgencyLoading"><div class="spinner-border text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div></td>
+              <td colspan="6" *ngIf="!agencyData.isAgencyLoading"> {{ genericLabel.noResultsFound }}</td>
+          </tr>
+          <ng-container *ngFor="let item of mf.data">
+              <tr>
+                  <td>{{item?.entity?.companyName}}</td>
+                  <td>{{item?.contactName}}</td>
+                  <td>{{item?.entity?.workEmailAddress}}</td>
+                  <td *ngIf="item?.entity?.workPhone">{{item?.entity?.workPhone | slice: 0:3}} {{item?.entity?.workPhone | slice: 3:6}}-{{item?.entity?.workPhone | slice: 6:10}}</td>
+                  <td *ngIf="!item?.entity?.workPhone">{{item?.entity?.workPhone}}</td>
+                  <td>{{item?.entity?.isActive ? 'Active' : 'Inactive'}}</td>
+                  <td><div class="control-icons text-center">
+                    <button type="button" [tooltip]="TableConstants.edit" (click)="editAgency(item)">
+                      <i class="icon-note"
+                        readonly></i>
+                    </button>
+                    <button type="button" [tooltip]="TableConstants.delete" (click)="deleteAgency(item)">
+                      <i class="icon-trash"
+                        readonly></i>
+                    </button>
+                  </div></td>
+              </tr>
+          </ng-container>
+      </tbody>
+      <tfoot>
+        <tr>
+            <td colspan="6">
+                <mfBootstrapPaginator style="display: flex;" class="justify-content-end text-center pt-3"></mfBootstrapPaginator>
+            </td>
+        </tr>
+      </tfoot>
+  </table>
+</div>
+  </div>
+</div>

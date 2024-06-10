@@ -1,0 +1,72 @@
+<div class="modal-header sticky-modal-header">
+  <h5 class="modal-title">{{ isEdit ? 'Edit' : 'Add' }} Destination</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div [formGroup]="this.destinationData.destinationForm" class="modal-body">
+
+  <div class="form-group col-12 field">
+    <ng-container [ngTemplateOutlet]="labelTemplate" [ngTemplateOutletContext]="{labelText: 'City', labelObj: 'city'}">
+    </ng-container>
+    <select class="form-control" formControlName="city" tabindex="-1" [attr.disabled]="cityDisabled ? true : null">
+      <option [ngValue]="null">Please Select</option>
+      <option *ngFor="let cityStateZip of validCityStateZipCodes" [value]="cityStateZip.city">{{cityStateZip.city}}
+      </option>
+    </select>
+    <app-validation-error [control]="fc.city" [inputName]="'City'"></app-validation-error>
+    <div *ngIf="fg.errors?.duplicateDestination && (fg.touched || fg.dirty)" class="invalid-feedback">
+      Destination already exists
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="form-group row field">
+      <div class="col-lg-4">
+        <ng-container [ngTemplateOutlet]="labelTemplate"
+          [ngTemplateOutletContext]="{labelText: 'State', labelObj: 'state'}"></ng-container>
+        <input class="form-control" readonly disabled type="text" id="state" class="state-padding full-width"
+          formControlName="state" autocomplete="off" />
+        <app-validation-error [control]="fc.state" [inputName]="'State'"></app-validation-error>
+      </div>
+      <div class="col-lg-8">
+        <ng-container [ngTemplateOutlet]="labelTemplate"
+          [ngTemplateOutletContext]="{labelText: 'Zip Code', labelObj: 'zipCode'}"></ng-container>
+        <input class="form-control w-100" type="text" numberOnly maxlength="5" id="zipCode" formControlName="zipCode"
+          (change)="searchZipCode()" />
+        <app-validation-error [control]="fc.zipCode" [inputName]="'Zip Code'"></app-validation-error>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group col-12 field">
+    <ng-container [ngTemplateOutlet]="labelTemplate"
+      [ngTemplateOutletContext]="{labelText: '% of Travel', labelObj: 'percentageOfTravel'}"></ng-container>
+    <input class="form-control w-100" type="text" id="percentageOfTravel" formControlName="percentageOfTravel"
+      autocomplete="off" mask="percent.1" suffix="%" [dropSpecialCharacters]="false" />
+    <app-validation-error [control]="fc.percentageOfTravel" [inputName]="'% of Travel'"></app-validation-error>
+    <div *ngIf="fg.errors?.invalidPercentageOfTravel && (fg.touched || fg.dirty)" class="invalid-feedback">
+      Destination percentages must = 100%
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer sticky-modal-footer text-right ">
+  <button type="submit" class="btn btn-primary" [disabled]="this.destinationData.destinationForm.invalid"
+    (click)='onSubmit()'>{{ isEdit ? 'Save' : 'Add Destination' }}</button>
+  <button type="button" class="btn btn-danger" data-dismiss="modal" #btnCloseModal (click)='onCancel()'>Cancel</button>
+</div>
+
+<ng-template #labelTemplate let-labelText="labelText" let-labelObj="labelObj">
+  <label class="required" [htmlFor]='this.labelObj'>
+    {{this.labelText}}
+  </label>
+</ng-template>
+
+<ng-template #itemTemplateStatic let-item>
+  <a [innerHTML]="item"></a>
+</ng-template>
+
+<ng-template #notFoundTemplate let-notFound>
+  <div [innerHTML]="notFound"></div>
+</ng-template>

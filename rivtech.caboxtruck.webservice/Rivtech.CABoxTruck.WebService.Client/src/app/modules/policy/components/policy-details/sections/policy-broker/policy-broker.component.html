@@ -1,0 +1,8 @@
+<div class="page-position">
+    <form [formGroup]="this.Data.formInfo" id="frmBrokerInfo">
+      <app-general-information ></app-general-information>
+      <app-policy-contacts></app-policy-contacts>
+      <app-policy-contacts-section hidden="hidden"></app-policy-contacts-section>
+      <app-next-back-btn [isScrollPage]="true" (clickType)="onClick($event)"></app-next-back-btn>
+    </form>
+</div>

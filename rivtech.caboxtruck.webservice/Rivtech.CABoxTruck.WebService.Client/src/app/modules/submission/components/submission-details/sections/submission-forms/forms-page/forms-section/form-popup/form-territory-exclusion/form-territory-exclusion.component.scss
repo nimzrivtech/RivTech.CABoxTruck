@@ -1,0 +1,11 @@
+.field input, .field select {
+    width: 100% !important;
+}
+
+:host ::ng-deep .multiselect-dropdown .dropdown-list {    
+    overflow: hidden;
+}
+
+:host ::ng-deep .multiselect-dropdown .dropdown-btn {     
+    padding: 6px 34px 6px 12px !important;      
+}

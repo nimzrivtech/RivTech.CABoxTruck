@@ -1,0 +1,174 @@
+<form [formGroup]="limitsData.limitsForm.limitsPageForm">
+<div class="col-md-12 row dynamic-table">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col" colspan="3">Other Coverages</th>
+                </tr>
+                <tr>
+                    <th scope="col">Coverage</th>
+                    <th scope="col" class="wd-25">Limit</th>
+                    <th scope="col" class="wd-25">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="col"> General Liability - Bodily Injury <span class="required"></span> </td>
+                    <td scope="col">
+                        <div class="field" tooltip="No Delivery or Installation of Furniture is included">
+                            <select formControlName="glbiLimitId" id="glbiLimitId" name="glbiLimitId" class="form-control" (change)="setValue('glbiLimitId')"
+                            [attr.title]="setTooltip(f.glbiLimitId.value, limitsData.glList)">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.glList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.glbiLimitId" [inputName]="'General Liability - Bodily Injury Limit'"></app-validation-error>
+                        </div>
+                    </td>
+                    <td scope="col">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly >
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col"> Cargo <span class="required"></span> </td>
+                    <td scope="col">
+                        <div class="field">
+                            <select formControlName="cargoLimitId" id="cargoLimitId" name="cargoLimitId" class="form-control" (change)="setValue('cargoLimitId')"
+                            [attr.title]="setTooltip(f.cargoLimitId.value, limitsData.cargoList)" (change)="limitsData.disableSymbol('cargoLimit')">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.cargoList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.cargoLimitId" [inputName]="'Cargo Limit'"></app-validation-error>
+                        </div>
+                    </td>
+                    <td scope="col">
+                        <div class="field">
+                            <select *ngIf="limitsData.disableCargo" class="readonly" disabled></select>
+                            <select class="form-control" formControlName="cargoLimitSymbolId" id="cargoLimitSymbolId" name="cargoLimitSymbolId"
+                            [attr.title]="setTooltip(f.cargoLimitSymbolId.value, limitsData.symbolList)" *ngIf="limitsData.cargoList?.length > 0 && !limitsData.disableCargo">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.cargoLimitSymbolId" [inputName]="'Cargo Symbol'"></app-validation-error>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col"> Refrigeration Breakdown <span class="required"></span> </td>
+                    <td scope="col">
+                        <div class="field">
+                            <select *ngIf="this.disableRefrigeration" class="readonly" disabled title="NONE">
+                                <option>NONE</option>
+                            </select>
+                            <select *ngIf="!this.disableRefrigeration" formControlName="refCargoLimitId" class="form-control" id="refCargoLimitId" name="refCargoLimitId" (change)="setValue('refCargoLimitId')"
+                            [attr.title]="setTooltip(f.refCargoLimitId.value, limitsData.refBreakList)" (change)="limitsData.disableSymbol('refCargoLimit')">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.refBreakList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.refCargoLimitId" [inputName]="'Refrigeration Breakdown Limit'"></app-validation-error>
+                        </div>
+                    </td>
+                    <td scope="col">
+                        <div class="field">
+                            <select *ngIf="limitsData.disableRefCargo" class="readonly" disabled></select>
+                            <select class="form-control" formControlName="refCargoLimitSymbolId" id="refCargoLimitSymbolId" name="refCargoLimitSymbolId"
+                            [attr.title]="setTooltip(f.refCargoLimitSymbolId.value, limitsData.symbolList)" *ngIf="limitsData.refBreakList?.length > 0 && !limitsData.disableRefCargo">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.refCargoLimitSymbolId" [inputName]="'Refrigeration Breakdown Symbol'"></app-validation-error>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="limitsData.raterVersionSupport()">
+                    <td scope="col"> Trailer Interchange <span class="required"></span> </td>
+                    <td scope="col">
+                        <div class="field">
+                            <select formControlName="trailerInterchangeLimitId" id="trailerInterchangeLimitId" name="trailerInterchangeLimitId" class="form-control" (change)="setValue('trailerInterchangeLimitId')"
+                            [attr.title]="setTooltip(f.trailerInterchangeLimitId.value, limitsData.trailerInterchangeList)" (change)="limitsData.disableSymbol('trailerInterchangeLimit')">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.trailerInterchangeList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.trailerInterchangeLimitId" [inputName]="'Trailer Interchange Limit'"></app-validation-error>
+                        </div>
+                    </td>
+                    <td scope="col">
+                        <div class="field">
+                            <input *ngIf="limitsData.disableTrailerInterchange" type="text" class="form-control readonly" readonly >
+                            <select class="form-control" formControlName="trailerInterchangeLimitSymbolId" id="trailerInterchangeLimitSymbolId" name="trailerInterchangeLimitSymbolId"
+                            [attr.title]="setTooltip(f.trailerInterchangeLimitSymbolId.value, limitsData.symbolList)" *ngIf="limitsData.trailerInterchangeList?.length > 0 && !limitsData.disableTrailerInterchange">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.trailerInterchangeLimitSymbolId" [inputName]="'Trailer Interchange Symbol'"></app-validation-error>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="limitsData.raterVersionSupport()">
+                    <td scope="col"> Non-Owned Trailer <span class="required"></span> </td>
+                    <td scope="col">
+                        <div class="field">
+                            <select formControlName="nonOwnedTrailerLimitId" id="nonOwnedTrailerLimitId" name="nonOwnedTrailerLimitId" class="form-control" (change)="setValue('nonOwnedTrailerLimitId')"
+                            [attr.title]="setTooltip(f.nonOwnedTrailerLimitId.value, limitsData.nonOwnedTrailerList)" (change)="limitsData.disableSymbol('nonOwnedTrailerLimit')">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.nonOwnedTrailerList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.nonOwnedTrailerLimitId" [inputName]="'Non-Owned Trailer Limit'"></app-validation-error>
+                        </div>
+                    </td>
+                    <td scope="col">
+                        <div class="field">
+                            <input *ngIf="limitsData.disableNonOwnedTrailer" type="text" class="form-control readonly" readonly >
+                            <select class="form-control" formControlName="nonOwnedTrailerLimitSymbolId" id="nonOwnedTrailerLimitSymbolId" name="nonOwnedTrailerLimitSymbolId"
+                            [attr.title]="setTooltip(f.nonOwnedTrailerLimitSymbolId.value, limitsData.symbolList)" *ngIf="limitsData.nonOwnedTrailerList?.length > 0 && !limitsData.disableNonOwnedTrailer">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.nonOwnedTrailerLimitSymbolId" [inputName]="'Non-Owned Trailer Symbol'"></app-validation-error>
+                        </div>
+                    </td>
+                </tr>
+                <!-- <tr *ngIf="limitsData.raterVersionSupport()">
+                    <td scope="col"> Trailer Type <span class="required"></span> </td>
+                    <td scope="col">
+                        <div class="field">
+                            <select *ngIf="this.disableTrailerType" class="readonly" disabled title="NONE">
+                                <option></option>
+                            </select>
+                            <select *ngIf="!this.disableTrailerType" formControlName="trailerTypeLimitId" id="trailerTypeLimitId" name="trailerTypeLimitId" class="form-control" (change)="setValue('trailerTypeLimitId')"
+                            [attr.title]="setTooltip(f.trailerTypeLimitId.value, limitsData.trailerTypeList)">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.trailerTypeList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.trailerTypeLimitId" [inputName]="'Trailer Type Limit'"></app-validation-error>
+                        </div>
+                    </td>
+                    <td scope="col">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly >
+                        </div>
+                    </td>
+                </tr> -->
+                <tr *ngIf="limitsData.raterVersionSupport()">
+                    <td scope="col"> Pollution Coverage <span class="required"></span> </td>
+                    <td scope="col">
+                        <div class="field">
+                            <select formControlName="pollutionCovLimitId" id="pollutionCovLimitId" name="pollutionCovLimitId" class="form-control" (change)="setValue('pollutionCovLimitId')"
+                            [attr.title]="setTooltip(f.pollutionCovLimitId.value, limitsData.pollutionCovList)">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of limitsData.pollutionCovList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.pollutionCovLimitId" [inputName]="'Pollution Coverage Limit'"></app-validation-error>
+                        </div>
+                    </td>
+                    <td scope="col">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly >
+                        </div>
+                    </td>
+                </tr>
+        </tbody> 
+        </table>
+</div>
+</form>

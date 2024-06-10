@@ -1,0 +1,78 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Form Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="this.onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid" [formGroup]="formsData.paAddCombFPBForm">
+        <div class="row">
+            <div class="col-md-12 my-4 ml-4">
+              <label class="checkbox-inline"><input type="checkbox" formControlName="addedFirstPartyBenefits">Added First Party Benefits</label>
+            </div>
+          </div>
+        <ng-container *ngIf="f.addedFirstPartyBenefits.value == true">
+            <div class="col-md-12">
+                <div class="form-group col-12 field">
+                    <label class="required">Medical Expense Benefits</label>
+                    <input type="text" class="form-control w-100" formControlName="medicalExpenseBenefits" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                    <app-validation-error [control]="f.medicalExpenseBenefits" inputName="Medical Expense Benefits"></app-validation-error>
+                </div>
+                <div class="form-group col-12 field">
+                    <label>Work Loss Benefits</label>
+                    <div class="row mt-2 mb-2">
+                        <div class="col-6 field">
+                            <label class="required">Up to</label>
+                            <input type="text" class="form-control w-100" formControlName="workLossUpTo" currencyMask [options]="formsData.currencySettings" maxlength="10" />
+                            <app-validation-error [control]="f.workLossUpTo" inputName="Up to"></app-validation-error>
+                        </div>
+                        <div class="col-6 field">
+                            <label class="required">Per Month</label>
+                            <input type="text" class="form-control w-100" formControlName="workLossPerMonth" currencyMask [options]="formsData.currencySettings" maxlength="10" />
+                            <app-validation-error [control]="f.workLossPerMonth" inputName="Per Month"></app-validation-error>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 field">
+                    <label class="required">Funeral Expense Benefits</label>
+                    <input type="text" class="form-control w-100" formControlName="funeralExpenseBenefits" currencyMask [options]="formsData.currencySettings" maxlength="10" />
+                    <app-validation-error [control]="f.funeralExpenseBenefits" inputName="Funeral Expense Benefits"></app-validation-error>
+                </div>
+                <div class="form-group col-12 field">
+                    <label class="required">Accidental Death Benefits</label>
+                    <input type="text" class="form-control w-100" formControlName="accidentalDeathBenefits" currencyMask [options]="formsData.currencySettings" maxlength="10" />
+                    <app-validation-error [control]="f.accidentalDeathBenefits" inputName="Accidental Death Benefits"></app-validation-error>
+                </div>
+            </div>
+        </ng-container>   
+        <div class="row">
+            <div class="col-md-12 my-4 ml-4">
+              <label class="checkbox-inline"><input type="checkbox" formControlName="combinationFirstPartyBenefits">Combination First Party Benefits</label>
+            </div>
+          </div>
+        <ng-container *ngIf="f.combinationFirstPartyBenefits.value == true">
+            <div class="col-md-12">
+                <div class="form-group col-12 field">
+                    <label class="required">Maximum Total Limit; All Benefits</label>
+                    <input type="text" class="form-control w-100" formControlName="maximumTotalLimitAllBenefits" currencyMask [options]="formsData.currencySettings" maxlength="10" />
+                    <app-validation-error [control]="f.maximumTotalLimitAllBenefits" inputName="Work Loss Benefits"></app-validation-error>
+                </div>
+                <div class="form-group col-12 field">
+                    <label class="required">Funeral Expense Benefits</label>
+                    <input type="text" class="form-control w-100" formControlName="combFuneralExpenseBenefits" currencyMask [options]="formsData.currencySettings" maxlength="10" />
+                    <app-validation-error [control]="f.combFuneralExpenseBenefits" inputName="Funeral Expense Benefits"></app-validation-error>
+                </div>
+                <div class="form-group col-12 field">
+                    <label class="required">Accidental Death Benefits</label>
+                    <input type="text" class="form-control w-100" formControlName="combAccidentalDeathBenefits" currencyMask [options]="formsData.currencySettings" maxlength="10" />
+                    <app-validation-error [control]="f.combAccidentalDeathBenefits" inputName="Accidental Death Benefits"></app-validation-error>
+                </div>
+            </div>
+        </ng-container>        
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="formsData.paAddCombFPBForm.invalid || (f.addedFirstPartyBenefits.value == false && f.combinationFirstPartyBenefits.value == false)" type="button" class="btn btn-primary"
+        (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+</div>

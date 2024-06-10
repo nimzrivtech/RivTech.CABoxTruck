@@ -1,0 +1,23 @@
+.sticky-modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  background-color: #f0f3f5;
+}
+
+.sticky-modal-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 2000;
+  background-color: rgb(255, 255, 255);
+}
+
+.field select,
+.field input {
+  height: 40px;
+}
+
+input[readonly] {
+  background-color: #f0f3f5;
+  border: 0;
+}

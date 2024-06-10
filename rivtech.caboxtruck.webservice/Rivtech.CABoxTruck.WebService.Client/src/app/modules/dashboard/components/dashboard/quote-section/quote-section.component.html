@@ -1,0 +1,23 @@
+<div class="card shadow-sm min-height-agent-dashboard customized-blue-agent-dashboard quote-box-height">
+  <div class="pb-0 pt-1 card-header text-uppercase text-center font-weight-bold customized-header-agent-dashboard customized-blue-agent-dashboard">
+    <div class="">NEW BUSINESS SUBMISSIONS</div>
+  </div>
+   <div class="card-body quotes-margin-top card-body-dashboard-padding ">
+     <div><a [routerLink]="" (click)="onClick('Complete')" class="text-light dashboard-font">Complete ({{this.dashboardData.dashboardCount.completeCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Declined')" class="text-light dashboard-font">Declined ({{this.dashboardData.dashboardCount.declinedCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('In Research')" class="text-light dashboard-font">In Research ({{this.dashboardData.dashboardCount.inResearchCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Incomplete')" class="text-light dashboard-font">Incomplete ({{this.dashboardData.dashboardCount.inCompleteCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Not Accepted')" class="text-light dashboard-font">Not Accepted ({{this.dashboardData.dashboardCount.notAcceptedCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Quote in Progress')" class="text-light dashboard-font">Quote in Progress ({{this.dashboardData.dashboardCount.quoteInProgressCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Quoted')" class="text-light dashboard-font">Quoted ({{this.dashboardData.dashboardCount.quotedCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Data Only')" class="text-light dashboard-font">Data Only ({{this.dashboardData.dashboardCount.dataOnlyCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Test Class')" class="text-light dashboard-font">Test Class ({{this.dashboardData.dashboardCount.testClassCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Received')" class="text-light dashboard-font">Received ({{this.dashboardData.dashboardCount.receivedCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Withdrawn')" class="text-light dashboard-font">Withdrawn ({{this.dashboardData.dashboardCount.withdrawnCount}})</a></div>
+  </div>
+
+</div>
+
+<!--min-height-agent-dashboard-->
+<!--quote-box-height-->
+<!--customized-header-agent-dashboard-->

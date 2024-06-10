@@ -1,0 +1,8 @@
+.modal-body {
+  max-height: 67vh;
+  overflow-y: auto;
+}
+
+option:disabled {
+  background-color: lightgrey;
+}

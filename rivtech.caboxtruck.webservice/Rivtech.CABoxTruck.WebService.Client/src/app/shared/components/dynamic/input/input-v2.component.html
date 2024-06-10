@@ -1,0 +1,39 @@
+<div class="form-group row" [formGroup]="group" *ngIf="field.isVisible">
+    <label class="col-form-label text-md-right" *ngIf="field.label"  [ngClass]="field.parentField ? 'offset-md-3 col-md-2 group-body' : 'col-md-4'">
+        {{field.label}}
+        <span *ngIf="field.required" class="spandata">*</span> :
+    </label>
+
+    <div class="col-md-4" [ngClass]="{'offset-md-4': !field.label}">
+        <div class="input-group" [ngClass]="{'mediumInput': field.size=='M', 'smallInput': field.size=='S'}">
+            <ng-container [ngTemplateOutlet]="prependLbl"></ng-container>
+
+            <!-- text input -->
+            <input *ngIf="field.inputType == 'text'" [type]="field.inputType"
+                [id]="field.name" [formControlName]="field.name"
+                [placeholder]="field.placeholder" class="form-control" [required]="field.required">
+
+            <!-- number input -->
+            <input *ngIf="field.inputType == 'number'" [id]="field.name" [formControlName]="field.name"
+                [placeholder]="field.placeholder" class="form-control" [required]="field.required"
+                currencyMask [options]="CurrencyMaskConstants.setMaxInput(field.maxValue)">
+
+            <ng-container [ngTemplateOutlet]="appendLbl"></ng-container>
+        </div>
+        <app-validation-error [control]="formControl"></app-validation-error>
+    </div>
+
+</div>
+
+<ng-template #prependLbl>
+    <div class="input-group-prepend" *ngIf="field.prependLabel">
+        <div class="input-group-text">{{field.prependLabel}}</div>
+    </div>
+</ng-template>
+
+<ng-template #appendLbl>
+    <div class="input-group-prepend" *ngIf="field.appendLabel">
+        <div class="input-group-text">{{field.appendLabel}}</div>
+    </div>
+</ng-template>
+

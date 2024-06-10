@@ -1,0 +1,162 @@
+2023-10-05 16:59:54,937 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-10-05 16:59:59,723 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-05 16:59:59,728 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-05 16:59:59,736 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-05 16:59:59,748 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-05 16:59:59,750 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-05 16:59:59,751 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-05 17:38:10,338 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Service.Services.Log4NetService [(null)] - {"UserId":646,"ErrorCode":null,"ErrorMessage":"Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).","JsonMessage":"System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).\r\n   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)\r\n   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)\r\n   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)\r\n   at System.Guid.Parse(ReadOnlySpan`1 input)\r\n   at System.Guid.Parse(String input)\r\n   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Web\\Controllers\\Rater\\PremiumRaterController.cs:line 184\r\n   at lambda_method901(Closure , Object )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)\r\n   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Web\\Middlewares\\ErrorLoggingMiddleware.cs:line 55","Action":"/api/PremiumRater/unload/null","Method":"POST","CreatedDate":"2023-10-05T17:38:10.3323337+08:00"}
+2023-10-05 17:38:10,439 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware [(null)] - Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx). | UserId: 646
+System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).
+   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)
+   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.Parse(ReadOnlySpan`1 input)
+   at System.Guid.Parse(String input)
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 184
+   at lambda_method901(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Middlewares\ErrorLoggingMiddleware.cs:line 55
+2023-10-05 17:38:10,442 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware [(null)] - Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx). | UserId: 646
+System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).
+   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)
+   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.Parse(ReadOnlySpan`1 input)
+   at System.Guid.Parse(String input)
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 184
+   at lambda_method901(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Middlewares\ErrorLoggingMiddleware.cs:line 55
+2023-10-05 17:42:14,711 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:42:14,713 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:42:14,723 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:42:14,724 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:42:15,386 [33] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 653.6199ms - 200
+2023-10-05 17:42:15,387 [33] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 653.6199ms - 200
+2023-10-05 17:42:15,394 [33] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 694.8351ms - 200
+2023-10-05 17:42:15,395 [33] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 694.8351ms - 200
+2023-10-05 17:42:58,684 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:42:58,686 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:42:58,690 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:42:58,691 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:42:58,749 [57] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 54.3028ms - 200
+2023-10-05 17:42:58,750 [57] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 54.3028ms - 200
+2023-10-05 17:42:58,755 [57] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 69.4372ms - 200
+2023-10-05 17:42:58,758 [57] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 69.4372ms - 200
+2023-10-05 17:44:57,729 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:44:57,750 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:44:57,754 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:44:57,758 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:44:57,799 [58] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 37.6545ms - 200
+2023-10-05 17:44:57,801 [58] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 37.6545ms - 200
+2023-10-05 17:44:57,807 [58] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 76.3196ms - 200
+2023-10-05 17:44:57,809 [58] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 76.3196ms - 200
+2023-10-05 17:45:31,445 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:45:31,447 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:45:31,458 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:45:31,460 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:45:31,468 [81] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 4.2658ms - 200
+2023-10-05 17:45:31,469 [81] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 4.2658ms - 200
+2023-10-05 17:45:31,477 [81] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 28.0067ms - 200
+2023-10-05 17:45:31,479 [81] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 28.0067ms - 200
+2023-10-05 17:46:05,106 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:46:05,108 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:46:05,113 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:46:05,121 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:46:05,146 [82] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 20.0521ms - 200
+2023-10-05 17:46:05,148 [82] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 20.0521ms - 200
+2023-10-05 17:46:05,153 [82] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 45.9446ms - 200
+2023-10-05 17:46:05,154 [82] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 45.9446ms - 200
+2023-10-05 17:47:13,759 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:47:13,762 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:47:13,773 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:47:13,775 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:47:13,798 [36] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 19.3516ms - 200
+2023-10-05 17:47:13,800 [36] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 19.3516ms - 200
+2023-10-05 17:47:13,806 [36] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 44.5419ms - 200
+2023-10-05 17:47:13,808 [36] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 44.5419ms - 200
+2023-10-05 17:47:59,193 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:47:59,195 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:47:59,201 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:47:59,202 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:47:59,210 [90] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 4.4028ms - 200
+2023-10-05 17:47:59,211 [90] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 4.4028ms - 200
+2023-10-05 17:47:59,214 [90] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 21.4553ms - 200
+2023-10-05 17:47:59,217 [90] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 21.4553ms - 200
+2023-10-05 17:49:13,390 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:49:13,392 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:49:13,395 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:49:13,398 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:49:13,406 [100] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 5.0442ms - 200
+2023-10-05 17:49:13,408 [100] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 5.0442ms - 200
+2023-10-05 17:49:13,412 [100] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 20.9233ms - 200
+2023-10-05 17:49:13,415 [100] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 20.9233ms - 200
+2023-10-05 17:50:25,750 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:50:25,752 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:50:25,757 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:50:25,758 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:50:25,772 [112] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 10.7893ms - 200
+2023-10-05 17:50:25,773 [112] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 10.7893ms - 200
+2023-10-05 17:50:25,778 [112] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 25.5951ms - 200
+2023-10-05 17:50:25,780 [112] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 25.5951ms - 200
+2023-10-05 17:50:53,010 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:50:53,012 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:50:53,021 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:50:53,027 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 17:50:53,040 [113] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 9.5247ms - 200
+2023-10-05 17:50:53,041 [113] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 9.5247ms - 200
+2023-10-05 17:50:53,046 [113] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 35.1498ms - 200
+2023-10-05 17:50:53,049 [113] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 35.1498ms - 200
+2023-10-05 18:24:50,373 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 18:24:50,374 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 18:24:50,381 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 18:24:50,382 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 18:24:50,407 [86] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 21.5842ms - 200
+2023-10-05 18:24:50,408 [86] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 21.5842ms - 200
+2023-10-05 18:24:50,418 [86] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 38.8422ms - 200
+2023-10-05 18:24:50,420 [86] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 38.8422ms - 200
+2023-10-05 23:58:09,270 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 23:58:09,272 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 23:58:09,334 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 23:58:09,335 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 23:58:09,472 [117] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 126.418ms - 200
+2023-10-05 23:58:09,473 [117] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 126.418ms - 200
+2023-10-05 23:58:09,477 [117] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 209.8865ms - 200
+2023-10-05 23:58:09,479 [117] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 209.8865ms - 200
+2023-10-05 23:59:46,768 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 23:59:46,770 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 23:59:46,776 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 23:59:46,777 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000043?itemCount=0&fromPolicy=False
+2023-10-05 23:59:46,817 [56] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 34.9892ms - 200
+2023-10-05 23:59:46,818 [56] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 34.9892ms - 200
+2023-10-05 23:59:46,822 [56] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 53.7653ms - 200
+2023-10-05 23:59:46,823 [56] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 53.7653ms - 200

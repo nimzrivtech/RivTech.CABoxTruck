@@ -1,0 +1,83 @@
+<div class="card sticky-body">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+            href="#cargoCard" (click)="ToggleHiding()"></i>
+        <strong>{{CargoConstants.cargoTitle}}</strong>
+    </div>
+
+    <div id="cargoCard" class="card-body standard-padding field show">
+        <div class="col">
+            <div class="disable-overlay" [style.height.%]="105" *ngIf="this.submissionData?.isIssued"></div>
+            <form [formGroup]="fg">
+                <div class="row">
+                    <div class="col-lg-4 input-container">
+                        <div class="switch-wrapper pb-2">
+                            <label >{{CargoConstants.areRequiredToCarryCargoInsurance}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="areRequiredToCarryCargoInsurance">
+                            </toggle-switch>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 input-container">
+                        <div class="switch-wrapper">
+                            <label >{{CargoConstants.requireRefrigerationBreakdownCoverage}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn"
+                                fieldName="requireRefrigerationBreakdownCoverage"></toggle-switch>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row pt-1 field">
+                    <div class="col-lg-4 input-container">
+                        <div class="switch-wrapper pb-2">
+                            <label >{{CargoConstants.haulHazardousMaterials}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="haulHazardousMaterials">
+                            </toggle-switch>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 input-container field">
+                        <div class="switch-wrapper">
+                            <label >{{CargoConstants.haveRefrigeratedUnits}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="haveRefrigeratedUnits">
+                            </toggle-switch>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row pt-1">
+                    <div class="col-lg-4 input-container field">
+                        <div class="switch-wrapper">
+                            <label >{{CargoConstants.areCommoditiesStoredInTruckOvernight}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn"
+                                fieldName="areCommoditiesStoredInTruckOvernight"
+                                (change)="switchValidator($event.target.checked, 'areCommoditiesStoredInTruckOvernightExplain')"></toggle-switch>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 input-container" *ngIf="fc.areCommoditiesStoredInTruckOvernight.value">
+                        <label for="areCommoditiesStoredInTruckOvernightExplain">{{GenericLabelConstants.explain}}</label>
+                        <textarea id='areCommoditiesStoredInTruckOvernightExplain' class="field-text-area"
+                            formControlName="areCommoditiesStoredInTruckOvernightExplain" maxlength="1000"></textarea>
+                        <app-validation-error [control]="fc.areCommoditiesStoredInTruckOvernightExplain" [inputName]="'Explain'">
+                        </app-validation-error>
+                    </div>
+                </div>
+    
+                <div class="row pt-1">
+                    <div class="col-lg-4 input-container">
+                        <div class="switch-wrapper">
+                            <label >{{CargoConstants.hadCargoLoss}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="hadCargoLoss"
+                            (change)="switchValidator($event.target.checked, 'hadCargoLossExplain')"></toggle-switch>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 input-container" *ngIf="fc.hadCargoLoss.value">
+                        <label for="hadCargoLossExplain" >{{GenericLabelConstants.explain}}</label>
+                        <textarea id='hadCargoLossExplain' class="field-text-area"
+                            formControlName="hadCargoLossExplain" maxlength="1000"></textarea>
+                        <app-validation-error [control]="fc.hadCargoLossExplain" [inputName]="'Explain'"></app-validation-error>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <app-commodities-chart></app-commodities-chart>
+    </div>
+</div>

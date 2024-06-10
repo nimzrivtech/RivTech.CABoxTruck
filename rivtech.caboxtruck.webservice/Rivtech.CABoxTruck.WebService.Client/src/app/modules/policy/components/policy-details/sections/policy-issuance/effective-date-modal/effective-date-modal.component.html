@@ -1,0 +1,39 @@
+<div class="modal-body pt-0 px-0 container-fluid">
+	<div class="progress timeout-progress" *ngIf="timerActive">
+		<div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar"
+			[style.width.%]="progressPercent" [attr.aria-valuenow]="progressPercent" [attr.aria-valuemin]="0"
+			[attr.aria-valuemax]="100"></div>
+	</div>
+	<div class="pt-3 px-4">
+		<div class="row">
+			<div class="col-md-12 ">
+				<h3 class="pull-left align-baseline">Change effective date</h3>
+				<h5 class="pull-left text-info ml-1">
+					<i class="i icon-info align-middle" [title]="infoText"></i>
+				</h5>
+			</div>
+		</div>
+		<div class="col-md-12" *ngIf="timerActive">
+			<h6><span>Changes will load automatically in <strong>{{ loadTimeout }}s</strong> if not changed.</span></h6>
+		</div>
+
+		<div class="row">
+			<div class="field col-md-12">
+				<app-date-picker [options]="policyIssuanceData.datepickerOptions"
+					[customId]="'effectiveDatePopup'"	
+					customErrorMessage="Please enter a valid date"
+					customRequiredErrorMessage="Effective Date is required" (click)="onDatepickerClicked()">
+				</app-date-picker>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<button type="button" class="btn btn-secondary offset-md-7 col-md-5"
+					(click)="onContinueClicked()"><strong>Don't
+						change</strong></button>
+			</div>
+		</div>
+
+	</div>
+</div>

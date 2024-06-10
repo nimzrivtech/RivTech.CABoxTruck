@@ -1,0 +1,34 @@
+<div role="document">
+  <div class="modal-content" class="interest-page">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title" id="addAdditionalStructureModalTitle">{{modalTitle}}</h5>
+      <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form [formGroup]="data.manuscriptForm">
+      <div class="modal-body">
+        <div class="form-group col-12 field">
+          <label for="title" class="required">Title</label>
+          <input type="text" class="form-control" id="title" formControlName="title" maxlength="100" />
+          <app-validation-error [control]="fc.title" inputName="Title"></app-validation-error>
+        </div>
+        <div class="form-group col-12 field">
+          <label for="premium" class="required">Premium</label>
+          <input type="text" class="form-control" id="premium" formControlName="premium" currencyMask
+            [options]="currencySettings" maxlength="10" />
+          <app-validation-error [control]="fc.premium" inputName="Premium"></app-validation-error>
+        </div>
+        <div class="form-group col-12 field">
+          <label for="description" class="required">Description</label>
+          <input type="text" class="form-control" id="description" formControlName="description" maxlength="1000" />
+          <app-validation-error [control]="fc.description" inputName="Description"></app-validation-error>
+        </div>
+      </div>
+      <div class="modal-footer sticky-modal-footer">
+        <button class="btn btn-primary" [disabled]="!form.valid" (click)="saveForm()">{{modalButton}}</button>
+        <button class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

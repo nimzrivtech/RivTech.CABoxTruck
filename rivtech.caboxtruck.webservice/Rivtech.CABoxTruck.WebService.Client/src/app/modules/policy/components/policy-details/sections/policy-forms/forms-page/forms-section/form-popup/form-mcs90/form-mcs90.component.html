@@ -1,0 +1,91 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Form Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="this.onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid field" [formGroup]="form">
+        <div class="">
+            <div class="form-group col-12 field">
+                <label class="required">USDOT Number</label>
+                <input type="text" class="form-control w-100" formControlName="usDotNumber" numberOnly maxlength="8" />
+                <app-validation-error [control]="f.usDotNumber" inputName="USDOT Number"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Date Received</label>
+                <app-date-picker [options]="formsData.datepickerOptions" formControlName="dateReceived"
+                [isInvalid]="form.get('dateReceived').errors?.required"
+                customErrorMessage="Please enter a valid date"
+                customRequiredErrorMessage="Date Received is required"></app-date-picker>
+            </div>  
+            <div class="form-group col-12 field">
+                <label class="required">Issued to</label>
+                <input type="text" class="form-control w-100" formControlName="issuedTo" maxlength="100" />
+                <app-validation-error [control]="f.issuedTo" inputName="Issued to"></app-validation-error>
+            </div>  
+            <div class="form-group col-12 field">
+                <label class="required">Of</label>
+                <select id="state" formControlName="state">
+                    <option [ngValue]="null">Please Select</option>
+                    <option *ngFor="let option of formsData.stateList | orderBy: 'label'"  [value]='option.value'>{{option.label}}</option>
+                  </select>
+                <app-validation-error [control]="f.state" inputName="Of"></app-validation-error>
+            </div>  
+            <div class="form-group col-12 field">
+                <label class="required">Dated at</label>
+                <input type="text" class="form-control w-100" formControlName="datedAt" maxlength="100" />
+                <app-validation-error [control]="f.datedAt" inputName="Dated at"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">on this</label>
+                <input type="text" class="form-control w-100" formControlName="policyDateDay" numberOnly maxlength="2" />
+                <app-validation-error [control]="f.policyDateDay" inputName="on this"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">day of</label>
+                <div class="form-group row mb-0">
+                    <div class="col-md-8">
+                        <input type="text" class="form-control w-100" formControlName="policyDateMonth" maxlength="100" />
+                        <app-validation-error [control]="f.policyDateMonth" inputName="day of (month)"></app-validation-error>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control w-100" formControlName="policyDateYear" maxlength="100" />
+                        <app-validation-error [control]="f.policyDateYear" inputName="day of (year)"></app-validation-error>
+                    </div>      
+                </div>                         
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Amending Policy Number</label>
+                <input type="text" class="form-control w-100" formControlName="policyNumber" maxlength="100" />
+                <app-validation-error [control]="f.policyNumber" inputName="Amending Policy Number"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Effective Date</label>
+                <app-date-picker [options]="formsData.datepickerOptions" formControlName="effectiveDate"
+                [isInvalid]="form.get('effectiveDate').errors?.required"
+                customErrorMessage="Please enter a valid date"
+                customRequiredErrorMessage="Effective Date is required"></app-date-picker>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Name of Insurance Company</label>
+                <input type="text" class="form-control w-100" formControlName="insuranceCompany" maxlength="100" />
+                <app-validation-error [control]="f.insuranceCompany" inputName="Name of Insurance Company"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Countersigned by</label>
+                <input type="text" class="form-control w-100" formControlName="counterSignedBy" maxlength="100" />
+                <app-validation-error [control]="f.counterSignedBy" inputName="Countersigned by"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">This insurance is primary and the company...</label>
+                <input type="text" class="form-control w-100" formControlName="accidentLimit" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.accidentLimit" inputName="This insurance is primary and the company..."></app-validation-error>
+            </div>            
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="form.invalid" type="button" class="btn btn-primary" (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="this.onCancel()">Cancel</button>
+</div>

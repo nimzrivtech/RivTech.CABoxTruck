@@ -1,0 +1,151 @@
+<div class="card sticky-body">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+            href="#quoteOptionsCard" (click)="ToggleHiding()"></i>
+        <strong [title]="raterVersionText">Quote Options</strong>
+    </div>
+    <div id="quoteOptionsCard" class="show">
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div class="card-body standard-padding">
+            <form [formGroup]="quoteLimitsData.quoteOptionsForm">
+                <div class="row">
+
+
+                </div>
+                <div class="input-container" [style.margin-left.px]="-40" [style.width.%]="125">
+                    <input #btnDownload class="btn btn-primary mr-4 mb-1" type="button"
+                        value="Download Experience Rater"
+                        [disabled]="xpRaterButtonDisabled || this.submissionData?.isIssued || this.isPreloading"
+                        [attr.title]="this.preloadingTitle != '' ? this.preloadingTitle : (!this.raterApiData.validateRequiredToRateModules() == true ? this.raterApiData.showRequiredtoRateToolTip : '')"
+                        (click)='clickDownload(this.$event)'>
+
+                    <input type="file" #fileSelection placeholder="Choose File" class="d-none"
+                        (change)="this.uploadFile(this.fileSelection.files)"
+                        accept="application/vnd.ms-excel.sheet.binary.macroEnabled.12">
+
+                    <input class="btn btn-primary mr-4 mb-1" type="button" value="Upload Experience Rater"
+                        [disabled]="xpRaterButtonDisabled || this.submissionData?.isIssued || this.isPreloading"
+                        [attr.title]="this.preloadingTitle != '' ? this.preloadingTitle : xpRaterUploadTooltip"
+                        (click)='clickUpload(this.fileSelection.files)'>
+
+                    <input class="btn btn-primary mr-4 mb-1" type="button" value="Copy Submission"
+                        [disabled]="disableCopySubmission"
+                        [attr.title]="copySubmissionTooltip"
+                        (click)='copySubmission()'>
+
+                    <!-- this code line use to show tooltip even disabled buttons ->  triggers="pointerenter:pointerout" -->
+                    <!-- <input class="btn btn-primary mb-1" type="button" value="Calculate Premium"
+                      [attr.title]=" (!this.quoteLimitsData.validateRequiredToRateModules() ? this.raterApiData.showRequiredtoRateToolTip : '').length > 0 ?
+                                  (!this.quoteLimitsData.validateRequiredToRateModules() ? this.raterApiData.showRequiredtoRateToolTip : '') :
+                                  this.raterApiData.showPremiumToolTipPreload"
+                      (click)='clickCalculate(this.$event)'
+                      [disabled]="this.raterApiData.disableCalculatePremium || !this.quoteLimitsData.validateRequiredToRateModules()"
+                      #btnCalculate> -->
+                </div>
+                <div class="field" style="margin-left: -25px; margin-top: 40px;">
+                    <div class="row d-flex">
+                        <div class="col-md-4 input-container">
+                            <label for="alPremiumInput">Auto Liability Premium</label>
+                            <input type="text" id='alPremiumInput' class="readonly" readonly currencyMask
+                                [options]="this.quoteLimitsData.premiumCurrencySettings"
+                                formControlName="alPremiumInput" />
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="pdPremiumInput">Physical Damage Premium</label>
+                            <input type="text" id='pdPremiumInput' class="readonly" readonly currencyMask
+                                [options]="this.quoteLimitsData.premiumCurrencySettings"
+                                formControlName="pdPremiumInput" />
+                        </div>
+                        <div *ngIf="this.quoteLimitsData.raterVersionSupport()" class="col-md-4 input-container">
+                            <label for="cargoPremiumInput">Cargo Premium</label>
+                            <input type="text" id='cargoPremiumInput' class="readonly" readonly currencyMask
+                                [options]="this.quoteLimitsData.premiumCurrencySettings"
+                                formControlName="cargoPremiumInput" />
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col-md-4 input-container">
+                            <label for="glPremiumInput">GL Premium</label>
+                            <input type="text" id='glPremiumInput' class="readonly" readonly currencyMask
+                                [options]="this.quoteLimitsData.premiumCurrencySettings"
+                                formControlName="glPremiumInput" />
+                        </div>
+                        <div *ngIf="!this.quoteLimitsData.raterVersionSupport()" class="col-md-4 input-container">
+                            <label for="cargoPremiumInput">Cargo Premium</label>
+                            <input type="text" id='cargoPremiumInput' class="readonly" readonly currencyMask
+                                [options]="this.quoteLimitsData.premiumCurrencySettings"
+                                formControlName="cargoPremiumInput" />
+                        </div>
+                        <div *ngIf="this.quoteLimitsData.raterVersionSupport()" class="col-md-4 input-container">
+                            <label for="glPremiumInput">Trailer Interchange</label>
+                            <input type="text" id='trailerInterchangePremiumInput' class="readonly" readonly currencyMask
+                                [options]="this.quoteLimitsData.premiumCurrencySettings"
+                                formControlName="trailerInterchangePremiumInput" />
+                        </div>
+                        <div *ngIf="this.quoteLimitsData.raterVersionSupport()" class="col-md-4 input-container">
+                            <label for="glPremiumInput">Non-Owned Trailer</label>
+                            <input type="text" id='nonOwnedTrailerPremiumInput' class="readonly" readonly currencyMask
+                                [options]="this.quoteLimitsData.premiumCurrencySettings"
+                                formControlName="nonOwnedTrailerPremiumInput" />
+                        </div>
+                    </div>
+                </div>
+                <app-quote-auto-liability-chart></app-quote-auto-liability-chart>
+                <!-- <div class="field mt-4">
+                    <div class="row d-flex">
+                        <div class="col-md-6">
+                            <label for="subjectivities">Subject to:</label>
+                            <ng-multiselect-dropdown class="drop-up"
+                                  id="subjectivities"
+                                  formControlName="subjectivitiesList"
+                                  [(ngModel)]="this.quoteLimitsData.selectedSubjects"
+                                  placeholder="&nbsp;"
+                                  [data]="subjectivitiesList"
+                                  [settings]="dropdownSettings"
+                                  tabindex="0">
+                            </ng-multiselect-dropdown>
+                        </div>
+                    </div>
+                </div> -->
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div #btnShowLoadingUploader class="btn btn-primary d-none" data-toggle="modal" data-target='#uploadRater'>show modal
+    upload</div>
+
+<!-- Modal for driver incidents entry -->
+<div #modalLoader class="modal fade" id='uploadRater' tabindex="-1" role="dialog" aria-labelledby="#uploadRater"
+    aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title">Please wait</h5>
+                <button type="button" hidden class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-md-12" style="margin-bottom:15px;">
+                    <span *ngIf="this.raterApiData.message" class=" text-info">
+                        {{ this.raterApiData.message + this.raterApiData.dotanimation }}
+                    </span>
+                </div>
+                <div class="col-md-12" style="margin-bottom:15px;">
+                    <div class="progress"
+                        [ngClass]="{'d-block': this.raterApiData.progress > 0, 'd-none' : this.raterApiData.progress <= 0}">
+                        <div id="dvloaderbar" class="progress-bar bg-success" role="progressbar" style="width: 0%"
+                            [attr.aria-valuenow]='progress' aria-valuemin="0" aria-valuemax="0">
+                            <span *ngIf="this.raterApiData.progress > 0">
+                                {{ this.raterApiData.progress}}%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

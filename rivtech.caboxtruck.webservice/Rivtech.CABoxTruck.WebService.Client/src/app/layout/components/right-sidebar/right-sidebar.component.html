@@ -1,0 +1,13 @@
+<div class="list-group list-group-accent">
+  <div class="list-group-item list-group-item-divider">
+    <a hidden class="nav-link text-decoration-none" [routerLink]="['/']" > Reports</a>
+    <a hidden class="nav-link text-decoration-none" [routerLink]="['/policies/list']">Policies</a>
+    <a class="nav-link text-decoration-none" [routerLink]="['/dashboard']">Dashboard</a>
+    <a class="nav-link text-decoration-none" href="javascript:void(0);" (click)="logout()">Logout</a>
+  </div>
+  <div *ngFor="let nav of navService.mainMenuList" class="list-group-item list-group-item-divider">
+    <a class="nav-link" [routerLink]="nav.controllerName">
+      <div>{{nav.menuLabel}}</div>
+    </a>
+  </div>
+</div>

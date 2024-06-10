@@ -1,0 +1,174 @@
+2023-09-07 13:40:29,385 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-09-07 13:40:33,271 [1] ERROR Microsoft.EntityFrameworkCore.Database.Connection [(null)] - An error occurred using the connection to database '' on server ''.
+2023-09-07 13:40:33,341 [1] ERROR Microsoft.EntityFrameworkCore.Query [(null)] - An exception occurred while iterating over the results of a query for context type 'RivTech.CABoxTruck.WebService.Data.Context.AppDbContext'.
+System.InvalidOperationException: The ConnectionString property has not been initialized.
+   at Microsoft.Data.SqlClient.SqlConnection.PermissionDemand()
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: The ConnectionString property has not been initialized.
+   at Microsoft.Data.SqlClient.SqlConnection.PermissionDemand()
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2023-09-07 13:40:33,408 [1] ERROR RivTech.CABoxTruck.WebService.BackgroundServices.EndorsementProcessBackgroundService [(null)] - Error occured while processing Endorsement Process Background Service.
+2023-09-07 13:41:53,204 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-09-07 13:41:57,106 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-09-07 13:41:57,109 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-09-07 13:41:57,118 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-09-07 13:41:57,135 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-09-07 13:41:57,139 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-09-07 13:41:57,141 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-09-07 13:43:04,984 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request POST https://localhost:44334/api/PremiumRater/preload/S-2023000035?raterVersionId=6
+2023-09-07 13:43:04,986 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request POST https://localhost:44334/api/PremiumRater/preload/S-2023000035?raterVersionId=6
+2023-09-07 13:43:04,993 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request POST https://localhost:44334/api/PremiumRater/preload/S-2023000035?raterVersionId=6
+2023-09-07 13:43:04,996 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request POST https://localhost:44334/api/PremiumRater/preload/S-2023000035?raterVersionId=6
+2023-09-07 13:43:09,566 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController [(null)] - Error preloading rater
+System.Net.Http.HttpRequestException: No connection could be made because the target machine actively refused it. (localhost:44334)
+ ---> System.Net.Sockets.SocketException (10061): No connection could be made because the target machine actively refused it.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|277_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(HttpRequestMessage request)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at RivTech.CABoxTruck.WebService.Service.Services.RaterService.PreloadPremiumRater(String submissionNumber, Int32 raterVersionId, Boolean fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Service\Services\Rater\RaterService.cs:line 470
+   at RivTech.CABoxTruck.WebService.Service.Services.RaterService.PreloadPremiumRater(String submissionNumber, Guid riskDetailId, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Service\Services\Rater\RaterService.cs:line 454
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Preload(String submissionNumber, Guid riskDetailId, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 157
+2023-09-07 13:43:09,569 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController [(null)] - Error preloading rater
+System.Net.Http.HttpRequestException: No connection could be made because the target machine actively refused it. (localhost:44334)
+ ---> System.Net.Sockets.SocketException (10061): No connection could be made because the target machine actively refused it.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|277_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(HttpRequestMessage request)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at RivTech.CABoxTruck.WebService.Service.Services.RaterService.PreloadPremiumRater(String submissionNumber, Int32 raterVersionId, Boolean fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Service\Services\Rater\RaterService.cs:line 470
+   at RivTech.CABoxTruck.WebService.Service.Services.RaterService.PreloadPremiumRater(String submissionNumber, Guid riskDetailId, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Service\Services\Rater\RaterService.cs:line 454
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Preload(String submissionNumber, Guid riskDetailId, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 157
+2023-09-07 13:47:43,506 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000035?itemCount=0&fromPolicy=False
+2023-09-07 13:47:43,508 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000035?itemCount=0&fromPolicy=False
+2023-09-07 13:47:43,513 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000035?itemCount=0&fromPolicy=False
+2023-09-07 13:47:43,514 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000035?itemCount=0&fromPolicy=False
+2023-09-07 13:47:47,733 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Service.Services.Log4NetService [(null)] - {"UserId":646,"ErrorCode":"10061","ErrorMessage":"No connection could be made because the target machine actively refused it. (localhost:44334)","JsonMessage":"System.Net.Http.HttpRequestException: No connection could be made because the target machine actively refused it. (localhost:44334)\r\n ---> System.Net.Sockets.SocketException (10061): No connection could be made because the target machine actively refused it.\r\n   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)\r\n   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)\r\n   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|277_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)\r\n   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)\r\n   --- End of inner exception stack trace ---\r\n   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)\r\n   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)\r\n   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)\r\n   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(HttpRequestMessage request)\r\n   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)\r\n   at System.Net.Http.HttpConnectionPool.GetHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)\r\n   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)\r\n   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)\r\n   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)\r\n   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)\r\n   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)\r\n   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)\r\n   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Web\\Controllers\\Rater\\PremiumRaterController.cs:line 193\r\n   at lambda_method9779(Closure , Object )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)\r\n   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Web\\Middlewares\\ErrorLoggingMiddleware.cs:line 55","Action":"/api/PremiumRater/unload/S-2023000035","Method":"POST","CreatedDate":"2023-09-07T13:47:47.7299017+08:00"}
+2023-09-07 13:47:47,780 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware [(null)] - No connection could be made because the target machine actively refused it. (localhost:44334) | UserId: 646
+System.Net.Http.HttpRequestException: No connection could be made because the target machine actively refused it. (localhost:44334)
+ ---> System.Net.Sockets.SocketException (10061): No connection could be made because the target machine actively refused it.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|277_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(HttpRequestMessage request)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 193
+   at lambda_method9779(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Middlewares\ErrorLoggingMiddleware.cs:line 55
+2023-09-07 13:47:47,782 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware [(null)] - No connection could be made because the target machine actively refused it. (localhost:44334) | UserId: 646
+System.Net.Http.HttpRequestException: No connection could be made because the target machine actively refused it. (localhost:44334)
+ ---> System.Net.Sockets.SocketException (10061): No connection could be made because the target machine actively refused it.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|277_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(HttpRequestMessage request)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendAsync>g__Core|5_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 193
+   at lambda_method9779(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Middlewares\ErrorLoggingMiddleware.cs:line 55

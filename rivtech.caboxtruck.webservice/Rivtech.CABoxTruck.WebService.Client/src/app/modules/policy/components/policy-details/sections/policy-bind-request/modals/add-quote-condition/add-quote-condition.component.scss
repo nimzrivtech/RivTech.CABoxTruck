@@ -1,0 +1,31 @@
+
+#fileName {
+  border: none !important;
+  background-color: unset !important;
+  width: unset !important;
+  white-space: pre;
+}
+
+.ellipse {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 8px;
+}
+
+.btnUpload {
+  max-height: 35px;
+  min-height: 35px;
+  border-radius: 0.25rem;
+}
+
+textarea {
+  outline: 0;
+  border: 0;
+  border-bottom: 1px solid #999999;
+  border-radius: 0;
+  padding: 0;
+  width: 100%;
+  background-image: none !important;
+  height: unset;
+  resize: none;
+}

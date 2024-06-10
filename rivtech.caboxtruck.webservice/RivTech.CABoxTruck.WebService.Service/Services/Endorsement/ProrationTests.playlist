@@ -1,0 +1,99 @@
+<Playlist Version="2.0">
+  <Rule Name="Includes" Match="Any">
+    <Rule Match="All">
+      <Property Name="Solution" />
+      <Rule Match="Any">
+        <Rule Match="All">
+          <Property Name="Project" Value="RivTech.CABoxTruck.WebService.ServiceTests" />
+          <Rule Match="Any">
+            <Rule Match="All">
+              <Property Name="Namespace" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="ProratedPremiumPeriodTest" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.ProratedPremiumPeriodTest.ActualPremium_Test" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="ActualPremium_Test" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="ProratedPremiumTest" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.ProratedPremiumTest.Amount_Test" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="Amount_Test" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.ProratedPremiumTest.CancelledAmount_Test" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="CancelledAmount_Test" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.ProratedPremiumTest.MinimumPremium_Test" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="MinimumPremium_Test" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.ProratedPremiumTest.MinimumPremiumAdjustment_MustBeCorrect_WhenCancelledAmountIsLowerThanMinPrem" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="MinimumPremiumAdjustment_MustBeCorrect_WhenCancelledAmountIsLowerThanMinPrem" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.ProratedPremiumTest.MinimumPremiumAdjustment_MustBeZero_WhenCancelledAmountIsHigherThanMinPrem" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="MinimumPremiumAdjustment_MustBeZero_WhenCancelledAmountIsHigherThanMinPrem" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.ProratedPremiumTest.ShortRatePremium_Test" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="ShortRatePremium_Test" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="RiskPremiumsTest" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.RiskPremiumsTest.Cancel_WhenHigherThanMinPremium_Test" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="Cancel_WhenHigherThanMinPremium_Test" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="RiskAmountsTest" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.RiskAmountsTest.Cancel_WhenHigherThanMinPremium_Test" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="Cancel_WhenHigherThanMinPremium_Test" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="RivTech.CABoxTruck.WebService.ServiceTests.Endorsement.Proration.RiskAmountsTest.Cancellation_Test" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="Cancellation_Test" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+          </Rule>
+        </Rule>
+      </Rule>
+    </Rule>
+  </Rule>
+</Playlist>

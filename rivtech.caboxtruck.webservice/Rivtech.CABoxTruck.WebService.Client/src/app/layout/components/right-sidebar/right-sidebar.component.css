@@ -1,0 +1,39 @@
+.sidebar-fixed .sidebar {
+    width: 15%!important;
+}
+
+.sidebar .sidebar-nav {
+    width: 100%!important;
+}
+
+.sidebar .nav {
+    width: 100%!important;
+}
+
+.sidebar-lg-show.sidebar-fixed .main, html:not([dir=rtl]) .sidebar-lg-show.sidebar-fixed .app-footer, html:not([dir=rtl]) .sidebar-show.sidebar-fixed .main, html:not([dir=rtl]) .sidebar-show.sidebar-fixed .app-footer {
+    margin-left: 275px!important;
+}
+
+
+@media (min-width: 991px) {
+  .appasideBar.aside-menu {
+    display: none !important;
+  }
+}
+
+@media (max-width: 992px)
+{
+ .appasideBar
+  {
+    display: none !important;
+  }
+}
+
+
+@media (min-width: 992px)
+{
+  .list-group-item
+  {
+    display: none !important;
+  }
+}

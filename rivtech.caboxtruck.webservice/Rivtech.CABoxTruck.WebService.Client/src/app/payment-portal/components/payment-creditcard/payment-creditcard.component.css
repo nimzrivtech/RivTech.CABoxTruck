@@ -1,0 +1,13 @@
+.firstNameStyle {
+    width: 49%;
+}
+
+.lastNameStyle {
+    width: 49%;
+    left: 15px;
+}
+
+input:focus,
+select:focus {
+  border: none; 
+}

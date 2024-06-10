@@ -1,0 +1,31 @@
+<div class="agency-table">
+    <table class="table table-hover" [mfData]="programStateData.programStateList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead class="custom-table-header">
+            <th class="headers"><input type="checkbox" class="checkbox-input" (change)="isAllCheckBoxChecked($event)"></th>
+            <th class="headers" *ngFor="let header of programStateData.programStateModalListHeader">
+                <mfDefaultSorter by="{{header.columnName}}">{{ header.name }}</mfDefaultSorter>
+            </th>
+        </thead>
+        <tbody class="custom-table-body">
+            <ng-container *ngFor="let item of mf.data">
+                <tr>
+                    <td>
+                        <input type="checkbox" class="checkbox-input" (change)="addProgramState(item, $event)" [checked]="item.isSelected">
+                    </td>
+                    <td>{{item?.programState?.program?.masterProgramCode}}</td>
+                    <td>{{item?.programState?.program?.programName}}</td>
+                    <td>{{item?.programState?.program?.formTypeCode}}</td>
+                    <td>{{item?.programState?.stateCode}}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <mfBootstrapPaginator style="display: flex;" class="justify-content-end text-center pt-3">
+                    </mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

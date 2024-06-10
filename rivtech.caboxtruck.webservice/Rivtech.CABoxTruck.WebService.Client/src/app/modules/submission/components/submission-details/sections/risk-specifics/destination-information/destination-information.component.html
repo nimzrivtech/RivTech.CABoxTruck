@@ -1,0 +1,15 @@
+<div class="page-position">
+  <div class="card sticky-body">
+    <div class="card-header cursor-pointer"
+      (click)="this.toggleCollapse.clickExpandCollapse('destinationInformation', $event)">
+      <app-toggle-collapse toggleName="destinationInformation"></app-toggle-collapse>
+      <strong>&nbsp; Destination Information</strong>
+    </div>
+    <div class="card-body standard-padding collapse show field" id="destinationInformation">
+      <app-destination-section (statesUpdated)="updateMexicoNyc5($event)"></app-destination-section>
+      <div style="margin-top: 4rem;"></div>
+      <app-radius-of-operations-section [mexicoDestination]="mexicoDestination" [nyc5Boroughs]="nyc5Boroughs"></app-radius-of-operations-section>
+    </div>
+  </div>
+  <app-next-back-button [disableCalculate]="radiusOfOperationsData.radiusOfOperationsForm.invalid" [isScrollPage]="true" (clickType)="onClick($event)"></app-next-back-button>
+</div>

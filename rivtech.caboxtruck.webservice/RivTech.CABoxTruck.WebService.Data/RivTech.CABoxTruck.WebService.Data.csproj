@@ -1,0 +1,139 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Configurations>Debug;Release;Staging;DevTest;Test;ProdTest;Production</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EntityConfigurations\**" />
+    <EmbeddedResource Remove="EntityConfigurations\**" />
+    <None Remove="EntityConfigurations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="EntityConfiguration\Premiums\PolicyPremiumCoverageConfiguration.cs" />
+    <Compile Remove="EntityConfiguration\Premiums\VehiclePremiumCoverageConfiguration.cs" />
+    <Compile Remove="Entity\DataSets\FeeType.cs" />
+    <Compile Remove="Migrations\20200707074137_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200707074137_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200716092702_Initial-Create.cs" />
+    <Compile Remove="Migrations\20200716092702_Initial-Create.Designer.cs" />
+    <Compile Remove="Migrations\20200721081847_update-address-addresstype.cs" />
+    <Compile Remove="Migrations\20200721081847_update-address-addresstype.Designer.cs" />
+    <Compile Remove="Migrations\20200721082356_update-address-addresstype.cs" />
+    <Compile Remove="Migrations\20200721082356_update-address-addresstype.Designer.cs" />
+    <Compile Remove="Migrations\20201007103552_applicantcoverageupdate.cs" />
+    <Compile Remove="Migrations\20201007103552_applicantcoverageupdate.Designer.cs" />
+    <Compile Remove="Migrations\20201007144350_entitysubsidiary_update.cs" />
+    <Compile Remove="Migrations\20201007144350_entitysubsidiary_update.Designer.cs" />
+    <Compile Remove="Migrations\20201008004411_entitysubsidiary_update.cs" />
+    <Compile Remove="Migrations\20201008004411_entitysubsidiary_update.Designer.cs" />
+    <Compile Remove="Migrations\20201008004752_subsidiary.cs" />
+    <Compile Remove="Migrations\20201008004752_subsidiary.Designer.cs" />
+    <Compile Remove="Migrations\20201008005653_EntitySubsidiaryContact_update.cs" />
+    <Compile Remove="Migrations\20201008005653_EntitySubsidiaryContact_update.Designer.cs" />
+    <Compile Remove="Migrations\20201008064240_removeRequired.cs" />
+    <Compile Remove="Migrations\20201008064240_removeRequired.Designer.cs" />
+    <Compile Remove="Migrations\20201008081005_remove_required_fields.cs" />
+    <Compile Remove="Migrations\20201008081005_remove_required_fields.Designer.cs" />
+    <Compile Remove="Migrations\20201014104535_remove_fields_risk_coverages.cs" />
+    <Compile Remove="Migrations\20201014104535_remove_fields_risk_coverages.Designer.cs" />
+    <Compile Remove="Migrations\20201209134618_risk_entity_subsidiary.cs" />
+    <Compile Remove="Migrations\20201209134618_risk_entity_subsidiary.Designer.cs" />
+    <Compile Remove="Migrations\20201209135104_risk_entity_subsidiary.cs" />
+    <Compile Remove="Migrations\20201209135104_risk_entity_subsidiary.Designer.cs" />
+    <Compile Remove="Migrations\20201209153427_submissionLogic.cs" />
+    <Compile Remove="Migrations\20201209153427_submissionLogic.Designer.cs" />
+    <Compile Remove="Migrations\20201210031215_submissionLogicFix.cs" />
+    <Compile Remove="Migrations\20201210031215_submissionLogicFix.Designer.cs" />
+    <Compile Remove="Migrations\20201210102333_SubmissionLogicRefix.cs" />
+    <Compile Remove="Migrations\20201210102333_SubmissionLogicRefix.Designer.cs" />
+    <Compile Remove="Migrations\20201210102404_SubmissionLogicRefix.cs" />
+    <Compile Remove="Migrations\20201210102404_SubmissionLogicRefix.Designer.cs" />
+    <Compile Remove="Migrations\20201210102742_SubmissionLogicRefix.cs" />
+    <Compile Remove="Migrations\20201210102742_SubmissionLogicRefix.Designer.cs" />
+    <Compile Remove="Migrations\20201210103352_SubmissionLogicRefix.cs" />
+    <Compile Remove="Migrations\20201210103352_SubmissionLogicRefix.Designer.cs" />
+    <Compile Remove="Migrations\20201210103940_SubmissionLogicRefix.cs" />
+    <Compile Remove="Migrations\20201210103940_SubmissionLogicRefix.Designer.cs" />
+    <Compile Remove="Migrations\20201210104827_SubmissionLogicRefix.cs" />
+    <Compile Remove="Migrations\20201210104827_SubmissionLogicRefix.Designer.cs" />
+    <Compile Remove="Migrations\20201210105145_SubmissionLogicRefix.cs" />
+    <Compile Remove="Migrations\20201210105145_SubmissionLogicRefix.Designer.cs" />
+    <Compile Remove="Migrations\20201210105517_SubmissionLogicRefix.cs" />
+    <Compile Remove="Migrations\20201210105517_SubmissionLogicRefix.Designer.cs" />
+    <Compile Remove="Migrations\20201210105711_SubmissionLogicRefix.cs" />
+    <Compile Remove="Migrations\20201210105711_SubmissionLogicRefix.Designer.cs" />
+    <Compile Remove="Migrations\20211125184111_VehicleSchemaUpdate.cs" />
+    <Compile Remove="Migrations\20211125184111_VehicleSchemaUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20211128113155_VehiclePremiumRatingFactor_Refrigeration.cs" />
+    <Compile Remove="Migrations\20211128113155_VehiclePremiumRatingFactor_Refrigeration.Designer.cs" />
+    <Compile Remove="Migrations\20211128120304_VehicleUpdates.cs" />
+    <Compile Remove="Migrations\20211128120304_VehicleUpdates.Designer.cs" />
+    <Compile Remove="Migrations\20220221042153_add_ftpdocument.cs" />
+    <Compile Remove="Migrations\20220221042153_add_ftpdocument.Designer.cs" />
+    <Compile Remove="Migrations\20220221051504_add_ftpdocument.cs" />
+    <Compile Remove="Migrations\20220221051504_add_ftpdocument.Designer.cs" />
+    <Compile Remove="Migrations\20220409130544_EndorsementOOS_Updates.cs" />
+    <Compile Remove="Migrations\20220409130544_EndorsementOOS_Updates.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="EntityConfiguration\DriverConfiguration.cs~RF54febce0.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entity\Enumerations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RivTech.CABoxTruck.WebService.DomainEntities\RivTech.CABoxTruck.WebService.DomainEntities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="SqlScripts.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SqlScripts.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="SqlScripts.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SqlScripts.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Seed_LvLimits_01252024.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Seed_LvLimits_06132023.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Seed_LvLimits_07242023.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Seed_LvLimits_11222023.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Seed_LvLimits_10162023.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

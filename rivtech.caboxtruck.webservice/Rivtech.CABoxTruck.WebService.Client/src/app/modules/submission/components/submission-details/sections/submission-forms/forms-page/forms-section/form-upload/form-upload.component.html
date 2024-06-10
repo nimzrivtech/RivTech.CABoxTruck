@@ -1,0 +1,51 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Upload File</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid field" [formGroup]="formsData.uploadForm">
+        <div class="col-md-12 field form-group">
+            <div class="">
+                <label class="required">File Description</label>
+                <input type="text" class="form-control w-100" formControlName="description" maxlength="100" />
+                <app-validation-error [control]="f.description" inputName="File Description"></app-validation-error>
+            </div>
+        </div>
+        <div class="form-group field col-md-12">
+            <label class="note" for='isPreBind'>Maximum upload file size: 22MB</label>
+        </div>
+        <div class="col-md-12 field form-group" >
+            <div class="input-group mb-3">
+                <button class="btnUpload mr-2" (click)="selectFile()">Choose File</button>
+                <span class="filename" style="width: 75%; word-wrap: break-word;">{{ selectStatus }}</span>
+            </div>
+            <div class="col-md-3 pr-0">
+                <input type="file" multiple #fileSelection placeholder="Choose File" class="d-none"
+                    (change)="setFileForUpload(this.fileSelection.files)" [accept]="acceptedFileTypes" />
+            </div>
+        </div>
+        <div class="ellipse col-md-12 field form-group">
+            <div *ngIf="selectedFileNames !== ''">Upload the following:</div>
+            <span>{{ selectedFileNames }}</span>
+        </div>
+        <div *ngIf="f.fileInfo.errors" class="mt-1 mb-1 pr-4 col-md-12">
+            <div class=" invalid-feedback mb-2" *ngIf="f.fileInfo.errors?.invalidFileType">
+                {{ invalidFileTypeErrorMessage }}
+            </div>
+            <div *ngIf="f.fileInfo.errors?.invalidFileSize">
+                <div style="font-size:80%;">{{ invalidSizeNames }}</div>
+                <span class=invalid-feedback>{{ invalidFileSizeErrorMessage }}</span>
+            </div>
+            <div *ngIf="f.fileInfo.errors?.invalidFilenameLength">                
+                <span class=invalid-feedback>Filename length should not exceed 500</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="formsData.uploadForm.invalid" type="button" class="btn btn-primary"
+        (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>
+</div>

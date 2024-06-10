@@ -1,0 +1,16 @@
+<div class="card sticky-body">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#historicalCoverageCard" (click)="ToggleHiding()"></i>
+        <strong>Historical Coverage</strong>
+    </div>
+    <div id="historicalCoverageCard" class="show">
+        <div class="disable-overlay" *ngIf="!this.policySummaryData.canEditPolicy"></div>
+        <div class="card-body standard-padding">
+            <form [formGroup]="coverageData.coverageForms.historicalCoverageForm">
+                <app-historical-coverage-chart></app-historical-coverage-chart>
+                <br>
+                <app-projection-figures-chart></app-projection-figures-chart>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Form Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="this.onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid field" [formGroup]="formsData.generalLiabilityForm">
+        <div class="">
+            <div class="form-group col-12 field">
+                <label class="required">Personal & Advertising Injury Limit</label>
+                <input type="text" class="form-control w-100" formControlName="injuryLimit" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.injuryLimit" inputName="Personal & Advertising Injury Limit"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Medical Expenses</label>
+                <input type="text" class="form-control w-100" formControlName="medicalExpenses" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.medicalExpenses" inputName="Medical Expenses"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Damages To Premises Rented To You</label>
+                <input type="text" class="form-control w-100" formControlName="damagesRentedToYou" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.damagesRentedToYou" inputName="Damages To Premises Rented To You"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Products / Completed Operations Aggregate Limit</label>
+                <input type="text" class="form-control w-100" formControlName="aggregateLimit" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.aggregateLimit" inputName="Products / Completed Operations Aggregate Limit"></app-validation-error>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="formsData.generalLiabilityForm.invalid" type="button" class="btn btn-primary"
+        (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="this.onCancel()">Cancel</button>
+</div>

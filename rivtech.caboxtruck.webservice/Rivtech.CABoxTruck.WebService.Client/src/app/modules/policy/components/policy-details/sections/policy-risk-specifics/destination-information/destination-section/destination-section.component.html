@@ -1,0 +1,118 @@
+<div class="pt-4 dest-section">
+  <h4>Destinations</h4>
+  <div class="clearfix"></div>
+  <div class="standard-padding">
+    <div class="col">
+      <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+      <table class="table mb-2" style="margin:auto;width:100%">
+        <thead>
+          <tr>
+            <th (click)="sort($event.target)" data-order="desc" data-name="city" >City</th>
+            <th (click)="sort($event.target)" data-order="desc" data-name="state" style="width:13%" >State</th>
+            <th (click)="sort($event.target)" data-order="desc" data-name="zipCode" style="width:15%" >Zip Code</th>
+            <th (click)="sort($event.target)" data-order="desc" data-name="percentageOfTravel" style="width:15%" >% of Travel</th>
+            <th (click)="sort($event.target)" data-order="desc" data-name="percentageOfTravel" style="width:15%" >UW % of Travel</th>
+            <!-- <th  class="text-center" style="padding:5px; width: 100px;">Actions</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="!isEdit">
+            <tr *ngFor="let destination of pagedItems; let tableRowIndex = index" class="table-row-{{ tableRowIndex }}">
+              <td><span>{{destination.city}}</span></td>
+              <td><span>{{destination.state}}</span></td>
+              <td><span>{{destination.zipCode}}</span></td>
+              <td><span>{{destination.percentageOfTravelGiven | number : '0.1-1'}}</span></td>
+              <td><span>{{destination.percentageOfTravelActual | number : '0.1-1'}}</span></td>
+              <!-- <td>
+                <div class="table-button-fixed">
+                  <i [className]="!addNewItem ? 'icon-note' : 'icon-note disable-button'"
+                    (click)="onEditItem(destination, tableRowIndex)" [tooltip]="TableConstants.edit"></i>
+                  <i class="icon-trash" (click)="deleteDestination(destination)" [tooltip]="TableConstants.delete"></i>
+                </div>
+              </td> -->
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="isEdit">
+            <tr *ngFor="let destination of pagedItems; let tableRowIndex = index" class="table-row-{{ tableRowIndex }}">
+              <ng-container *ngIf="(tableRowIndex === selectedRow); else tableRowNotForEdit">
+                <ng-template [ngTemplateOutlet]="trForm"></ng-template>
+                <td>
+                  <div class="table-button-fixed">
+                    <i class="icon-note disable-button" [tooltip]="TableConstants.edit"></i>
+                    <i class="icon-trash" (click)="deleteDestination(destination)"
+                      [tooltip]="TableConstants.delete"></i>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-template #tableRowNotForEdit>
+                <td><span>{{destination.city}}</span></td>
+                <td><span>{{destination.state}}</span></td>
+                <td><span>{{destination.zipCode}}</span></td>
+                <td><span>{{destination.percentageOfTravelGiven | number : '0.1-1'}}</span></td>
+                <td><span>{{destination.percentageOfTravelActual | number : '0.1-1'}}</span></td>
+                <td>
+                  <div class="table-button-fixed">
+                    <i class="icon-note" (click)="onEditItem(destination, tableRowIndex)"
+                      [tooltip]="TableConstants.edit"></i>
+                    <i class="icon-trash" (click)="deleteDestination(destination)"
+                      [tooltip]="TableConstants.delete"></i>
+                  </div>
+                </td>
+              </ng-template>
+            </tr>
+          </ng-container>
+          <tr *ngIf="addNewItem">
+            <ng-template [ngTemplateOutlet]="trForm"></ng-template>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="control-buttons" *ngIf="addNewItem || isEdit">
+        <button type="submit" class="btn btn-primary mr-1" data-placement="top" [disabled]="fg.invalid"
+          (click)="saveDestination()">{{ addNewItem ? 'Save' : 'Update' }}</button>
+        <button type="button" class="btn btn-danger mx-1" data-placement="top" (click)="onCancel(true)">Cancel</button>
+      </div>
+      <div *ngIf="destinations.length < 1 && !addNewItem">
+        <div class="text-center col-lg-12 no-data-message">
+          <span>No Data To Display</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin:auto;width:70%">
+      <app-table-pagination (setPage)="this.setPage($event, this.destinations)" [pager]="this.pager"
+        [loading]="this.loading"></app-table-pagination>
+    </div>
+  </div>
+</div>
+
+<ng-template #trForm>
+  <td [formGroup]="fg">
+    <input class="form-control" type="text" id="city" class="state-padding full-width"
+      formControlName="city" maxlength="100" autocomplete="off" />
+    <app-validation-error [control]="fc.city" inputName="City"></app-validation-error>
+    <div *ngIf="fg.errors?.duplicateDestination && (fg.touched || fg.dirty)" class="invalid-feedback">
+      Destination already exists
+    </div>
+  </td>
+  <td [formGroup]="fg">
+    <select id='state' formControlName="state" class="form-control">
+      <option [ngValue]="null">Please Select</option>
+      <option *ngFor="let state of destinationData.stateList | orderBy: 'value'" [value]="state.value">{{state.value}}
+      </option>
+    </select>
+    <app-validation-error [control]="fc.state" inputName="State"></app-validation-error>
+  </td>
+  <td [formGroup]="fg">
+    <input class="form-control" type="text" id="zipCode" class="state-padding full-width"
+      formControlName="zipCode" numberOnly maxlength="5" autocomplete="off" />
+    <app-validation-error [control]="fc.zipCode" inputName="Zip Code"></app-validation-error>
+  </td>  
+  <td [formGroup]="fg">
+    <input class="form-control w-100" type="text" id="percentageOfTravel" formControlName="percentageOfTravel"
+      autocomplete="off" mask="percent.1" suffix="%" [dropSpecialCharacters]="false" />
+    <app-validation-error [control]="fc.percentageOfTravel" [inputName]="'% of Travel'"></app-validation-error>
+    <div *ngIf="fg.errors?.invalidPercentageOfTravel && (fg.touched || fg.dirty)" class="invalid-feedback">
+      Destination percentages must = 100%
+    </div>
+  </td>
+</ng-template>

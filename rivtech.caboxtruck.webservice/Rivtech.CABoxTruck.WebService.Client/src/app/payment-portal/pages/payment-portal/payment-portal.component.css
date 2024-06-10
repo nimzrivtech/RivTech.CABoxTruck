@@ -1,0 +1,70 @@
+
+
+body{
+  background-color: #d4d4d4;
+}
+
+input,
+span.mat-form-field-label-wrapper label.mat-form-field-label,
+span[matPrefix]
+{
+  font-size: 22px;
+}
+
+input.mat-input-element:disabled{
+  color: black;
+}
+
+.sidenav-container{
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0
+}
+.module-sidenav {
+  position: fixed;
+  display: block;
+  align-items: center;
+  background-color:#2d3e4e;
+  color: #ffffff;
+  user-select: none;
+  top: 65px;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+}
+mat-nav-list a {
+  color:#ffffff;
+}
+.main-container {
+  padding: 40px;
+}
+
+.mat-card {
+  background-color: white;
+}
+
+.form-group {
+  margin-bottom: 0px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #6c3ab7!important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #6c3ab7;
+}
+
+.invalid-field {
+  margin-left: 15px;
+  margin-top:-15px;
+  color:red;
+  padding-bottom:10px;
+}
+
+input:focus,
+select:focus {
+  border: none; 
+}

@@ -1,0 +1,8 @@
+<div class="page-position">
+    <app-policy-edit-button *ngIf="riskSpecificsData?.hasGLCoverage || riskSpecificsData?.shouldShowCargoSection"></app-policy-edit-button>
+    <app-general-liability-section *ngIf="riskSpecificsData?.hasGLCoverage">        
+    </app-general-liability-section>
+    <app-cargo-section *ngIf="riskSpecificsData?.shouldShowCargoSection">        
+    </app-cargo-section>
+    <app-next-back-btn  [isScrollPage]="scrollPage" (clickType)="onClick($event)"></app-next-back-btn>
+</div>

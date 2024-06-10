@@ -1,0 +1,10 @@
+<app-sidebar *ngIf="layoutService.leftSidebarVisible" #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized"
+(minimizedChange)="toggleMinimize($event)">
+  <app-sidebar-nav *ngIf="!layoutService.navItems.length" [navItems]="navService.selectedChildMenuList" [perfectScrollbar] [disabled]="appSidebar.minimized">
+  </app-sidebar-nav>
+  <app-sidebar-nav *ngIf="layoutService.navItems.length" [navItems]="layoutService.navItems" [perfectScrollbar] [disabled]="appSidebar.minimized">
+  </app-sidebar-nav>
+  <app-sidebar-minimizer></app-sidebar-minimizer>
+</app-sidebar>
+
+

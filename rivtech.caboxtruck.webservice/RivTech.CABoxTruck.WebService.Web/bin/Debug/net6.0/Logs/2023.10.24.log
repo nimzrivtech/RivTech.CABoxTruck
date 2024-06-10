@@ -1,0 +1,440 @@
+2023-10-24 09:43:26,062 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-10-24 09:43:30,427 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-24 09:43:30,432 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-24 09:43:30,440 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-24 09:43:30,453 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-24 09:43:30,456 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-24 09:43:30,458 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-24 09:44:44,870 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Service.Services.Log4NetService [(null)] - {"UserId":646,"ErrorCode":null,"ErrorMessage":"Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).","JsonMessage":"System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).\r\n   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)\r\n   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)\r\n   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)\r\n   at System.Guid.Parse(ReadOnlySpan`1 input)\r\n   at System.Guid.Parse(String input)\r\n   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Web\\Controllers\\Rater\\PremiumRaterController.cs:line 184\r\n   at lambda_method748(Closure , Object )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)\r\n   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Web\\Middlewares\\ErrorLoggingMiddleware.cs:line 55","Action":"/api/PremiumRater/unload/null","Method":"POST","CreatedDate":"2023-10-24T09:44:44.8641825+08:00"}
+2023-10-24 09:44:45,254 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware [(null)] - Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx). | UserId: 646
+System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).
+   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)
+   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.Parse(ReadOnlySpan`1 input)
+   at System.Guid.Parse(String input)
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 184
+   at lambda_method748(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Middlewares\ErrorLoggingMiddleware.cs:line 55
+2023-10-24 09:44:45,259 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware [(null)] - Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx). | UserId: 646
+System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).
+   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)
+   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.Parse(ReadOnlySpan`1 input)
+   at System.Guid.Parse(String input)
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 184
+   at lambda_method748(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Middlewares\ErrorLoggingMiddleware.cs:line 55
+2023-10-24 09:44:47,267 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:44:47,269 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:44:47,273 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:44:47,274 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:44:48,136 [26] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 852.8142ms - 200
+2023-10-24 09:44:48,137 [26] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 852.8142ms - 200
+2023-10-24 09:44:48,143 [26] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 886.6265ms - 200
+2023-10-24 09:44:48,143 [26] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 886.6265ms - 200
+2023-10-24 09:44:48,229 [26] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:44:48,229 [26] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:44:48,232 [26] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:44:48,233 [26] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:44:48,444 [26] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 208.9638ms - 200
+2023-10-24 09:44:48,445 [26] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 208.9638ms - 200
+2023-10-24 09:44:48,448 [26] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 219.5376ms - 200
+2023-10-24 09:44:48,449 [26] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 219.5376ms - 200
+2023-10-24 09:44:49,461 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:44:49,666 [7] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 196.9681ms - 200
+2023-10-24 09:44:49,668 [7] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 196.9681ms - 200
+2023-10-24 09:44:49,673 [7] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 211.1241ms - 200
+2023-10-24 09:44:49,674 [7] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 211.1241ms - 200
+2023-10-24 09:44:49,677 [7] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:44:49,678 [7] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:44:49,681 [7] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:44:49,682 [7] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:44:49,882 [24] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 196.9433ms - 200
+2023-10-24 09:44:49,883 [24] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 196.9433ms - 200
+2023-10-24 09:44:49,886 [24] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 208.8557ms - 200
+2023-10-24 09:44:49,887 [24] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 208.8557ms - 200
+2023-10-24 09:44:49,979 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:44:49,981 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:44:49,984 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:44:49,985 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:44:50,615 [24] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 628.0016ms - 200
+2023-10-24 09:44:50,616 [24] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 628.0016ms - 200
+2023-10-24 09:44:50,619 [24] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 639.462ms - 200
+2023-10-24 09:44:50,620 [24] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 639.462ms - 200
+2023-10-24 09:44:50,625 [24] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:44:50,625 [24] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:44:50,628 [24] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:44:50,629 [24] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:44:50,711 [24] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 79.4962ms - 200
+2023-10-24 09:44:50,712 [24] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 79.4962ms - 200
+2023-10-24 09:44:50,715 [24] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 90.1755ms - 200
+2023-10-24 09:44:50,716 [24] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 90.1755ms - 200
+2023-10-24 09:44:51,158 [.NET ThreadPool Worker] WARN  Microsoft.EntityFrameworkCore.Query [(null)] - Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2023-10-24 09:44:51,167 [.NET ThreadPool Worker] WARN  Microsoft.EntityFrameworkCore.Query [(null)] - Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2023-10-24 09:44:52,183 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:44:52,184 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:44:52,186 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:44:52,187 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:44:52,210 [24] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 20.4095ms - 204
+2023-10-24 09:44:52,211 [24] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 20.4095ms - 204
+2023-10-24 09:45:42,377 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:45:42,380 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:45:42,383 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:45:42,384 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:45:42,592 [52] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 205.1101ms - 200
+2023-10-24 09:45:42,594 [52] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 205.1101ms - 200
+2023-10-24 09:45:42,598 [52] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 220.9396ms - 200
+2023-10-24 09:45:42,601 [52] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 220.9396ms - 200
+2023-10-24 09:45:42,605 [52] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:45:42,809 [53] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 198.3104ms - 200
+2023-10-24 09:45:42,810 [53] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 198.3104ms - 200
+2023-10-24 09:45:42,813 [53] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 208.0581ms - 200
+2023-10-24 09:45:42,814 [53] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 208.0581ms - 200
+2023-10-24 09:45:42,928 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:45:42,929 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:45:42,932 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:45:42,933 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:45:42,950 [53] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 14.4173ms - 200
+2023-10-24 09:45:42,951 [53] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 14.4173ms - 200
+2023-10-24 09:45:42,954 [53] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 26.4244ms - 200
+2023-10-24 09:45:42,954 [53] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 26.4244ms - 200
+2023-10-24 09:45:42,957 [53] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:45:42,958 [53] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:45:42,961 [53] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:45:42,962 [53] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:45:42,972 [53] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.2331ms - 200
+2023-10-24 09:45:42,973 [53] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.2331ms - 200
+2023-10-24 09:45:42,976 [53] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 19.0411ms - 200
+2023-10-24 09:45:42,978 [53] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 19.0411ms - 200
+2023-10-24 09:45:43,046 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:45:43,048 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:45:43,051 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:45:43,052 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:45:43,062 [53] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.944ms - 204
+2023-10-24 09:45:43,063 [53] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.944ms - 204
+2023-10-24 09:45:43,066 [53] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 20.4395ms - 204
+2023-10-24 09:45:43,067 [53] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 20.4395ms - 204
+2023-10-24 09:46:20,816 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:46:20,818 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:46:20,822 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:46:20,824 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:46:21,052 [53] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 224.7755ms - 200
+2023-10-24 09:46:21,054 [53] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 224.7755ms - 200
+2023-10-24 09:46:21,058 [53] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 241.2832ms - 200
+2023-10-24 09:46:21,061 [53] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 241.2832ms - 200
+2023-10-24 09:46:21,065 [53] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:46:21,268 [63] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.2776ms - 200
+2023-10-24 09:46:21,269 [63] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.2776ms - 200
+2023-10-24 09:46:21,272 [63] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 207.2244ms - 200
+2023-10-24 09:46:21,273 [63] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 207.2244ms - 200
+2023-10-24 09:46:21,382 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:46:21,383 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:46:21,385 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:46:21,386 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 09:46:21,397 [62] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.7828ms - 200
+2023-10-24 09:46:21,398 [62] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.7828ms - 200
+2023-10-24 09:46:21,400 [62] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 18.7282ms - 200
+2023-10-24 09:46:21,401 [62] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 18.7282ms - 200
+2023-10-24 09:46:21,404 [62] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:46:21,405 [62] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:46:21,407 [62] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:46:21,408 [62] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 09:46:21,418 [62] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.1944ms - 200
+2023-10-24 09:46:21,419 [62] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.1944ms - 200
+2023-10-24 09:46:21,421 [62] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 17.6635ms - 200
+2023-10-24 09:46:21,422 [62] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 17.6635ms - 200
+2023-10-24 09:46:21,500 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:46:21,503 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:46:21,506 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:46:21,507 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 09:46:21,519 [63] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 8.9507ms - 204
+2023-10-24 09:46:21,520 [63] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 8.9507ms - 204
+2023-10-24 09:46:21,523 [63] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 22.3941ms - 204
+2023-10-24 09:46:21,524 [63] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 22.3941ms - 204
+2023-10-24 09:46:43,835 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:46:43,836 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:46:43,839 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:46:43,840 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 09:46:44,775 [64] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 932.225ms - 200
+2023-10-24 09:46:44,776 [64] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 932.225ms - 200
+2023-10-24 09:46:44,780 [64] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 944.4143ms - 200
+2023-10-24 09:46:44,781 [64] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 944.4143ms - 200
+2023-10-24 09:46:44,784 [64] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:46:44,784 [64] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:46:44,787 [64] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:46:44,788 [64] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 09:46:44,995 [64] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 204.5081ms - 200
+2023-10-24 09:46:44,996 [64] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 204.5081ms - 200
+2023-10-24 09:46:44,999 [64] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 215.0938ms - 200
+2023-10-24 09:46:44,999 [64] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 215.0938ms - 200
+2023-10-24 09:47:07,557 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request POST https://localhost:44334/api/ExperienceRater/download/S-2023000098?raterVersionId=7
+2023-10-24 09:47:07,558 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request POST https://localhost:44334/api/ExperienceRater/download/S-2023000098?raterVersionId=7
+2023-10-24 09:47:07,561 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request POST https://localhost:44334/api/ExperienceRater/download/S-2023000098?raterVersionId=7
+2023-10-24 09:47:07,564 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request POST https://localhost:44334/api/ExperienceRater/download/S-2023000098?raterVersionId=7
+2023-10-24 09:47:40,664 [73] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 33097.5476ms - 200
+2023-10-24 09:47:40,665 [73] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 33097.5476ms - 200
+2023-10-24 09:47:40,669 [73] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 33111.9361ms - 200
+2023-10-24 09:47:40,671 [73] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 33111.9361ms - 200
+2023-10-24 10:44:23,231 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Service.Services.Log4NetService [(null)] - {"UserId":646,"ErrorCode":null,"ErrorMessage":"Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).","JsonMessage":"System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).\r\n   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)\r\n   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)\r\n   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)\r\n   at System.Guid.Parse(ReadOnlySpan`1 input)\r\n   at System.Guid.Parse(String input)\r\n   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Web\\Controllers\\Rater\\PremiumRaterController.cs:line 184\r\n   at lambda_method748(Closure , Object )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)\r\n   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Web\\Middlewares\\ErrorLoggingMiddleware.cs:line 55","Action":"/api/PremiumRater/unload/null","Method":"POST","CreatedDate":"2023-10-24T10:44:23.2309632+08:00"}
+2023-10-24 10:44:23,250 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware [(null)] - Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx). | UserId: 646
+System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).
+   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)
+   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.Parse(ReadOnlySpan`1 input)
+   at System.Guid.Parse(String input)
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 184
+   at lambda_method748(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Middlewares\ErrorLoggingMiddleware.cs:line 55
+2023-10-24 10:44:23,253 [.NET ThreadPool Worker] ERROR RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware [(null)] - Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx). | UserId: 646
+System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).
+   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)
+   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.Parse(ReadOnlySpan`1 input)
+   at System.Guid.Parse(String input)
+   at RivTech.CABoxTruck.WebService.Controllers.Rater.PremiumRaterController.Unload(String submissionNumber, String riskDetailId, Boolean ispageunload, Nullable`1 fromPolicy) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Controllers\Rater\PremiumRaterController.cs:line 184
+   at lambda_method748(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at RivTech.CABoxTruck.WebService.Middlewares.ErrorLoggingMiddleware.InvokeAsync(HttpContext httpContext) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Middlewares\ErrorLoggingMiddleware.cs:line 55
+2023-10-24 10:44:24,676 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 10:44:24,677 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 10:44:24,680 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 10:44:24,681 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 10:44:25,598 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 914.1229ms - 200
+2023-10-24 10:44:25,599 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 914.1229ms - 200
+2023-10-24 10:44:25,604 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 926.1252ms - 200
+2023-10-24 10:44:25,604 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 926.1252ms - 200
+2023-10-24 10:44:25,607 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 10:44:25,608 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 10:44:25,611 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 10:44:25,611 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 10:44:25,811 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.3732ms - 200
+2023-10-24 10:44:25,812 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.3732ms - 200
+2023-10-24 10:44:25,815 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 207.4014ms - 200
+2023-10-24 10:44:25,816 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 207.4014ms - 200
+2023-10-24 10:44:26,251 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 10:44:26,256 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 10:44:26,264 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 10:44:26,270 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 10:44:26,475 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 200.1307ms - 200
+2023-10-24 10:44:26,478 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 200.1307ms - 200
+2023-10-24 10:44:26,482 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 231.5726ms - 200
+2023-10-24 10:44:26,484 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 231.5726ms - 200
+2023-10-24 10:44:26,488 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 10:44:26,491 [106] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 10:44:26,496 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 10:44:26,498 [106] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 10:44:26,701 [72] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 199.3236ms - 200
+2023-10-24 10:44:26,702 [72] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 199.3236ms - 200
+2023-10-24 10:44:26,705 [72] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 216.9642ms - 200
+2023-10-24 10:44:26,706 [72] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 216.9642ms - 200
+2023-10-24 10:44:26,800 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 10:44:26,802 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 10:44:26,805 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 10:44:26,806 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 10:44:26,857 [96] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 46.6913ms - 200
+2023-10-24 10:44:26,857 [96] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 46.6913ms - 200
+2023-10-24 10:44:26,861 [96] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 60.1474ms - 200
+2023-10-24 10:44:26,862 [96] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 60.1474ms - 200
+2023-10-24 10:44:26,865 [96] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 10:44:26,866 [96] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 10:44:26,869 [96] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 10:44:26,870 [96] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/7
+2023-10-24 10:44:26,880 [96] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.4056ms - 200
+2023-10-24 10:44:26,881 [96] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.4056ms - 200
+2023-10-24 10:44:26,885 [96] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 19.992ms - 200
+2023-10-24 10:44:26,886 [96] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 19.992ms - 200
+2023-10-24 10:44:28,877 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 10:44:28,878 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 10:44:28,882 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 10:44:28,883 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/ExperienceRater/S-2023000098
+2023-10-24 10:44:28,893 [106] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.4567ms - 204
+2023-10-24 10:44:28,894 [106] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.4567ms - 204
+2023-10-24 10:44:28,897 [106] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 20.0799ms - 204
+2023-10-24 10:44:28,898 [106] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 20.0799ms - 204
+2023-10-24 11:28:35,631 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:28:35,633 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:28:35,639 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:28:35,641 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:28:35,694 [96] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 49.3216ms - 200
+2023-10-24 11:28:35,695 [96] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 49.3216ms - 200
+2023-10-24 11:28:35,699 [96] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 67.3292ms - 200
+2023-10-24 11:28:35,704 [96] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 67.3292ms - 200
+2023-10-24 11:28:37,510 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 11:28:37,511 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 11:28:37,514 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 11:28:37,514 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 11:28:45,368 [63] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 7850.2242ms - 200
+2023-10-24 11:28:45,369 [63] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 7850.2242ms - 200
+2023-10-24 11:28:45,373 [63] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 7862.6332ms - 200
+2023-10-24 11:28:45,373 [63] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 7862.6332ms - 200
+2023-10-24 11:28:45,377 [63] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 11:28:45,377 [63] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 11:28:45,380 [63] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 11:28:45,381 [63] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 11:28:45,583 [63] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 198.4666ms - 200
+2023-10-24 11:28:45,584 [63] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 198.4666ms - 200
+2023-10-24 11:28:45,587 [63] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 210.6406ms - 200
+2023-10-24 11:28:45,588 [63] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 210.6406ms - 200
+2023-10-24 11:35:02,588 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:35:02,589 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:35:02,602 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:35:02,603 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:35:02,652 [7] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 42.0176ms - 200
+2023-10-24 11:35:02,654 [7] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 42.0176ms - 200
+2023-10-24 11:35:02,659 [7] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 71.0404ms - 200
+2023-10-24 11:35:02,660 [7] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 71.0404ms - 200
+2023-10-24 11:35:04,140 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 11:35:04,141 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 11:35:04,143 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 11:35:04,144 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 11:35:05,879 [8] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 1731.142ms - 200
+2023-10-24 11:35:05,880 [8] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 1731.142ms - 200
+2023-10-24 11:35:05,883 [8] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 1743.9716ms - 200
+2023-10-24 11:35:05,884 [8] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 1743.9716ms - 200
+2023-10-24 11:35:05,887 [8] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 11:35:05,888 [8] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 11:35:05,890 [8] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 11:35:05,891 [8] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 11:35:06,094 [8] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 199.1905ms - 200
+2023-10-24 11:35:06,095 [8] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 199.1905ms - 200
+2023-10-24 11:35:06,098 [8] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 210.5955ms - 200
+2023-10-24 11:35:06,098 [8] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 210.5955ms - 200
+2023-10-24 11:35:15,031 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:35:15,033 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:35:15,036 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:35:15,037 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 11:35:15,042 [7] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 2.7362ms - 200
+2023-10-24 11:35:15,044 [7] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 2.7362ms - 200
+2023-10-24 11:35:15,047 [7] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 15.972ms - 200
+2023-10-24 11:35:15,048 [7] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 15.972ms - 200
+2023-10-24 14:59:51,818 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 14:59:51,820 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 14:59:51,826 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 14:59:51,826 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 14:59:52,691 [88] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 860.2326ms - 200
+2023-10-24 14:59:52,693 [88] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 860.2326ms - 200
+2023-10-24 14:59:52,697 [88] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 877.6329ms - 200
+2023-10-24 14:59:52,698 [88] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 877.6329ms - 200
+2023-10-24 14:59:52,702 [88] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 14:59:52,703 [88] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 14:59:52,706 [88] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 14:59:52,707 [88] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 14:59:52,908 [88] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.0792ms - 200
+2023-10-24 14:59:52,909 [88] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.0792ms - 200
+2023-10-24 14:59:52,911 [88] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 209.0232ms - 200
+2023-10-24 14:59:52,912 [88] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 209.0232ms - 200
+2023-10-24 14:59:53,471 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 14:59:53,475 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 14:59:53,484 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 14:59:53,491 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 14:59:53,698 [45] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 200.0272ms - 200
+2023-10-24 14:59:53,699 [45] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 200.0272ms - 200
+2023-10-24 14:59:53,703 [45] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 233.5531ms - 200
+2023-10-24 14:59:53,704 [45] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 233.5531ms - 200
+2023-10-24 14:59:53,709 [45] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 14:59:53,710 [45] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 14:59:53,714 [45] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 14:59:53,715 [45] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 14:59:53,919 [45] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.9481ms - 200
+2023-10-24 14:59:53,920 [45] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.9481ms - 200
+2023-10-24 14:59:53,925 [45] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 216.2675ms - 200
+2023-10-24 14:59:53,926 [45] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 216.2675ms - 200
+2023-10-24 14:59:54,041 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 14:59:54,042 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 14:59:54,046 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 14:59:54,047 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-24 14:59:54,125 [45] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 74.4936ms - 200
+2023-10-24 14:59:54,127 [45] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 74.4936ms - 200
+2023-10-24 14:59:54,170 [45] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 35.4711ms - 200
+2023-10-24 14:59:54,172 [45] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 35.4711ms - 200
+2023-10-24 14:59:55,821 [126] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.8794ms - 204
+2023-10-24 14:59:55,823 [126] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 7.8794ms - 204
+2023-10-24 14:59:55,827 [126] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 21.1523ms - 204
+2023-10-24 14:59:55,828 [126] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 21.1523ms - 204
+2023-10-24 15:00:42,991 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 15:00:42,992 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 15:00:42,998 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 15:00:43,000 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000098?itemCount=0&fromPolicy=False
+2023-10-24 15:00:43,018 [36] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 14.7623ms - 200
+2023-10-24 15:00:43,019 [36] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 14.7623ms - 200
+2023-10-24 15:00:43,025 [36] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 32.3405ms - 200
+2023-10-24 15:00:43,028 [36] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 32.3405ms - 200
+2023-10-24 15:00:44,233 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 15:00:44,234 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 15:00:44,237 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 15:00:44,237 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agencies/getagencydetails/30a65ff6-c5f0-41f2-689d-08d9a4d58175
+2023-10-24 15:00:44,442 [34] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 201.684ms - 200
+2023-10-24 15:00:44,443 [34] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 201.684ms - 200
+2023-10-24 15:00:44,446 [34] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 213.724ms - 200
+2023-10-24 15:00:44,447 [34] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 213.724ms - 200
+2023-10-24 15:00:44,450 [34] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 15:00:44,451 [34] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - Start processing HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 15:00:44,454 [34] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 15:00:44,454 [34] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Sending HTTP request GET https://app-agencyservicestest.azurewebsites.net/api/Agent/2e8a9b93-a114-4677-f5df-08d9a4c7446c
+2023-10-24 15:00:44,654 [34] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.2197ms - 200
+2023-10-24 15:00:44,655 [34] INFO  System.Net.Http.HttpClient.agencyClient.ClientHandler [(null)] - Received HTTP response headers after 197.2197ms - 200
+2023-10-24 15:00:44,658 [34] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 207.999ms - 200
+2023-10-24 15:00:44,659 [34] INFO  System.Net.Http.HttpClient.agencyClient.LogicalHandler [(null)] - End processing HTTP request after 207.999ms - 200

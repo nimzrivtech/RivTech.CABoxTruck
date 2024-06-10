@@ -1,0 +1,91 @@
+<div class="user-modal field">
+    <div class="alert-box">
+        <div class="modal-header sticky-modal-header">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="closeDialog()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form *ngIf="agencyData.addressFormGroup as GenericFormAddress" [formGroup]="GenericFormAddress">
+                <div class="row">
+                    <div class="form-group col-md-6 field">
+                        <label class="required">{{ GenericAddressLabelConstants.addressType }}</label>
+                        <select class="form-control" id="addressType" formControlName="addressType"
+                            [ngClass]="{ 'is-invalid': GenericFormAddress.get('addressType').errors && GenericFormAddress.get('addressType').errors.dirty }">
+                            <option value=''>Please select</option>
+                            <option *ngFor="let addressType of genericAddressData.addressTypes"
+                                [value]="addressType.id">{{
+                                addressType.name }}
+                            </option>
+                        </select>
+                        <div *ngIf="GenericFormAddress.get('addressType').invalid && (GenericFormAddress.get('addressType').dirty || GenericFormAddress.get('addressType').touched)"
+                            class="invalid-feedback">
+                            <div *ngIf="GenericFormAddress.get('addressType').errors.required">
+                                {{ ErrorMessageConstant.requiredErrorMessage.format(GenericAddressLabelConstants.addressType) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div formGroupName="address">
+                    <div class="row">
+                        <div class="form-group col-md-6 field">
+                            <label class="required">{{ GenericAddressLabelConstants.streetAddress1 }}</label>
+                            <input class="form-control" id="streetAddress1" type="text" formControlName="streetAddress1"
+                                maxlength="100"
+                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('streetAddress1').valid && (GenericFormAddress.get('address').get('streetAddress1').touched || GenericFormAddress.get('address').get('streetAddress1').dirty)}">
+                            <span class="invalid-feedback"
+                                *ngIf="GenericFormAddress.get('address').get('streetAddress1').errors?.required && GenericFormAddress.get('address').get('streetAddress1').touched;">
+                                {{ ErrorMessageConstant.requiredErrorMessage.format(GenericAddressLabelConstants.streetAddress1) }}
+                            </span>
+                        </div>
+
+                        <div class="form-group col-md-6 field">
+                            <label>{{ GenericAddressLabelConstants.streetAddress2 }}</label>
+                            <input class="form-control" id="streetAddress2" type="text" formControlName="streetAddress2"
+                                maxlength="100"
+                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('streetAddress2').valid && (GenericFormAddress.get('address').get('streetAddress2').touched || GenericFormAddress.get('address').get('streetAddress2').dirty)}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 field">
+                            <label class="required">{{ GenericAddressLabelConstants.city }}</label>
+                            <select class="form-control" formControlName="city"
+                                [attr.disabled]="zipCodeData.cityList.length === 1 ? '' : null"
+                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('city').valid && (GenericFormAddress.get('address').get('city').touched || GenericFormAddress.get('address').get('city').dirty) }"
+                                tabindex="-1">
+                                <option value="" disabled selected hidden>Please Select</option>
+                                <option [value]="''">Please Select</option>
+                                <option *ngFor="let obj of zipCodeData.cityList" [value]="obj">{{ obj }}</option>
+                            </select>
+                            <span class="invalid-feedback"
+                                *ngIf="GenericFormAddress.get('address').get('city').errors?.required && (GenericFormAddress.get('address').get('city').touched || GenericFormAddress.get('address').get('city').dirty);">
+                                {{ ErrorMessageConstant.requiredErrorMessage.format(GenericAddressLabelConstants.city) }}
+                            </span>
+                        </div>
+                        <div class="col-md-3 field">
+                            <label class="required">{{ GenericAddressLabelConstants.state }}</label>
+                            <input type="text" class="form-control" formControlName="state" style="border: 0;"
+                                tabindex="-2" readonly>
+                        </div>
+                        <div class="col-md-3 field">
+                            <label class="required">{{ GenericAddressLabelConstants.zipCode }}</label>
+                            <input type="text" class="form-control w-100" maxlength="5" formControlName="zipCode"
+                                numberOnly (change)="setZipCode()"
+                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('zipCode').valid && (GenericFormAddress.get('address').get('zipCode').touched || GenericFormAddress.get('address').get('zipCode').dirty)}">
+                            <span class="invalid-feedback"
+                                *ngIf="GenericFormAddress.get('address').get('zipCode').errors?.required && GenericFormAddress.get('address').get('zipCode').touched;">
+                                {{ ErrorMessageConstant.requiredErrorMessage.format(GenericAddressLabelConstants.zipCode) }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer sticky-modal-footer">
+            <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="save()">
+                {{ !isEdit ? 'Add Address' : 'Save'}}
+            </button>
+            <button type="button" class="btn btn-danger" (click)="closeDialog()">Cancel</button>
+        </div>
+    </div>
+</div>

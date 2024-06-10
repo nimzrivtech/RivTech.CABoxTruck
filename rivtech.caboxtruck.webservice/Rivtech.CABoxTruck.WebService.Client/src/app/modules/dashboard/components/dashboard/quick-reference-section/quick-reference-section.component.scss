@@ -1,0 +1,97 @@
+.dashboard-dropdown {
+  border: 0 !important;
+  border-bottom: 1px solid white !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background-image: none !important;
+  background-color: #6BACB2;
+  color: white;
+  width: 150px !important;
+  margin-top: 9px !important;
+  //margin-bottom: -7px;
+}
+
+.dashboard-dropdown:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.dashboard-dropdown-item {
+  color:#ffffff;
+}
+
+.dashboard-dropdown-ite option:first-child{
+  color: #ffffff;
+}
+
+.reference-list {
+  color: #fff;
+}
+
+.reference-list:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.dashboard-pagination {
+  position: relative;
+  max-height: 0px;
+}
+
+.reference-list-margin-top {
+  margin-top: -2px !important;
+}
+
+.internal-dashboard-reference-container {
+  margin-bottom: 0 !important;
+}
+
+.internal-dashboard-reference {
+  display: flex;
+  flex-direction: row;
+  justify-content: center !important;
+  align-items: center !important;
+  padding-top: 0 ;
+}
+
+.internal-dashboard-reference-links-container {
+  height: 78px;
+}
+
+.internal-dashboard-reference-links {
+  height: 30px;
+}
+
+.card-header-label {
+  margin-left: 15%;
+}
+
+.quote-box-height {
+  height: 290px;
+  //height: auto;
+
+}
+
+@media only screen and (min-width: 1920px) {
+  .internal-dashboard-reference-links {
+    height: 40px;
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1536px) {
+  .internal-dashboard-reference-links {
+    height: 30px;
+  }
+}
+
+@media only screen and (min-width: 1366px) and (max-width: 1440px) {
+  .internal-dashboard-reference-links {
+    height: 60px;
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .internal-dashboard-reference-links {
+    height: 60px;
+  }
+}

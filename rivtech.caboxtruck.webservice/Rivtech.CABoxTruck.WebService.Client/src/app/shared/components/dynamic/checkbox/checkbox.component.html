@@ -1,0 +1,13 @@
+<div class="form-group row" [formGroup]="group" *ngIf="field.isVisible">
+  <label class="col-form-label text-md-right" [ngClass]="field.parentField ? 'offset-md-3 col-md-2 group-body' : 'col-md-4'">
+    {{field.label}}
+    <span *ngIf="field.required" class="spandata">*</span> :
+  </label>
+
+  <div class="col-md-4">
+    <label class="switch switch-label switch-primary">
+      <input [formControlName]="field.name" type="checkbox" class="switch-input">
+      <span class="switch-slider" data-checked="YES" data-unchecked="NO"></span>
+    </label>
+  </div>
+</div>

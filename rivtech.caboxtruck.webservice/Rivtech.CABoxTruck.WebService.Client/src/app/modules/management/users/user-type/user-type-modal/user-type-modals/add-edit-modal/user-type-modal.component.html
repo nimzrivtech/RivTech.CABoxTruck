@@ -1,0 +1,62 @@
+<div class="modal-header sticky-modal-header">
+  <h4 class="modal-title">{{modalTitle}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeUserType()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="field card-body" *ngIf="userData.userTypeFormGroup as parentForm" [formGroup]="parentForm">
+    <div class="form-group row">
+      <label class="col-md-4 col-form-label required" for="category">{{UsersTypeConstants.categoryLabel}}</label>
+      <div class="col-md-7">
+        <select class="form-control" id="category" formControlName="accessCategory"
+          [ngClass]="{'is-invalid': (parentForm.get('accessCategory').touched || parentForm.get('accessCategory').dirty) && !parentForm.get('accessCategory').valid }">
+          <option value="">{{Generic.pleaseSelect}}</option>
+          <option *ngFor="let value of userData.userCategories" [value]="value.roleGroupId">{{value.description}}
+          </option>
+        </select>
+        <span class="invalid-feedback"
+          *ngIf="parentForm.get('accessCategory').errors?.required && parentForm.get('accessCategory').touched">
+          {{ErrorMessageConstant.requiredErrorMessage.format(UsersTypeConstants.category)}}
+        </span>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-4 col-form-label required" for="type">{{UsersTypeConstants.typeLabel}}</label>
+      <div class="col-md-7">
+        <input id="type" type="text" class="form-control" maxlength="50"
+          [ngClass]="{'is-invalid': (parentForm.get('typeName').touched || parentForm.get('typeName').dirty) && !parentForm.get('typeName').valid }"
+          formControlName="typeName" [value]="parentForm.get('typeName').value">
+        <span class="invalid-feedback"
+          *ngIf="parentForm.get('typeName').errors?.required && parentForm.get('typeName').touched">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(UsersTypeConstants.type) }}
+        </span>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="switch-wrapper col-md-5">
+        <label class="" for="type">{{UsersTypeConstants.internalLabel}}</label>
+        <label id="type" class="switch switch-pill switch-label switch-primary">
+          <input type="checkbox" class="switch-input" formControlName="isInternal"
+            [ngClass]="{'is-invalid': (parentForm.get('isInternal').touched || parentForm.get('isInternal').dirty) && !parentForm.get('isInternal').valid }">
+          <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+        </label>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="switch-wrapper col-md-5">
+        <label class="" for="active">{{UsersTypeConstants.isActiveLabel}}</label>
+        <label id="active" class="switch switch-pill switch-label switch-primary">
+          <input type="checkbox" class="switch-input" formControlName="isActive"
+            [ngClass]="{'is-invalid': (parentForm.get('isActive').touched || parentForm.get('isActive').dirty) && !parentForm.get('isActive').valid }"
+            (change)="changeStatus()">
+          <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+        </label>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer sticky-modal-footer">
+  <button type="button" class="btn btn-primary" (click)="saveUserType()" [disabled]="!userType.valid">Save</button>
+  <button type="button" class="btn btn-danger" (click)="closeUserType()">Cancel</button>
+</div>

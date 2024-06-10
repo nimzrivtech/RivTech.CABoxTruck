@@ -1,0 +1,8 @@
+<div class="card">
+    <div class="card-header font-weight-bold">Coverage Questions</div>
+    <div class="card-body">
+        <app-dynamic-form [fields]="riskSpecificsData.coverageQuestionTemplate.FieldConfigs" (parentOnInit)="onChildInit($event)"></app-dynamic-form> <br>
+        <app-coverage-questions-chart></app-coverage-questions-chart> <br>
+        <a [routerLink]="['/submissions/new/risk-specifics/uw-questions']" class="btn btn-primary ml-2">Next</a>
+    </div>
+</div>

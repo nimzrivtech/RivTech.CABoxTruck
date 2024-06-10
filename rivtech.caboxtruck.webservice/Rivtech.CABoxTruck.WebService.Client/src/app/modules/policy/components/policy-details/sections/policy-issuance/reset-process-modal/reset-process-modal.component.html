@@ -1,0 +1,40 @@
+<div class="modal-header">
+	<div class="col-9">
+		<h4 class="modal-title mr-2">
+			<span>Processing Reset...</span>
+			<span *ngIf="hasRun && isError">Error processing reset...</span>
+		</h4>
+	</div>
+	<div class="col-3 pull-right">
+		<button type="button" class="close" *ngIf="completed||isError" (click)="onClose()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</div>
+<div class="modal-body py-3 container">
+	<div class="col-12 mb-2" *ngIf="!isError">
+		<h6 class="text-danger">
+			<span class="spinner-border spinner-border-sm mr-2" role="status" ></span>
+			Please do not leave this page.
+		</h6>
+	</div>
+	<div class="col-12" *ngIf="hasRun">
+		<div class="logs-div" >
+			<div *ngFor="let l of logs; index as i">
+				<div class="error-log" *ngIf="isErrorMessage(l.status)">
+					<span *ngIf="isErrorMessage(l.status)" class="text-danger">*{{ trimErrorPrefix(l.status) }}</span>
+				</div>
+				<div class="log-1" *ngIf="!isErrorMessage(l.status) && i == 0"> {{ l.status }}</div>
+				<div class="log-2" *ngIf="!isErrorMessage(l.status) && i > 0 && i < 4">{{ l.status }}</div>
+				<div class="log-3" *ngIf="!isErrorMessage(l.status) && i >= 4 && showMoreStatus">{{ l.status }}</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 py-1">
+		<button class="btn btn-light btn-sm" *ngIf="logs?.length > 0 && !showMoreStatus"
+			(click)="toggleShowMoreStatus()">More</button>
+		<button class="btn btn-light btn-sm" *ngIf="logs?.length > 0 && showMoreStatus"
+			(click)="toggleShowMoreStatus()">Less</button>
+	</div>
+
+</div>

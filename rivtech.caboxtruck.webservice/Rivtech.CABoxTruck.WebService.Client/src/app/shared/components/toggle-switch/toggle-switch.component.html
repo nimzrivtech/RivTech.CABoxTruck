@@ -1,0 +1,5 @@
+<label class="switch switch-pill switch-label switch-primary" [formGroup]="formGroup">
+    <input [formControlName]="fieldName" type="checkbox" class="switch-input" (change)="switchChange()">
+    <span [id]="fieldName" class="switch-slider" data-checked="YES" data-unchecked="NO"
+        [tabIndex]="tabIndex" (keypress)="switchKeyPress($event.key)"></span>
+</label>

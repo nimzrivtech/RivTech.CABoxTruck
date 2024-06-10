@@ -1,0 +1,82 @@
+<div class="card sticky-body">
+  <div class="card-header">
+      <i [ngClass]="isOpen ? 'icon-arrow-up' : 'icon-arrow-down'" class="icons header-icon" data-toggle="collapse"
+        data-target="#payments-section" aria-expanded="true" aria-controls="payments-section" (click)="collapse()">
+      </i>
+    <strong>{{paymentLabelConstants.header}}</strong>
+  </div>
+  <div id="payments-section" class="card-body standard-padding container-fluid show">
+    <div class="row">
+      <div class="col-md-12 row dynamic-table">
+        <div class="payment-buttons">
+          <button type="submit" class="btn btn-primary pull-right mb-2 ml-2"
+            (click)="onRefund()">{{paymentLabelConstants.refund}}</button>
+          <button type="submit" class="btn btn-primary pull-right mb-2 ml-2" [disabled]="billingData.IsPolicyNotActive"
+            (click)="onWriteOff()">{{paymentLabelConstants.writeOff}}</button>
+          <!-- <button type="submit" class="btn btn-primary pull-right mb-2 ml-2"
+            (click)="onAdjustment()">{{paymentLabelConstants.adjustment}}</button>-->
+        </div> 
+        <table class="table">
+          <thead>
+            <th [appSort]="billingData.paymentListPagedItems" data-order="desc" data-name="postDate">
+              {{paymentLabelConstants.postDate}}</th>
+            <th [appSort]="billingData.paymentListPagedItems" data-order="desc" data-name="amount">
+              {{this.paymentLabelConstants.amount}}</th>
+            <th [appSort]="billingData.paymentListPagedItems" data-order="desc" data-name="paymentType">
+              {{this.paymentLabelConstants.type}}</th>
+            <th [appSort]="billingData.paymentListPagedItems" data-order="desc" data-name="method">
+              {{this.paymentLabelConstants.method}}</th>
+            <th [appSort]="billingData.paymentListPagedItems" data-order="desc" data-name="reference">
+              {{this.paymentLabelConstants.referenceNumber}}
+            </th>
+            <th [appSort]="billingData.paymentListPagedItems" data-order="desc" data-name="comment">
+              {{this.paymentLabelConstants.comments}}</th>
+            <th [appSort]="billingData.paymentListPagedItems" data-order="desc" data-name="reversalDate"
+              data-type="date">
+              {{this.paymentLabelConstants.reversalDate}}</th>
+            <th [appSort]="billingData.paymentListPagedItems" data-order="desc" data-name="clearDate" data-type="date">
+              {{this.paymentLabelConstants.clearDate}}</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of billingData.paymentListPagedItems">
+              <tr>
+                <td>{{item.postDate | date:'MM/dd/yyyy'}}</td>
+                <td>{{item.amount | currency}}</td>
+                <td>{{item.paymentType}}</td>
+                <td>{{item.method}}</td>
+                <td>{{item.reference}}</td>
+                <td>{{item.comment}}</td>
+                <td>{{item.reversalDate}}</td>
+                <td>{{item.clearDate | date:'MM/dd/yyyy'}}</td>
+                <td>
+                  <div class="table-button-fixed d-flex justify-content-end mr-2 control-icons">
+                    <button type="button" [tooltip] ="TableConstants.view"
+                       (click)="viewPaymentDetails(item.id, item.paymentType)"> <i class="icon icon-info p-1" ></i></button>
+                    <button type="button" [tooltip] ="TableConstants.receipt" *ngIf="item.paymentType !== 'Allocation'"
+                       (click)="generatePaymentReceipt(item)"> <i class="icon icon-doc p-1" ></i></button>
+                  </div>
+
+                    <!--
+                  <div style="overflow:visible">
+                    <button type="submit" "
+                      class="payment-details-btn btn btn-primary btn-sm pull-right mr-2">Receipt</button>
+
+                    <button type="submit" "
+                      class="payment-details-btn btn btn-primary btn-sm pull-right mr-2">Details</button>
+                   </div>
+                    -->
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <div *ngIf="billingData?.paymentListPagedItems?.length < 1" class="text-center col-lg-12 no-data-message">
+            <span>No Data To Display</span>
+        </div>
+        <app-table-pagination (setPage)="billingData.paymentListSetPage($event)" [pager]="billingData.paymentListPager"
+          [loading]="false"></app-table-pagination>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Form Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="this.onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid field" [formGroup]="formsData.territoryExclusionForm">
+        <div class="">
+            <div class="form-group col-12 field">
+                <label class="required">States</label>
+                <ng-multiselect-dropdown id='requiredFilingsList' placeholder="&nbsp;" [data]="stateList"
+                    [(ngModel)]="selectedStates" [settings]="dropdownSettings" formControlName="states">
+                </ng-multiselect-dropdown>
+                <app-validation-error [control]="f.states" inputName="States"></app-validation-error>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="formsData.territoryExclusionForm.invalid" type="button" class="btn btn-primary"
+        (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+</div>

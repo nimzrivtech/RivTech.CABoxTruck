@@ -1,0 +1,16 @@
+.modal-body {
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+.billing-value {
+  font-weight: bold;
+  background-color: #f0f3f5;
+  border: 0;
+  padding: 4px;
+  height: 40px;
+}
+
+.billing-value-comment {
+  min-height: 56px;
+}

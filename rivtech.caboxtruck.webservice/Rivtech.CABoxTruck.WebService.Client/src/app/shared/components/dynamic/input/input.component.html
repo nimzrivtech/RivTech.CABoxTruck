@@ -1,0 +1,48 @@
+<div class="form-group row" [formGroup]="group">
+  <label class="col-md-4 col-form-label text-md-right">{{field.label}}<span *ngIf="field.required" class="spandata">*</span> :</label>
+
+  <div class="form-group col-md-4">  
+    <div class="input-group" *ngIf="!field.size || field.size=='L'">
+      <ng-container [ngTemplateOutlet]="prependLbl"></ng-container>       
+
+      <input *ngIf="field.inputType == 'text'" [formControlName]="field.name" [type]="field.inputType" [placeholder]="field.placeholder" class="form-control" [required]="field.required"/>
+      <input *ngIf="field.inputType == 'number'" [formControlName]="field.name" [placeholder]="field.placeholder" class="form-control" [required]="field.required"
+        currencyMask [options]="CurrencyMaskConstants.NoNegative_MaxHundred"/>
+      
+      <ng-container [ngTemplateOutlet]="appendLbl"></ng-container>   
+    </div>
+
+    <div class="input-group mediumInput" *ngIf="field.size=='M'">
+      <ng-container [ngTemplateOutlet]="prependLbl"></ng-container>       
+
+      <input *ngIf="field.inputType == 'text'" [formControlName]="field.name" [type]="field.inputType" [placeholder]="field.placeholder" class="form-control" [required]="field.required"/>
+      <input *ngIf="field.inputType == 'number'" [formControlName]="field.name" [placeholder]="field.placeholder" class="form-control" [required]="field.required"
+        currencyMask [options]="CurrencyMaskConstants.NoNegative_MaxHundred"/>
+      <ng-container [ngTemplateOutlet]="appendLbl"></ng-container>   
+    </div>   
+
+    <div class="input-group smallInput" *ngIf="field.size=='S'">
+      <ng-container [ngTemplateOutlet]="prependLbl"></ng-container>       
+
+      <input *ngIf="field.inputType == 'text'" [formControlName]="field.name" [type]="field.inputType" [placeholder]="field.placeholder" class="form-control" [required]="field.required"/>
+      <input *ngIf="field.inputType == 'number'" [formControlName]="field.name" [placeholder]="field.placeholder" class="form-control" [required]="field.required"
+        currencyMask [options]="CurrencyMaskConstants.NoNegative_MaxHundred"/>
+      
+      <ng-container [ngTemplateOutlet]="appendLbl"></ng-container>   
+    </div>
+  </div>
+  
+</div>
+
+<ng-template #prependLbl>
+  <div class="input-group-prepend" *ngIf="field.prependLabel">
+    <div class="input-group-text">{{field.prependLabel}}</div>
+  </div>  
+</ng-template>
+
+<ng-template #appendLbl>
+  <div class="input-group-prepend" *ngIf="field.appendLabel">
+    <div class="input-group-text">{{field.appendLabel}}</div>
+  </div>  
+</ng-template>
+

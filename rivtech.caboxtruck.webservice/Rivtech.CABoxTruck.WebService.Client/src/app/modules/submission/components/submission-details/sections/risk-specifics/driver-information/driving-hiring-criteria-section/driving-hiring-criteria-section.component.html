@@ -1,0 +1,9 @@
+<div class="card">
+    <div class="card-header"><strong>Driver Hiring Criteria</strong></div>
+
+    <div class="card-body">
+        <app-dynamic-form [fields]="riskSpecificsData.driverHiringCriteriaTemplate.FieldConfigs" (parentOnInit)="onChildInit($event)"></app-dynamic-form>
+        
+        <button class="btn btn-primary ml-2" (click)="onSubmit()">Next</button> 
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Form Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="this.onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid field" [formGroup]="formsData.driverRequirementForm">
+        <div class="">
+            <div class="form-group col-12 field">
+                <label class="required">Requirement</label>
+                <input type="text" class="form-control w-100" formControlName="requirement" maxlength="100" />
+                <app-validation-error [control]="f.requirement" inputName="Requirement"></app-validation-error>
+            </div>            
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="formsData.driverRequirementForm.invalid" type="button" class="btn btn-primary"
+        (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="this.onCancel()">Cancel</button>
+</div>

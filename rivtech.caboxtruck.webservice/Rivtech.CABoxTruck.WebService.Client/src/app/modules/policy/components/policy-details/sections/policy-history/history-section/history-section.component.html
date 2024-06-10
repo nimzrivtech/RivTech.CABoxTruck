@@ -1,0 +1,68 @@
+<div class="page-position">
+    <div class="card sticky-body">
+        <div class="card-header">
+          <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+            href="#historyCard" (click)="ToggleHiding()"></i>
+          <strong>Policy Transactions</strong>
+        </div>
+        <div id="historyCard" class="show mt-3">
+            <div class="card-body standard-padding">
+                <!-- <div>
+                    <h4>Policy Transactions</h4>
+                </div> -->
+                <div class="table-responsive dynamic-table" [style.padding-top.px]="0" [style.padding-bottom.px]="0">
+                    <div class="custom-table">
+                        <table class="table">
+                            <thead class="custom-table-header">
+                                <tr>
+                                    <th *ngFor="let header of historyTableHeaders" [ngClass]="(header === '') ? 'toggle-column' : null">{{header}}</th>
+                                    <th class="th-backout"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="custom-table-body">
+                                <ng-container *ngFor="let item of this.policyHistoryData.historyRecords">
+                                    <tr>
+                                        <td (click)="item.isExpanded = !item.isExpanded">
+                                            <ng-container *ngIf="(+item.endorsementNumber > 0) && item.policyStatus !== 'Reinstated'">
+                                                <i class="icon-arrow-down icons header-icon" data-toggle="collapseRow" href="#multiCollapseHistoryRow" *ngIf="!item.isExpanded"></i>
+                                                <i class="icon-arrow-up icons header-icon" data-toggle="collapseRow" href="#multiCollapseHistoryRow" *ngIf="item.isExpanded"></i>
+                                            </ng-container>
+                                        </td>
+                                        <td>{{item.dateCreated | date: 'MM/dd/yyyy'}}</td>
+                                        <td>{{item.effectiveDate | date: 'MM/dd/yyyy'}}</td>
+                                        <td>
+                                            <div *ngIf="item.isBackOut">
+                                                <span class="badge badge-danger px-3"><i>Back out</i></span>
+                                            </div>
+                                            {{ getTransactionType(item) }}
+                                        </td>
+                                        <td>{{item.newPremium | currency}}</td>
+                                        <td>{{item.currentPremium | currency}}</td>
+                                        <td>{{item.proratedPremium | currency}}</td>
+                                        <td>{{item.premiumChange | currency}}</td>
+                                        <td><button *ngIf="false" class="btn btn-sm btn-primary">Back out</button></td>
+                                    </tr>
+                                    <ng-container *ngIf="item.isExpanded && (+item.endorsementNumber > 0)">
+                                        <tr class="collapse-class show" id="multiCollapseHistoryRow">
+                                            <td colspan="9" *ngIf="item.details">
+                                                <div class="m-l-62px">
+                                                    <p *ngFor="let detail of parseHistoryDetail(item?.details)">{{detail}}</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                        <div *ngIf="this.policyHistoryData.historyRecords.length < 1">
+                            <div class="text-center col-lg-12 no-data-message">
+                                <span>No Data To Display</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-next-back-btn [isScrollPage]="true" (clickType)="onClick($event)"></app-next-back-btn>
+</div>

@@ -1,0 +1,23 @@
+<div class="page-position">
+    <div class="card sticky-body">
+        <div class="card-header">
+            <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#notesCard" (click)="ToggleHiding()"></i>
+            <strong>Notes</strong>
+        </div>
+        <div id="notesCard" class="show">
+            <div class="card-body standard-padding collapse show" id="policyNotes" style="padding-top: 1.5%">
+              <div class="col">
+                <div class="row" style="margin-bottom: -8px;">
+                  <div class="col-9">
+                    <label style="margin-bottom: -20px; padding-top: 1rem;">
+                      <h4>Notes</h4>
+                    </label>
+                  </div>
+                </div>
+                <app-note-section></app-note-section>
+              </div>
+            </div>
+        </div>
+    </div>
+    <app-next-back-btn [isScrollPage]="true" [showNext]="false" (clickType)="onClick($event)"></app-next-back-btn>
+</div>

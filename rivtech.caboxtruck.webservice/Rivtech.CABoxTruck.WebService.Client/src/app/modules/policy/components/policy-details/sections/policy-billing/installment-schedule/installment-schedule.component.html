@@ -1,0 +1,67 @@
+<div class="card sticky-body">
+  <div class="card-header">
+      <i [ngClass]="isOpen ? 'icon-arrow-up' : 'icon-arrow-down'" class="icons header-icon" data-toggle="collapse"
+        data-target="#installment-schedules" aria-expanded="true" aria-controls="installment-schedules"
+        (click)="collapse()">
+      </i><strong>{{installmentScheduleConstants.header}}</strong>
+  </div>
+  <div id="installment-schedules" class="card-body standard-padding container-fluid show">
+    <div class="row">
+      <div class="col-md-12 row dynamic-table">
+        <div class="add-installment-schedule-button">
+          <button type="submit" class="btn btn-primary pull-right mb-2 ml-2" *ngIf="isInstallmentPlan" [disabled]="policyBillingData.IsPolicyNotActive"
+            (click)="onAddEditInstallment(null)">{{installmentScheduleConstants.addInstallmentSchedule}}</button>
+        </div> 
+
+        <table class="table">
+          <thead>
+            <th class="h-installment-number">{{this.installmentScheduleConstants.installmentNumber}}</th>
+            <th class="h-status">{{this.installmentScheduleConstants.status}}</th>
+            <th class="h-type pl-4">{{this.installmentScheduleConstants.type}}</th>
+            <th>{{this.installmentScheduleConstants.premium}}</th>
+            <th>{{this.installmentScheduleConstants.tax}}</th>
+            <th>{{this.installmentScheduleConstants.fee}}</th>
+            <th>{{this.installmentScheduleConstants.totalBilled}}</th>
+            <th>{{this.installmentScheduleConstants.balance}}</th>
+            <th>{{this.installmentScheduleConstants.totalDue}}</th>
+            <th>{{this.installmentScheduleConstants.billDate}}</th>
+            <th>{{this.installmentScheduleConstants.dueDate}}</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of policyBillingData.installmentSchedules; let i = index">
+              <tr>
+                <td>{{i + 1}}</td>
+                <td>{{item.status}}</td>
+                <td>{{item.installmentType}}</td>
+                <td>{{item.premium | currency}}</td>
+                <td>{{item.tax | currency}}</td>
+                <td>{{item.fee | currency}}</td>
+                <td>{{item.totalBilled | currency}}</td>
+                <td>{{item.balance | currency}}</td>
+                <td>{{item.totalDue | currency}}</td>
+                <td>{{item.billDate | date: 'MM/dd/yyyy'}}</td>
+                <td>{{item.dueDate | date: 'MM/dd/yyyy'}}</td>
+                <td>
+                    <div class="table-button-fixed d-flex justify-content-end mr-2 control-icons">
+                        <button *ngIf="item.status === 'Billed' && (item.installmentType === 'Deposit' || item.installmentType === 'Installment' || item.installmentType === 'Endorsement' || item.installmentType === 'Cancellation')" type="button" [tooltip]="TableConstants.view"
+                            (click)="onViewClick(item)" >
+                            <i class="icon-doc"></i>
+                        </button>
+                        <button *ngIf="item.status === 'Future'" type="button" [tooltip]="TableConstants.edit"
+                            (click)="onAddEditInstallment(item)" >
+                            <i class="icon-note"></i>
+                        </button>
+                    </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <div *ngIf="policyBillingData?.installmentSchedules?.length < 1" class="text-center col-lg-12 no-data-message">
+            <span>No Data To Display</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

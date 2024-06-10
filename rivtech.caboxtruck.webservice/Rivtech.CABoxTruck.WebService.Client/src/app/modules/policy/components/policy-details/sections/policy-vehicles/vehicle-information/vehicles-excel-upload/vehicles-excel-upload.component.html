@@ -1,0 +1,53 @@
+<div role="document">
+    <div class="modal-content">
+        <div class="modal-header sticky-modal-header">
+            <h5 class="modal-title">Vehicles from Excel file</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="show">
+            <div class="card-body">
+                <div class="table-responsive dynamic-table">
+                    <table class="table" style="width:100%" #tbVehicle>
+                        <thead>
+                            <tr>
+                                <th>VIN</th>
+                                <th>Year</th>
+                                <th>Make</th>
+                                <th>Model</th>
+                                <th>State</th>
+                                <th>TIV (stated Amount)</th>
+                                <th>Vehicle Type</th>
+                                <th>Vehicle Description</th>
+                                <th>Vehicle Business Class</th>
+                                <th>Gross Vehicle Weight (lbs)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let vehicle of excelVehicles; let i = index">
+                                <td><span>{{ vehicle.vin }}</span></td>
+                                <td><span>{{ vehicle.year }}</span></td>
+                                <td><span>{{ vehicle.make }}</span></td>
+                                <td><span>{{ vehicle.model }}</span></td>
+                                <td><span>{{ vehicle.stateFull }}</span></td>
+                                <td><span>{{ vehicle.statedAmount }}</span></td>
+                                <td><span>{{ vehicle.vehicleType }}</span></td>
+                                <td><span>{{ vehicle.description }}</span></td>
+                                <td><span>{{ vehicle.businessClass }}</span></td>
+                                <td><span>{{ vehicle.grossVehicleWeight }}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer sticky-modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" (click)='onSubmit()'>Add Vehicles</button>
+            <button class="btn btn-danger" data-dismiss="modal" #btnCloseModal>Cancel</button>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,7 @@
+2023-11-21 16:14:54,809 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-11-21 16:14:58,945 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-11-21 16:14:58,950 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-11-21 16:14:58,957 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-11-21 16:14:58,968 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-11-21 16:14:58,971 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-11-21 16:14:58,972 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web

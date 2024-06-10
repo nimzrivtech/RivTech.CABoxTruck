@@ -1,0 +1,285 @@
+<div class="card sticky-body">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#businessDetailsCard" (click)="ToggleHiding()"></i>
+        <strong>Business Details</strong>
+    </div>
+    <div id="businessDetailsCard" class="show">
+        <div class="card-body standard-padding field">
+            <form [formGroup]="applicantData.applicantForms.businessDetails" >
+                <div class="col">
+                    <div class="disable-overlay" [style.height.%]="105" *ngIf="this.submissionData?.isIssued"></div>
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <div class="switch-wrapper" title="New Venture = Less than 9 months">
+                                <label for="newVentureSwitch" >Is this a new venture?</label>
+                                <toggle-switch [formGroup]="applicantData.applicantForms.businessDetails" [formName]="formName" fieldName="newVentureSwitch" (myChange)="onSwitchClick('newVentureSwitch')" ></toggle-switch>
+                                <app-validation-error [control]="f.newVentureSwitch"></app-validation-error>
+                            </div>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="yearEstablishedInput" class="required">Year Established</label>
+                            <input type="text" id="yearEstablishedInput" placeholder="yyyy" mask="0000" min="0" formControlName="yearEstablishedInput" (blur)="computeYearsBusiness(f.yearEstablishedInput.value)"/> 
+                            <div *ngIf="f.yearEstablishedInput.touched && f.yearEstablishedInput.errors" class="invalid-feedback">
+                                <div *ngIf="f.yearEstablishedInput.errors.required">Year Established is required</div>
+                                <div *ngIf="f.yearEstablishedInput.errors.yearEstablishedInvalidYear">Year Established should not be later than the current year</div>
+                                <div *ngIf="f.yearEstablishedInput.errors.yearEstablishedMinYear">Please enter a valid year</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="firstYearUnderCurrentInput">1st Year under current management</label>
+                            <input type="text" id='firstYearUnderCurrentInput' placeholder="yyyy" mask="0000" min="0" formControlName="firstYearUnderCurrentInput" (blur)="computeYearsUnderCurrent(f.firstYearUnderCurrentInput.value)"/> 
+                            <div *ngIf="f.firstYearUnderCurrentInput.touched && f.firstYearUnderCurrentInput.errors" class="invalid-feedback">
+                                <div *ngIf="f.firstYearUnderCurrentInput.errors.required">1st Year under current management is required</div>
+                                <div *ngIf="f.firstYearUnderCurrentInput.errors.firstYearUnderCurrentInvalidYear">1st Year under current management should not be later than the current year</div>
+                                <div *ngIf="f.firstYearUnderCurrentInput.errors.firstYearVsUnderCurrentInvalidYear">1st Year under current management should not be prior to Year Established</div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <div *ngIf="f.newVentureSwitch.value == true">
+                                <label for="newVenturePreviousExperienceDropdown" [ngClass]="{'required': isYearsInBusinessZero}">Have you ever driven for or been associated with any transportation operation before?</label>
+                                <select id='newVenturePreviousExperienceDropdown' formControlName="newVenturePreviousExperienceDropdown">
+                                    <option [ngValue]="null">Please Select</option>
+                                    <option *ngFor="let option of newVenturePreviousExperienceList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                                </select>
+                                <app-validation-error [control]="f.newVenturePreviousExperienceDropdown"></app-validation-error>
+                            </div>
+                            <div *ngIf="f.newVentureSwitch.value == false">
+                                <label for="businessTypeDropdown" class="required">Business Type</label>
+                                <select id='businessTypeDropdown' formControlName="businessTypeDropdown">
+                                    <option [ngValue]="null">Please Select</option>
+                                    <option *ngFor="let option of businessTypeList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                                </select>
+                                <app-validation-error [control]="f.businessTypeDropdown" [inputName]="'Business Type'"></app-validation-error>
+                            </div>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="yearBusinessInput">Years in Business</label>
+                            <input type="text" id='yearBusinessInput' class="readonly" readonly formControlName="yearBusinessInput"/> 
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="yearUnderCurrentInput">Years under current management</label>
+                            <input type="text" id='yearUnderCurrentInput' class="readonly" readonly formControlName="yearUnderCurrentInput"/> 
+                        </div>
+                    </div>
+    
+                    <div *ngIf="f.newVentureSwitch.value == true" class="row">
+                        <div class="col-md-4 input-container">
+                            <label for="businessTypeDropdown" class="required">Business Type</label>
+                            <select id='businessTypeDropdown' formControlName="businessTypeDropdown">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of businessTypeList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <app-validation-error [control]="f.businessTypeDropdown" [inputName]="'Business Type'"></app-validation-error>
+                        </div>
+                        <!-- <div class="col-md-4 input-container">
+                            <label for="mainUseDropdown" class="required">Main use (Choose most applicable)</label>
+                            <select id='mainUseDropdown' formControlName="mainUseDropdown">
+                                <option [ngValue]="0">Please Select</option>
+                                <option *ngFor="let option of mainUseList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <div *ngIf="this.fgBD.errors?.invalidMainUseDropdown && (this.fgBD.touched || this.fgBD.dirty)" class="invalid-feedback">
+                                Main Use is required
+                            </div>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="accountCategoryDropdown" >Account Category (Choose most applicable)</label>
+                            <select id='accountCategoryDropdown' formControlName="accountCategoryDropdown" (change)="changeAccountCategory()"
+                            [attr.title]="setTooltip(f.accountCategoryDropdown.value, accountCategoryList)" >
+                                <option [ngValue]="0">Please Select</option>
+                                <option *ngFor="let option of accountCategoryList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                            </select>
+                        </div> -->
+                    </div>
+    
+                    <!-- <div class="row" *ngIf="true">
+                        <div [ngClass]="(submissionData?.riskDetail?.raterVersionId == null) || submissionData.riskDetail.raterVersionId > 6 ? 'col-md-4 input-container' : 'offset-md-4 col-md-4 input-container'">
+                            <label for="mainGVW" class="required">Main GVW</label>
+                            <select id='mainGVW' formControlName="mainGVW">
+                                <option [ngValue]="0">Please Select</option>
+                                <option *ngFor="let option of lists.mainGVWList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <div *ngIf="this.fgBD.errors?.invalidMainGVW && (this.fgBD.touched || this.fgBD.dirty)" class="invalid-feedback">
+                                Main GVW is required
+                            </div>
+                        </div>
+                        <div *ngIf="(submissionData?.riskDetail?.raterVersionId == null) || submissionData.riskDetail.raterVersionId > 6" class="col-md-4 input-container">
+                            <label for="secondaryBusinessGroupDropdown" class="required">Secondary Business Group</label>
+                            <select id='secondaryBusinessGroupDropdown' formControlName="secondaryBusinessGroupDropdown">
+                                <option [ngValue]="0">Please Select</option>
+                                <option *ngFor="let option of lists.secondaryBusinessGroupList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <div *ngIf="this.fgBD.errors?.invalidSecondaryBusinessGroup && (this.fgBD.touched || this.fgBD.dirty)" class="invalid-feedback">
+                              Secondary Business Group is required
+                            </div>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="accountCategoryUWDropdown" class="required">Account Category (UW)</label>
+                            <select id='accountCategoryUWDropdown' formControlName="accountCategoryUWDropdown"
+                            [attr.title]="setTooltip(f.accountCategoryUWDropdown.value, accountCategoryList)" >
+                                <option [ngValue]="0">Please Select</option>
+                                <option *ngFor="let option of accountCategoryList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <div *ngIf="this.fgBD.errors?.invalidAccountCategoryUWDropdown && (this.fgBD.touched || this.fgBD.dirty)" class="invalid-feedback">
+                                Account Category UW is required
+                            </div>
+                        </div>
+                    </div> -->
+    
+                    <div class="row">
+                        <div class="col-md-12 input-container">
+                            <label for="descOperationsInput" >Description of Operations</label>
+                            <textarea id='descOperationsInput' class="field-text-area-border" formControlName="descOperationsInput" maxlength="1000"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <label for="federalIdInput" [ngClass]="{'required': submissionData.isQuoteIssued || null}" >Federal ID #</label>
+                            <input type="text" id='federalIdInput' mask="00-0000000" formControlName="federalIdInput"/> 
+                            <div *ngIf="f.federalIdInput.touched && f.federalIdInput.errors" class="invalid-feedback">
+                                <div *ngIf="f.federalIdInput.errors?.minlength">Federal ID # should be 9 characters</div>
+                                <div *ngIf="f.federalIdInput.errors?.required">Federal ID # is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="naicsCodeInput">NAICS Code</label>
+                            <input type="text" id='naicsCodeInput' numberOnly maxlength="6" formControlName="naicsCodeInput"/> 
+                        </div>
+                        <div class="col-md-4 input-container" *ngIf="false">
+                            <label for="pucNumberInput" >PUC #</label>
+                            <input type="text" id='pucNumberInput' mask="AAAAAAAAAA" formControlName="pucNumberInput"/>
+                            <app-validation-error [control]="f.pucNumberInput" [inputName]="'PUC #'"></app-validation-error>
+                        </div>
+                    </div>
+    
+                    <div class="row">                    
+                        <div class="col-md-4 input-container">
+                            <label for="socialSecurityNumber">Social Security #</label>
+                            <input type="text" id="socialSecurityNumber" mask="000-00-0000" formControlName="socialSecurityNumber"/>
+                            <div *ngIf="f.socialSecurityNumber.touched && f.socialSecurityNumber.errors" class="invalid-feedback">
+                                <div *ngIf="f.socialSecurityNumber.errors?.minlength">Social Security # should be 9 characters</div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <div class="switch-wrapper">
+                                <label for="anySubsidiariesCompaniesSwitch" >Any Subsidiaries / Affiliated Companies?</label>
+                                <toggle-switch [formGroup]="applicantData.applicantForms.businessDetails" [formName]="formName" fieldName="anySubsidiariesCompaniesSwitch" (myChange)="onSwitchClick('anySubsidiariesCompaniesSwitch')" ></toggle-switch>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="f.anySubsidiariesCompaniesSwitch.value == true" class="dynamic-table">
+                    <div class="col-md-12">
+                        <div class="float-left">
+                            <h4>Subsidiaries / Affiliated Companies</h4>
+                        </div>
+                        <div class="col">
+                            <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+                            <div class="table-responsive">
+                                <table class="table mb-2" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th (click)="businessDetailsData.sortSubsidiaryList($event.target)" data-order="desc" data-name="name">Company Name</th>
+                                            <th (click)="businessDetailsData.sortSubsidiaryList($event.target)" data-order="desc" data-name="typeOfBusiness">Type of Company</th>
+                                            <th (click)="businessDetailsData.sortSubsidiaryList($event.target)" data-order="desc" data-name="numVechSizeComp">Number of Vehicles</th>
+                                            <th (click)="businessDetailsData.sortSubsidiaryList($event.target)" data-order="desc" data-name="relationship">Relationship</th>
+                                            <th class="text-center" style="padding:5px; width: 100px;">
+                                                Actions<br />
+                                                <button type="button" class="btn btn-primary" data-placement="top" (click)='openAddSubsidiaryModal()' [tooltip]="TableConstants.add">
+                                                  <i class="icon-plus"></i>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of businessDetailsData.subsidiaryListItems" > 
+                                            <td><span >{{item.name}}</span></td>
+                                            <td><span >{{item.typeOfBusiness}}</span></td>
+                                            <td><span >{{item.numVechSizeComp}}</span></td>
+                                            <td><span >{{item.relationship}}</span></td>
+                                            <td>
+                                                <div class="table-button-fixed">
+                                                    <i class="icon-note" (click)="openEditSubsidiaryModal(item)" [tooltip]="TableConstants.edit"></i>
+                                                    <i class="icon-trash" (click)="deleteSubsidiary(item)" [tooltip]="TableConstants.delete"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="applicantData.subsidiaryList.length < 1">
+                                    <div class="text-center col-lg-12 no-data-message">
+                                        <span>No Data To Display</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-table-pagination (setPage)="this.businessDetailsData.setSubsidiaryPage($event, this.applicantData.subsidiaryList)" [pager]="this.businessDetailsData.subsidiaryListPager" [loading]="this.applicantData.loading"></app-table-pagination>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="disable-overlay" [style.height.%]="150" *ngIf="this.submissionData?.isIssued"></div>
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <div class="switch-wrapper">
+                                <label for="companyPastSwitch" >Have you owned other companies in the past?</label>
+                                <toggle-switch [formGroup]="applicantData.applicantForms.businessDetails" [formName]="formName" fieldName="companyPastSwitch" (myChange)="onSwitchClick('companyPastSwitch')" ></toggle-switch>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="f.companyPastSwitch.value == true" class="dynamic-table">
+                    <div class="col-md-12">
+                        <div class="float-left">
+                            <h4>Previous Companies</h4>
+                        </div>
+                        <div class="col">
+                            <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+                            <div class="table-responsive">
+                                <table class="table mb-2" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th (click)="businessDetailsData.sortCompanyList($event.target)" data-order="desc" data-name="name">Company Name</th>
+                                            <th (click)="businessDetailsData.sortCompanyList($event.target)" data-order="desc" data-name="nameYearOperations">Years in Operation</th>
+                                            <th class="text-center" style="padding:5px; width: 100px;">
+                                                Actions<br />
+                                                <button type="button" class="btn btn-primary" data-placement="top" (click)='openAddCompanyModal()' [tooltip]="TableConstants.add">
+                                                <i class="icon-plus"></i>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of businessDetailsData.companyListItems" > 
+                                            <td><span >{{item.name}}</span></td>
+                                            <td><span >{{item.nameYearOperations}}</span></td>
+                                            <td>
+                                                <div class="table-button-fixed">
+                                                    <i class="icon-note" (click)="openEditCompanyModal(item)" [tooltip]="TableConstants.edit"></i>
+                                                    <i class="icon-trash" (click)="deleteCompany(item)" [tooltip]="TableConstants.delete"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="applicantData.companyList.length < 1">
+                                    <div class="text-center col-lg-12 no-data-message">
+                                        <span>No Data To Display</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-table-pagination (setPage)="this.businessDetailsData.setPreviousCompanyPage($event, this.applicantData.companyList)" [pager]="this.businessDetailsData.companyListPager" [loading]="this.applicantData.loading"></app-table-pagination>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> 
+</div>

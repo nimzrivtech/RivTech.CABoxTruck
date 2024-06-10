@@ -1,0 +1,90 @@
+<div [formGroup]="creditCardForm">
+  <fieldset>
+    <legend class="col-md-12">Card Holder</legend>
+
+    <!-- First Name Column -->
+    <div class="form-group">
+      <mat-form-field class="col-md-6 firstNameStyle">
+        <input matInput placeholder="First Name" formControlName="firstName" maxlength="45" type="text">
+      </mat-form-field>
+      <mat-form-field class="col-md-6 lastNameStyle">
+        <input matInput placeholder="Last Name" formControlName="lastName" maxlength="45" type="text">
+      </mat-form-field>
+
+    </div>
+
+    <!-- Last Name Column -->
+    <!-- <div class="form-group">
+   </div>
+ -->
+
+    <!-- Address Column -->
+    <div class="form-group">
+      <mat-form-field class="col-md-12">
+        <input matInput placeholder="Address" formControlName="address" type="text">
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="col-md-4">
+        <!-- <input matInput placeholder="City" formControlName="city" type="text"> -->
+        <input matInput placeholder="City" formControlName="singleCity" type="text" *ngIf="this.disableCityField" readonly>
+        <mat-select placeholder="City" formControlName="city" [disabled]="this.disableCityField" *ngIf="!this.disableCityField">
+          <mat-option value="" disabled selected hidden>Please Select</mat-option>
+          <mat-option [value]="''">Please Select</mat-option>
+          <mat-option *ngFor="let obj of zipCodeData.ccCityList" [value]="obj">{{ obj }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-4">
+        <input matInput placeholder="State" formControlName="state" type="text" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-4">
+        <input matInput placeholder="Zip Code" formControlName="zip" type="text" (change)="getAddressByZipCode($event.target.value)">
+      </mat-form-field>
+    </div>
+
+    <!-- Email Column -->
+    <div class="form-group">
+      <mat-form-field class="col-md-12">
+        <input matInput placeholder="Email" formControlName="email" maxlength="50" type="text" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z0-9.-]{2,}[.]{1}[a-zA-Z]{2,}">
+      </mat-form-field>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="col-md-12">Credit Card</legend>
+    <!-- Credit Card Type Column -->
+    <div class="form-group">
+      <mat-form-field class="col-md-4">
+        <mat-select placeholder="Credit Card Type" formControlName="creditCardTypeId">
+          <mat-option *ngFor="let creditCard of creditCardType" value="{{creditCard.id}}">{{creditCard.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-md-8">
+        <input matInput placeholder="Card Number" formControlName="creditCardNumber">
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="col-md-4">
+        <mat-select placeholder="Expiration Month" formControlName="expirationMonth">
+          <mat-option *ngFor="let month of months" value="{{month.id}}">{{month.toString()}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-4">
+        <mat-select placeholder="Expiration Year" formControlName="expirationYear">
+          <mat-option *ngFor="let year of years" value="{{year}}">{{year}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-4">
+        <input matInput placeholder="CVV" formControlName="cvv" type="text" maxlength="4" class="int-only">
+      </mat-form-field>
+
+    </div>
+
+  </fieldset>
+</div>

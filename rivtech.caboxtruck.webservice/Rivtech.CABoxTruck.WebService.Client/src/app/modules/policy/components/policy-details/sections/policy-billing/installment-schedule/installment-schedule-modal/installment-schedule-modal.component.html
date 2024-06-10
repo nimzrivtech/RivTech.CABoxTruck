@@ -1,0 +1,64 @@
+<div role="document">
+  <div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">{{installmentScheduleModalConstants.header}}
+    </h5>
+    <button type="button" class="close" (click)="hideModal()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <form *ngIf="billingData.postInstallmentScheduleForm as postInstallmentScheduleFormGroup" [formGroup]="postInstallmentScheduleFormGroup">
+    <div class="modal-body">
+      <div class="row">
+        <div class="form-group col-lg-6 field">
+          <label class="required">{{installmentScheduleModalConstants.invoiceDate}}</label>
+          <div>
+            <app-date-picker [isInvalid]="postInstallmentScheduleFormGroup.get('invoiceDate').errors?.required"
+              formControlName="invoiceDate" [options]="datePickerDateOption">
+            </app-date-picker>
+          </div>
+          <span class="invalid-feedback d-flex"
+            *ngIf="postInstallmentScheduleFormGroup.get('invoiceDate').errors?.required && postInstallmentScheduleFormGroup.get('invoiceDate').touched">
+            {{errorMessageConstant.genericRequiredErrorMessage}}
+          </span>
+          <span class="invalid-feedback d-flex" *ngIf="isInvoiceDateExceedExpiration">
+            {{errorMessageConstant.billingErrorMessage.dateCannotExceedExpirationDate}}
+          </span>
+          <span class="invalid-feedback d-flex" *ngIf="isInvoiceDateLessThanEffectiveDate">
+            {{errorMessageConstant.billingErrorMessage.dateCannotBeLessThanEffectiveDate}}
+          </span>
+        </div>
+        
+        <div class="form-group col-lg-6 field">
+          <label class="required">{{installmentScheduleModalConstants.dueDate}}</label>
+          <div>
+            <app-date-picker [isInvalid]="postInstallmentScheduleFormGroup.get('dueDate').errors?.required"
+              formControlName="dueDate" [options]="datePickerDateOption">
+            </app-date-picker>
+          </div>
+          <span class="invalid-feedback d-flex"
+            *ngIf="postInstallmentScheduleFormGroup.get('dueDate').errors?.required && postInstallmentScheduleFormGroup.get('dueDate').touched">
+            {{errorMessageConstant.genericRequiredErrorMessage}}
+          </span>
+          <span class="invalid-feedback d-flex" *ngIf="isDueDateExceedExpiration">
+            {{errorMessageConstant.billingErrorMessage.dateCannotExceedExpirationDate}}
+          </span>
+          <span class="invalid-feedback d-flex" *ngIf="isDueDateLessThanEffectiveDate">
+            {{errorMessageConstant.billingErrorMessage.dateCannotBeLessThanEffectiveDate}}
+          </span>
+          <span class="invalid-feedback d-flex" *ngIf="isDueDateLessThanInvoiceDate">
+            {{errorMessageConstant.billingErrorMessage.DueDateCannotBeLessThanInvoiceDate}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer sticky-modal-footer">
+      <button class="btn btn-primary" [disabled]="postInstallmentScheduleFormGroup.invalid || isInvoiceDateExceedExpiration || isInvoiceDateLessThanEffectiveDate 
+      || isDueDateExceedExpiration || isDueDateLessThanEffectiveDate || isDueDateLessThanInvoiceDate"
+        (click)="onAddEditInstallmentSchedule()">{{installmentScheduleModalConstants.save}}</button>
+
+      <button class="btn btn-danger" (click)="hideModal()">{{installmentScheduleModalConstants.cancel}}</button>
+    </div>
+  </form>
+</div>

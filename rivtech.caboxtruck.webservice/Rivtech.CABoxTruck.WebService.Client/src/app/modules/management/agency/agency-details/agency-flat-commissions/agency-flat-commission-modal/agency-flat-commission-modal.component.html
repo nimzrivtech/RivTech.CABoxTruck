@@ -1,0 +1,60 @@
+<div class="agency-modal field">
+  <div class="alert-box">
+    <div class="modal-header sticky-modal-header">
+        <h4 class="modal-title">{{modalTitle}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeDialog()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      <form *ngIf="agencyData.flatCommissionFormGroup as agencyFormControl" [formGroup]="agencyFormControl">
+        <div class="row form-group field mt-2">
+            <div class="col-md-6 input-container">
+                <label class="required" for="newBusiness">{{AgencyLabelConstants.newBusiness}}</label>
+                <input class="form-control w-100" id="newBusiness" type="text" formControlName="newBusiness" mask="percent" suffix="%" [dropSpecialCharacters]="false" maxlength="6"
+                [ngClass]="{ 'is-invalid': (agencyFormControl.get('newBusiness').errors && agencyFormControl.get('newBusiness').dirty) || isNewBusinessInvalid  }" (keydown.space)="$event.preventDefault();">
+                <span class="invalid-feedback" *ngIf="agencyFormControl.get('newBusiness').errors?.required && agencyFormControl.get('newBusiness').touched">
+                  {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.newBusiness) }}
+                </span>
+                <span class="invalid-feedback" *ngIf="isNewBusinessInvalid && agencyFormControl.get('newBusiness').touched">
+                  {{ErrorMessageConstant.invalidNewBusiness}}
+                </span>
+            </div>
+            <div class="col-md-6 input-container">
+                <label class="required" for="renewalBusiness">{{AgencyLabelConstants.renewalBusiness}}</label>
+                <input class="form-control w-100" id="renewalBusiness" type="text" formControlName="renewalBusiness" mask="percent" suffix="%" [dropSpecialCharacters]="false" maxlength="6"
+                    [ngClass]="{ 'is-invalid': (agencyFormControl.get('renewalBusiness').errors && agencyFormControl.get('renewalBusiness').dirty) || isRenewalBusinessInvalid }" (keydown.space)="$event.preventDefault();">
+                <span class="invalid-feedback" *ngIf="agencyFormControl.get('renewalBusiness').errors?.required && agencyFormControl.get('renewalBusiness').touched">
+                  {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.renewalBusiness) }}
+                </span>
+                <span class="invalid-feedback" *ngIf="isRenewalBusinessInvalid && agencyFormControl.get('renewalBusiness').touched">
+                  {{ErrorMessageConstant.invalidRenewalBusiness}}
+                </span>
+            </div>
+        </div>
+        <div class="row form-group field">
+            <div class="col-md-6 input-container">
+                <label for="" class="required">{{AgencyLabelConstants.effectiveDate}}</label>
+                <app-date-picker [options]="agencyData.effectiveDateOption" class="effective-date" formControlName="effectiveDate"
+                [customRequiredErrorMessage]="ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.effectiveDate)"
+                [isInvalid]="agencyFormControl.get('effectiveDate').errors?.required">
+                </app-date-picker>
+            </div>
+            <div class="col-md-6 input-container">
+                <label for="" class="required">{{AgencyLabelConstants.expirationDate}}</label>
+                <app-date-picker [options]="agencyData.effectiveDateOption" class="effective-date" formControlName="expirationDate"
+                [customRequiredErrorMessage]="!isValidExpirationDate ? 'License Expiration Date should be later than License Effective Date' : ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.expirationDate)"
+                [isInvalid]="agencyFormControl.get('expirationDate').errors?.required || !isValidExpirationDate">
+                </app-date-picker>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer sticky-modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="!isValid" (click)="save()">
+          {{ !isEdit ? 'Save' : 'Update'}}
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closeDialog()">Cancel</button>
+    </div>
+  </div>
+</div>

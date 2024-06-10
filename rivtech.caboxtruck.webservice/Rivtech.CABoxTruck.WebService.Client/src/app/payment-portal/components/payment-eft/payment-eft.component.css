@@ -1,0 +1,31 @@
+.payerStyle {
+    width: 60%;
+}
+
+.emailStyle {
+    width: 40%;
+    left: 15px;
+}
+
+.accountTypeStyle {
+    width: 49%;
+}
+
+.accountUsageTypeStyle {
+    width: 49%;
+    left: 15px;
+}
+
+.routingNumberStyle {
+    width: 49%;
+}
+
+.accountNumberStyle {
+    width: 49%;
+    left: 15px;
+}
+
+input:focus,
+select:focus {
+  border: none; 
+}

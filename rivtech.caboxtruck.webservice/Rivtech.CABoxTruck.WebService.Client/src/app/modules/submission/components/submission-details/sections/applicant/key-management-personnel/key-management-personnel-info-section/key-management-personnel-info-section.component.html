@@ -1,0 +1,125 @@
+<div class="card sticky-body">
+    <div class="card-header"><strong>Key Management Personnel</strong></div>
+    <div class="card-body">
+    <form [formGroup]="personelInfo" (ngSubmit)="onSubmit()">
+        <!-- Business Principal -->
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right" for="broker">Business Principal<span class="spandata">*</span> :</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" formControlName="businessPrincipalInput" [ngClass]="{ 'is-invalid': submitted && f.businessPrincipalInput.errors }"/> 
+                <div *ngIf="submitted && f.businessPrincipalInput.errors" class="invalid-feedback">
+                    <div *ngIf="f.businessPrincipalInput.errors.required">This is a required field</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right" for="broker">Email<span class="spandata">*</span> :</label>
+            <div class="col-md-3">
+                <input type="email" class="form-control" formControlName="personelEmailInput" [ngClass]="{ 'is-invalid': submitted && f.personelEmailInput.errors }"/> 
+                <div *ngIf="submitted && f.personelEmailInput.errors" class="invalid-feedback">
+                    <div *ngIf="f.personelEmailInput.errors.required">This is a required field</div>
+                    <div *ngIf="f.personelEmailInput.errors.email">Personel Email must be a valid email address</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right" for="broker">Phone/Extension<span class="spandata">*</span> :</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control mediumInput" mask="(000) 000-0000" formControlName="personelPhoneExtensionInput" [ngClass]="{ 'is-invalid': submitted && f.personelPhoneExtensionInput.errors }" /> 
+                <div *ngIf="submitted && f.personelPhoneExtensionInput.errors" class="invalid-feedback">
+                    <div *ngIf="f.personelPhoneExtensionInput.errors.required">This is a required field</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right" for="broker">President/CEO/Owner/Fleet Manager :</label>
+
+            <div class="col-md-3 form-row">
+                <div class="form-group col-md-12">
+                    <input type="text" class="form-control formgroupLargeInput" formControlName="pcofNameInput">
+                </div>
+                <div class="form-group col-md-6 input-col-md-6">
+                    <label>Phone/Extension</label>
+                    <input type="text" class="form-control" mask="(000) 000-0000" formControlName="pcofPhoneExtensionInput">
+                </div>
+                <div class="form-group col-md-6 input-col-md-6">
+                    <label>Years in Position</label>
+                    <input type="text" class="form-control mediumInput" mask="0000" formControlName="pcofYearsInput">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right" for="broker">Operations Manager :</label>
+            <div class="col-md-3 form-row">
+                <div class="form-group col-md-12">
+                    <input type="text" class="form-control formgroupLargeInput" formControlName="omNameInput">
+                </div>
+                <div class="form-group col-md-6 input-col-md-6">
+                    <label>Phone/Extension</label>
+                    <input type="text" class="form-control" mask="(000) 000-0000" formControlName="omPhoneExtensionInput">
+                </div>
+                <div class="form-group col-md-6 input-col-md-6">
+                    <label>Years in Position</label>
+                    <input type="text" class="form-control mediumInput" mask="0000" formControlName="omYearsInput">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right" for="broker">Safety Director :</label>
+            <div class="col-md-3 form-row">
+                <div class="form-group col-md-12">
+                    <input type="text" class="form-control formgroupLargeInput" formControlName="sdNameInput">
+                </div>
+                <div class="form-group col-md-6 input-col-md-6">
+                    <label>Phone/Extension</label>
+                    <input type="text" class="form-control" mask="(000) 000-0000" formControlName="sdPhoneExtensionInput">
+                </div>
+                <div class="form-group col-md-6 input-col-md-6">
+                    <label>Years in Position</label>
+                    <input type="text" class="form-control mediumInput" mask="0000" formControlName="sdYearsInput">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right" for="broker">Maintenance Director :</label>
+            <div class="col-md-3 form-row">
+                <div class="form-group col-md-12">
+                    <input type="text" class="form-control formgroupLargeInput" formControlName="mdNameInput">
+                </div>
+                <div class="form-group col-md-6 input-col-md-6">
+                    <label>Phone/Extension</label>
+                    <input type="text" class="form-control" mask="(000) 000-0000" formControlName="mdPhoneExtensionInput">
+                </div>
+                <div class="form-group col-md-6 input-col-md-6">
+                    <label>Years in Position</label>
+                    <input type="text" class="form-control mediumInput" mask="0000" formControlName="mdYearsInput">
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary ml-2">Next</button> 
+        <!-- <div class="form-row">
+            <div class="col-md-4 offset-md-3">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Add new personnel
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item" href="#">President/CEO/Owner/Fleet Manager</li>
+                        <li class="dropdown-item" href="#">Operations Manager</li>
+                        <li class="dropdown-item" href="#">Safety Director</li>
+                        <li class="dropdown-item" href="#">Maintenance Director</li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+
+    </form>
+    </div>
+</div>  
+

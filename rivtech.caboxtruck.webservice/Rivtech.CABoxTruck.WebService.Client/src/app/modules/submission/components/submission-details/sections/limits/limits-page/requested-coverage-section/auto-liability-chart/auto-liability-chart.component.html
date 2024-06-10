@@ -1,0 +1,347 @@
+<form [formGroup]="limitsData.limitsForm.limitsPageForm" [style.padding-top.px]="16">
+<div class="col-md-12 row dynamic-table">
+    <table class="table">
+        <thead>
+            <tr class="text-center">
+                <th scope="col" colspan="3" >Auto Liability Coverages</th>
+            </tr>
+            <tr>
+                <th scope="col" >Coverage</th>
+                <th scope="col" class="wd-25">Limit</th>
+                <th scope="col" class="wd-25">Symbol</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="col"> Auto Liability <span class="required"></span></td>
+                <td scope="col">
+                    <div class="field">
+                        <select formControlName="autoBILimitId" class="form-control" id="autoBILimitId" name="autoBILimitId" [attr.title]="setTooltip(f.autoBILimitId.value, limitsData.biLimitList)"
+                            (change)="changeAL(true)" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.biLimitList" [value]="option.value">{{ option.label }}</option>
+                        </select>
+                        <app-validation-error [control]="f.autoBILimitId" [inputName]="'Auto Liability Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select class="form-control" formControlName="alSymbolId" id="alSymbolId" name="alSymbolId" [attr.title]="setTooltip(f.alSymbolId.value, limitsData.alSymbolList)"
+                            (change)="limitsData.checkAndSetPdDisplayAndValue(true)">
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.alSymbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.alSymbolId" [inputName]="'Auto Liability Symbol'"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+
+            <tr *ngIf="limitsData.showPD">
+                <td scope="col"> Property Damage <span class="required"></span></td>
+                <td scope="col">
+                    <div class="field">
+                        <select formControlName="autoPDLimitId" class="form-control" id="autoPDLimitId" name="autoPDLimitId" [attr.title]="setTooltip(f.autoPDLimitId.value, limitsData.pdLimitList)" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.pdLimitList" [value]="option.value">{{ option.label }}</option>
+                        </select>
+                        <app-validation-error [control]="f.autoPDLimitId" [inputName]="'Property Damage Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select class="form-control" formControlName="pdSymbolId" id="pdSymbolId" name="pdSymbolId" [attr.title]="setTooltip(f.pdSymbolId.value, limitsData.symbolList)">
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.pdSymbolId" [inputName]="'Property Damage Symbol'"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td scope="col"> Uninsured Motorist - BI <span class="required"></span> </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.umBiLimitList == null || limitsData.umBiLimitList?.length == 0 || null" class="readonly" disabled>
+                            <option>NONE</option>
+                        </select>
+                        <select formControlName="umbiLimitId" class="form-control" id="umbiLimitId" name="umbiLimitId" *ngIf="limitsData.umBiLimitList?.length > 0"
+                            [attr.title]="setTooltip(f.umbiLimitId.value, limitsData.umBiLimitList)" (change)="limitsData.disableSymbol('umbiLimit')" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.umBiLimitList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.umbiLimitId" [inputName]="'Uninsured Motorist - BI Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.disableUnInsuredMotoristBI || limitsData.umBiLimitList == null || limitsData.umBiLimitList?.length == 0 || null" class="readonly" disabled></select>
+                        <select class="form-control" formControlName="umbiLimitSymbolId" id="umbiLimitSymbolId" name="umbiLimitSymbolId" *ngIf="limitsData.umBiLimitList?.length > 0 && !limitsData.disableUnInsuredMotoristBI"
+                        [attr.title]="setTooltip(f.umbiLimitSymbolId.value, limitsData.symbolList)" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.umbiLimitSymbolId" [inputName]="'Uninsured Motorist - BI Symbol'"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td scope="col"> Uninsured Motorist - PD <span class="required"></span> </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.umPdLimitList == null || limitsData.umPdLimitList?.length == 0 || null" class="readonly" disabled>
+                            <option>NONE</option>
+                        </select>
+                        <select formControlName="umpdLimitId" class="form-control" id="umpdLimitId" name="umpdLimitId" *ngIf="limitsData.umPdLimitList?.length > 0"
+                            [attr.title]="setTooltip(f.umpdLimitId.value, limitsData.umPdLimitList)" (change)="limitsData.disableSymbol('umpdLimit')" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.umPdLimitList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.umpdLimitId" [inputName]="'Uninsured Motorist - PD Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.disableUnInsuredMotoristPD || limitsData.umPdLimitList == null || limitsData.umPdLimitList?.length == 0 || null" class="readonly" disabled></select>
+                        <select class="form-control" formControlName="umpdLimitSymbolId" id="umpdLimitSymbolId" name="umpdLimitSymbolId" *ngIf="limitsData.umPdLimitList?.length > 0 && !limitsData.disableUnInsuredMotoristPD"
+                        [attr.title]="setTooltip(f.umpdLimitSymbolId.value, limitsData.symbolList)" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.umpdLimitSymbolId" [inputName]="'Uninsured Motorist - PD Symbol'"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td scope="col"> Underinsured Motorist - BI <span class="required"></span> </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.uimBiLimitList == null || limitsData.uimBiLimitList?.length == 0 || null" class="readonly" disabled>
+                            <option>NONE</option>
+                        </select>
+                        <select formControlName="uimbiLimitId" class="form-control" id="uimbiLimitId" name="uimbiLimitId" *ngIf="limitsData.uimBiLimitList?.length > 0"
+                            [attr.title]="setTooltip(f.uimbiLimitId.value, limitsData.uimBiLimitList)" (change)="limitsData.disableSymbol('uimbiLimit')" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.uimBiLimitList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.uimbiLimitId" [inputName]="'Underinsured Motorist - BI Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.disableUnderinsuredMotoristBI || limitsData.uimBiLimitList == null || limitsData.uimBiLimitList?.length == 0 || null" class="readonly" disabled></select>
+                        <select class="form-control" formControlName="uimbiLimitSymbolId" id="uimbiLimitSymbolId" name="uimbiLimitSymbolId" *ngIf="limitsData.uimBiLimitList?.length > 0 && !limitsData.disableUnderinsuredMotoristBI"
+                        [attr.title]="setTooltip(f.uimbiLimitSymbolId.value, limitsData.symbolList)" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.uimbiLimitSymbolId" [inputName]="'Underinsured Motorist - BI Symbol'"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td scope="col"> Underinsured Motorist - PD <span class="required"></span> </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.uimPdLimitList == null || limitsData.uimPdLimitList?.length == 0 || null" class="readonly" disabled>
+                            <option>NONE</option>
+                        </select>
+                        <select formControlName="uimpdLimitId" class="form-control" id="uimpdLimitId" name="uimpdLimitId" *ngIf="limitsData.uimPdLimitList?.length > 0"
+                            [attr.title]="setTooltip(f.uimpdLimitId.value, limitsData.uimPdLimitList)" (change)="limitsData.disableSymbol('uimpdLimit')" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.uimPdLimitList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.uimpdLimitId" [inputName]="'Underinsured Motorist - PD Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.disableUnderinsuredMotoristPD || limitsData.uimPdLimitList == null || limitsData.uimPdLimitList?.length == 0 || null" class="readonly" disabled></select>
+                        <select class="form-control" formControlName="uimpdLimitSymbolId" id="uimpdLimitSymbolId" name="uimpdLimitSymbolId" *ngIf="limitsData.uimPdLimitList?.length > 0 && !limitsData.disableUnderinsuredMotoristPD"
+                        [attr.title]="setTooltip(f.uimpdLimitSymbolId.value, limitsData.symbolList)" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.uimpdLimitSymbolId" [inputName]="'Underinsured Motorist - PD Symbol'"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td scope="col"> Medical Payments <span class="required"></span> </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.disabledField('medPayLimits')" class="readonly" disabled>
+                            <option value="110">NONE</option>
+                        </select>
+                        <!-- <select *ngIf="limitsData.cityState == 'TX'" class="readonly" disabled>
+                            <option *ngFor="let option of limitsData.medpayList" [value]="option.value">{{option.label}}</option>
+                        </select> -->
+                        <select formControlName="medPayLimitId" class="form-control" id="medPayLimitId" name="medPayLimitId" 
+                            *ngIf="limitsData.medpayList?.length > 0 && !limitsData.disabledField('medPayLimits')"
+                            [attr.title]="setTooltip(f.medPayLimitId.value, limitsData.medpayList)" (change)="limitsData.disableSymbol('medPayLimit')" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.medpayList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.medPayLimitId" [inputName]="'Medical Payments Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.disableMedicalPayments" class="readonly" disabled></select>
+                        <select class="form-control" formControlName="medPayLimitSymbolId" id="medPayLimitSymbolId" name="medPayLimitSymbolId"
+                        [attr.title]="setTooltip(f.medPayLimitSymbolId.value, limitsData.symbolList)" *ngIf="limitsData.medpayList?.length > 0 && !limitsData.disableMedicalPayments" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.medPayLimitSymbolId" [inputName]="'Medical Payments Symbol'"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td scope="col"> Personal Injury Protection (PIP) <span class="required"></span> </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.pipList == null || limitsData.pipList?.length == 0 || null" class="readonly" disabled>
+                            <option>NONE</option>
+                        </select>
+                        <select *ngIf="limitsData.cityState == 'NJ'" class="readonly" disabled>
+                            <option *ngFor="let option of limitsData.pipList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <select formControlName="pipLimitId" class="form-control" id="pipLimitId" name="pipLimitId" 
+                            *ngIf="limitsData.pipList?.length > 0 && limitsData.cityState != 'NJ'"
+                            [attr.title]="setTooltip(f.pipLimitId.value, limitsData.pipList)" (change)="limitsData.disableSymbol('pipLimit')">
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.pipList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.pipLimitId" [inputName]="'Personal Injury Protection (PIP) Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.disablePersonalInjuryProtection || limitsData.pipList == null || limitsData.pipList?.length == 0 || null" class="readonly" disabled></select>
+                        <select class="form-control" formControlName="pipLimitSymbolId" id="pipLimitSymbolId" name="pipLimitSymbolId" *ngIf="limitsData.pipList?.length > 0 && !limitsData.disablePersonalInjuryProtection"
+                        [attr.title]="setTooltip(f.pipLimitSymbolId.value, limitsData.symbolList)" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.pipLimitSymbolId" [inputName]="'Personal Injury Protection (PIP) Symbol'"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td scope="col"> Liability Deductible <span class="required"></span> </td>
+                <td scope="col">
+                    <div class="field">
+                        <select formControlName="liabilityDeductibleId" class="form-control" id="liabilityDeductibleId" name="liabilityDeductibleId"
+                        [attr.title]="setTooltip(f.liabilityDeductibleId.value, limitsData.liabDeductibleList)" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.liabDeductibleList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.liabilityDeductibleId" [inputName]="'Liability Deductible Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <input type="text" class="form-control readonly" readonly >
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+        <thead>
+            <tr class="text-center">
+                <th scope="col" colspan="3" >Physical Damage</th>
+            </tr>
+            <tr>
+                <th scope="col" ></th>
+                <th scope="col" class="wd-25">Deductible</th>
+                <th scope="col" class="wd-25">Symbol</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td scope="col">
+                    <div class="radio-group">
+                        <div class="d-flex justify-content-start">
+                            <div class="radio">
+                                <div class="form-check form-check-inline mr-2">
+                                    <input class="form-check-input" 
+                                        id="comprehensive" 
+                                        name="comprehensiveFire" 
+                                        formControlName="comprehensiveFire" 
+                                        type="radio" [value]="true" >
+                                    <label class="form-check-label" for="comprehensive"> Comprehensive </label>
+                                </div>
+                            </div>
+                            <div class="radio">
+                                <div class="form-check form-check-inline mr-2">
+                                    <input class="form-check-input" 
+                                        id="fire" 
+                                        name="comprehensiveFire" 
+                                        formControlName="comprehensiveFire" 
+                                        type="radio" [value]="false" >
+                                    <label class="form-check-label" for="fire"> Fire / Theft</label>
+                                    &nbsp;<span class="required"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select formControlName="compDeductibleId" class="form-control" id="compDeductibleId" name="compDeductibleId" (change)="setValue('compDeductibleId')"
+                        [attr.title]="setTooltip(f.compDeductibleId.value, limitsData.ComprehensiveList)" (change)="limitsData.checkAndRequireCompAndCollSymbols()" (change)="limitsData.disableSymbol('compDeductible')" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.ComprehensiveList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.compDeductibleId"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.disableCompDeductible" class="readonly" disabled></select>
+                        <select class="form-control" formControlName="compDeductibleSymbolId" id="compDeductibleSymbolId" name="compDeductibleSymbolId"
+                        [attr.title]="setTooltip(f.compDeductibleSymbolId.value, limitsData.symbolList)" *ngIf="!limitsData.disableCompDeductible" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.compDeductibleSymbolId"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td scope="col">Collision <span class="required"></span></td>
+                <td scope="col">
+                    <div class="field">
+                        <select formControlName="collDeductibleId" class="form-control" id="collDeductibleId" name="collDeductibleId" (change)="setValue('collDeductibleId')"
+                        [attr.title]="setTooltip(f.collDeductibleId.value, limitsData.CollisionList)" (change)="limitsData.checkAndRequireCompAndCollSymbols()" (change)="limitsData.disableSymbol('collDeductible')" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.CollisionList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.collDeductibleId" [inputName]="'Collision Limit'"></app-validation-error>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="field">
+                        <select *ngIf="limitsData.disableCollDeductible" class="readonly" disabled></select>
+                        <select class="form-control" formControlName="collDeductibleSymbolId" id="collDeductibleSymbolId" name="collDeductibleSymbolId"
+                        [attr.title]="setTooltip(f.collDeductibleSymbolId.value, limitsData.symbolList)" *ngIf="!limitsData.disableCollDeductible" >
+                            <option [ngValue]="null">Please Select</option>
+                            <option *ngFor="let option of limitsData.symbolList" [value]="option.value">{{option.label}}</option>
+                        </select>
+                        <app-validation-error [control]="f.collDeductibleSymbolId" [inputName]="'Collision Symbol'"></app-validation-error>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</form>

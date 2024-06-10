@@ -1,0 +1,55 @@
+<div role="document">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title">Payments Posted
+      </h5>
+      <button type="button" class="close" (click)="onClose()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  
+    <form *ngIf="paymentPostingData.paymentPostingForm as formGroup" [formGroup]="formGroup">
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group col-lg-6 field">
+            <label class="required">From</label>
+            <div>
+              <app-date-picker [isInvalid]="formGroup.get('fromDate').errors?.required"
+                formControlName="fromDate" [options]="datePickerDateOption">
+              </app-date-picker>
+            </div>
+            <span class="invalid-feedback d-flex"
+              *ngIf="formGroup.get('fromDate').errors?.required && formGroup.get('fromDate').touched">
+              {{errorMessageConstant.genericRequiredErrorMessage}}
+            </span>
+          </div>
+          
+          <div class="form-group col-lg-6 field">
+            <label class="required">To</label>
+            <div>
+              <app-date-picker [isInvalid]="formGroup.get('toDate').errors?.required"
+                formControlName="toDate" [options]="datePickerDateOption">
+              </app-date-picker>
+            </div>
+            <span class="invalid-feedback d-flex"
+              *ngIf="formGroup.get('toDate').errors?.required && formGroup.get('toDate').touched">
+              {{errorMessageConstant.genericRequiredErrorMessage}}
+            </span>
+            <span class="invalid-feedback d-flex" *ngIf="isToDateLessThanfromDate">
+              To date cannot be less than from date
+            </span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal-footer sticky-modal-footer">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)='generatePDFReport()' [disabled]="formGroup.invalid || isToDateLessThanfromDate">Create PDF</button>
+        <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)='generateExcelReport()' [disabled]="formGroup.invalid || isToDateLessThanfromDate">Export to Excel</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)='onClose()'>Cancel</button>
+        
+        <!-- <button class="btn btn-primary" [disabled]="formGroup.invalid || isToDateLessThanfromDate"
+          (click)="exportDMVReport()">Export to Excel</button>
+  
+        <button class="btn btn-danger" (click)="hideModal()">Cancel</button> -->
+      </div>
+    </form>
+  </div>

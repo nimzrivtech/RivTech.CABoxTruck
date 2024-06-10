@@ -1,0 +1,162 @@
+<div class="page-position">
+  <div class="card sticky-body">
+    <div class="card-header cursor-pointer"
+      (click)="this.toggleCollapse.clickExpandCollapse('underwritingQuestionsCard', $event)">
+      <app-toggle-collapse toggleName="underwritingQuestionsCard"></app-toggle-collapse>
+      <strong>&nbsp;{{UnderwritingQuestionConstants.underwritingQuestionTitle}}</strong>
+    </div>
+    <div class="card-body consistent-padding collapse show field" id="underwritingQuestionsCard" [style.padding-top.px]="40">
+      <div class="col">
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <form [formGroup]="fg">
+          <div class="row">
+            <div class="input-container col-lg-5">
+              <div class="switch-wrapper">
+                <label>{{UnderwritingQuestionConstants.areWorkersCompensationProvided}}</label>
+                <toggle-switch [formGroup]="fg" [formName]="fn"
+                  fieldName="areWorkersCompensationProvided"
+                  (change)="switchValidator(!$event.target.checked, 'workersCompensationProvidedExplanation')"></toggle-switch>
+              </div>
+            </div>
+            <div *ngIf="!fc.areWorkersCompensationProvided.value" class="input-container col-lg-4">
+              <div class="field">
+                <label for="workersCompensationProvidedExplanation" >{{GenericLabelConstants.pleaseExplain}}</label>
+                <textarea id="workersCompensationProvidedExplanation" class="field-text-area w-100" maxlength="1000"
+                  formControlName="workersCompensationProvidedExplanation"></textarea>
+              </div>
+              <app-validation-error [control]="fc.workersCompensationProvidedExplanation" [inputName]="'Please explain'"></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-5">
+              <div class="switch-wrapper">
+                <label>{{UnderwritingQuestionConstants.areAllEquipmentOperatedUnderApplicantsAuthority}}</label>
+                <toggle-switch [formGroup]="fg" [formName]="fn"
+                  fieldName="areAllEquipmentOperatedUnderApplicantsAuthority"
+                  (change)="switchValidator(!$event.target.checked, 'equipmentsOperatedUnderAuthorityExplanation')"></toggle-switch>
+              </div>
+            </div>
+            <div *ngIf="!fc.areAllEquipmentOperatedUnderApplicantsAuthority.value" class="input-container col-lg-4">
+              <div class="field">
+                <label for="equipmentsOperatedUnderAuthorityExplanation" >{{GenericLabelConstants.pleaseExplain}}</label>
+                <textarea id="equipmentsOperatedUnderAuthorityExplanation" class="field-text-area w-100" maxlength="1000"
+                  formControlName="equipmentsOperatedUnderAuthorityExplanation"></textarea>
+              </div>
+              <app-validation-error [control]="fc.equipmentsOperatedUnderAuthorityExplanation" [inputName]="'Please explain'"></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-5">
+              <div class="switch-wrapper">
+                <label >{{UnderwritingQuestionConstants.hasInsuranceBeenObtainedThruAssignedRiskPlan}}</label>
+                <toggle-switch [formGroup]="fg" [formName]="fn"
+                  fieldName="hasInsuranceBeenObtainedThruAssignedRiskPlan"
+                  (change)="switchValidator($event.target.checked, 'obtainedThruAssignedRiskPlanExplanation')"></toggle-switch>
+              </div>
+            </div>
+            <div *ngIf="fc.hasInsuranceBeenObtainedThruAssignedRiskPlan.value" class="input-container col-lg-4">
+              <div class="field">
+                <label for="obtainedThruAssignedRiskPlanExplanation" >{{GenericLabelConstants.pleaseExplain}}</label>
+                <textarea id="obtainedThruAssignedRiskPlanExplanation" class="field-text-area w-100" maxlength="1000"
+                  formControlName="obtainedThruAssignedRiskPlanExplanation"></textarea>
+              </div>
+              <app-validation-error [control]="fc.obtainedThruAssignedRiskPlanExplanation" inputName='Please explain'></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-5">
+              <div class="switch-wrapper">
+                <label >{{UnderwritingQuestionConstants.hasAnyCompanyProvidedNoticeOfCancellation}}</label>
+                <toggle-switch [formGroup]="fg" [formName]="fn"
+                  fieldName="hasAnyCompanyProvidedNoticeOfCancellation"
+                  (change)="switchValidator($event.target.checked, 'noticeOfCancellationExplanation')"></toggle-switch>
+              </div>
+            </div>
+            <div *ngIf="fc.hasAnyCompanyProvidedNoticeOfCancellation.value" class="input-container col-lg-4">
+              <div class="field">
+                <label for="noticeOfCancellationExplanation" >{{GenericLabelConstants.pleaseExplain}}</label>
+                <textarea id="noticeOfCancellationExplanation" class="field-text-area w-100" maxlength="1000"
+                  formControlName="noticeOfCancellationExplanation"></textarea>
+              </div>
+              <app-validation-error [control]="fc.noticeOfCancellationExplanation" inputName='Please explain'></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-5">
+              <div class="switch-wrapper">
+                <label >{{UnderwritingQuestionConstants.hasFiledForBankruptcy}}</label>
+                <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="hasFiledForBankruptcy"
+                (change)="switchValidator($event.target.checked, 'filingForBankruptcyExplanation')">
+                </toggle-switch>
+              </div>
+            </div>
+            <div *ngIf="fc.hasFiledForBankruptcy.value" class="input-container col-lg-4">
+              <div class="field">
+                <label for="filingForBankruptcyExplanation" >{{GenericLabelConstants.pleaseExplain}}</label>
+                <textarea id="filingForBankruptcyExplanation" class="field-text-area w-100" maxlength="1000"
+                  formControlName="filingForBankruptcyExplanation"></textarea>
+              </div>
+              <app-validation-error [control]="fc.filingForBankruptcyExplanation" inputName='Please explain'></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-5">
+              <div class="switch-wrapper">
+                <label >{{UnderwritingQuestionConstants.hasOperatingAuthoritySuspended}}</label>
+                <toggle-switch [formGroup]="fg" [formName]="fn"
+                  fieldName="hasOperatingAuthoritySuspended"
+                  (change)="switchValidator($event.target.checked, 'suspensionExplanation')"></toggle-switch>
+              </div>
+            </div>
+            <div *ngIf="fc.hasOperatingAuthoritySuspended.value" class="input-container col-lg-4">
+              <div class="field">
+                <label for="suspensionExplanation" >{{GenericLabelConstants.pleaseExplain}}</label>
+                <textarea id="suspensionExplanation" class="field-text-area w-100" maxlength="1000"
+                  formControlName="suspensionExplanation"></textarea>
+              </div>
+              <app-validation-error [control]="fc.suspensionExplanation" inputName='Please explain'></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-5" *ngIf="underwritingQuestionsData.shouldShowCovid19Question">
+              <div class="switch-wrapper">
+                <label >{{UnderwritingQuestionConstants.hasVehicleCountBeenAffectedByCovid19}}</label>
+                <toggle-switch [formGroup]="fg" [formName]="fn"
+                  fieldName="hasVehicleCountBeenAffectedByCovid19"
+                  (change)="switchValidator($event.target.checked, 'numberOfVehiclesRunningDuringCovid19', 0)"></toggle-switch>
+              </div>
+            </div>
+            <div *ngIf="underwritingQuestionsData.shouldShowCovid19Question && fc.hasVehicleCountBeenAffectedByCovid19.value" class="input-container col-lg-4">
+              <div class="field">
+                <label for="numberOfVehiclesRunningDuringCovid19" >{{UnderwritingQuestionConstants.numberOfVehiclesRunningDuringCovid19}}</label>
+                <input id="numberOfVehiclesRunningDuringCovid19" class="w-100" mask="000000000"
+                  formControlName="numberOfVehiclesRunningDuringCovid19" />
+              </div>
+              <app-validation-error [control]="fc.numberOfVehiclesRunningDuringCovid19"></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row justify-content-center">
+            <div class="input-container">
+              <div class="field form-check form-check-inline" style="margin-top:20px">
+                <input class="form-check-input uw-confirm-checkbox" type="checkbox" id="confirm" formControlName="areAnswersConfirmed"
+                (change)="underwritingQuestionsData.toggleMenu(isConfirmed)" />
+                <label class="form-check-label" for="confirm">
+                  {{UnderwritingQuestionConstants.confirm}}
+                </label>&nbsp;<span class="required"></span>
+              </div>
+              <app-validation-error [control]="fc.areAnswersConfirmed" inputName="Confirmation" style="margin:-10px 0px 0px 25px;"></app-validation-error>
+            </div>
+          </div>        
+        </form>
+      </div>
+    </div>
+  </div>
+  <app-next-back-btn [isScrollPage]="true" (clickType)="onClick($event)"></app-next-back-btn>
+</div>

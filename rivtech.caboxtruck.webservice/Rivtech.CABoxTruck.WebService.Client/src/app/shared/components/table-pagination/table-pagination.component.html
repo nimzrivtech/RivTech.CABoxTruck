@@ -1,0 +1,36 @@
+<div class="container-fluid" *ngIf="!loading">
+  <div class="row">
+    <div class="col-md-12">
+      <ul *ngIf="pager.pages && pager.pages.length > 1" class="pagination  pull-right">
+        <li [ngClass]="{disabled:pager.currentPage === 1, hide:pager.totalPages <= 5}" (click)="setPageNumber(1)"
+          class="page-link">
+          <a>First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPageNumber(pager.currentPage - 1)"
+          class="page-link">
+          <a>Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}"
+          (click)="setPageNumber(page)" class="page-link">
+          <a>{{page}}</a>
+        </li>
+        <li *ngIf="(pager.totalPages - pager.startPage) > 5 " (click)="setPageNumber(pager.startPage + 5)"
+          class="page-link">
+          <a>...</a>
+        </li>
+        <li *ngIf="(pager.totalPages - pager.startPage) > 5" (click)="setPageNumber(pager.totalPages)"
+          class="page-link">
+          <a>{{pager.totalPages}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="setPageNumber(pager.currentPage + 1)"
+          class="page-link">
+          <a>Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages, hide:pager.totalPages <= 5}"
+          (click)="setPageNumber(pager.totalPages)" class="page-link">
+          <a>Last</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

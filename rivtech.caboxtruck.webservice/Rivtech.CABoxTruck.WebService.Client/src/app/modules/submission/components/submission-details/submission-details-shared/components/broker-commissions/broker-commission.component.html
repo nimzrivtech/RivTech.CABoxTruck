@@ -1,0 +1,14 @@
+<div *ngIf="shouldShowCommission" class="row">
+    <div class="col-6 form-type">
+      <label class="font-weight-light sub-title-label">AL Commission</label>
+      <h6 class="field-text">
+        {{ brokerCommisionAL !== null && brokerCommisionAL !== undefined ? brokerCommisionAL + '%' : '&nbsp;' }}
+      </h6>
+    </div>
+    <div class="col-6 form-type">
+      <label class="font-weight-light sub-title-label">APD Commission</label>
+      <h6 class="field-text">
+        {{ brokerCommisionPD !== null && brokerCommisionPD !== undefined ? brokerCommisionPD + '%' : '&nbsp;' }}
+      </h6>
+    </div>
+  </div> 

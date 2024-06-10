@@ -1,0 +1,46 @@
+<div class="sub-agency-modal field">
+  <div class="alert-box">
+    <div class="modal-header sticky-modal-header">
+      <h4 class="modal-title">{{modalTitle}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeDialog()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <tabset #tab>
+        <tab  heading="Details" (select)="onSelect($event)">
+          <app-agency-info [formGroup]="subAgencyData.subAgencyFormGroup"></app-agency-info>
+          <div *ngIf="isFlat">
+          <!-- <app-agency-flat-commissions
+          [flatCommissionList]="subAgencyData.subAgencyFlatCommission"
+          [flatCommissionRowId]="subAgencyData.subAgencyFlatCommissionRowId"
+          [flatCommissionHeader]="subAgencyData.flatCommissionHeader"
+          [isLoading]="subAgencyData.isFlatCommissionLoading">
+        </app-agency-flat-commissions> -->
+        </div>
+        <div *ngIf="!isFlat">
+          <app-agency-schedule
+            [scheduleList]="subAgencyData.subAgencyScheduleList"
+            [scheduleRowId]="subAgencyData.subAgencyScheduleRowId"
+            [scheduleHeader]="subAgencyData.scheduleHeader"
+            [isLoading]="subAgencyData.isScheduleLoading">
+          </app-agency-schedule>
+        </div>
+        </tab>
+        <tab heading="Address" (select)="onSelect($event)">
+          <app-agency-address
+          [addressList]="subAgencyData.addressList"
+          [addressHeaders]="subAgencyData.addressHeaders"
+          [isLoading]="subAgencyData.isAddressLoading"
+          [addressRowId]="subAgencyData.addressListRowId"></app-agency-address>
+        </tab>
+      </tabset>
+    </div>
+    <div class="modal-footer sticky-modal-footer">
+      <button *ngIf="subAgencyData.showNext" type="button" class="btn btn-primary" (click)="next()">Next</button>
+      <button *ngIf="subAgencyData.showSave" type="button" class="btn btn-primary" (click)="save()" [disabled]="isSavingDisabled">Add Sub Agency</button>
+      <button *ngIf="subAgencyData.showUpdate" type="button" class="btn btn-primary" (click)="update()" [disabled]="!isUpdated || isSavingDisabled">Save</button>
+      <button type="button" class="btn btn-danger" (click)="closeDialog()">Cancel</button>
+    </div>
+  </div>
+</div>

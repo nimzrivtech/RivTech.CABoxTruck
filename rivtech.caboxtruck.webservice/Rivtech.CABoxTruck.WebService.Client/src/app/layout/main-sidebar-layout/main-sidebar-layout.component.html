@@ -1,0 +1,20 @@
+<app-header-admin></app-header-admin>
+
+<div class="app-body">
+
+    <app-left-sidebar [visible]="sidebarVisible"></app-left-sidebar>
+
+    <main class="main">
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+
+    <div class="appasideBar">
+      <app-aside [fixed]="false" [display]="false" #appAside>
+        <app-right-sidebar > </app-right-sidebar>
+    </app-aside>
+    </div>
+</div>
+
+<app-footer-admin></app-footer-admin>

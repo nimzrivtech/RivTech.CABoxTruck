@@ -1,0 +1,114 @@
+<div id="collapse1" class="card-body container-fluid field">
+  <form *ngIf="userData.UserInfoFormGroup as parentForm" [formGroup]="parentForm">
+    <input type="hidden" formControlName="oldUserName" [value]="" />
+    <div class="row" id="line-6">
+      <div class="form-group col-md-4 ">
+        <label class="required">{{UsersLabelConstants.userName}}</label>
+        <input type="text" class="form-control" maxlength="100"
+          [ngClass]="{'is-invalid': (parentForm.get('userName').errors?.required && parentForm.get('userName').touched) }"
+          formControlName="userName" [value]="parentForm.get('userName').value">
+          <span class="invalid-feedback" *ngIf="parentForm.get('userName').errors?.required && parentForm.get('userName').touched">
+            {{ ErrorMessageConstant.requiredErrorMessage.format(UsersLabelConstants.userName) }}
+          </span>
+          <span class="invalid-feedback" *ngIf="parentForm.get('userName').errors?.usernameExists && parentForm.get('userName').touched">
+              {{ ErrorMessageConstant.usernameAlreadyExists }}
+            </span>
+      </div>
+      <div class="form-group col-md-4 ">
+        <label class="required">{{UsersLabelConstants.roleName}}</label>
+        <select class="form-control w-100 dropdown-disabled" formControlName="role"
+          [ngClass]="{'is-invalid': (parentForm.get('role').touched || parentForm.get('role').dirty) && !parentForm.get('role').valid }">
+          <option [value]=null disabled selected>Please Select</option>
+          <option *ngFor="let obj of userData.roleList" [value]="obj.roleId">{{ obj.roleName }}</option>
+        </select>
+        <span class="invalid-feedback" *ngIf="parentForm.get('role').errors?.required && parentForm.get('role').touched">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(UsersLabelConstants.roleName) }}
+        </span>
+      </div>
+    </div>
+    <div class="row" id="line-0">
+      <div class="form-group col-md-4">
+        <label class="required">{{UsersLabelConstants.firstName}}</label>
+        <input type="text" class="form-control" maxlength="30"
+          [ngClass]="{'is-invalid': (parentForm.get('firstName').touched || parentForm.get('firstName').dirty) && !parentForm.get('firstName').valid }"
+          formControlName="firstName" [value]="parentForm.get('firstName').value | nameCase" inputPattern="namePattern">
+          <span class="invalid-feedback" *ngIf="parentForm.get('firstName').errors?.required && parentForm.get('firstName').touched">
+               {{ ErrorMessageConstant.requiredErrorMessage.format(UsersLabelConstants.firstName) }}
+          </span>
+      </div>
+      <div class="form-group col-md-4">
+          <label>{{UsersLabelConstants.middleName}}</label>
+          <input type="text" class="form-control" maxlength="30"
+            [ngClass]="{'is-invalid': (parentForm.get('middleName').touched || parentForm.get('middleName').dirty) && !parentForm.get('middleName').valid }"
+            formControlName="middleName" [value]="parentForm.get('middleName').value | nameCase">
+      </div>
+      <div class="form-group col-md-4">
+          <label class="required">{{UsersLabelConstants.lastName}}</label>
+          <input type="text" class="form-control" maxlength="30"
+            [ngClass]="{'is-invalid': (parentForm.get('lastName').touched || parentForm.get('lastName').dirty) && !parentForm.get('lastName').valid }"
+          formControlName="lastName" [value]="parentForm.get('lastName').value | nameCase" inputPattern="namePattern">
+          <span class="invalid-feedback" *ngIf="parentForm.get('lastName').errors?.required && parentForm.get('lastName').touched">
+               {{ ErrorMessageConstant.requiredErrorMessage.format(UsersLabelConstants.lastName) }}
+          </span>
+      </div>
+    </div>
+    <div class="row" id="line-1">
+      <div class="form-group col-md-4">
+        <label>{{UsersLabelConstants.workPhone}}</label>
+        <input type="text" class="form-control" mask="000 000-0000"
+          [ngClass]="{'is-invalid': (parentForm.get('workPhone').touched || parentForm.get('workPhone').dirty) && !parentForm.get('workPhone').valid }"
+        formControlName="workPhone">
+        <span class="invalid-feedback" *ngIf="parentForm.get('workPhone').errors?.pattern && (parentForm.get('workPhone').touched || parentForm.get('workPhone').dirty)">
+          {{ErrorMessageConstant.validPhoneNumberErrorMessage}}
+        </span>
+      </div>
+      <div class="form-group col-md-4">
+        <label>{{UsersLabelConstants.workPhoneExtension}}</label>
+        <input type="text" class="form-control" maxlength="10"
+          [ngClass]="{'is-invalid': (parentForm.get('workPhoneExtension').touched || parentForm.get('workPhoneExtension').dirty) && !parentForm.get('workPhoneExtension').valid }"
+          formControlName="workPhoneExtension">
+      </div>
+      <div class="form-group col-md-4">
+        <label class="required">{{UsersLabelConstants.workEmailAddress}}</label>
+        <input type="text" class="form-control" maxlength="100"
+          [ngClass]="{'is-invalid': (parentForm.get('workEmailAddress').touched || parentForm.get('workEmailAddress').dirty) && !parentForm.get('workEmailAddress').valid }"
+          formControlName="workEmailAddress">
+        <span class="invalid-feedback"
+          *ngIf="parentForm.get('personalEmailAddress').errors?.required && parentForm.get('personalEmailAddress').touched;">
+          {{ErrorMessageConstant.requiredErrorMessage.format(UsersLabelConstants.personalEmailAddress)}}
+        </span>
+        <span class="invalid-feedback"
+            *ngIf="parentForm.get('workEmailAddress').errors?.pattern && (parentForm.get('workEmailAddress').touched || parentForm.get('workEmailAddress').dirty)">
+            {{ErrorMessageConstant.validEmailAddressErrorMessage}}
+        </span>
+      </div>
+    </div>
+    <!-- <div class="row" id="line-2">
+      <div class="form-group col-md-4 ">
+        <label>{{UsersLabelConstants.torrentUsername}}</label>
+        <input class="form-control" id="torrentUsername" type="text" formControlName="torrentUsername" maxlength="60"
+          [ngClass]="{'is-invalid': (parentForm.get('torrentUsername').errors?.required && parentForm.get('torrentUsername').touched) }">
+      </div>
+    </div>    -->
+    <div class="row" id="line-3">
+      <div class="form-group col-md-4">
+        <div class="switch-wrapper">
+          <label class="required">{{UsersLabelConstants.isActive}}</label>
+          <label class="switch switch-pill switch-label switch-primary">
+            <input type="checkbox" class="switch-input" formControlName="isActive">
+            <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+          </label>
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <div class="switch-wrapper">
+          <label class="required">{{UsersLabelConstants.isAccountLocked}}</label>
+          <label class="switch switch-pill switch-label switch-primary">
+            <input type="checkbox" class="switch-input" formControlName="isLocked" (change)="unlockSwitch()">
+            <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

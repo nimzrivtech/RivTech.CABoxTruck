@@ -1,0 +1,20 @@
+
+
+<div class="form-group row" [formGroup]="group" *ngIf="field.isVisible">
+    <label class="col-form-label text-md-right" [ngClass]="field.parentField ? 'offset-md-3 col-md-2 group-body' : 'col-md-4'">
+        {{field.label}}
+        <span *ngIf="field.required" class="spandata">*</span> :
+    </label>
+
+    <div class="col-md-4">
+        <ng-multiselect-dropdown [id]="field.name" [formControlName]="field.name"
+        [placeholder]="field.placeholder"
+        [data]="field.dropdownList | orderBy: 'label'"
+        [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+        [ngClass]="{ 'is-invalid': formControl.touched && formControl.errors }">
+        </ng-multiselect-dropdown>
+        <app-validation-error [control]="formControl"></app-validation-error>
+    </div>
+</div>

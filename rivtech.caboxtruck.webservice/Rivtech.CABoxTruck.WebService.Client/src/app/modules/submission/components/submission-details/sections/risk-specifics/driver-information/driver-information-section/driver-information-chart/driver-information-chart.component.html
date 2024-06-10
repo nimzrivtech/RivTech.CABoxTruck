@@ -1,0 +1,54 @@
+<div class="offset-md-2 col-md-6 row" [formGroup]="form">
+
+    <table class="table table-striped table-outline table-bordered">
+        <thead class="thead-light text-center">
+            <tr>
+                <th scope="col">Driving Breakdowns</th>
+                <th scope="col" class="col-s">Driving</th>
+                <th scope="col" class="col-s">On Duty</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="col"> Drivers Maximum Hours Per Day: </td>
+                <td scope="col">
+                    <div class="input-group">   
+                        <input formControlName="maxHrsPerDayDrive" [placeholder]="0" class="form-control" currencyMask [options]="CurrencyMaskConstants.HourPerDay"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text">hr (s)</div>
+                        </div>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="input-group">   
+                        <input formControlName="maxHrsPerDayDuty" [placeholder]="0" class="form-control" currencyMask [options]="CurrencyMaskConstants.HourPerDay"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text">hr (s)</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td scope="col"> Drivers Maximum Hours Per Week: </td>
+                <td scope="col">
+                    <div class="input-group">   
+                        <input formControlName="maxHrsPerWeekDrive" [placeholder]="0" class="form-control" currencyMask [options]="CurrencyMaskConstants.HourPerWeek"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text">hr (s)</div>
+                        </div>
+                    </div>
+                </td>
+                <td scope="col">
+                    <div class="input-group">   
+                        <input formControlName="maxHrsPerWeekDuty" [placeholder]="0" class="form-control" currencyMask [options]="CurrencyMaskConstants.HourPerWeek"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text">hr (s)</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

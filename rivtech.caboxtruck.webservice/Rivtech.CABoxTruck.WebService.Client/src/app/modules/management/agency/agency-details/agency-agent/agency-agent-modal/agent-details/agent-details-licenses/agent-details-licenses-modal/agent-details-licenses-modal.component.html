@@ -1,0 +1,73 @@
+<div class="agency-modal field">
+    <div class="alert-box">
+      <div class="modal-header sticky-modal-header">
+          <h4 class="modal-title">{{modalTitle}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="closeDialog()">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <form *ngIf="agentData.agentLicenseFormGroup as agentFormControl" [formGroup]="agentFormControl">
+          <div class="row form-group field mt-2">
+              <div class="col-md-6 input-container">
+                <label class="required" for="stateCode">{{AgentLabelConstants.stateCode}}</label>
+                <select class="form-control w-100" id="stateCode" formControlName="stateCode"
+                  [ngClass]="{ 'is-invalid': agentFormControl.get('stateCode').errors && agentFormControl.get('stateCode').dirty }"
+                  maxlength="2">
+                  <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+                  <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+                  <option *ngFor="let obj of programState.statesList" [value]="obj">{{obj}}</option>
+                </select>
+                <span class="invalid-feedback" *ngIf="agentFormControl.get('stateCode').errors?.required && agentFormControl.get('stateCode').touched">
+                  {{ ErrorMessageConstant.requiredErrorMessage.format(AgentLabelConstants.stateCode) }}
+                </span>
+              </div>
+              <div class="col-md-6 input-container">
+                  <label class="required" for="licenseNumber">{{AgentLabelConstants.licenseNumber}}</label>
+                  <input class="form-control w-100" id="licenseNumber" type="text" formControlName="licenseNumber"
+                      [ngClass]="{ 'is-invalid': agentFormControl.get('licenseNumber').errors && agentFormControl.get('licenseNumber').dirty }"
+                      maxlength="30">
+                  <span class="invalid-feedback" *ngIf="agentFormControl.get('licenseNumber').errors?.required && agentFormControl.get('licenseNumber').touched">
+                    {{ ErrorMessageConstant.requiredErrorMessage.format(AgentLabelConstants.licenseNumber) }}
+                  </span>
+                  <span class="invalid-feedback"
+                    *ngIf="agentFormControl.get('licenseNumber').errors?.pattern && (agentFormControl.get('licenseNumber').touched || agentFormControl.get('licenseNumber').dirty)">
+                    {{ErrorMessageConstant.validLicenseNumberErrorMessage}}
+                  </span>
+              </div>
+              <!-- <div class="col-md-4 input-container">
+                <div class="switch-wrapper">
+                  <label>{{AgentLabelConstants.surplusLines}}</label>
+                  <label class="switch switch-pill switch-label switch-primary">
+                    <input type="checkbox" class="switch-input" formControlName="isSurplusLines">
+                    <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+                  </label>
+                </div>
+              </div> -->
+          </div>
+          <div class="row form-group field">
+              <div class="col-md-6 input-container">
+                  <label for="" class="required">{{AgentLabelConstants.licenseEffectiveDate}}</label>
+                  <app-date-picker [options]="agentData.effectiveDateOption" class="effective-date" formControlName="licenseEffectiveDate"
+                  [customRequiredErrorMessage]="ErrorMessageConstant.requiredErrorMessage.format(AgentLabelConstants.licenseEffectiveDate)"
+                  [isInvalid]="agentFormControl.get('licenseEffectiveDate').errors?.required">
+                  </app-date-picker>
+              </div>
+              <div class="col-md-6 input-container">
+                  <label for="" class="required">{{AgentLabelConstants.licenseExpirationDate}}</label>
+                  <app-date-picker [options]="agentData.effectiveDateOption" class="effective-date" formControlName="licenseExpirationDate"
+                  [customRequiredErrorMessage]="!isValidExpirationDate ? ErrorMessageConstant.invalidExpirationDate : ErrorMessageConstant.requiredErrorMessage.format(AgentLabelConstants.licenseExpirationDate)"
+                  [isInvalid]="agentFormControl.get('licenseExpirationDate').errors?.required || !isValidExpirationDate">
+                  </app-date-picker>
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer sticky-modal-footer">
+          <button type="button" class="btn btn-primary" [disabled]="isSavingDisabled" (click)="save()">
+            {{ !isEdit ? 'Save' : 'Update'}}
+          </button>
+          <button type="button" class="btn btn-danger" (click)="closeDialog()">Cancel</button>
+      </div>
+    </div>
+  </div>

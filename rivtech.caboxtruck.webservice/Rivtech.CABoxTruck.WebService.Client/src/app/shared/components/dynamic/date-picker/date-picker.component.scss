@@ -1,0 +1,21 @@
+.input-group-append {
+  position: absolute;
+  right: -10px;
+}
+
+.input-group-append-right {
+  position: absolute;
+  right: -5px;
+}
+
+.dropdown-disabled {
+  background-color: #f0f3f5;
+}
+
+.custom-datepicker {
+  height:34px;
+}
+
+.custom-datepicker[disabled] {
+  background-color: #f0f3f5;
+}

@@ -1,0 +1,142 @@
+<!-- <form [formGroup]="quoteLimitsData.quoteLimitsForm.limitsForm"> -->
+<form *ngIf="premiumAvgForm != null" [formGroup]="premiumAvgForm" style="padding-top: 0% !important;" >
+    <div class="col-md-12 row table-responsive dynamic-table">
+        <table class="table" [style.width.%]="99.9">     
+            <thead>
+                <tr>
+                    <td class="no-border no-border-bot no-border-top"></td>
+                    <td class="no-border no-border-bot no-border-top" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index"></td>
+                </tr>
+            </thead>     
+            <thead class="no-border">
+                <div class="header-h4">
+                    Pure Vehicle Premium
+                </div>
+            </thead>
+
+            <thead class="text-left">
+                <tr>
+                    <th scope="col" ></th>
+                    <th scope="col" class="wd-170" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index">Option {{i + 1}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> AL Vehicle Premium / Vehicle </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgAlVehicleTotalPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> AL Vehicle Premium / Power Unit </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgAlVehiclePowerPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> AL Vehicle Premium / Trailer </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgAlVehicleTrailerOtherPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> APD Vehicle Premium / Vehicle </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgApdVehicleTotalPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> APD Vehicle Premium / Power Unit </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgApdVehiclePowerPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> APD Vehicle Premium / Trailer </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgApdVehicleTrailerOtherPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> MTC Vehicle Premium / Vehicle </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgMtcRefVehicleTotalPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> MTC Vehicle Premium / Power Unit </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgMtcRefVehiclePowerPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> MTC Vehicle Premium / Trailer </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgMtcRefVehicleTrailerOtherPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead>
+                <tr>
+                    <td class="no-border no-border-bot"></td>
+                    <td class="no-border no-border-bot" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index"></td>
+                </tr>
+            </thead>
+
+            <thead class="no-border">
+                <h4>Total Premium Values</h4>
+            </thead>
+            <thead class="text-left">
+                <tr>
+                    <th scope="col" ></th>
+                    <th scope="col" class="wd-170" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index">Option {{i + 1}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Total Premium / Vehicle </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgTotalVehiclePremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Total Premium / Power Unit </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgTotalVehiclePowerPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Total Premium / Trailer </td>
+                    <td scope="col" *ngFor="let fgOption of optionsPremiumArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgTotalVehicleTrailerOtherPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

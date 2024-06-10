@@ -1,0 +1,164 @@
+<div class="card sticky-body">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#nameAddressCard" (click)="ToggleHiding()"></i>
+        <strong>Name and Address</strong>
+    </div>
+    <div id="nameAddressCard" class="show">
+        <div class="card-body standard-padding">
+            <div class="col">
+                <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+                <form [formGroup]="applicantData.applicantForms.nameAndAddressForm" class="field">
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <label for="businessNameInput" class="required">Business Name</label>
+                            <input type="text" id='businessNameInput' class="form-control" formControlName="businessNameInput" maxlength="100" [attr.title]="f.businessNameInput.value" />
+                            <app-validation-error [control]="f.businessNameInput" [inputName]="'Business Name'"></app-validation-error>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="insuredDbaInput" >Insured DBA</label>
+                            <input type="text" id='insuredDbaInput' class="form-control" formControlName="insuredDbaInput" maxlength="100" [attr.title]="f.insuredDbaInput.value" />
+                            <app-validation-error [control]="f.insuredDbaInput" [inputName]="'Insured DBA'"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <label for="businessAddressInput" class="required">Business Address</label>
+                            <input type="text" id='businessAddressInput' class="form-control" formControlName="businessAddressInput" maxlength="100" (change)="setAddressAndCity()" [attr.title]="f.businessAddressInput.value" />
+                            <app-validation-error [control]="f.businessAddressInput" [inputName]="'Business Address'"></app-validation-error>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <div class="switch-wrapper">
+                                <label>Renewal?</label>
+                                <toggle-switch [formGroup]="this.fg" [formName]="'applicantForm'" fieldName="renewal" (change)="isRenewalSwitch($event.target.checked ? 'on' : 'off')"></toggle-switch>
+                            </div>
+                        </div>
+                        <div class="col-md-4 input-container" *ngIf="f.renewal.value">
+                            <label for="previousPolicyNumber" class="required" >Previous Policy Number</label>
+                            <input type="text" id='previousPolicyNumber' class="form-control" formControlName="previousPolicyNumber" maxlength="100" [attr.title]="f.previousPolicyNumber.value" />
+                            <app-validation-error [control]="f.previousPolicyNumber" [inputName]="'Previous Policy Number'"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <label for="businessCityDropdown" class="required">City</label><br>
+                            <select tabindex="-1" id='businessCityDropdown' class="form-control" formControlName="businessCityDropdown" maxlength="50"
+                                [ngClass]="{'readonly': disableCity || null}"
+                                (change)="setAddressAndCity()">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of applicantData.cityList | orderBy: 'label'" [value]="option">{{option}}</option>
+                            </select>
+                            <app-validation-error [control]="f.businessCityDropdown" [inputName]="'City'"></app-validation-error>
+                        </div>
+                        <div class="col-md-2 input-container">
+                            <label for="businessStateInput" class="required">State</label>
+                            <input type="text" id='businessStateInput' class="readonly form-control" formControlName="businessStateInput" tabindex="-1" readonly />
+                            <app-validation-error [control]="f.businessStateInput" [inputName]="'State'"></app-validation-error>
+                        </div>
+                        <div class="col-md-2 input-container">
+                            <label for="businessZipCodeInput" class="required">Zip Code</label>
+                            <input type="text" id='businessZipCodeInput' maxlength="5" numberOnly class="form-control"
+                                        formControlName="businessZipCodeInput" (change)="checkZip(f.businessZipCodeInput.value)"/>
+                            <app-validation-error [control]="f.businessZipCodeInput" [inputName]="'Zip Code'"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <label for="cityOperations" class="required">Primary City of Operations</label><br>
+                            <select tabindex="-1" id='cityOperations' class="form-control" formControlName="cityOperations" maxlength="50"
+                                [ngClass]="{'readonly': disableCityOperations || null}" [attr.disabled]="disableCityOperations || null">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of applicantData.cityListOperations | orderBy: 'label'" [value]="option">{{option}}</option>
+                            </select>
+                            <app-validation-error [control]="f.cityOperations" [inputName]="'Primary City Of Operations'"></app-validation-error>
+                        </div>
+                        <div class="col-md-2 input-container">
+                            <label for="stateOperations" class="required">State</label>
+                            <input type="text" id='stateOperations' class="readonly form-control" formControlName="stateOperations" tabindex="-1" readonly />
+                            <app-validation-error [control]="f.stateOperations" [inputName]="'State'"></app-validation-error>
+                        </div>
+                        <div class="col-md-2 input-container">
+                            <label for="zipCodeOperations" class="required">Zip Code</label>
+                            <input type="text" id='zipCodeOperations' maxlength="5" numberOnly class="form-control"
+                                        formControlName="zipCodeOperations" (change)="checkZipOperations(f.zipCodeOperations.value)"/>
+                            <app-validation-error [control]="f.zipCodeOperations" [inputName]="'Zip Code'"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 input-container">
+                            <label for="businessPrincipalInput" [ngClass]="{'required': submissionData.isQuoteIssued || null}" >Business Owner</label>
+                            <input type="text" id='businessPrincipalInput' class="form-control" formControlName="businessPrincipalInput" maxlength="100"/>
+                            <app-validation-error [control]="f.businessPrincipalInput" [inputName]="'Business Owner'"></app-validation-error>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="emailInput" [ngClass]="{'required': submissionData.isQuoteIssued || null}" >Email</label>
+                            <input type="text" id='emailInput' class="form-control" formControlName="emailInput" maxlength="100" />
+                            <app-validation-error [control]="f.emailInput" [inputName]="'Email'"></app-validation-error>
+                        </div>
+                        <div class="col-md-4 input-container">
+                            <label for="phoneExtInput" [ngClass]="{'required': submissionData.isQuoteIssued || null}" >Phone / Extension</label>
+                            <input type="text" id='phoneExtInput' class="form-control" formControlName="phoneExtInput" 
+                            [ngClass]="{ 'is-invalid': f.phoneExtInput.errors && f.phoneExtInput.dirty }" mask="(000) 000-0000"/>
+                            <span class="invalid-feedback" *ngIf="f.phoneExtInput.errors?.required && f.phoneExtInput.touched">Phone / Extension is required</span>
+                            <span class="invalid-feedback" *ngIf="f.phoneExtInput.errors?.pattern && f.phoneExtInput.touched">Please enter a valid phone number</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br><br>
+            <div *ngIf="displayAddresses" class="dynamic-table">
+                <div>
+                    <h4>Addresses</h4>
+                </div>
+                <div class="col">
+                    <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+                    <div class="table-responsive">
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table mb-2" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th (click)="applicantData.sortAddress($event.target)" data-order="desc" data-name="addressType">Type</th>
+                                    <th (click)="applicantData.sortAddress($event.target)" data-order="desc" data-name="address.streetAddress1">Street</th>
+                                    <th (click)="applicantData.sortAddress($event.target)" data-order="desc" data-name="address.city">City</th>
+                                    <th (click)="applicantData.sortAddress($event.target)" data-order="desc" data-name="address.state">State</th>
+                                    <th (click)="applicantData.sortAddress($event.target)" data-order="desc" data-name="address.zipCode">Zip Code</th>
+                                    <th (click)="applicantData.sortAddress($event.target)" data-order="desc" data-name="address.isMainGarage" class="text-center">Main Garage</th>
+                                    <th class="text-center" style="padding:5px;width: 10%;">
+                                        Actions<br />
+                                        <button type="button" class="btn btn-primary" [disabled]="this.submissionData?.isIssued" data-placement="top" (click)='openAddAddressModal()' [tooltip]="TableConstants.add">
+                                          <i class="icon-plus"></i>
+                                        </button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of applicantData.pagedItems" >
+                                    <td>
+                                        <span title='Please update the information' *ngIf="submissionData.isQuoteIssued && this.applicantData.applicantForms.billingInfoForm.valid == false && item.addressType == 'Billing'"
+                                         class="badge badge-warning" style="z-index: 2; margin-left: -45px;  position: absolute; cursor: pointer;">!</span>
+                                        <span >{{item.addressType}}</span>
+                                    </td>
+                                    <td><span >{{item.address.streetAddress1}}</span></td>
+                                    <td><span >{{item.address.city}}</span></td>
+                                    <td><span >{{item.address.state}}</span></td>
+                                    <td><span >{{item.address.zipCode}}</span></td>
+                                    <td>
+                                        <div class="text-center" *ngIf="item.addressType == 'Garaging'">
+                                            <input type="checkbox" [checked]="item.address.isMainGarage" [disabled]="this.submissionData?.isIssued" [(ngModel)]="item.address.isMainGarage" (click)="changeMainGarage(item)" >
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="table-button-fixed">
+                                            <i class="icon-note" (click)="openEditAddressModal(item)" [tooltip]="TableConstants.edit"></i>
+                                            <i class="icon-trash" *ngIf="!['Business', 'Billing', 'Mailing'].includes(item.addressType) && item.address.isMainGarage != true" (click)="deleteAddress(item)" [tooltip]="TableConstants.delete"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <app-table-pagination (setPage)="this.applicantData.setPage($event, this.applicantData.addressList)" [pager]="this.applicantData.pager" [loading]="this.applicantData.loading"></app-table-pagination>
+            </div>
+        </div>
+    </div>
+</div>

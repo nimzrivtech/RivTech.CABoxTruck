@@ -1,0 +1,8 @@
+<div class="page-position">
+    <app-forms-section></app-forms-section>
+    <app-next-back-button [isScrollPage]="formsData.forms?.length > 5" 
+        [hideQuote]="true" 
+        [showIssue]="true" 
+        [disableIssue]="hasInvalid || hasQuoteIssued == false"
+        (clickType)="onClick($event)"></app-next-back-button>
+</div>

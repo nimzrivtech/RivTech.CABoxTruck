@@ -1,0 +1,14 @@
+<div class="card-header" 
+    (click)="toggle()" 
+    data-toggle="collapse"
+    [attr.data-target]="targetId"
+    [attr.aria-controls]="target"
+    aria-expanded="true" >
+
+    <span style="vertical-align: middle;" >
+        <i [ngClass]="isOpen ? 'icon-arrow-down' : 'icon-arrow-up'" 
+            class="icons header-icon" 
+            > </i>
+    </span>
+    <strong class="text-uppercase">{{text}}</strong>
+</div>

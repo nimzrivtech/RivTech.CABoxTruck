@@ -1,0 +1,10 @@
+<div [hidden]="raterVersion == null" class="alert alert-info alert-dismissible fade show" role="alert">
+	<i class="icon icon-info font-weight-bold"></i>
+	Experience Rater of this submission has been changed to
+	version {{ raterVersion?.versionId }} (effective <strong>{{ raterVersion?.effectiveDate | date: 'MM/dd/yyyy' }}</strong>). Your changes to the Experience Rater are not
+	reflected, and rating factors are reset to <strong>1.0</strong>.
+
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="onClose()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>

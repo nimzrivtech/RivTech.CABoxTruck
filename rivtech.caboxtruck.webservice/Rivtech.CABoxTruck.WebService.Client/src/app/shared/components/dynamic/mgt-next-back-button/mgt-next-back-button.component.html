@@ -1,0 +1,12 @@
+<div *ngIf="showBack || showNext || showViewQuote || showIssue || showPolicyIssue || showSave || showCancel || showUpdate" (scroll)="onScroll()" id="card">
+    <div [ngClass]="isScrollPage ? 'sticky-bottom': 'default'" class="card-body" id="card-body">
+        <div class="row pb-2 pl-1 validation-msg" *ngIf="showPolicyIssue && policyIssueValidationMessage" >{{policyIssueValidationMessage}}</div>
+        <div class="row">
+            <button *ngIf="showBack" type="submit" class="btn btn-primary mx-2" [disabled]="disableBack || zipCodeData?.isDisableControlsDueToMoratorium" appPreventDoubleClick (debounceClick)="onClick('back')" [debounceTime]="debounceTime"><i class="icon-arrow-left-circle icons"></i> Back</button>
+            <button *ngIf="showNext" type="submit" class="btn btn-primary mx-2" [disabled]="disableNext || zipCodeData?.isDisableControlsDueToMoratorium" appPreventDoubleClick (debounceClick)="onClick('next')" [debounceTime]="debounceTime">Next <i class="icon-arrow-right-circle icons"></i></button>
+            <button *ngIf="showSave" type="submit" class="btn btn-primary mx-2" (click)="onClick('save')" [disabled]="disableSave">Add {{currentPage}}</button>
+            <button *ngIf="showUpdate" type="submit" class="btn btn-primary mx-2" (click)="onClick('update')" [disabled]="disableUpdate">Save</button>
+            <button *ngIf="showCancel" type="submit" class="btn btn-danger mx-2" (click)="onClick('cancel')" [disabled]="disableCancel">Cancel</button>
+        </div>
+    </div>
+</div>

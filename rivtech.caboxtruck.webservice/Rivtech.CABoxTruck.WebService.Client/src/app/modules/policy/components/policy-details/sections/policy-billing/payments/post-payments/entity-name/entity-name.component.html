@@ -1,0 +1,16 @@
+<div [formGroup]="checkPaymentForm">
+
+  <div class="row" *ngIf="!checkPaymentForm.get('isIndividual').value">
+    <div class="form-group col-md-12 field">
+      <label class="required">{{CheckPaymentConstants.name}}</label>
+      <input type="text" class="form-control w-100" maxlength="100" formControlName="name"
+        [value]="checkPaymentForm.get('name').value | titlecase"
+        [ngClass]="{'is-invalid': FormUtils.isControlValid('name', checkPaymentForm) }">
+      <span class="invalid-feedback  d-flex"
+        *ngIf="checkPaymentForm.get('name').errors?.required && checkPaymentForm.get('name').touched">
+        {{ErrorMessageConstant.genericRequiredErrorMessage}}
+      </span>
+    </div>
+  </div>
+
+</div>

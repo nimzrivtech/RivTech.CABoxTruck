@@ -1,0 +1,17 @@
+<div class="card shadow-sm min-height-agent-dashboard customized-header-agent-dashboard customized-blue-agent-dashboard cards-margin quote-box-height">
+  <div class="pb-0 pt-1 card-header text-uppercase text-center font-weight-bold customized-header-agent-dashboard customized-blue-agent-dashboard">
+    <div class="">RENEWAL SUBMISSIONS</div>
+  </div>
+   <div class="card-body quotes-margin-top card-body-dashboard-padding ">
+     <div><a [routerLink]="" (click)="onClick('Complete')" class="text-light dashboard-font">Complete ({{this.dashboardData.dashboardCount.rcompleteCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Declined')" class="text-light dashboard-font">Declined ({{this.dashboardData.dashboardCount.rdeclinedCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('In Research')" class="text-light dashboard-font">In Research ({{this.dashboardData.dashboardCount.rinResearchCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Incomplete')" class="text-light dashboard-font">Incomplete ({{this.dashboardData.dashboardCount.rinCompleteCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Not Accepted')" class="text-light dashboard-font">Not Accepted ({{this.dashboardData.dashboardCount.rnotAcceptedCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Quote in Progress')" class="text-light dashboard-font">Quote in Progress ({{this.dashboardData.dashboardCount.rquoteInProgressCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Quoted')" class="text-light dashboard-font">Quoted ({{this.dashboardData.dashboardCount.rquotedCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Received')" class="text-light dashboard-font">Received ({{this.dashboardData.dashboardCount.rreceivedCount}})</a></div>
+     <div><a [routerLink]="" (click)="onClick('Withdrawn')" class="text-light dashboard-font">Withdrawn ({{this.dashboardData.dashboardCount.rwithdrawnCount}})</a></div>
+  </div>
+
+</div>

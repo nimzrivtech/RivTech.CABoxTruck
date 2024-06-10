@@ -1,0 +1,107 @@
+<div [formGroup]="this.radiusOfOperationsData.radiusOfOperationsForm" class="standard-padding">
+  <div class="col">
+    <div class="row input-container">
+      <h4>Radius of Operations (Must equal 100%)</h4>
+    </div>
+    <div class="clearfix"></div>
+    <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+    <div class="row">
+      <div class="col-md-4 input-container">
+        <div class="field">
+          <label for="zeroToFiftyMilesInput" class="required">0-50 Miles</label>
+          <input type="text" class="w-100" id='zeroToFiftyMilesInput' formControlName="zeroToFiftyMilesPercentage" mask="percent.1" suffix="%" [dropSpecialCharacters]="false" />
+        </div>
+        <app-validation-error [control]="fc.zeroToFiftyMilesPercentage" [inputName]="'0-50 Miles'"></app-validation-error>
+      </div>
+   
+      <div class="col-md-4 input-container">
+        <div class="field">
+          <label for="fiftyOneToTwoHundredMilesInput" class="required">51-200 Miles</label>
+          <input type="text" class="w-100" id='fiftyOneToTwoHundredMilesInput'
+            formControlName="fiftyOneToTwoHundredMilesPercentage" mask="percent.1" suffix="%" [dropSpecialCharacters]="false" />
+        </div>
+        <app-validation-error [control]="fc.fiftyOneToTwoHundredMilesPercentage" [inputName]="'51-200 Miles'"></app-validation-error>
+      </div>
+  
+      <div class="col-md-4 input-container">
+        <div class="field">
+          <label for="twoHundredPlusMilesInput" class="required">200+ Miles</label>
+          <input type="text" class="w-100" id='twoHundredPlusMilesInput' formControlName="twoHundredPlusMilesPercentage" mask="percent.1" suffix="%" [dropSpecialCharacters]="false" />
+        </div>
+        <app-validation-error [control]="fc.twoHundredPlusMilesPercentage" [inputName]="'200+ Miles'"></app-validation-error>
+        <ng-container *ngTemplateOutlet="percentageValidation; context: {fg: fg}"></ng-container>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-4 input-container">
+        <div class="field">
+          <label for="ownerOperatorInput" class="required">Owner - Operator %</label>
+          <input type="text" class="w-100" id='ownerOperatorInput' formControlName="ownerOperatorPercentage" mask="percent.1" suffix="%" [dropSpecialCharacters]="false" />
+        </div>
+        <app-validation-error [control]="fc.ownerOperatorPercentage" [inputName]="'Owner - Operator %'"></app-validation-error>
+      </div>
+      <div class="col-md-4 input-container">
+        <div class="field">
+          <label for="ratingTypeId" class="required">Rating Type</label>
+          <select formControlName="ratingTypeId">
+            <option [ngValue]="null">Please Select</option>
+            <option *ngFor="let option of radiusOfOperationsData.ratingTypeList" [ngValue]="option.value">
+              {{option.label}}</option>
+          </select>
+        </div>
+        <app-validation-error [control]="fc.ratingTypeId" [inputName]="'Rating Type'"></app-validation-error>
+      </div>
+    </div>
+  
+    <div class="row" *ngIf="mexicoDestination || nyc5Boroughs">
+      <div class="col-md-4 input-container" *ngIf="mexicoDestination">
+        <div class="switch-wrapper">
+          <label for="anyDestinationToMexicoPlanned">Any destination to
+            Mexico planned for the next 12 months?</label>
+          <toggle-switch formName="radiusOfOperationsForm" [formGroup]="fg" fieldName="anyDestinationToMexicoPlanned"
+            id="anyDestinationToMexicoPlanned"></toggle-switch>
+        </div>
+      </div>
+  
+      <div class="col-md-4 input-container" *ngIf="nyc5Boroughs">
+        <div class="switch-wrapper">
+          <label for="anyNyc5BoroughsExposure">Any NYC 5 boroughs
+            exposure?</label>
+          <toggle-switch formName="radiusOfOperationsForm" [formGroup]="fg" fieldName="anyNyc5BoroughsExposure"
+            id="anyNyc5BoroughsExposure" (change)="onNyExposureChanged()"></toggle-switch>
+        </div>
+      </div>
+  
+      <div *ngIf="nyc5Boroughs && fc.anyNyc5BoroughsExposure.value" class="col-md-4 input-container">
+        <div class="field">
+          <label for="describeExposureInput">Describe Exposure</label>
+          <textarea class="field-text-area" id="describeExposureInput" formControlName="exposureDescription" maxlength="1000"></textarea>
+        </div>
+        <app-validation-error [control]="fc.exposureDescription" [inputName]="'Describe Exposure'"></app-validation-error>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-4 input-container">
+        <div class="field">
+          <label for="averageMilesPerVehicle">Average Miles Per Vehicle</label>
+          <select formControlName="averageMilesPerVehicle">
+            <option [ngValue]="null">Please Select</option>
+            <option *ngFor="let option of radiusOfOperationsData.mileageList" [ngValue]="option.value">
+              {{option.label}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #percentageValidation let-fg="fg">
+  <div *ngIf="fg.errors?.invalidPercentageOfTravel && (fg.touched || fg.dirty)" class="invalid-feedback">
+    Total Radius of Operations must equal to 100%
+  </div>
+  <div *ngIf="fg.errors?.requiredPercentageOfTravel && (fg.touched || fg.dirty)" class="invalid-feedback">
+    Total Radius of Operations is required
+  </div>
+</ng-template>

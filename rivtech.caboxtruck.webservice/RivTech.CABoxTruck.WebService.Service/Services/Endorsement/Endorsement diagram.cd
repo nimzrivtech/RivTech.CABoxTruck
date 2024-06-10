@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.RiskEndorsementPoints">
+    <Position X="4" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQBA=</HashCode>
+      <FileName>Services\Endorsement\RiskEndorsementPoints.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.EndorsementPoint">
+    <Position X="1" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAMAAAAAAIAAAAAAABAAAgA=</HashCode>
+      <FileName>Services\Endorsement\EndorsementPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.EndorsementChangeItemModifiers.AddVehicleChangeModifier">
+    <Position X="0.5" Y="11.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Endorsement\EndorsementChangeItemModifiers\AddVehicleChangeModifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.EndorsementChangeItems.AddVehicleChangeItem">
+    <Position X="4.25" Y="11.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Endorsement\EndorsementChangeItems\AddVehicleChangeItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.EndorsementProcessor">
+    <Position X="4" Y="1" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAEAAAAAAAgAAAAABCgAAAAAAAAIAQAAAAAA=</HashCode>
+      <FileName>Services\Endorsement\EndorsementProcessor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_endorsementChangeItemModifierResolver" />
+      <Field Name="_endorsementChangeItemModifierResolver" />
+      <Field Name="_endorsementDataCloner" />
+      <Field Name="_endorsementDataCloner" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.IEndorsementData">
+    <Position X="7" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AggAAAAAAAAAAFAAAAAAAAMAEBACAAAAAAAIABAAAgA=</HashCode>
+      <FileName>Services\Endorsement\EndorsementData\IEndorsementData.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.IEndorsementChangeItemModifierResolver">
+    <Position X="0.5" Y="8.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Endorsement\EndorsementChangeItemModifiers\IEndorsementChangeItemModifierResolver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.IEndorsementChangeItemModifier">
+    <Position X="0.5" Y="10" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Endorsement\EndorsementChangeItemModifiers\IEndorsementChangeItemModifier.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.EndorsementChangeItems.IEndorsementChangeItem">
+    <Position X="4.25" Y="10" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Endorsement\EndorsementChangeItems\IEndorsementChangeItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.IEndorsementDataCloner" Collapsed="true">
+    <Position X="10.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Endorsement\EndorsementData\IEndorsementDataCloner.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

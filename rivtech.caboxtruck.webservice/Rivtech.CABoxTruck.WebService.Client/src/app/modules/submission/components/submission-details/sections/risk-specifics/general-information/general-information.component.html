@@ -1,0 +1,147 @@
+<div class="card sticky-body">
+    <div class="card-header"><strong>General Information</strong></div>
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <label class="col-md-4 col-form-label text-md-right">Submission Type :</label>
+                <div class="col-md-4">
+                    <input class="form-control mediumInput" value="NEW" disabled/>
+                </div>
+            </div> <br>
+
+            <!-- static working EFFECTIVE/EXPIRATION date sample -->
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Requested Quote Date<span class="spandata">*</span> :</label>
+                <div class="col-md-4">
+                <input formControlName="requestedQuoteDate" type="date" class="form-control mediumInput"/>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.requestedQuoteDate}"></ng-container>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Effective Date<span class="spandata">*</span> :</label>
+                <div class="col-md-4">
+                <input formControlName="effectiveDate" type="date" class="form-control mediumInput"/>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.effectiveDate}"></ng-container>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Expiration Date<span class="spandata">*</span> :</label>
+                <div class="col-md-4">
+                <input formControlName="expirationDate" type="date" class="form-control mediumInput"/>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.expirationDate}"></ng-container>
+                </div>
+            </div>
+
+            <!-- dynamic form -->
+            <app-dynamic-form [fields]="riskSpecificsData.generalInfoTemplate.FieldConfigs" (parentOnInit)="onChildInit($event)"></app-dynamic-form>
+
+            <!-- static working RADIUS OF OPERATION sample -->
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Radius of Operation<span class="spandata">*</span> :</label>
+
+                <div class="input-group col-md-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">0 - 50</div>
+                    </div>
+                    <input formControlName="zeroToFifty" class="form-control" currencyMask [options]="CurrencyMaskConstants.Percentage"
+                        [ngClass]="{ 'is-invalid': radiusOfOperationNotEqualToHundred || (formControl.zeroToFifty.touched && formControl.zeroToFifty.errors) }"/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">%</div>
+                    </div>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.zeroToFifty}"></ng-container>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="input-group offset-md-4 col-md-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">51 - 100</div>
+                    </div>
+                    <input formControlName="fiftyToHundred" class="form-control" currencyMask [options]="CurrencyMaskConstants.Percentage"
+                        [ngClass]="{ 'is-invalid': radiusOfOperationNotEqualToHundred || (formControl.fiftyToHundred.touched && formControl.fiftyToHundred.errors) }"/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">%</div>
+                    </div>
+                    <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.fiftyToHundred}"></ng-container>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="input-group offset-md-4 col-md-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">200 +</div>
+                    </div>
+                    <input formControlName="twoHundredPlus" class="form-control" currencyMask [options]="CurrencyMaskConstants.Percentage"
+                        [ngClass]="{ 'is-invalid': radiusOfOperationNotEqualToHundred || (formControl.twoHundredPlus.touched && formControl.twoHundredPlus.errors) }"/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">%</div>
+                    </div>
+                    <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.twoHundredPlus}"></ng-container>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="offset-md-4 col-md-4 invalid-feedback" *ngIf="radiusOfOperationNotEqualToHundred"> Total should sum up to 100% </label>
+            </div>
+
+            <div class="form-group row" *ngIf="formControl.twoHundredPlus.value >= 1">
+                <label class="offset-md-3 col-md-2 group-body col-form-label text-md-right">Any operational exposure over a 300 mile radius?<span class="spandata">*</span> :</label>
+
+                <div class="col-md-4 btn-group btn-group-toggle">
+                    <label class="btn btn-outline-primary" *ngFor="let option of optionList"
+                    [ngClass]="{'active': formControl.anyOperationalExposureOver300RadiusOperation.value === option.value}">
+                        <input type="radio" [value]="option.value" formControlName="anyOperationalExposureOver300RadiusOperation"/>
+                        {{option.label}}
+                    </label>
+                </div>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.anyOperationalExposureOver300RadiusOperation}"></ng-container>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Percentage of vehicles that are owner-operator<span class="spandata">*</span> :</label>
+
+                <div class="form-group col-md-4">
+                    <div class="input-group smallInput">
+                        <input formControlName="percentageOfVehiclesOwnerOperated" class="form-control" currencyMask [options]="CurrencyMaskConstants.Percentage"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text">%</div>
+                        </div>
+                        <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.percentageOfVehiclesOwnerOperated}"></ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Do drivers carry cell phones?</label>
+                <ng-container [ngTemplateOutlet]="switch"></ng-container>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Are cell phones hands free?</label>
+                <ng-container [ngTemplateOutlet]="switch"></ng-container>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">App used for navigation?</label>
+                <ng-container [ngTemplateOutlet]="switch"></ng-container>
+            </div>
+
+            <button class="btn btn-primary ml-2">Next</button>
+        </form>
+    </div>
+</div>
+
+<ng-template #switch>
+    <div class="col-md-4">
+        <label class="switch switch-label switch-primary">
+            <input type="checkbox" class="switch-input" checked>
+            <span class="switch-slider" data-checked="YES" data-unchecked="NO"></span>
+        </label>
+    </div>
+</ng-template>
+
+<ng-template #validation let-formControl="formControl">
+  <app-validation-error [control]="formControl"></app-validation-error>
+</ng-template>

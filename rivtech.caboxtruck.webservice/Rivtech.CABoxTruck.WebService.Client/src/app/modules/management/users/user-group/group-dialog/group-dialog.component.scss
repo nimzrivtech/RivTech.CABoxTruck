@@ -1,0 +1,217 @@
+.sticky-modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    background-color: #f0f3f5;
+  }
+  
+.sticky-modal-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 2000;
+    background-color: rgb(255, 255, 255);
+  }
+
+.modal-dialog{
+    overflow-y: initial !important
+  }
+.modal-body{
+    // height: 70vh;
+    overflow-y: auto;
+  }
+
+.height60vh{
+    height: 60vh;
+  }
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+.field select {
+  width: 100%;
+  background-image: none !important;
+}
+
+.dynamic-table {
+    padding: 1rem 0;
+  
+    .table-wrapper {
+      overflow-x: scroll;
+    }
+  
+    .auto-horizontal-scroll {
+      overflow-x: auto;
+    }
+  
+    table {
+      border: 1px solid #c8ced3;
+      margin-bottom: 0;
+    }
+  
+    th {
+      background: #f0f3f5;
+      border-bottom-width: 1px;
+      vertical-align: middle;
+      word-break: normal;
+  
+      &:last-child {
+        word-break: break-all;
+      }
+    }
+  
+    tr:nth-child(even) {
+      background-color: #f7f7f7;
+    }
+  
+    td:last-child {
+      width: 60px;
+      text-align: center;
+  
+      i {
+        cursor: pointer;
+        font-weight: bold;
+        margin: 0 5px;
+      }
+  
+      .icon-note {
+        color: #20a8d8;
+      }
+  
+      .icon-trash {
+        color: #f86c6b;
+      }
+    }
+  
+    td {
+      textarea {
+        border: 1px solid #e4e7ea;
+        background-color: #fff;
+      }
+  
+      &:nth-child(1){
+        word-break: break-word;
+      }
+  
+      &:nth-child(2){
+        word-break: normal;
+      }
+  
+      .control-icons {
+        button {
+          width: inherit;
+          height: auto;
+          display: inline;
+          margin: 0;
+          padding: 0;
+          border: none;
+          background: transparent;
+  
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+  
+    .text-center {
+      text-align: center;
+    }
+  
+    .text-end {
+      text-align-last: end;
+    }
+  
+    textarea {
+      width: 100%;
+      padding: 5px;
+      height: 34px;
+    }
+  
+    .control-buttons {
+      text-align: right;
+      margin-top: 1rem;
+    }
+  }
+  
+  .no-data-message {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .checkbox-input {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .uw-approval-table {
+    th:first-child {
+      width: 40%;
+    }
+    th:nth-child(2) {
+      width: 10%;
+    }
+    th:nth-child(3) {
+      width: 22%;
+    }
+    th:last-child {
+      width: 11%;
+    }
+    word-break: break-all;
+  }
+  
+  .schedule-table {
+    background-color: white;
+  }
+  
+  .interest-table {
+    background-color: white;
+  
+  
+    th:nth-child(5) {
+      width: 7%;
+    }
+    th:nth-child(6) {
+      width: 8%;
+    }
+    th:nth-child(10) {
+      width: 13%;
+    }
+  }
+  
+  .bind-issue-document-table {
+    background-color: white;
+  }
+  
+  .bind-issue-notes-table {
+    background-color: white;
+  }
+  
+  .claims-table {
+    background-color: white;
+  
+    td:first-child{
+      white-space: nowrap;
+    }
+  }
+  
+  .action-label {
+    min-width: 75px;
+  }
+  
+  .disable-actions {
+    pointer-events: none;
+  
+    .icon-note {
+      color: #73bed8
+    }
+  
+    .icon-trash {
+      color: rgb(241 163 163);
+    }
+  }
+  
+  .pd-side {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  

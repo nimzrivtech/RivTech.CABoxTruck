@@ -1,0 +1,15 @@
+
+<div class="page-position">
+  <!-- <form [formGroup]="this.Data.formBinding" id="frmHeader"> -->
+    <app-binding></app-binding>
+    <!-- <app-bind-documents></app-bind-documents> -->
+    <!-- <app-bind-notes></app-bind-notes> -->
+    <app-next-back-button [isScrollPage]="true" 
+      [hideQuote]="true" 
+      [showQuoteProposalOnly]="true" 
+      [showGeneratePolicyNumber]="true"
+      [disableIssue]="hasQuoteIssued == false"
+      (clickType)="onClick($event)"></app-next-back-button>
+   <!-- </form> -->
+</div>
+

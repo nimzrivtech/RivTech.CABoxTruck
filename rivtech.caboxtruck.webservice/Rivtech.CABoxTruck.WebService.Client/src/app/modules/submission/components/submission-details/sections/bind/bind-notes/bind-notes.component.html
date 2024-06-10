@@ -1,0 +1,18 @@
+<div class="card sticky-body">
+    <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('bindNotes', $event)">
+      <app-toggle-collapse toggleName="bindNotes"></app-toggle-collapse>
+      <strong> &nbsp; Notes</strong>
+    </div>
+    <div class="card-body standard-padding collapse show" id="bindNotes" style="padding-top: 1.5%">
+      <div class="col">
+        <div class="row" style="margin-bottom: -8px;">
+          <div class="col-9">
+            <label style="margin-bottom: -20px; padding-top: 1rem;">
+              <h4>Notes</h4>
+            </label>
+          </div>
+        </div>
+        <app-note-section></app-note-section>
+      </div>
+    </div>
+</div>

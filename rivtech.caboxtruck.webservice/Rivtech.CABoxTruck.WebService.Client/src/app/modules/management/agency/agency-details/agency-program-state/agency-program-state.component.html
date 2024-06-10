@@ -1,0 +1,56 @@
+<div class="card-body show">
+  <div class="agency-table">
+    <table class="table table-hover" [mfData]="programStateData.programStateListData" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <thead class="custom-table-header">
+          <th class="headers" *ngFor="let header of programStateData.programStateListHeader">
+            <mfDefaultSorter by="{{header.columnName}}">{{ header.name }}</mfDefaultSorter>
+          </th>
+          <th class="headers text-center">
+            Actions
+            <div>
+                <button type="button" class="btn btn-primary mx-1" [tooltip]="tableConstants.add"
+                  data-placement="top" (click)="addProgramState()"><i class="icon-plus"></i></button>
+            </div>
+          </th>
+      </thead>
+      <tbody class="custom-table-body" *ngIf="!programStateData.isProgramStateLoading && !programStateData.isProgramStateDetailLoading">
+          <!-- <tr class="noresultfound">
+              <td colspan="6" ><div class="spinner-border text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div></td>
+              <td colspan="6" > {{ genericLabel.noResultsFound }}</td>
+          </tr> -->
+          <ng-container *ngFor="let item of mf.data">
+              <tr *ngIf="!item?.programState?.removeProcessDate">
+                <td>{{item?.programState?.program?.masterProgramCode}}</td>
+                <td>{{item?.programState?.program?.programName}}</td>
+                <td>{{item?.programState?.program?.formTypeCode}}</td>
+                <td>{{item?.programState?.stateCode}}</td>
+                <td>{{item?.isActive ? programStateConstants.programStateStatus.active : programStateConstants.programStateStatus.inactive}}</td>
+                <td>
+                  <div class="control-icons text-center">
+                    <button type="button" [tooltip]="tableConstants.edit" (click)="editProgramState(item)">
+                      <i class="icon-note"
+                        readonly></i>
+                    </button>
+                    <button type="button" [tooltip]="tableConstants.delete" (click)="deleteProgramState(item.id)">
+                      <i class="icon-trash"
+                        readonly></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+          </ng-container>
+      </tbody>
+      <tfoot *ngIf="programStateData.programStateListData.length > 10">
+        <tr>
+            <td colspan="6">
+                <mfBootstrapPaginator style="display: flex;" class="justify-content-end text-center pt-3">
+                </mfBootstrapPaginator>
+            </td>
+        </tr>
+      </tfoot>
+    </table>
+
+  </div>
+  </div>

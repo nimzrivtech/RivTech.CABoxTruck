@@ -1,0 +1,131 @@
+<div class="card sticky-body">
+  <div class="card-header">
+    <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+      href="#addtlInterestCard" (click)="ToggleHiding()"></i>
+    <strong>Additional Interest</strong>
+  </div>
+  <div id="addtlInterestCard" class="show mt-3">
+    <div class="card-body">
+      <div class="col">
+        <h4>Additional Interest</h4>
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div class="table-responsive dynamic-table" [style.padding-top.px]="0" [style.padding-bottom.px]="0">
+          <table class="table" style="width:100%;" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" #tbVehicle>
+            <thead>
+              <tr>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="entityType">{{ LabelMessage.entityType }}</th>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="name">{{ LabelMessage.name }}</th>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="address">{{ LabelMessage.address }}</th>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="effectiveDate">{{ LabelMessage.effectiveDate }}</th>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="expirationDate">{{ LabelMessage.expirationDate }}</th>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="isWaiverOfSubrogation" class="text-center">{{ LabelMessage.waiverOfSub }}</th>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="isPrimaryNonContributory" class="text-center">{{ LabelMessage.primaryNonCont }}</th>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="isAutoLiability" class="text-center">{{ LabelMessage.autoLiability }}</th>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="isGeneralLiability" class="text-center">{{ LabelMessage.generalLiability }}</th>
+                <th (click)="applicantData.sortAdditionalInterests($event.target)" data-name="is30DayNotice" class="text-center">{{ LabelMessage.thirtyDayNotice }}</th>
+                <th style="text-align: center;padding:5px;">Actions<br />
+                  <button type="button" class="btn btn-primary mx-2" [disabled]="this.submissionData?.isIssued" data-placement="top" (click)='addAdditionalInterest()' [tooltip]="TableConstants.add">
+                    <i class="icon-plus"></i>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let interest of this.applicantData.pagedItems" [ngTemplateOutlet]="interestRow"
+                [ngTemplateOutletContext]="{interest : interest, index: i}"></ng-container>
+            </tbody>
+          </table>
+          <div *ngIf="this.applicantData.rowCount < 1">
+            <div class="text-center col-lg-12 no-data-message">
+                <span>No Data To Display</span>
+            </div>
+          </div>
+        </div>
+        <nav style="padding-top: 10px;" class="navbar navbar-light bg-light justify-content-between" *ngIf="this.applicantData.totalRowCount > 10">
+          <div class="btn-group dropup" >
+              <div class="input-group-prepend">
+                  <div class="input-group-text" id="btnGroupAddon">Show rows</div>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-describedby="btnGroupAddon" aria-haspopup="true" aria-expanded="false">
+                  {{ showRowsNumber }}
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" style="min-width: 3rem;">
+                  <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber10)" class="dropdown-item">{{  TableConstants.Search.showRowsNumber10 }}</span>
+                  <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber25)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber25 }}</span>
+                  <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber50)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber50 }}</span>
+                  <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber100)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber100 }}</span>
+              </div>
+          </div>
+          <pagination  class="aipaging text-center pagination-md ml-3" [boundaryLinks]="true" [directionLinks]="true" [totalItems]="applicantData.totalRowCount" [itemsPerPage]="applicantData.itemPerPage" [maxSize]="10" (pageChanged)="aiPageChanged($event)" 
+            firstText="First" lastText="Last"   previousText="Previous" nextText="Next"  [ngModel]="applicantData.currentPage"></pagination>
+        </nav>
+      </div>
+      <div class="col" style="margin-top: 30px;">        
+          <h4>Blanket Coverage (Increased Cost)</h4>
+      </div>
+      <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+      <div class="clearfix"></div>
+      <div class="row" [formGroup]="blanketCoverageForm">
+        <div class="col-md-12 my-4 ml-4">
+          <label class="checkbox-inline"><input type="checkbox" formControlName="isAdditionalInsured"
+              (change)="setBlanketCoverage('isAdditionalInsured', $event.target.checked)">Additional Insured</label>
+          <label class="checkbox-inline"><input type="checkbox" formControlName="isWaiverOfSubrogation"
+              (change)="setBlanketCoverage('isWaiverOfSubrogation', $event.target.checked)">Waiver of Subrogation</label>
+          <label class="checkbox-inline"><input type="checkbox" formControlName="isPrimaryNonContributory"
+              (change)="setBlanketCoverage('isPrimaryNonContributory', $event.target.checked)">Primary Non-contributory</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #interestRow let-interest="interest">
+  <tr>
+    <td>
+      <span title='Please update the information' *ngIf="submissionData.isQuoteIssued && !interest.isValidated"
+      class="badge badge-warning" style="z-index: 2; margin-left: -45px;  position: absolute; cursor: pointer;">!</span>
+      <span >{{ interest.entityType }}</span>
+    </td>
+    <td><span >{{ interest.name }}</span></td>
+    <td><span *ngIf="interest.isValidated" >{{ interest.address }}, {{ interest.city }}, {{ interest.state }}, {{ interest.zipCode }}</span></td>
+    <td><span >{{ interest.effectiveDate | date : 'MM/dd/yyyy' }}</span></td>
+    <td><span >{{ interest.expirationDate | date : 'MM/dd/yyyy' }}</span></td>
+    <td>
+      <div class="text-center">
+        <input type="checkbox" id="isWaiverOfSubrogation" [checked]="interest.isWaiverOfSubrogation" 
+        [disabled]="blanketCoverage?.isWaiverOfSubrogation || this.submissionData?.isIssued"
+        (change)="interestChanged(interest, $event.target.checked, 'isWaiverOfSubrogation')" />
+      </div>
+    </td>
+    <td>
+      <div class="text-center">
+        <input type="checkbox" id="isPrimaryNonContributory" [checked]="interest.isPrimaryNonContributory" 
+        [disabled]="blanketCoverage?.isPrimaryNonContributory || this.submissionData?.isIssued"
+        (change)="interestChanged(interest, $event.target.checked, 'isPrimaryNonContributory')" />
+      </div>
+    </td>
+    <td>
+      <div class="text-center">
+        <input type="checkbox" id="isAutoLiability" [checked]="interest.isAutoLiability" [disabled]="this.submissionData?.isIssued"
+        (change)="interestChanged(interest, $event.target.checked, 'isAutoLiability')" />
+      </div>
+    </td>
+    <td>
+      <div class="text-center">
+        <input type="checkbox" id="isGeneralLiability" [checked]="interest.isGeneralLiability" [disabled]="this.submissionData?.isIssued"
+        (change)="interestChanged(interest, $event.target.checked, 'isGeneralLiability')" />
+      </div>
+    </td>
+    <td>
+      <div class="text-center">
+        <input type="checkbox" id="is30DayNotice" [checked]="interest.is30DayNotice" [disabled]="this.submissionData?.isIssued"
+        (change)="interestChanged(interest, $event.target.checked, 'is30DayNotice')" />
+      </div>
+    </td>
+    <td>
+      <div class="table-button-fixed d-flex justify-content-end">
+        <i class="icon-note" (click)="editAdditionalInterest(interest)" [tooltip]="TableConstants.edit"></i>
+        <i class="icon-trash" (click)="deleteAdditionalInterest(interest)" [tooltip]="TableConstants.delete"></i>
+      </div>
+    </td>
+  </tr>
+</ng-template>

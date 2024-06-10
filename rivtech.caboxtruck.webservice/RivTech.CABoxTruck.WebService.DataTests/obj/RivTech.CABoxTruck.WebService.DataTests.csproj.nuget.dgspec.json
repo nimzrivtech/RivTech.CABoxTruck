@@ -1,0 +1,261 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DataTests\\RivTech.CABoxTruck.WebService.DataTests.csproj": {}
+  },
+  "projects": {
+    "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DataTests\\RivTech.CABoxTruck.WebService.DataTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DataTests\\RivTech.CABoxTruck.WebService.DataTests.csproj",
+        "projectName": "RivTech.CABoxTruck.WebService.DataTests",
+        "projectPath": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DataTests\\RivTech.CABoxTruck.WebService.DataTests.csproj",
+        "packagesPath": "C:\\Users\\NimuelBCastro\\.nuget\\packages\\",
+        "outputPath": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DataTests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\NimuelBCastro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Data\\RivTech.CABoxTruck.WebService.Data.csproj": {
+                "projectPath": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Data\\RivTech.CABoxTruck.WebService.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.16.1, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Data\\RivTech.CABoxTruck.WebService.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Data\\RivTech.CABoxTruck.WebService.Data.csproj",
+        "projectName": "RivTech.CABoxTruck.WebService.Data",
+        "projectPath": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Data\\RivTech.CABoxTruck.WebService.Data.csproj",
+        "packagesPath": "C:\\Users\\NimuelBCastro\\.nuget\\packages\\",
+        "outputPath": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\NimuelBCastro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DomainEntities\\RivTech.CABoxTruck.WebService.DomainEntities.csproj": {
+                "projectPath": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DomainEntities\\RivTech.CABoxTruck.WebService.DomainEntities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DomainEntities\\RivTech.CABoxTruck.WebService.DomainEntities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DomainEntities\\RivTech.CABoxTruck.WebService.DomainEntities.csproj",
+        "projectName": "RivTech.CABoxTruck.WebService.DomainEntities",
+        "projectPath": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DomainEntities\\RivTech.CABoxTruck.WebService.DomainEntities.csproj",
+        "packagesPath": "C:\\Users\\NimuelBCastro\\.nuget\\packages\\",
+        "outputPath": "C:\\Development\\RivTech.CABoxTruck\\rivtech.caboxtruck.webservice\\RivTech.CABoxTruck.WebService.DomainEntities\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\NimuelBCastro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

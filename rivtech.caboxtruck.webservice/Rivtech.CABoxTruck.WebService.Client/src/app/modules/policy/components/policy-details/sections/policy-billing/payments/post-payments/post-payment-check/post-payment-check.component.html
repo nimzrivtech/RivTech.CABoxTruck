@@ -1,0 +1,95 @@
+<b>{{CheckPaymentConstants.header | uppercase}}</b>
+
+<div [formGroup]="checkPaymentForm">
+
+  <ng-container *ngIf="showIsIndividualToggle">
+    <app-entity-name [checkPaymentForm]="checkPaymentForm"></app-entity-name>
+  </ng-container>
+
+  <div class="row" *ngIf="!showIsIndividualToggle">
+    <div class="form-group col-md-6 field">
+      <label>{{CheckPaymentConstants.checkNumber}}</label>
+      <div>
+        <input type="text" class="form-control full-width" placeholder="" formControlName="checkNumber"
+          inputPattern="namePattern" maxlength="50"
+          [ngClass]="checkPaymentForm.get('checkNumber').invalid && checkPaymentForm.get('checkNumber').touched ? 'is-invalid' :  ''">
+        <span class="invalid-feedback d-flex"
+          *ngIf="checkPaymentForm.get('checkNumber').errors?.required && checkPaymentForm.get('checkNumber').touched">
+          {{errorMessageConstant.genericRequiredErrorMessage}}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6 field">
+      <label class="required">{{CheckPaymentConstants.name}}</label>
+      <div>
+        <input type="text" class="form-control full-width" placeholder="" formControlName="name"
+          inputPattern="namePattern" maxlength="100"
+          [ngClass]="checkPaymentForm.get('name').invalid && checkPaymentForm.get('name').touched ? 'is-invalid' :  ''">
+        <span class="invalid-feedback d-flex"
+          *ngIf="checkPaymentForm.get('name').errors?.required && checkPaymentForm.get('name').touched">
+          {{errorMessageConstant.genericRequiredErrorMessage}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-12 field">
+      <label class="required">{{CheckPaymentConstants.address}}</label>
+      <div>
+        <input type="text" class="form-control full-width" placeholder="" formControlName="address" maxlength="100"
+          [ngClass]="checkPaymentForm.get('address').invalid && checkPaymentForm.get('address').touched ? 'is-invalid' :  ''">
+        <span class="invalid-feedback d-flex"
+          *ngIf="checkPaymentForm.get('address').errors?.required && checkPaymentForm.get('address').touched">
+          {{errorMessageConstant.genericRequiredErrorMessage}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="form-group col-md-6 field">
+      <label class="required">{{CheckPaymentConstants.city}}</label>
+      <div>
+        <select class="form-control full-width" formControlName="city" tabindex="-1"
+          [ngClass]="checkPaymentForm.get('city').invalid && checkPaymentForm.get('city').touched ? 'is-invalid' :  ''">
+          <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+          <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+          <option *ngFor="let obj of zipCodeData.checkCityList" [value]="obj">{{ obj }}</option>
+
+        </select>
+        <span class="invalid-feedback d-flex"
+          *ngIf="checkPaymentForm.get('city').errors?.required && checkPaymentForm.get('city').touched">
+          {{errorMessageConstant.genericRequiredErrorMessage}}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group col-md-2 field">
+      <label>{{CheckPaymentConstants.state}}</label>
+      <div>
+        <input type="text" class="form-control full-width" placeholder="" formControlName="state" readonly tabindex="-1"
+          [ngClass]="checkPaymentForm.get('state').invalid && checkPaymentForm.get('state').touched ? 'is-invalid' :  ''">
+        <span class="invalid-feedback d-flex"
+          *ngIf="checkPaymentForm.get('state').errors?.required && checkPaymentForm.get('state').touched">
+          {{errorMessageConstant.genericRequiredErrorMessage}}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4 field">
+      <label class="required">{{CheckPaymentConstants.zip}}</label>
+      <div>
+        <input type="text" class="form-control full-width" placeholder="" formControlName="zip" maxlength="5"
+          (change)="setZipCode()" numberOnly
+          [ngClass]="checkPaymentForm.get('zip').invalid && checkPaymentForm.get('zip').touched ? 'is-invalid' :  ''">
+        <span class="invalid-feedback d-flex"
+          *ngIf="checkPaymentForm.get('zip').errors?.required && checkPaymentForm.get('zip').touched">
+          {{errorMessageConstant.genericRequiredErrorMessage}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

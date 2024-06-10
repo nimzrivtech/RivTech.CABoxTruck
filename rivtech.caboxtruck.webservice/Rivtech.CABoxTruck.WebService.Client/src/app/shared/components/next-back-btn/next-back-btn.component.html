@@ -1,0 +1,16 @@
+<div *ngIf="showBack || showNext" (scroll)="onScroll()" id="card">
+    <div [ngClass]="isScrollPage ? 'sticky-bottom': 'default'" class="card-body" id="card-body">
+        <div class="row">
+            <!-- Navigation Buttons -->
+            <div *ngIf="!isIssuePage">
+                <button *ngIf="showBack" type="submit" class="btn btn-primary mx-2" (click)="onClick('back')" [disabled]="disableBack"><i class="icon-arrow-left-circle icons"></i> Back</button>
+                <button *ngIf="showNext" type="submit" class="btn btn-primary mx-2" (click)="onClick('next')"  [disabled]="disableNext">Next <i class="icon-arrow-right-circle icons"></i></button>
+            </div>
+            <!-- Issue Button -->
+            <div *ngIf="isIssuePage"> 
+                <button type="submit" class="btn btn-primary mx-2" (click)="triggerIssueEndorsementProcess()" [disabled]="!canIssue" [attr.title]="issuePreloadTooltip">Issue</button>
+                <button type="submit" class="btn btn-danger" (click)="triggerResetProcess()" [disabled]="!canReset" >Reset</button>             
+            </div>
+        </div>
+    </div>
+</div>

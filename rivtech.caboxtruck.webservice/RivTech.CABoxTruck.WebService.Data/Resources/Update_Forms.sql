@@ -1,0 +1,6 @@
+﻿UPDATE [dbo].[Form] SET [Name] = 'Trade or Economic Sanctions' WHERE Id = 'TreasuryNotice'
+UPDATE [dbo].[Form] SET [Name] = 'Texas Insurance Auto Policy Coverage' WHERE Id = 'UnitedSpecialtyAutoPolicyCoverage'
+UPDATE [dbo].[Form] SET [Name] = 'Exclusion Radius Endorsement' WHERE Id = 'VehiclesDrivingBeyondDesignatedRadiusOfOperation'
+UPDATE [dbo].[Form] SET [Name] = 'Sexual Molestation Exclusion' WHERE Id = 'SexualMolestationCorporalPunishment'
+UPDATE [dbo].[Form] SET [Name] = 'Waiver of Transfer of Right' WHERE Id = 'WaiverOfTransferOfRights'
+UPDATE [dbo].[Form] SET [IsActive] = 0 WHERE Id = 'VehicleUsageExclusion'

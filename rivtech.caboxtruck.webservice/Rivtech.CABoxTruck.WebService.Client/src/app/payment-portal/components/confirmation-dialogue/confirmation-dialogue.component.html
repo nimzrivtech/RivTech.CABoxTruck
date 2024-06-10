@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content [innerHTML]="data.content">
+</div>
+<div mat-dialog-actions >
+  <!-- <button mat-button mat-flat-button mat-dialog-close class="m-r-10" tabindex="">No</button> -->
+  <!-- <button mat-button mat-dialog-close (click)="foo(data.title)" tabindex="2">No</button> -->
+  <button mat-button mat-dialog-close class="m-r-10" (click)="onNoClick()">{{data.noLabel}}</button>
+  <button mat-button class="m-r-10" color="primary" (click)="onYesClick()" cdkFocusInitial>{{data.yesLabel}}</button>
+</div>

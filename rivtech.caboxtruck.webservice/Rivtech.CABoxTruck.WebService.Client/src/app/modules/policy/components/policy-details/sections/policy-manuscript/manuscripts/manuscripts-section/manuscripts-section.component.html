@@ -1,0 +1,98 @@
+<div class="card sticky-body">
+  <div class="card-header">
+    <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+      href="#manuscriptsCard" (click)="ToggleHiding()"></i>
+    <strong>Manuscripts</strong>
+  </div>
+  <div id="manuscriptsCard" class="show mt-3">
+    <div class="card-body">
+      <div class="col">
+        <div>
+          <h4>Manuscripts</h4>
+        </div>
+        <div class="table-responsive dynamic-table" [style.padding-top.px]="0" [style.padding-bottom.px]="0">
+            <table class="table" style="width:100%;" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" #tbVehicle>
+              <thead>
+                <tr>
+                  <th (click)="sort($event.target)"  data-name="title" style="width:20%">Title</th>
+                  <th (click)="sort($event.target)"  data-name="description" style="width:25%">Description</th>
+                  <th (click)="sort($event.target)"  data-name="premium" style="width:10%">Premium</th>
+                  <th (click)="sort($event.target)"  data-name="effectiveDate">Effective Date</th>
+                  <th (click)="sort($event.target)"  data-name="expirationDate">Expiration Date</th>
+                  <th (click)="sort($event.target)"  data-name="premiumType" class="text-center">AL</th>
+                  <th (click)="sort($event.target)"  data-name="premiumType" class="text-center">PD</th>
+                   <th style="text-align: center;padding:5px;">Actions<br />
+                    <button type="button" class="btn btn-primary mx-2" data-placement="top" [disabled]="!policySummaryData.canEditPolicy" (click)='add()' [tooltip]="TableConstants.add">
+                      <i class="icon-plus"></i>
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>          
+                  <tr *ngFor="let manuscript of data.pagedItems; let i = index">
+                    <td><span >{{ manuscript.title }}</span></td>
+                    <td><span >{{ manuscript.description }}</span></td>
+                    <td><span >{{ ((manuscript.isProrate) ? manuscript.proratedPremium : manuscript.premium) | currency : 'USD' : 'symbol' : '1.0-2' }}</span></td>
+                    <td><span >{{ manuscript.effectiveDate | date : 'MM/dd/yyyy' }}</span></td>
+                    <td><span >{{ manuscript.expirationDate | date : 'MM/dd/yyyy' }}</span></td>
+                    <!-- <td>
+                      <div class="text-center">
+                        <input type="checkbox" id="isProrate" [checked]="manuscript.isProrate" 
+                        [disabled]="!policySummaryData.canEditPolicy || !manuscript.isActive || manuscript.fromPreviousEndorsement"
+                        (change)="prorateChanged(manuscript, $event.target.checked)" />
+                      </div>
+                    </td> -->
+                    <td>
+                      <div class="text-center">
+                        <input type="radio" id="isAL" name="premiumType_{{manuscript.id}}" [disabled]="!policySummaryData.canEditPolicy || !manuscript.isActive || manuscript.fromPreviousEndorsement"
+                          [checked]="manuscript.premiumType == 'AL'" (change)="alPdChanged(manuscript, 'AL')" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-center">
+                        <input type="radio" id="isPD" name="premiumType_{{manuscript.id}}" [disabled]="!policySummaryData.canEditPolicy || !manuscript.isActive || manuscript.fromPreviousEndorsement"
+                          [checked]="manuscript.premiumType == 'PD'" (change)="alPdChanged(manuscript, 'PD')" />
+                      </div>
+                    </td>               
+                    <td>
+                      <div *ngIf="manuscript.isActive" class="table-button-fixed d-flex justify-content-center">
+                        <div *ngIf="!manuscript.fromPreviousEndorsement">
+                          <i [className]="(!policySummaryData.canEditPolicy) ? 'icon-note disable-button' : 'icon-note'" (click)="edit(manuscript)" [tooltip]="TableConstants.edit"></i>
+                        </div>
+                        <div>
+                          <i [className]="(!policySummaryData.canEditPolicy) ? 'icon-trash disable-button' : 'icon-trash'" (click)="delete(manuscript)" [tooltip]="TableConstants.delete"></i>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+            <div *ngIf="data.pagedItems.length < 1">
+              <div class="text-center col-lg-12 no-data-message">
+                  <span>No Data To Display</span>
+              </div>
+            </div>
+            <nav style="padding-top: 10px;" class="navbar navbar-light bg-light justify-content-between" *ngIf="this.data.totalRowCount > 10">
+              <div class="btn-group dropup" >
+                  <div class="input-group-prepend">
+                      <div class="input-group-text" id="btnGroupAddon">Show rows</div>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-describedby="btnGroupAddon" aria-haspopup="true" aria-expanded="false">
+                      {{ showRowsNumber }}
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right" style="min-width: 3rem;">
+                      <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber10)" class="dropdown-item">{{  TableConstants.Search.showRowsNumber10 }}</span>
+                      <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber25)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber25 }}</span>
+                      <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber50)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber50 }}</span>
+                      <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber100)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber100 }}</span>
+                  </div>
+              </div>
+              <pagination  class="mspaging text-center pagination-md ml-3" [boundaryLinks]="true" [directionLinks]="true" [totalItems]="data.totalRowCount" [itemsPerPage]="data.itemPerPage" [maxSize]="10" (pageChanged)="msPageChanged($event)" 
+              [ngModel]="data.currentPage"></pagination>
+            </nav>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

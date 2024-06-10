@@ -1,0 +1,163 @@
+
+<div class="table-responsive dynamic-table" *ngIf="isPolicyCategory">
+    <table class="table" style="width:100%">
+        <thead>
+            <tr>
+                <th [style.width.px]="200" (click)="sortBy('Category')" data-order="desc" data-name="category">Category</th>
+                <th (click)="sortBy('Description')" data-order="desc" data-name="description">Description</th>                
+                <th [style.width.px]="190" (click)="sortBy('CreatedDate')" data-order="desc" data-name="createdDate">Date Added</th>
+                <th class="text-center" style="padding:5px;">Actions<br />
+                    <button tabindex="" type="button" [disabled]="this.documentData.disableActionButton" (click)="onEditItem()" class="btn btn-primary mx-2"
+                        data-placement="top" [tooltip]="TableConstants.add">
+                        <i class="icon-plus"></i>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let doc of documentData.pagedItems">
+                <td>{{doc.category}}</td>
+                <td class="description-col">{{doc.description}}</td>
+                <td>
+                    {{ doc.createdDate | date : 'MM/dd/yyyy' }}
+                </td>
+                <td>
+                    <div class="table-button-fixed d-flex justify-content-end mr-2 control-icons">
+                        <button type="button" [tooltip]="TableConstants.view"
+                            (click)="viewDocument(doc)" >
+                            <i class="icon-doc"></i>
+                        </button>
+                        <button type="button" [tooltip]="TableConstants.edit"
+                            [disabled]="(disableItems.updateIcon && doc.isSystemGenerated == true) || this.documentData.disableActionButton"
+                            (click)="onEditItem(doc)" >
+                            <i class="icon-note"
+                                [style.cursor]="disableItems.updateIcon && doc.isSystemGenerated == true ? 'not-allowed' : 'pointer'"
+                                [style.color]="disableItems.updateIcon && doc.isSystemGenerated == true ? '#a9a9a9' : '#20a8d8'"
+                                readonly></i>
+                        </button>
+                        <button type="button" [tooltip]="TableConstants.delete"
+                            [disabled]="(disableItems.deleteIcon && doc.isSystemGenerated == true) || this.documentData.disableActionButton"
+                            (click)="onDeleteItem(doc)" >
+                            <i class="icon-trash"
+                                [style.cursor]="disableItems.deleteIcon && doc.isSystemGenerated == true ? 'not-allowed' : 'pointer'"
+                                [style.color]="disableItems.deleteIcon && doc.isSystemGenerated == true ? '#a9a9a9' : '#f86c6b'"
+                                readonly></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="this.documentData.pagedItems?.length === 0">
+        <div class="text-center col-lg-12 no-data-message">
+            <span>No Data To Display</span>
+        </div>
+    </div>
+    <nav style="padding-top: 10px;" class="navbar navbar-light bg-light justify-content-between" *ngIf="this.documentData.totalRowCount > 10">
+        <div class="btn-group dropup" >
+            <div class="input-group-prepend">
+                <div class="input-group-text" id="btnGroupAddon">Show rows</div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-describedby="btnGroupAddon" aria-haspopup="true" aria-expanded="false">
+                {{ showRowsNumber }}
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" style="min-width: 3rem;">
+                <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber10)" class="dropdown-item">{{  TableConstants.Search.showRowsNumber10 }}</span>
+                <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber25)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber25 }}</span>
+                <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber50)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber50 }}</span>
+                <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber100)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber100 }}</span>
+            </div>
+        </div>
+        
+        <pagination class="text-center pagination-md ml-3" [boundaryLinks]="true" [directionLinks]="false" [totalItems]="documentData.totalRowCount" [itemsPerPage]="documentData.itemPerPage" [maxSize]="10" (pageChanged)="policyPageChanged($event)" 
+            [ngModel]="documentData.currentPage"></pagination>
+    </nav>
+</div>
+
+<div class="table-responsive dynamic-table" *ngIf="isBillingCategory">
+    <table class="table" style="width:100%">
+        <thead>
+            <tr>
+                <th [style.width.px]="200" (click)="sortBy('Category', true)" data-order="desc" data-name="category">Category</th>
+                <th (click)="sortBy('Description', true)" data-order="desc" data-name="description">Description</th>                
+                <th [style.width.px]="190" (click)="sortBy('CreatedDate', true)" data-order="desc" data-name="createdDate">Date Added</th>
+                <th class="text-center" style="padding:5px;">Actions<br />
+                    <button tabindex="" type="button" [disabled]="this.documentData.disableActionButton" (click)="onEditItem()" class="btn btn-primary mx-2"
+                        data-placement="top" [tooltip]="TableConstants.add">
+                        <i class="icon-plus"></i>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let doc of documentData.pagedItemsBillingDocs">
+                <!-- <td><input type="checkbox" class="checkbox" [(ngModel)]="doc.checked" [disabled]="this.documentData.disableActionButton"></td> -->
+                <td>{{doc.category}}</td>
+                <td class="description-col">{{doc.description}}</td>
+                <td>
+                    {{ doc.createdDate | date : 'MM/dd/yyyy' }}
+                </td>
+                <td>
+                    <div class="table-button-fixed d-flex justify-content-end mr-2 control-icons">
+                        <button type="button" [tooltip]="TableConstants.view"
+                            (click)="viewDocument(doc)" >
+                            <i class="icon-doc"></i>
+                        </button>
+                        <button type="button" [tooltip]="TableConstants.edit"
+                            [disabled]="(disableItems.updateIcon && doc.isSystemGenerated == true) || this.documentData.disableActionButton"
+                            (click)="onEditItem(doc)" >
+                            <i class="icon-note"
+                                [style.cursor]="disableItems.updateIcon && doc.isSystemGenerated == true ? 'not-allowed' : 'pointer'"
+                                [style.color]="disableItems.updateIcon && doc.isSystemGenerated == true ? '#a9a9a9' : '#20a8d8'"
+                                readonly></i>
+                        </button>
+                        <button type="button" [tooltip]="TableConstants.delete"
+                            [disabled]="(disableItems.deleteIcon && doc.isSystemGenerated == true) || this.documentData.disableActionButton"
+                            (click)="onDeleteItem(doc)" >
+                            <i class="icon-trash"
+                                [style.cursor]="disableItems.deleteIcon && doc.isSystemGenerated == true ? 'not-allowed' : 'pointer'"
+                                [style.color]="disableItems.deleteIcon && doc.isSystemGenerated == true ? '#a9a9a9' : '#f86c6b'"
+                                readonly></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="this.documentData.pagedItemsBillingDocs?.length === 0">
+        <div class="text-center col-lg-12 no-data-message">
+            <span>No Data To Display</span>
+        </div>
+    </div>
+    <nav style="padding-top: 10px;" class="navbar navbar-light bg-light justify-content-between" *ngIf="this.documentData.totalBillingRowCount > 10">
+        <div class="btn-group dropup" >
+            <div class="input-group-prepend">
+                <div class="input-group-text" id="btnGroupSRows">Show rows</div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-describedby="btnGroupSRows" aria-haspopup="true" aria-expanded="false">
+                {{ showBillingRowsNumber }}
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" style="min-width: 3rem;">
+                <span (click)="changeBillingRowsNumber(TableConstants.Search.showRowsNumber10)" class="dropdown-item">{{  TableConstants.Search.showRowsNumber10 }}</span>
+                <span (click)="changeBillingRowsNumber(TableConstants.Search.showRowsNumber25)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber25 }}</span>
+                <span (click)="changeBillingRowsNumber(TableConstants.Search.showRowsNumber50)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber50 }}</span>
+                <span (click)="changeBillingRowsNumber(TableConstants.Search.showRowsNumber100)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber100 }}</span>
+            </div>
+        </div>
+        
+        <pagination class="text-center pagination-md ml-3" id="pgbilling" [boundaryLinks]="true" [directionLinks]="false" [totalItems]="documentData.totalBillingRowCount" [itemsPerPage]="documentData.itemPerPageBilling" [maxSize]="10" (pageChanged)="billingPageChanged($event)" 
+            [ngModel]="documentData.currentPageBillingDocs"></pagination>
+    </nav>
+    <!--<div style="padding-top: 10px;">
+        <app-table-pagination (setPage)="this.documentData.setPageBillingDocuments($event, this.documentData.billingDocumentsListData)" [pager]="this.documentData.pagerBillingDocs" [loading]="this.documentData.loadingBillingDocs"></app-table-pagination>
+    </div>-->
+</div>
+<!-- Hide, no functionality yet -->
+<!-- <div class="row documents-row">
+    <div class="col-lg-3">
+      <button class="btn btn-primary btn-block">Download</button>
+    </div>
+    <div class="col-lg-3">
+      <button class="btn btn-primary btn-block">Email Documents</button>
+    </div>
+  </div> -->

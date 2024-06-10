@@ -1,0 +1,75 @@
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('quotecondition', $event)">
+    <app-toggle-collapse toggleName="quotecondition"></app-toggle-collapse>
+        <strong> &nbsp; Quote Conditions</strong>
+    </div>
+    <div class="card-body standard-padding collapse show" id="quotecondition" style="padding-top: 1.5%">
+      <div class="col">
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div class="row pb-2">
+          <div class="col-9">
+            <label style="margin-bottom: -20px; padding-top: 1rem;">
+            <h4>Quote Conditions</h4></label>
+          </div>
+        </div>
+        <div class="table-responsive dynamic-table" [style.padding-top.px]="0" [style.padding-botton.px]="0">
+          <table id='tblQuoteCondition'[dtOptions]="this.dtOptions" [dtTrigger]="this.dtTrigger" datatable #tblQuoteCondition class="table mb-2">
+            <thead>
+            <tr>
+                <th (click)="Data.sortQuoteConditions($event.target)" data-order="desc" id="quoteConditionsOption" data-name="sortableText" style="width: 45%;" class="text-left">Condition</th>
+                <th (click)="Data.sortQuoteConditions($event.target)" data-order="desc" data-name="comments" style="width: 45%;" class="text-left">Comments</th>
+                <th style="width: 10%; padding:5px;" class="text-center">Actions<br/>
+                  <button tabindex="" type="button" class="btn btn-primary mx-2" data-placement="top" [disabled]="this.submissionData?.isIssued" (click)='this.openAddItemModal()' [tooltip]="TableConstants.add">
+                    <i class="icon-plus"></i>
+                  </button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+              <!-- <ng-container *ngFor="let driver of this.Data.driverInfoList | driverFilter: this.Data.filterValue" [ngTemplateOutlet]="driverRow" [ngTemplateOutletContext]="{driverObj : driver}"></ng-container> -->
+              <ng-container *ngFor="let obj of this.Data.conditionsPagedItems" [ngTemplateOutlet]="tableRow" [ngTemplateOutletContext]="{Obj : obj}"></ng-container>
+            </tbody>
+          </table>
+          <div *ngIf="this.Data.quoteConditionsList?.length < 1">
+            <div class="text-center col-lg-12 no-data-message">
+                <span>No Data To Display</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="this.Data.currentTotalItemsConditions > 10">
+          <nav style="margin-top: -8px;" class="navbar navbar-light bg-light justify-content-between">
+            <div class="btn-group dropup" >
+                <div class="input-group-prepend">
+                    <div class="input-group-text" id="btnGroupAddon">Show rows</div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-describedby="btnGroupAddon" aria-haspopup="true" aria-expanded="false">
+                    {{ Data.showRowsNumberConditions }}
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" style="min-width: 3rem;">
+                    <span (click)="changeShowRowsNumberQuoteConditions(TableConstants.Search.showRowsNumber10)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber10 }}</span>
+                    <span (click)="changeShowRowsNumberQuoteConditions(TableConstants.Search.showRowsNumber25)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber25 }}</span>
+                    <span (click)="changeShowRowsNumberQuoteConditions(TableConstants.Search.showRowsNumber50)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber50 }}</span>
+                    <span (click)="changeShowRowsNumberQuoteConditions(TableConstants.Search.showRowsNumber100)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber100 }}</span>
+                </div>
+            </div>
+            <app-table-pagination-mod (setPage)="this.setConditionsPage($event)" [pager]="this.Data.conditionsPager" [loading]="this.Data.loadingConditions"></app-table-pagination-mod>
+          </nav>    
+        </div>
+      </div>
+  </div>
+</div>
+
+<ng-template #tableRow let-Obj="Obj" >
+  <tr>
+      <td sty class="verticalMiddle text-left"><span class="mtext-left">{{ Obj.quoteConditionsOptionId|selectItemIdToLabel:this.Data.dropdownList.quoteConditionList }}</span></td>
+
+      <td class="verticalMiddle text-left description-col"><span class="mtext-left">{{ Obj.comments }}</span></td>
+      <td  class="verticalMiddle">
+        <div class="table-button-fixed d-flex justify-content-center">
+          <i *ngIf="Obj.filePath != null" class="icon-doc" (click)="this.viewDocument(Obj)" [tooltip]="TableConstants.view"></i>
+          <i [className]="(this.CanEditOrDeleteQuoteCondition(Obj)) ? 'icon-note' : 'icon-note disable-button'" (click)="this.openEditItemModal(Obj)" [tooltip]="TableConstants.edit"></i>
+          <i [className]="(this.CanEditOrDeleteQuoteCondition(Obj)) ? 'icon-trash' : 'icon-trash disable-button'" (click)="this.deleteQuoteCondition(Obj)" [tooltip]="TableConstants.delete"></i>
+        </div>
+      </td>
+  </tr>
+  </ng-template>

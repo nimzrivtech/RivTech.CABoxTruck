@@ -1,0 +1,26 @@
+<div class="bg-success" *ngIf="!this.submissionData.isIssued">
+	<div *ngIf="!hideQuote" class="right-side-action-button">
+		<app-premium-calculate-button #calculateButton [options]="ratingOptions"
+			(optionClicked)="raterOptionClicked($event)"></app-premium-calculate-button>
+
+		<button #viewQuoteButton type="submit" class="btn btn-primary mx-2" (click)="viewQuote()"
+			[attr.title]="ratingTooltip" >View Quote Proposal</button>
+	</div>
+	<div class="right-side-action-button">
+		<div *ngIf="showIssue" style="display: inline-block;" >
+			<button type="submit" class="btn btn-primary ml-2" (click)="issuePolicy()"
+				[disabled]="disableIssue || !reportData.canCalculatePremium">Issue</button>
+		</div>
+
+		<div *ngIf="showGeneratePolicyNumber" style="display: inline-block;" >
+			<button type="submit" class="btn btn-primary ml-2" (click)="generatePolicyNumber()"
+				[disabled]="disableIssue || disablePolicyNumber">Create Policy #</button>
+		</div>
+
+		<div *ngIf="showQuoteProposalOnly" style="display: inline-block;">
+			<button #viewQuoteButton type="submit" class="btn btn-primary mx-2" (click)="viewQuote()"
+				[attr.title]="ratingTooltip" >View Quote Proposal</button>
+		</div>
+	</div>
+</div>
+<!-- <button *ngIf="showIssue" type="submit" class="btn btn-primary mx-2" (click)="onClick('issue')" [disabled]="disableIssue"><i class="icon-control-play icons"></i>&nbsp;Issue</button> -->

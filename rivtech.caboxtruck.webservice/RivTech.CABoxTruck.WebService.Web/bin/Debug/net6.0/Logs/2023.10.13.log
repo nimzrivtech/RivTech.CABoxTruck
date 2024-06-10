@@ -1,0 +1,45 @@
+2023-10-13 10:05:30,699 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-10-13 10:05:36,552 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-13 10:05:36,558 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-13 10:05:36,564 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-13 10:05:36,575 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-13 10:05:36,578 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-13 10:05:36,579 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-13 10:13:05,367 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-10-13 10:13:10,738 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-13 10:13:10,744 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-13 10:13:10,752 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-13 10:13:10,768 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-13 10:13:10,770 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-13 10:13:10,772 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-13 10:14:38,636 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-10-13 10:14:42,204 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-13 10:14:42,209 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application started. Press Ctrl+C to shut down.
+2023-10-13 10:14:42,218 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-13 10:14:42,228 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Hosting environment: Test
+2023-10-13 10:14:42,231 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-13 10:14:42,233 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Content root path: C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web
+2023-10-13 10:20:55,872 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-13 10:20:55,874 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-13 10:20:55,881 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-13 10:20:55,882 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request GET https://localhost:44334/api/RaterVersion/latest
+2023-10-13 10:20:56,506 [6] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 616.3665ms - 200
+2023-10-13 10:20:56,508 [6] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 616.3665ms - 200
+2023-10-13 10:20:56,514 [6] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 651.9503ms - 200
+2023-10-13 10:20:56,515 [6] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 651.9503ms - 200
+2023-10-13 10:23:58,402 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000077?itemCount=0&fromPolicy=False
+2023-10-13 10:23:58,405 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000077?itemCount=0&fromPolicy=False
+2023-10-13 10:23:58,412 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000077?itemCount=0&fromPolicy=False
+2023-10-13 10:23:58,413 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000077?itemCount=0&fromPolicy=False
+2023-10-13 10:23:58,528 [33] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 112.0083ms - 200
+2023-10-13 10:23:58,529 [33] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 112.0083ms - 200
+2023-10-13 10:23:58,535 [33] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 129.5817ms - 200
+2023-10-13 10:23:58,536 [33] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 129.5817ms - 200
+2023-10-13 10:27:42,877 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000077?itemCount=0&fromPolicy=False
+2023-10-13 10:27:42,879 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - Start processing HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000077?itemCount=0&fromPolicy=False
+2023-10-13 10:27:42,884 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000077?itemCount=0&fromPolicy=False
+2023-10-13 10:27:42,885 [.NET ThreadPool Worker] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Sending HTTP request DELETE https://localhost:44334/api/PremiumRater/unload/S-2023000077?itemCount=0&fromPolicy=False
+2023-10-13 10:27:42,900 [49] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 12.5041ms - 200
+2023-10-13 10:27:42,901 [49] INFO  System.Net.Http.HttpClient.rater.ClientHandler [(null)] - Received HTTP response headers after 12.5041ms - 200
+2023-10-13 10:27:42,906 [49] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 27.4126ms - 200
+2023-10-13 10:27:42,907 [49] INFO  System.Net.Http.HttpClient.rater.LogicalHandler [(null)] - End processing HTTP request after 27.4126ms - 200

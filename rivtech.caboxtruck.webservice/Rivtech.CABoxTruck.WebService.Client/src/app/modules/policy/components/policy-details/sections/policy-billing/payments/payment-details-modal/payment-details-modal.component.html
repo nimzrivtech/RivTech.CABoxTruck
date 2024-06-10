@@ -1,0 +1,174 @@
+<div role="document">
+  <div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+    <button type="button" class="close" (click)="hideModal()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <form *ngIf="billingData.paymentDetailsForm as paymentDetailsFormGroup" [formGroup]="paymentDetailsFormGroup">
+    <div class="modal-body" *ngIf="paymentDetailsFormGroup.value as vm">
+      <div class="row">
+
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.postDate}}</label>
+          <div class="billing-value">
+            <label>{{vm.postDate | date:'MM/dd/yyyy'}}</label>
+          </div>
+        </div>
+
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.amount}}</label>
+          <div class="billing-value">
+            <label>{{vm.amount | currency}}</label>
+          </div>
+          <div>
+            <span class="invalid-feedback d-flex"
+              *ngIf="billingData.paymentDetailsForm.get('amount').errors?.required && billingData.paymentDetailsForm.get('amount').touched">
+              {{ErrorMessageConstant.genericRequiredErrorMessage}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.postedBy}}</label>
+          <div class="billing-value">
+            <label>{{vm.postedBy}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.premium}}</label>
+          <div class="billing-value">
+            <label>{{vm.premium | currency}}</label>
+          </div>
+        </div>
+
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.tax}}</label>
+          <div class="billing-value">
+            <label>{{vm.tax | currency}}</label>
+          </div>
+        </div>
+
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.fee}}</label>
+          <div class="billing-value">
+            <label>{{vm.fee | currency}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4 field">
+          <label>{{methodLabel}}</label>
+          <div class="billing-value">
+            <label>{{vm.paymentMethod}}</label>
+          </div>
+          <span class="invalid-feedback d-flex"
+            *ngIf="billingData.paymentDetailsForm.get('paymentMethod').errors?.required && billingData.paymentDetailsForm.get('paymentMethod').touched">
+            {{ErrorMessageConstant.genericRequiredErrorMessage}}
+          </span>
+        </div>
+
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.referenceNumber}}</label>
+          <div class="billing-value">
+            <label>{{vm.reference}}</label>
+          </div>
+        </div>
+
+        <div *ngIf="isRefund" class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.clearDate}}</label>
+          <div class="billing-value">
+            <label>{{vm.clearDate | date:'MM/dd/yyyy'}}</label>
+          </div>
+        </div>
+      </div>
+
+      <app-post-payment-check [checkPaymentForm]="billingData.paymentDetailsForm.get('check')"
+        *ngIf="billingData.paymentDetailsForm.get('paymentMethod').value === PaymentMethod.CashCheck">
+      </app-post-payment-check>
+
+      <!-- <app-post-payment-credit-card [ccPaymentForm]="billingData.paymentDetailsForm.get('creditCard')"
+        *ngIf="billingData.paymentDetailsForm.get('paymentMethod').value === PaymentMethod.CreditCard">
+      </app-post-payment-credit-card>
+
+      <app-post-payment-eft [eftPaymentForm]="billingData.paymentDetailsForm.get('eft')"
+        *ngIf="billingData.paymentDetailsForm.get('paymentMethod').value === PaymentMethod.EFT">
+      </app-post-payment-eft> -->
+
+      <div *ngIf="isEscheat" class="row">
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.escheatDate}}</label>
+          <div class="billing-value">
+            <label>{{vm.escheatDate | date:'MM/dd/yyyy'}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="isPaymentReversal">
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.reversalType}}</label>
+          <div class="billing-value">
+            <label>{{vm.reversalType}}</label>
+          </div>
+        </div>
+
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.reversalDate}}</label>
+          <div class="billing-value">
+            <label>{{vm.reversalDate | date:'MM/dd/yyyy'}}</label>
+          </div>
+        </div>
+
+        <div class="form-group col-md-4 field">
+          <label>{{PaymentDetailConstants.reversalProcessedBy}}</label>
+          <div class="billing-value">
+            <label>{{vm.reversalProcessedBy}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-12 field">
+          <label>{{PaymentDetailConstants.comments}}</label>
+
+          <div>
+            <textarea type="text" class="form-control field-text-area" placeholder="" formControlName="comments"
+              maxlength="250" disabled
+              [ngClass]="billingData.paymentDetailsForm.get('comments').invalid && billingData.paymentDetailsForm.get('comments').touched ? 'is-invalid' :  ''">
+            </textarea>
+            <span class="invalid-feedback d-flex"
+              *ngIf="billingData.paymentDetailsForm.get('comments').errors?.required && billingData.paymentDetailsForm.get('comments').touched">
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="mt-2">
+        <app-related-documents [paymentId]="paymentData.paymentId"></app-related-documents>
+      </div> -->
+
+    </div>
+
+    <div class="modal-footer sticky-modal-footer">
+
+      <button *ngIf="!isPaymentReversal && !isEscheat && isInternal && !isAllocation" class="btn btn-danger"
+        (click)="onVoid()">Void</button>
+      <!-- <button *ngIf="!isPaymentReversal && !isRefund && !isEscheat && isInternal" class="btn btn-primary"
+        (click)="onNSF()">NSF</button>
+
+      <button *ngIf="!isPaymentReversal && !isEscheat && isInternal" class="btn btn-primary" (click)="onStopPay()">Stop
+        Pay</button>
+      <button *ngIf="isRefund && !isPaymentReversal && !isEscheat && isInternal" class="btn btn-primary"
+        (click)="onEscheat()">Escheat</button> -->
+
+      <button *ngIf="!isRefund && !isPaymentReversal && isInternal && !isWriteOff && !isAllocation" class="btn btn-primary"
+        (click)="onTransferPayment()">Transfer</button>
+
+      <button class="btn btn-danger" (click)="hideModal()">Close</button>
+    </div>
+  </form>
+</div>

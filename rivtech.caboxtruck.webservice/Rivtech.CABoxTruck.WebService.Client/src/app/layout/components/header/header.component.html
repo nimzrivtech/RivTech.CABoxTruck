@@ -1,0 +1,206 @@
+<app-header
+[navbarBrandRouterLink]="['/submissions/list']"
+  [fixed]="true"
+  [navbarBrandFull]="{src: 'assets/img/brand/logo.png', width: 140, height: 35, alt: 'Rivinton Partners Logo'}"
+  [navbarBrandMinimized]="{src: 'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'Rivinton Partners Logo'}"
+  [asideMenuToggler]="false"
+  [sidebarToggler]="false" class="app-header"
+  [mobileSidebarToggler]="leftSidebarAvailable">
+
+  <!-- [mobileSidebarToggler]="layoutService.submissionSidebarVisible" -->
+
+  <ul class="nav navbar-nav ml-auto">
+    
+    <li class="nav-item dropdown" dropdown  placement="bottom">
+      <a class="nav-link" data-toggle="dropdown" href="#" (focusout)="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-bell fa-lg" style="color: white;"></i>
+        <span class="badge rounded-pill badge-notification bg-danger">{{notificationCount}}</span>
+      </a>
+  
+      <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdownMenuLink">
+        <div class="dropdown-header text-center"><strong>Notifications</strong></div>
+        <div class="scroll">
+          <div *ngFor="let n of notifications; index as i">
+            <a class="dropdown-item" [href]="notificationLink(n)">
+              <i *ngIf="!n.isRead" class="dot pull-left"></i>
+              <div class="notification-item">
+                <div><label class="item-details"> <b>Policy:</b> {{ n.policyNumber }}</label></div>
+                <div><label class="item-details"><b>Business Name:</b> {{ n.companyName }}</label></div>
+                <div><label class="item-title" [ngStyle]="{ 'color': n.notificationStatus == 'InProgress' ? 'blue' : n.notificationStatus == 'Success' ? 'green' : 'red' }"><b>{{ n.title }}</b></label></div>
+                <div *ngIf="n.notificationStatus == 'Success'"><label class="item-details"><b>Please click here to go to the policy</b></label></div>
+                <div *ngIf="n.notificationStatus == 'Failed' && n.errorMessagesList?.length > 0">
+                  <ul *ngFor="let e of n.errorMessagesList; index as ii" class="" style="color: orange; font-size: 8pt;list-style-type:square;">
+                    <li>{{ e }}</li>
+                  </ul>
+                </div>
+                <div *ngIf="n.notificationStatus == 'Failed'"><label class="item-details"><b>Please reset the policy or contact administrator</b></label></div>
+                <div *ngIf="n.notificationStatus == 'InProgress'">
+                  <div class="progress" style="margin-bottom: 10px;">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{ 'width': n.completionPercentage + '%' }" aria-valuemin="0" aria-valuemax="100">{{ n.completionPercentage }}%</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div *ngIf="notifications?.length < 1">
+            <div class="text-center col-lg-12 no-data-message">
+              <span>No Notifications</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="btn-group">
+      <span class="navbar-action-links dashboard-font text-light dropdown dropdown-toggle" data-toggle="dropdown" id="toolsDropdown" aria-controls="toolsMenu">Tools</span>
+      <ul class="dropdown-menu dashboard-dropdown" aria-labelledby="toolsDropdown" id="toolsMenu">
+        <a  href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item"  (click)="onToolClick($event)">Driver Verification</a> 
+        <li class="dropdown-item dashboard-font dashboard-dropdown-item dropdown-submenu dropdown-toggle">Upload Templates
+          <ul class="dropdown-menu" [style.margin-top.px]="0" [style.margin-left.px]="-7">
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Vehicle Template</a>
+              </div>
+            </li>
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Driver Template</a>
+              </div>
+            </li>
+          </ul>
+        </li> 
+      </ul>
+    </li>
+    <li class="btn-group">
+      <span class="navbar-action-links dashboard-font text-light dropdown dropdown-toggle" data-toggle="dropdown" id="reportsDropdown" aria-controls="reportsMenu">Reports</span>
+      <ul class="dropdown-menu dashboard-dropdown" aria-labelledby="reportsDropdown" id="reportsMenu">
+        
+        <li class="dropdown-item dashboard-font dashboard-dropdown-item dropdown-submenu dropdown-toggle">Operations
+          <ul class="dropdown-menu" [style.margin-top.px]="0">
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Generate DMV Report</a>
+              </div>
+            </li>
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Aged Receivables</a>
+              </div>
+            </li>
+            <!--<li style="border-top: 0.5px solid #c8ced3">
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event.target.innerText)">Pending Cancellations</a>
+              </div>
+            </li>-->
+          </ul>
+        </li> 
+        
+        <li class="dropdown-item dashboard-font dashboard-dropdown-item dropdown-submenu dropdown-toggle">Premium
+          <ul class="dropdown-menu" [style.margin-top.px]="0">
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Accounts Receivable</a>
+              </div>
+            </li>
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Bordereaux</a>
+              </div>
+            </li>
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Broker Commission</a>
+              </div>
+            </li>
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Invoice Details</a>
+              </div>
+            </li>
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Payment Posting</a>
+              </div>
+            </li>
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Pre-Bind Payments</a>
+              </div>
+            </li>
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Premium Earned Tax</a>
+              </div>
+            </li>
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Submissions and Quotes</a>
+              </div>
+            </li>
+            <!-- <li style="border-top: 0.5px solid #c8ced3">
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event.target.innerText)">Pre-Bind Payments</a>
+              </div>
+            </li> -->
+          </ul>
+        </li>
+        <li *ngIf="hasPolicy" class="dropdown-item dashboard-font dashboard-dropdown-item dropdown-submenu dropdown-toggle">Selected Policy
+          <ul class="dropdown-menu" [style.margin-top.px]="0">
+            <li>
+              <div class="dashboard-dropdown">
+                <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event)">Policy Statement</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+        
+      </ul>
+    </li>
+
+    <!-- <li class="navbar-action-links dashboard-font dropdown dropdown-toggle text-light" data-toggle="dropdown">Reports
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">Premium
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#!" class="dropdown-item dashboard-font dashboard-dropdown-item" (click)="onToolClick($event.target.innerText)">Accounts Receivable</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li> -->
+
+    <li class="navbar-action-links dashboard-font">
+      <a class="text-light text-decoration-none" [routerLink]="['/dashboard']" >
+        Dashboard
+      </a>
+    </li>
+    <li class="navbar-action-links dashboard-font">
+      <a class="text-light text-decoration-none" [routerLink]="'/management/agency'" >
+        Management
+      </a>
+    </li>
+    <li class="navbar-action-links dashboard-font">
+      <a class="text-light text-decoration-none" href="javascript:void(0);" (click)="logout()" >
+        Logout
+      </a>
+    </li>
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <!-- <a class="nav-link profile-pic" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle >
+        <img src="assets/img/avatars/user-icon.png" class="img-avatar bg-light" alt="user-icon" [attr.title]="this.currentUserType"/>
+      </a> -->
+
+      <button class="nav-link profile-pic" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <img src="assets/img/avatars/user-icon.png" class="img-avatar" style="background-color: white" alt="user-icon" title="{{ currentUserType }}" />
+      </button>
+
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+        <div class="dropdown-header text-center"><strong>{{uname}}</strong></div>
+
+        <button class="dropdown-item" [routerLink]="'/account/change-password'"><i class="fa fa-user"></i> Change Password</button>
+        <!-- for the mean time external only -->
+        <a class="dropdown-item" href="javascript:void(0);"><i class="fa fa-user-circle-o"></i> External</a>
+        <a class="dropdown-item" href="javascript:void(0);" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+      </div>
+    </li>
+
+  </ul>
+</app-header>

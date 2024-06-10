@@ -1,0 +1,111 @@
+<div class="card sticky-body">
+  <div class="card-header">
+    <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#fillingsInfoCard" (click)="ToggleHiding()"></i>
+    <strong>Filings Information</strong>
+  </div>
+  <div id="fillingsInfoCard" class="show">
+    <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+    <div class="card-body standard-padding collapse show field">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper pb-2">
+              <label >{{LabelMessage.requireArated}}</label>
+              <toggle-switch [formGroup]="form" [formName]="formName" fieldName="isARatedCarrierRequired">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="formControl.isARatedCarrierRequired"></app-validation-error>
+          </div>
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper pb-2">
+              <label>{{LabelMessage.anyFilingsRequired}}</label>
+              <toggle-switch [formGroup]="form" [formName]="formName" fieldName="isFilingRequired"
+                (change)="requiredSwitchChanged($event.target.checked, 'requiredFilingsList')">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="formControl.isFilingRequired"></app-validation-error>
+          </div>
+          <div class="input-container col-lg-4" *ngIf="formControl.isFilingRequired.value">
+            <div class="field pb-2">
+              <label >{{LabelMessage.checkRequiredFilings}}</label>
+              <ng-multiselect-dropdown id='requiredFilingsList' 
+                placeholder="&nbsp;"
+                [data]="filingsList" [(ngModel)]="selectedItems"
+                [settings]="dropdownSettings" formControlName="requiredFilingsList" (onDropDownClose)="onDropDownClose()" 
+                (onSelect)="onItemSelect()" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)" (onFilterChange)="onFilterChange($event)">
+              </ng-multiselect-dropdown>
+            </div>
+            <app-validation-error [control]="formControl.requiredFilingsList" [inputName]="'Required Filings'"></app-validation-error>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-container col-lg-4">
+            <div class="field pb-2">
+              <label for="usdotNumber">{{LabelMessage.usDotNo}}</label>
+              <input id="usdotNumber" class="w-100" formControlName="usdotNumber" mask="00000000"/>
+            </div>            
+          </div>
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper pb-2">
+              <label >{{LabelMessage.allowOthersToOperate}}</label>
+              <toggle-switch [formGroup]="form" [formName]="formName" fieldName="isOthersAllowedToOperateCurrent">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="formControl.isOthersAllowedToOperateCurrent"></app-validation-error>
+          </div>
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper pb-2">
+              <label >{{LabelMessage.previouslyAllowedOthersToOperate}}</label>
+              <toggle-switch [formGroup]="form" [formName]="formName" fieldName="isOthersAllowedToOperatePast">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="formControl.isOthersAllowedToOperatePast"></app-validation-error>
+          </div>
+        </div>
+        <div class="row" *ngIf="isMotorCarrierNumberApplicable">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper pb-2">
+              <label >{{LabelMessage.doesHaveMotorCarrierNumber}}</label>
+              <toggle-switch [formGroup]="form" [formName]="formName" fieldName="isInsuredHasMotorCarrierNo" (change)="switchValidator($event.target.checked, 'mcNumber')">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="formControl.isInsuredHasMotorCarrierNo"></app-validation-error>
+          </div>
+          <div class="input-container col-lg-4" *ngIf="formControl.isInsuredHasMotorCarrierNo.value">
+            <div class="field pb-2">
+              <label for="mcNumber" class="required">Please Provide MC#</label>
+              <input id="mcNumber" class="w-100" formControlName="mcNumber" maxlength="50" mask="0*"/>
+            </div>
+            <app-validation-error [control]="formControl.mcNumber" [inputName]="'Please Provide MC#'"></app-validation-error>       
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper pb-2">
+              <label >{{LabelMessage.operatorsWorkExclusively}}</label>
+              <toggle-switch [formGroup]="form" [formName]="formName" fieldName="isOperatorsWorkOnlyForInsured">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="formControl.isOperatorsWorkOnlyForInsured"></app-validation-error>
+          </div>
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper pb-2">
+              <label >{{LabelMessage.operatedOnDifferentDotNo}}</label>
+              <toggle-switch [formGroup]="form" [formName]="formName" fieldName="isDifferentUSDOTNumberLastFiveYears"
+                (change)="requiredSwitchChanged($event.target.checked, 'dotNumberLastFiveYearsDetail')">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="formControl.isDifferentUSDOTNumberLastFiveYears"></app-validation-error>
+          </div>
+          <div class="input-container col-lg-4" *ngIf="formControl.isDifferentUSDOTNumberLastFiveYears.value">
+            <div class="field pb-2">
+              <label for="usdotNumber" >{{LabelMessage.provideDotNo}}</label>
+              <input id="usdotNumber" class="w-100" formControlName="dotNumberLastFiveYearsDetail" mask="00000000"/>
+            </div>
+            <app-validation-error [control]="formControl.dotNumberLastFiveYearsDetail" [inputName]="'DOT#'"></app-validation-error>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

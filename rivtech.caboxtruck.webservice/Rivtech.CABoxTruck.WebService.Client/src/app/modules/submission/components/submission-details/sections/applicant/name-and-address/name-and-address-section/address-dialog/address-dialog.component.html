@@ -1,0 +1,108 @@
+<div class="modal-header sticky-modal-header">
+    <h4 class="modal-title">{{modalTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container-fluid field">
+        <div class="row">
+            <div class="col-md-9">
+                <label>Address Type</label>
+                <select id='addressType' [(ngModel)]="addressType" [disabled]="isDisable || isEdit">
+                    <option *ngFor="let option of addessTypeList" [ngValue]="option">{{option.value}}</option>
+                </select>
+            </div>
+        </div>
+        <ng-container *ngIf="editItem?.addressType == 'Billing'" [formGroup]="applicantData.applicantForms.billingInfoForm">
+            <div class="row">
+                <div class="col-md-9">
+                    <label class="required">Billing Contact Name</label>
+                    <input type="text" id='contactName' class="form-control" formControlName="contactName" maxlength="100" />
+                    <app-validation-error [control]="ff.contactName" [inputName]="'Contact Name'"></app-validation-error>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <label class="required">Email</label>
+                    <input type="text" id='email' class="form-control" formControlName="email" maxlength="100" />
+                    <app-validation-error [control]="ff.email" [inputName]="'Email'"></app-validation-error>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <label class="required">Phone</label>
+                    <input type="text" id='phone' class="form-control" formControlName="phone" 
+                    [ngClass]="{ 'is-invalid': ff.phone.errors && ff.phone.dirty }" mask="(000) 000-0000"/>
+                    <span class="invalid-feedback" *ngIf="ff.phone.errors?.required && ff.phone.touched">Phone / Extension is required</span>
+                    <span class="invalid-feedback" *ngIf="ff.phone.errors?.pattern && ff.phone.touched">Please enter a valid phone number</span>
+                </div>
+            </div>
+        </ng-container>
+        <div class="row d-flex">
+            <div class="col-md-9" >
+                <label>Address</label>
+                <select id='address' [(ngModel)]="address" [disabled]="isDisable" [attr.title]="completeAddress" (change)="setTooltip(address)" >
+                    <option [ngValue]="null">Please Select</option>
+                    <option *ngFor="let option of addressList" [ngValue]="option.item" >{{option.value}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 no-padding">
+                <button type="button" [disabled]="isDisable" class="btn btn-primary btn-sm mt-4" (click)="addNewAddress()">Add New Address</button>
+            </div>
+        </div>
+        <div *ngIf="isAddNewAddress" [formGroup]="addressForm">
+            <div class="row mb-1">
+                <div class="offset-md-1 col-md-11">
+                    <h6>Adding New Address</h6>
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="offset-md-1 col-md-11">
+                    <label class="required">Street</label>
+                    <input type="text" id='street' formControlName="street" maxlength="100" />
+                    <div *ngIf="f.street.touched && f.street.errors" class="invalid-feedback">
+                        <div *ngIf="f.street.errors?.required">Street is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="offset-md-1 col-md-6">
+                    <label class="required">City</label><br>
+                    <select tabindex="-1" id="city" formControlName="city" [ngClass]="{'readonly': disableCity || null}" [attr.disabled]="disableCity || null">
+                        <option [ngValue]="null">Please Select</option>
+                        <option *ngFor="let option of cityList | orderBy: 'label'" [value]="option">{{option}}</option>
+                    </select>
+                    <div *ngIf="f.city.touched && f.city.errors" class="invalid-feedback">
+                        <div *ngIf="f.city.errors?.required">City is required</div>
+                    </div> 
+                </div>
+                <div class="col-md-2">
+                    <label class="required">State</label>
+                    <input type="text" id="state" formControlName="state" class="readonly" tabindex="-1" readonly /> 
+                    <div *ngIf="f.state.touched && f.state.errors" class="invalid-feedback">
+                        <div *ngIf="f.state.errors?.required">State is required</div>
+                    </div> 
+                </div>
+                <div class="col-md-3">
+                    <label class="required">Zip Code</label>
+                    <input type="text" id="zipcode" formControlName="zipcode" maxlength="5" numberOnly (change)="setCityStateZipCode()" /> 
+                    <div *ngIf="f.zipcode.touched && f.zipcode.errors" class="invalid-feedback">
+                        <div *ngIf="f.zipcode.errors?.required">Zip Code is required</div>
+                    </div> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-md-6 col-md-6">
+                    <button type="button" class="btn btn-danger btn-sm pull-right" (click)="cancelNewAddress()">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-sm pull-right mr-2" (click)="saveNewAddress()"
+                        [disabled]="!(f.street.value && f.city.value && f.state.value && f.zipcode.value)">Add New Address</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer" *ngIf="!isAddNewAddress">
+    <button [disabled]="isExist || (editItem?.addressType == 'Billing' && !applicantData.applicantForms.billingInfoForm.valid)" type="button" class="btn btn-primary" (click)="saveAddress()">{{modalButton}}</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button> 
+</div>

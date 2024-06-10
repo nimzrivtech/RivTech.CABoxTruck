@@ -1,0 +1,33 @@
+<div class="card sticky-body">
+  <div class="card-header">
+    <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#safetyDevicesCard" (click)="ToggleHiding()"></i>
+    <strong>{{SafetyDeviceConstants.safetyDeviceTitle}}</strong>
+  </div>
+
+  <div id="safetyDevicesCard" class="show">
+    <div class="card-body">
+      <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+      <form [formGroup]="fg" [style.padding-top.px]="15">
+        <div class="form-group">
+          <div class="field" style="width:400px;">
+            <label for="safetyDeviceCategory" class="required-no-wrap">{{SafetyDeviceConstants.safetyDeviceCategory}}</label>
+            <ng-multiselect-dropdown id="safetyDeviceCategory" [ngClass]="{'drop-up': hasMaintenanceQuestions }" formControlName="safetyDeviceCategory"
+              placeholder="&nbsp;"
+              [data]="safetyDeviceCategoryList"
+              [settings]="dropdownSettings"
+              (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)" 
+              (onDeSelect)="onItemDeSelect($event)"   
+              (onFilterChange)="onFilterChange($event, 'safetyDeviceCategory')"  
+              (onDropDownClose)="onDropDownClose('safetyDeviceCategory')" 
+              tabindex="0">
+            </ng-multiselect-dropdown>
+            <app-validation-error [control]="fc.safetyDeviceCategory" [inputName]="'Safety device category'" ></app-validation-error>
+          </div>
+        </div>
+  
+        <app-maintenance-questions-chart [formArray]="fa" [safetyDeviceCategoryList]='fc.safetyDeviceCategory.value'></app-maintenance-questions-chart>
+      </form>
+    </div>
+  </div>
+</div>

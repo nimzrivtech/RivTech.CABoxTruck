@@ -1,0 +1,41 @@
+<!-- Payer Name Column -->
+<fieldset [formGroup]="eftForm">
+  <legend class="col-md-12">Bank Details</legend>
+
+  <div class="form-group">
+    <mat-form-field class="col-md-7 payerStyle">
+      <input matInput placeholder="Payer" formControlName="payer" maxlength="22" type="text">
+    </mat-form-field>
+    <mat-form-field class="col-md-5 emailStyle">
+      <input matInput placeholder="Email" formControlName="email" maxlength="50" type="text" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z0-9.-]{2,}[.]{1}[a-zA-Z]{2,}">
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <mat-form-field class="col-md-6 accountTypeStyle">
+      <mat-select placeholder="Account Type" formControlName="accountType">
+        <mat-option *ngFor="let accountType of Object.keys(accountTypes)" [value]="accountTypes[accountType].id">{{accountTypes[accountType].name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-md-6 accountUsageTypeStyle">
+      <mat-select placeholder="Account Usage Type" formControlName="accountUsageType">
+        <mat-option *ngFor="let accountUsageType of Object.keys(accountUsageTypes)" [value]="accountUsageTypes[accountUsageType].id">{{accountUsageTypes[accountUsageType].name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div class="form-group">
+    <mat-form-field class="col-md-6 routingNumberStyle">
+      <input matInput placeholder="Routing Number" formControlName="routingNumber" type="text">
+    </mat-form-field>
+    <mat-form-field class="col-md-6 accountNumberStyle">
+      <input matInput placeholder="Account Number" formControlName="accountNumber" type="text">
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <mat-form-field class="col-md-12">
+      <textarea matInput placeholder="Comments" formControlName="comments" maxlength="1000" rows="3"></textarea>
+    </mat-form-field>
+  </div>
+</fieldset>

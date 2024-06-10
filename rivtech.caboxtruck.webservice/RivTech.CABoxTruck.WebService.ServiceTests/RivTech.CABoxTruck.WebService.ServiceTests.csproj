@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <SSDTUnitTestPath Condition="'$(SSDTUnitTestPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB</SSDTUnitTestPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SSDTPath Condition="'$(SSDTPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\130</SSDTPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Billing\**" />
+    <Compile Remove="Endorsement\Cancellation\**" />
+    <EmbeddedResource Remove="Billing\**" />
+    <EmbeddedResource Remove="Endorsement\Cancellation\**" />
+    <None Remove="Billing\**" />
+    <None Remove="Endorsement\Cancellation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Endorsement\Proration\ProratedVehicleTest.cs" />
+    <Compile Remove="Endorsement\Proration\RiskVehiclePremiumCollectionTest.cs" />
+    <Compile Remove="Endorsement\Proration\SqlDatabaseSetup.cs" />
+    <Compile Remove="Endorsement\Proration\VehiclePremiumCoverageTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Endorsement\Proration\app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="Moq" Version="4.18.4" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.0.2" />
+    <PackageReference Include="coverlet.collector" Version="3.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RivTech.CABoxTruck.WebService.DataProvider\RivTech.CABoxTruck.WebService.DataProvider.csproj" />
+    <ProjectReference Include="..\RivTech.CABoxTruck.WebService.Service\RivTech.CABoxTruck.WebService.Service.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="$(VisualStudioVersion) == '16.0'">
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTPath)\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql.UnitTesting, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTUnitTestPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTUnitTestPath)\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup>
+    <SsdtUnitTestVersion>3.1</SsdtUnitTestVersion>
+  </PropertyGroup>
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="$(VisualStudioVersion) != '15.0' And '$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="$(VisualStudioVersion) != '15.0' And '$(SQLDBExtensionsRefPath)' == ''" />
+</Project>

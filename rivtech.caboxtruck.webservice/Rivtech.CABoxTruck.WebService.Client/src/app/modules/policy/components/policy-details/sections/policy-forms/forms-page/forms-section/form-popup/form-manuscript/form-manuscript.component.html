@@ -1,0 +1,27 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Form Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="this.onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid field" [formGroup]="formsData.manuscriptForm">
+        <div class="">
+            <div class="form-group col-12 field">
+                <label class="required">Premium</label>
+                <input type="text" class="form-control w-100" formControlName="premium" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.premium" inputName="Premium"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Description</label>
+                <input type="text" class="form-control w-100" formControlName="description" maxlength="100" />
+                <app-validation-error [control]="f.description" inputName="Description"></app-validation-error>
+            </div>  
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="formsData.manuscriptForm.invalid" type="button" class="btn btn-primary"
+        (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="this.onCancel()">Cancel</button>
+</div>

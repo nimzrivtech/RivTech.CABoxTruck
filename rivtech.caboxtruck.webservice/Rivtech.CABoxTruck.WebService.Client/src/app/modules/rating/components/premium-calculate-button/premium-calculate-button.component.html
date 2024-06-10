@@ -1,0 +1,23 @@
+<div class="btn-group" role="group" >
+
+	<button *ngIf="isSingleButton" type="submit"
+		[ngClass]="['btn', 'text-white', getBgColor(opt)]" [ladda]="inProgress"
+		data-style="expand-right" data-size="xs" (click)="click(opt)" [attr.title]="getTitle(opt)"
+		[disabled]="buttonsDisabled" ><span>Calculate</span>
+
+		<span *ngIf="canShowSuccess(opt)" class="fa fa-check ml-2"></span>
+		<span *ngIf="canShowError(opt)" class="fa fa-times ml-2"></span>
+	</button>
+
+	<button *ngFor="let opt of options; let i = index" type="submit"
+		[ngClass]="['btn', 'text-white', getBgColor(opt)]" [ladda]="optionInProgress==opt"
+		data-style="expand-right" data-size="xs" (click)="click(opt)" [attr.title]="getTitle(opt)"
+		[disabled]="buttonsDisabled" >
+		<span *ngIf="i == 0 && options.length == 1">Calculate</span>
+		<span *ngIf="i == 0 && options.length > 1" class="mr-2">Calculate</span>
+		<span *ngIf="options.length > 1"><strong>{{opt}}</strong></span>
+		<span *ngIf="canShowSuccess(opt)" class="fa fa-check ml-2"></span>
+		<span *ngIf="canShowError(opt)" class="fa fa-times ml-2"></span>
+	</button>
+
+</div>

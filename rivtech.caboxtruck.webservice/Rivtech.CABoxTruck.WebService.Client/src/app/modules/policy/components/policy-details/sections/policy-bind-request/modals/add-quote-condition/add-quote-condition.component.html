@@ -1,0 +1,68 @@
+<div class="modal-header sticky-modal-header">
+  <h5 class="modal-title">{{modalTitle}}</h5>
+  <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body" [formGroup]="this.fg">
+    <div class="form-group field col-md-12">
+      <label class="required" for="quoteConditionsOptionId">Condition</label>
+      <div class=" ">
+        <select class="form-control" id="quoteConditionsOptionId" formControlName="quoteConditionsOptionId" #ddQuoteCondition
+        [attr.title]="this.Data.showTruncateTitle(this.ddQuoteCondition.value, this.Data.dropdownList.quoteConditionList)">
+          <option [ngValue]="null">Please Select</option>
+          <!-- <option *ngFor="let option of this.Data.dropdownList.bindRequirementList | orderBy: 'number(value)'" [value]='option.value'>{{option.label}}</option> -->
+          <option *ngFor="let option of this.Data.quoteConditionListFiltered(this.fc.quoteConditionsOptionId.value) | orderBy: 'label'"
+          [value]='option.value'
+          [attr.title]='option.label'
+          >{{ this.Data.truncate(option.label, 70) }}</option>
+        </select>
+        <app-validation-error [control]="this.fc.quoteConditionsOptionId" [inputName]="'Conditions'"></app-validation-error>
+      </div>
+    </div>
+
+    <div class="form-group field col-md-12" *ngIf="this.fc.quoteConditionsOptionId.value == 10">
+      <label for="comments" >Describe</label>
+      <div class="">
+          <textarea id='describe' 
+            [attr.rows]="fc.describe.value && fc.describe.value.length > 124 ? 4 : 2" 
+            [attr.cols]="fc.describe.value && fc.describe.value.length > 124 ? 3 : 1"  
+            class="field-text-area-border" formControlName="describe" maxlength="10000" [attr.title]="fc.describe.value"></textarea>
+          <app-validation-error [control]="this.fc.describe" [inputName]="'Describe'"></app-validation-error>
+      </div>
+    </div>
+
+    <div class="form-group field col-md-12">
+      <label for="comments" >Comments</label>
+      <div class="">
+          <textarea id='comments' rows="2" cols="1" class="field-text-area-border" formControlName="comments" maxlength="1000"></textarea>
+          <app-validation-error [control]="this.fc.comments" [inputName]="'comments'"></app-validation-error>
+      </div>
+    </div>
+
+    <div class="form-group field col-md-12" *ngIf="this.isEdit">
+      <div class="input-group mb-3">
+        <button class="btn btn-primary text-nowrap mr-2 btnUpload" (click)='this.openUploadDocuModal()'>Upload Document</button>
+        <span [style.margin-top.px]="8">{{this.Data.getSelectedFileCount}}</span>
+      </div>
+      <div class="ellipse" *ngIf="this.Data.getFileName !== ''">
+        <span id="fileName" [formGroup]="this.fgF" [attr.title]="this.Data.getFileName">{{this.Data.getFileName}}</span>
+      </div>
+    </div>
+
+    <div class="form-group field col-md-12" *ngIf="this.isEdit">
+      <h5>Relevant Document</h5>
+      <label for="relevantDocumentDesc" >Description</label>
+      <div class="">
+          <textarea id='relevantDocumentDesc' rows="2" cols="1" class="field-text-area-border" formControlName="relevantDocumentDesc" maxlength="100"></textarea>
+          <app-validation-error [control]="this.fc.relevantDocumentDesc" [inputName]="'relevantDocumentDesc'"></app-validation-error>
+      </div>
+    </div>
+
+</div>
+
+<div class="modal-footer sticky-modal-footer">
+  <button type="button" class="btn btn-primary" (click)="this.SubmitQuoteOptions()" [disabled]="!this.fg.valid">{{modalButton}}</button>
+  <button type="button" class="btn btn-danger" (click)="this.Cancel()">Cancel</button>
+</div>

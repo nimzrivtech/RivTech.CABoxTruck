@@ -1,0 +1,52 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Form Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="this.onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid field" [formGroup]="formsData.hiredPhysdamForm">
+        <div class="">
+            <div class="form-group col-12 field">
+                <label class="required">Estimated Additional Premium </label>
+                <input type="text" class="form-control w-100" formControlName="estimatedAdditionalPremium" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.estimatedAdditionalPremium" inputName="Estimated Additional Premium"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Vehicle Days</label>
+                <input type="text" class="form-control w-100" formControlName="vehicleDays" mask="separator.2" thousandSeparator="," separatorLimit="999" />
+                <app-validation-error [control]="f.vehicleDays" inputName="Vehicle Days"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Rate per Day</label>
+                <input type="text" class="form-control w-100" formControlName="ratePerDay" currencyMask [options]="formsData.currencySettings" maxlength="10" />
+                <app-validation-error [control]="f.ratePerDay" inputName="Rate per Day"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Gross Combined Weight </label>
+                <input type="text" class="form-control w-100" formControlName="grossCombinedWeight" mask="separator.2" thousandSeparator="," separatorLimit="99999"/>
+                <app-validation-error [control]="f.grossCombinedWeight" inputName="Gross Combined Weight"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Accident Limit per Vehicle</label>
+                <input type="text" class="form-control w-100" formControlName="accidentLimitPerVehicle" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.accidentLimitPerVehicle" inputName="Accident Limit per Vehicle"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Deductible</label>
+                <input type="text" class="form-control w-100" formControlName="deductible" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.deductible" inputName="Deductible"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Physdam Limit</label>
+                <input type="text" class="form-control w-100" formControlName="physdamLimit" currencyMask [options]="formsData.currencySettings" maxlength="10"/>
+                <app-validation-error [control]="f.physdamLimit" inputName="Physdam Limit"></app-validation-error>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="formsData.hiredPhysdamForm.invalid" type="button" class="btn btn-primary"
+        (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="this.onCancel()">Cancel</button>
+</div>

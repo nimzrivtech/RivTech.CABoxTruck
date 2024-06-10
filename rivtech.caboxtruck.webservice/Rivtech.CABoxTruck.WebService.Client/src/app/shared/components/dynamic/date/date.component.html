@@ -1,0 +1,12 @@
+<div class="form-group row" [formGroup]="group" *ngIf="field.isVisible">
+  <label class="col-form-label text-md-right" [ngClass]="field.parentField ? 'offset-md-3 col-md-2 group-body' : 'col-md-4'">
+    {{field.label}}
+    <span *ngIf="field.required" class="spandata">*</span> :
+  </label>
+
+  <div class="col-md-4">
+    <input type="date" [id]="field.name" [formControlName]="field.name"
+      class="form-control mediumInput"/>
+    <app-validation-error [control]="formControl"></app-validation-error>
+  </div>
+</div>

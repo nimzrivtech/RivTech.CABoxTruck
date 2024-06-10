@@ -1,0 +1,104 @@
+<div class="page-position">
+  <div class="text-right">
+    <hr>
+  
+    <div class="policy-edit-tooltip-wrapper" data-placement="left">
+      <button class="btn btn-primary" (click)="clickDownloadAttachments()"
+        >Download Attachments</button>
+    </div>
+
+    <hr>
+  </div>
+  <div class="card sticky-body">
+      <div class="card-header">
+          <i class="icons header-icon" [ngClass]="hidePolicyDocuments ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+              href="#policyDocumentsCard" (click)="ToggleHidePolicyDocuments()"></i>
+          <strong>Policy Documents</strong>
+      </div>
+      <div id="policyDocumentsCard" class="show">
+          <div class="card-body standard-padding collapse show" id="policyDocuments" style="padding-top: 1.5%">
+            <div class="col">
+              <div class="row pb-2">
+                <div class="col-9">
+                  <label style="margin-bottom: -20px; padding-top: 1rem;">
+                    <h4>Policy Documents</h4>
+                  </label>
+                </div>
+                <div class="col-3">
+                  <div class="input-group" style="padding-top: 1rem;">
+                    <input type="text" id="policDocsSearch" #policydocuments class="form-control" placeholder="Search" #Search
+                    title="Search Documents" (keydown.enter)="searchDocuments(policydocuments.value)">
+                    <div class="input-group-append">
+                    <button class="btn btn-secondary search-button" type="button" (click)="searchDocuments(policydocuments.value)">
+                        <i class="fa fa-search customized-blue"></i>
+                    </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <app-documents-list [disableItems]="disableItems" [policy]="true" [isPolicyCategory]="true"></app-documents-list>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div class="card sticky-body">
+    <div class="card-header">
+      <i class="icons header-icon" [ngClass]="hideBillingDocuments ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+          href="#billingDocumentsCard" (click)="ToggleHideBillingDocuments()"></i>
+      <strong>Billing Documents</strong>
+    </div>
+    <div id="billingDocumentsCard" class="show">
+        <div class="card-body standard-padding collapse show" id="billingDocuments" style="padding-top: 1.5%">
+          <div class="col">
+            <div class="row pb-2">
+              <div class="col-9">
+                <label style="margin-bottom: -20px; padding-top: 1rem;">
+                  <h4>Billing Documents</h4>
+                </label>
+              </div>
+            </div>
+            <app-documents-list [disableItems]="disableItems" [policy]="true" [isBillingCategory]="true" [isPolicyCategory]="false"></app-documents-list>
+          </div>
+        </div>
+    </div>
+  </div>
+  <app-next-back-btn [isScrollPage]="true" (clickType)="onClick($event)"></app-next-back-btn>
+</div>
+
+
+<div #btnShowLoadingUploader class="btn btn-primary d-none" data-toggle="modal" data-target='#downloadRater'>show modal
+  upload</div>
+
+<!-- Modal for driver incidents entry -->
+<div #modalLoader class="modal fade" id='downloadRater' tabindex="-1" role="dialog" aria-labelledby="#downloadRater"
+  aria-hidden="true" data-keyboard="false" data-backdrop="static"  >
+  <div class="modal-dialog modal-dialog-centered" role="document" >
+      <div class="modal-content shadow-lg">
+          <div class="modal-header">
+              <h5 class="modal-title">Please wait</h5>
+              <button type="button" hidden class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+              <div class="col-md-12" style="margin-bottom:15px;">
+                  <span *ngIf="this.documentsData.message" class=" text-info">
+                      {{ this.documentsData.message + this.documentsData.dotanimation }}
+                  </span>
+              </div>
+              <div class="col-md-12" style="margin-bottom:15px;">
+                  <div class="progress"
+                      [ngClass]="{'d-block': this.documentsData.progress > 0, 'd-none' : this.documentsData.progress <= 0}">
+                      <div id="dvloaderbar" class="progress-bar bg-success" role="progressbar" style="width: 0%"
+                          aria-valuemin="0" aria-valuemax="0">
+                          <span *ngIf="this.documentsData.progress > 0">
+                              {{ this.documentsData.progress}}%
+                          </span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

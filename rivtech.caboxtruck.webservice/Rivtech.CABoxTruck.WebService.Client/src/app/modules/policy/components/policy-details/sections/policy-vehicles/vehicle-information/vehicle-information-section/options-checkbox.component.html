@@ -1,0 +1,8 @@
+<div *ngFor="let option of options; let i = index" style="display: inline-flex;">
+    <input type="checkbox" id="option1" [checked]="option"
+            (change)="optionChanged(vehicleId, i, $event.target.checked)"
+            [attr.title]="this.quoteLimitsData.optionIsDisabled(i + 1) ? this.quoteLimitsData.optionDisabledMsg : ''"
+            [disabled]="(i + 1) == 1 ? false : this.quoteLimitsData.optionIsDisabled(i + 1)"
+            >
+            &nbsp;
+</div>

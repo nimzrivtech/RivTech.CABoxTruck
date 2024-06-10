@@ -1,0 +1,138 @@
+<div class="card sticky-body">
+	<div class="card-header">
+		<i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+			href="#ratingFactorSectionBody" (click)="ToggleHiding()"></i>
+		<strong>Rating Factors</strong>
+	</div>
+	<div class="show">
+		<div class="card-body standard-padding collapse show" id="ratingFactorSectionBody" style="padding-top: 1.5%">
+			<div class="col">
+				<div class="row">
+					<div class="col">
+						<input #btnDownload class="btn btn-primary" type="button"
+						value="Download Experience Rater"
+						(click)='clickDownloadExp(this.$event)'
+						[disabled]="!hasExperienceRater">
+						&nbsp;&nbsp;
+						<input #btnDownload class="btn btn-primary" type="button"
+						value="Download Premium Rater"
+						(click)='clickDownload(this.$event)'>
+					</div>
+				</div>
+			</div>
+			<div class="disable-overlay" *ngIf="!policySummaryData?.canEditPolicy"></div>
+			<div class="col">
+				<div class="row" style="margin-bottom: -8px;">
+					<div class="col">
+						<form [formGroup]="fgFactors" class="field">
+
+							<table id="dataTable" class="table border">
+								<thead>
+									<tr>
+										<th width="30%">Coverage</th>
+										<th width="30%">Current Premium</th>
+										<th width="40%">Schedule RF</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="font-weight-bold">
+										<td colspan="3">Vehicle</td>
+									</tr>
+									<tr>
+										<td class="pad-25">Auto Liability</td>
+										<td>{{ premiumDetails?.vehicleALAnnualPremiumTotal | currency : 'USD' : 'symbol' : '1.0-0' }}</td>
+										<td>
+											<div class="field">
+												<input type="text" class="form-control" 
+												formControlName="alScheduleRF" currencyMask 
+												[options]="this.quoteLimitsData.factorModsSettings" 
+												[readOnly]="!this.policySummaryData?.canEditPolicy" >
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="pad-25">Physical Damage</td>
+										<td>{{ premiumDetails?.vehiclePDAnnualPremiumTotal | currency : 'USD' : 'symbol' : '1.0-0' }}</td>
+										<td>
+											<div class="field">
+												<input type="text" class="form-control"
+													formControlName="pdScheduleRF" currencyMask
+													[options]="this.quoteLimitsData.factorModsSettings"
+													[readOnly]="!this.policySummaryData?.canEditPolicy">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="pad-25">Motor Truck Cargo</td>
+										<td>{{ premiumDetails?.vehicleCargoAnnualPremiumTotal | currency : 'USD' : 'symbol' : '1.0-0' }}</td>
+										<td>
+											<div class="field">
+												<input type="text" class="form-control"
+													formControlName="cargoScheduleRF" currencyMask
+													[options]="this.quoteLimitsData.factorModsSettings"
+													[readOnly]="!this.policySummaryData?.canEditPolicy">
+											</div>
+										</td>
+									</tr>
+									<tr class="font-weight-bold">
+										<td colspan="3">Policy</td>
+									</tr>
+									<tr>
+										<td class="pad-25">General Liability</td>
+										<td>{{ premiumDetails?.glAnnualPremium | currency : 'USD' : 'symbol' : '1.0-0' }}</td>
+										<td>
+											<div class="field">
+												<input type="text" class="form-control"
+													formControlName="glScheduleRF" currencyMask
+													[options]="this.quoteLimitsData.factorModsSettings"
+													[readOnly]="!this.policySummaryData?.canEditPolicy">
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div #btnShowLoadingUploader class="btn btn-primary d-none" data-toggle="modal" data-target='#downloadRater'>show modal
+    upload</div>
+
+<!-- Modal for driver incidents entry -->
+<div #modalLoader class="modal fade" id='downloadRater' tabindex="-1" role="dialog" aria-labelledby="#downloadRater"
+    aria-hidden="true" data-keyboard="false" data-backdrop="static"  >
+    <div class="modal-dialog modal-dialog-centered" role="document" >
+        <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title">Please wait</h5>
+                <button type="button" hidden class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-md-12" style="margin-bottom:15px;">
+                    <span *ngIf="this.raterApiData.message" class=" text-info">
+                        {{ this.raterApiData.message + this.raterApiData.dotanimation }}
+                    </span>
+                </div>
+                <div class="col-md-12" style="margin-bottom:15px;">
+                    <div class="progress"
+                        [ngClass]="{'d-block': this.raterApiData.progress > 0, 'd-none' : this.raterApiData.progress <= 0}">
+                        <div id="dvloaderbar" class="progress-bar bg-success" role="progressbar" style="width: 0%"
+                            aria-valuemin="0" aria-valuemax="0">
+                            <span *ngIf="this.raterApiData.progress > 0">
+                                {{ this.raterApiData.progress}}%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

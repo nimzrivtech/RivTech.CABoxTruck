@@ -1,0 +1,29 @@
+<div [formGroup]="fg" class="modal-body">
+
+  <div class="form-group col-12 field">
+    <label class="required">Commodity</label>
+    <select class="form-control" formControlName="commodity">
+      <option value="" disabled selected hidden>Please Select</option>
+      <option value="">Please Select</option>
+      <option *ngFor="let commodity of commodityList | orderBy: 'label'" [value]="commodity.label">{{commodity.label}}
+      </option>
+    </select>
+    <app-validation-error [control]="fc.commodity" [inputName]="'Commodity'"></app-validation-error>
+  </div>
+
+  <div class="form-group col-12 field">
+    <label class="required">% of Carry</label>
+    <input class="form-control w-100" type="text" id="percentageOfCarry" formControlName="percentageOfCarry"
+      autocomplete="off" mask="percent.1" suffix="%" [dropSpecialCharacters]="false" />
+    <app-validation-error [control]="fc.percentageOfCarry" [inputName]="'% of Carry'"></app-validation-error>
+    <div *ngIf="fg.errors?.invalidPercentageOfCarry && (fg.touched || fg.dirty)" class="invalid-feedback">
+      Total % of carry must not exceed 100
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer sticky-modal-footer text-right ">
+  <button type="submit" class="btn btn-primary" data-dismiss="modal" [disabled]="fg.invalid"
+    (click)='onSubmit()'>{{modalButton}}</button>
+  <button type="button" class="btn btn-danger" data-dismiss="modal" #btnCloseModal (click)='onCancel()'>Cancel</button>
+</div>

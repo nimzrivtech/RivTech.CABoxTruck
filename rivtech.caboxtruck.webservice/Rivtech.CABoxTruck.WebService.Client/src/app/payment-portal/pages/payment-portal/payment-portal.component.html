@@ -1,0 +1,130 @@
+<div class="container main-container col-md-6">
+  <form [formGroup]="paymentForm">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Payment Information
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-group">
+          <div class="col-md-12">
+            <mat-checkbox formControlName="isPreBindPayment" [(ngModel)]="isPreBind" [disabled]="isPolicyFound">Pre-Bind</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="!isPreBind">
+          <!-- <div class="row"> -->
+          <!-- <div class="col-md-4">
+              <app-label [label]="'Policy Number :'"></app-label>
+            </div>
+            <div class="col-md-8"> -->
+          <mat-form-field class="col-md-12">
+            <input matInput placeholder="Policy Number" type="text" [(ngModel)]="policyNumber" formControlName="policyNumber" (blur)="searchDetailByPolicyAndZipCode()">
+          </mat-form-field>
+          <!-- </div> -->
+          <!-- </div> -->
+        </div>
+
+        <div class="form-group" *ngIf="!isPreBind">
+          <!-- <div class="row">
+            <div class="col-md-4">
+              <app-label [label]="'Billing Zip Code :'"></app-label>
+            </div>
+            <div class="col-md-8"> -->
+          <mat-form-field class="col-md-12">
+            <input matInput placeholder="Billing Zip Code" [(ngModel)]="billingZipCode" formControlName="billingZipCode" (blur)="searchDetailByPolicyAndZipCode()">
+          </mat-form-field>
+          <!-- </div> -->
+          <!-- </div> -->
+        </div>
+
+        <div *ngIf="!isPolicyFound && !isPreBind" class="form-group">
+          <div class="col-md-12">
+            <p>Please provide your complete policy number and billing zip code so we can retrieve your account.</p>
+            <button mat-flat-button color="primary" (click)="searchDetailByPolicyAndZipCode()" class="m-r-10">
+              Search
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="isPolicyFound || isPreBind">
+
+          <div class="form-group" *ngIf="isPolicyFound">
+            <mat-form-field class="col-md-12">
+              <input matInput placeholder="Insured Name" type="text" disabled value="{{insuredName}}" />
+            </mat-form-field>
+          </div>
+
+          <div class="form-group" *ngIf="isPreBind">
+            <mat-form-field class="col-md-12">
+              <input matInput placeholder="Insured Name" type="text" maxlength="100" formControlName="preBindInsuredName" [(ngModel)]="preBindInsuredName" />
+            </mat-form-field>
+          </div>
+
+          <div class="form-group" *ngIf="isPreBind">
+            <mat-form-field class="col-md-12">
+              <input matInput placeholder="Access Code" type="text" maxlength="100" formControlName="accessCode" [(ngModel)]="accessCode" />
+            </mat-form-field>
+            <div class="invalid-field" *ngIf="isValidAccessCode">Access Code is invalid.  Please contact your underwriter.</div>
+          </div>
+
+          <!-- <div class="form-group">
+         </div>
+          -->
+          <div class="form-group">
+            <mat-form-field class="col-md-4">
+              <span matPrefix>$&nbsp;</span>
+              <input matInput formControlName="amount" placeholder="Payment Amount" type="number" (keydown)="validateAmount($event)" onpaste="return false" pattern="^\d*(\.\d{0,2})?$">
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4" *ngIf="isPolicyFound">
+              <span *ngIf="isCurrentAmountDueNegative" matPrefix>-&nbsp;</span>
+              <span matPrefix>$&nbsp;</span>
+              <input matInput placeholder="Current Amount Due" type="number" disabled value="{{currentAmountDue}}" />
+            </mat-form-field>
+            
+            <mat-form-field class="col-md-4" *ngIf="isPolicyFound">
+              <span *ngIf="isPaymentAmountNegative" matPrefix>-&nbsp;</span>
+              <span matPrefix>$&nbsp;</span>
+              <input matInput placeholder="Payoff Amount" type="number" disabled value="{{payoffAmount}}" />
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="col-md-12">
+              <mat-select placeholder="Payment Method" formControlName="instrumentId">
+                <mat-option *ngFor="let instrument of Object.keys(instrumentType)" [value]="instrumentType[instrument].id">{{instrumentType[instrument].name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <app-payment-creditcard (submitCreditCardForm)="onSubmitForm($event)" (isValid)="onIsValid($event)" *ngIf="paymentForm.get('instrumentId').value == instrumentType.CreditCard.id">
+          </app-payment-creditcard>
+
+          <app-payment-eft (submitEftForm)="onSubmitForm($event)" (isValid)="onIsValid($event)" *ngIf="paymentForm.get('instrumentId').value == instrumentType.EFT.id">
+          </app-payment-eft>
+        </div>
+
+        <div class="container mat-card" *ngIf="errors.length > 0">
+          <h5 matSubHeader>Oops! Please correct the errors:</h5>
+          <mat-list>
+            <mat-list-item *ngFor="let e of errors">{{ e }}</mat-list-item>
+          </mat-list>
+        </div>
+
+      </mat-card-content>
+
+      <div mat-dialog-actions *ngIf="isPolicyFound || isPreBind">
+        <div class="col-md-12">
+          <button mat-flat-button color="primary" (click)="paymentConfirmationDialog()" class="m-r-10">
+            Make Payment
+          </button>
+        </div>
+        <!-- <button mat-flat-button color="warn" [mat-dialog-close]> Cancel </button> -->
+      </div>
+    </mat-card>
+
+
+  </form>
+</div>

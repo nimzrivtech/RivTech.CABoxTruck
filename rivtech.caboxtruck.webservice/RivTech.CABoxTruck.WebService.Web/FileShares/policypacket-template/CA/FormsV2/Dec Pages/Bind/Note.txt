@@ -1,0 +1,3 @@
+The only difference is that Vehicle tables contains Premium columns which can't be done dynamically now.
+
+Premium columns are removed on endorsements.

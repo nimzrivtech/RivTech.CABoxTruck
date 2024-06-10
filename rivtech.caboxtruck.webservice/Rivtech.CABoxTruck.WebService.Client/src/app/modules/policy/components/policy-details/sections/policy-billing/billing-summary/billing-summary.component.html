@@ -1,0 +1,94 @@
+<div class="card sticky-body">
+  <div class="card-header">
+    <i class="icons header-icon" [ngClass]="isOpen ? 'icon-arrow-up' : 'icon-arrow-down'" data-toggle="collapse" data-target="#billing-summary" aria-expanded="true" aria-controls="billing-summary" (click)="collapse()"></i>
+    <strong>{{billingSummaryConstants.header}}</strong>
+  </div>
+  <div id="billing-summary" class="card-body standard-padding container-fluid show">
+    <form *ngIf="billingData.summary as summary">
+      <div class="row">
+        <div class="col-md-12 row dynamic-table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                  <th class="summary-td">Written</th>
+                  <th class="summary-td">Billed</th>                
+                  <th class="summary-td">Paid</th>
+                  <th class="summary-td">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let item of billingData.summary.billingSummaryDetails">
+                <tr>
+                  <td class="summary-description summary-td">{{item.description}}</td>
+                  <td class="summary-td">{{item.written | currency}}</td>
+                  <td class="summary-td">{{item.billed | currency}}</td>
+                  <td class="summary-td">{{item.paid | currency}}</td>
+                  <td class="summary-td">{{item.balance | currency}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+            <tfoot>
+              <tr class="summary-tfoot-border-line">
+                  <td class="summary-description summary-td">Gross Total</td>
+                  <td class="summary-td">{{summary.totalPremium | currency}}</td>
+                  <td class="summary-td">{{summary.billed | currency}}</td>
+                  <td class="summary-td">{{summary.paid | currency}}</td>
+                  <td class="summary-td">{{summary.balance | currency}}</td>
+              </tr>
+              <tr>
+                  <td class="summary-description summary-td">Commission Adjustment</td>
+                  <td class="summary-td">{{summary.totalCommissionWritten | currency}}</td>
+                  <td class="summary-td">{{summary.totalCommissionBilled | currency}}</td>
+                  <td class="summary-td">{{summary.totalCommissionPaid | currency}}</td>
+                  <td class="summary-td">{{summary.totalCommissionBalance | currency}}</td>
+              </tr>
+              <tr class="summary-tfoot-border-line">
+                  <td class="summary-description summary-td">Net Total</td>
+                  <td class="summary-td">{{summary.totalPremium + summary.totalCommissionWritten | currency}}</td>
+                  <td class="summary-td">{{summary.billed + summary.totalCommissionBilled | currency}}</td>
+                  <td class="summary-td">{{summary.paid + summary.totalCommissionPaid | currency}}</td>
+                  <td class="summary-td">{{summary.balance + summary.totalCommissionBalance | currency}}</td>
+              </tr>
+            </tfoot>
+          </table>
+          <div *ngIf="billingData?.summary?.billingSummaryDetails?.length < 1" class="text-center col-lg-12 no-data-message">
+              <span>No Data To Display</span>
+          </div>
+        </div>
+        <div class="row summary-due">
+          <div class="col-sm-1">
+          </div>
+          <div class="col-sm-2">
+            <label class="w-100">{{billingSummaryConstants.pastDueAmount}}</label>
+            <label class="billing-value text-danger">{{summary.pastDueAmount | currency}}</label>
+          </div>
+
+          <div class="col-sm-2">
+            <label class="w-100">{{billingSummaryConstants.pastDueDate}}</label>
+            <label class="billing-value text-danger">{{summary.pastDueDate | date: 'MM/dd/yyyy'}}</label>
+          </div>
+
+          <div class="col-sm-2">
+            <label class="w-100">{{billingSummaryConstants.payoffAmount}}</label>
+            <label class="billing-value">{{summary.payoffAmount | currency}}</label>
+          </div>
+
+          <div class="col-sm-2">
+            <label class="w-100">{{billingSummaryConstants.equityDate}}</label>
+            <label class="billing-value" *ngIf="summary.equityDate">{{summary.equityDate | date: 'MM/dd/yyyy'}}</label>
+            <label class="billing-value"
+              *ngIf="!summary.equityDate">{{billingSummaryConstants.equityDateNotShown}}</label>
+          </div>
+          <div class="col-sm-2">
+            <button id="btn-make-payment" class="btn btn-success" (click)="onOpenPaymentModal()">
+              <i class="fa fa-credit-card"></i> {{paymentLabelConstants.postPayment}}
+            </button>
+          </div>
+          <div class="col-sm-1">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

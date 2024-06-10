@@ -1,0 +1,118 @@
+<div class="card">
+  <div class="card-header ">
+    <b>Search Filter</b>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="searchFilterForm" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+        <div class="col">
+          <label>Submission #</label>
+          <input type="text" class="form-control" placeholder="Search" formControlName="submissionNumber">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Named Insured</label>
+          <input type="text" class="form-control" placeholder="Search" formControlName="insuredName">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Insured DBA</label>
+          <input type="text" class="form-control" placeholder="Search" formControlName="insuredDBA">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Broker</label>
+          <input type="text" class="form-control" placeholder="Search" formControlName="broker">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Underwriter</label>
+          <input type="text" class="form-control" placeholder="Search" formControlName="underwriter">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>AU Representative</label>
+          <input type="text" class="form-control" placeholder="Search" formControlName="au_rep">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>AU PSR</label>
+          <input type="text" class="form-control" placeholder="Search" formControlName="au_psr">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Owner</label>
+          <input type="text" class="form-control" placeholder="Search" formControlName="owner">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Inception Date From</label>
+          <app-date-picker [options]="submissionListData.datepickerOptions" formControlName="inceptionDateFrom"
+            [hasMarginRight]="hasMarginRight"></app-date-picker>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Inception Date To</label>
+          <app-date-picker [options]="submissionListData.datepickerOptions" formControlName="inceptionDateTo"
+            [hasMarginRight]="hasMarginRight"></app-date-picker>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Status</label>
+          <select class="form-control" formControlName="status">
+            <option value="">Please Select</option>
+            <option *ngFor="let obj of statusData | orderBy: 'label'" [value]="obj.label">{{obj.label}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>State</label>
+          <select class="form-control" formControlName="state">
+            <option value="">Please Select</option>
+            <option *ngFor="let obj of submissionListData.states | orderBy: 'value'" [value]="obj.value">{{obj.label}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Submission Type</label>
+          <select class="form-control" formControlName="submissionType">
+            <option value="">Please Select</option>
+            <option *ngFor="let obj of submissionType | orderBy: 'label'" [value]="obj.label">{{obj.label}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary" type="submit" full>Search</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

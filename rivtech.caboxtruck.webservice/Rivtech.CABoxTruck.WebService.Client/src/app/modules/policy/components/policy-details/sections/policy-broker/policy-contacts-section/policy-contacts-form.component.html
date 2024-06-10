@@ -1,0 +1,91 @@
+<div role="document">
+  <div class="modal-content" class="interest-page">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title" id="addAdditionalStructureModalTitle">{{modalTitle}}</h5>
+      <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form [formGroup]="form">
+      <div class="modal-body">
+        <div class="form-group col-12 field">
+          <label for="firstName" class="required">First Name</label>
+          <input type="text" class="form-control" id="firstName" maxlength="50" formControlName="firstName" />
+          <app-validation-error [control]="fc.firstName" [inputName]="'First Name'" ></app-validation-error>
+        </div>
+        <div class="form-group col-12 field">
+          <label for="lastName" class="required">Last Name</label>
+          <input type="text" class="form-control" id="lastName" maxlength="50" formControlName="lastName" />
+          <app-validation-error [control]="fc.lastName" [inputName]="'Last Name'" ></app-validation-error>
+        </div>
+        <div class="form-group col-12 field">
+          <label for="email" class="required">Email</label>
+          <input type="text" class="form-control" id="email" maxlength="100" formControlName="email" />
+          <app-validation-error [control]="fc.email" [inputName]="'Email'" ></app-validation-error>
+        </div>
+        <div class="form-group col-12 field">
+          <label for="phone" class="required">Phone</label>
+          <input type="text" class="form-control" id="phone" mask="(000) 000-0000" formControlName="phone" />
+          <div *ngIf="fc.phone.touched && fc.phone.errors" class="invalid-feedback">
+            <div *ngIf="fc.phone.errors?.required">Phone is required</div>
+            <div *ngIf="fc.phone.errors?.minlength">Phone invalid Format</div>
+          </div>
+        </div>
+        <div class="form-group col-12 field" *ngIf="policyContactData.disablePolicyContactTypesDropdown || policyContactData.isEdit">
+          <label for="typeId" class="required">Contact Type</label>
+          <select class="form-control" id="typeId" disabled
+            formControlName="typeId">
+            <option [ngValue]="null">Please Select</option>          
+            <option *ngFor="let entityType of policyContactData.entityTypesList | orderBy: 'description'" [value]="entityType.id">
+              {{entityType.description}}
+            </option>
+          </select>
+          <app-validation-error [control]="fc.typeId" [inputName]="'Contact Type'"></app-validation-error>
+        </div>
+        <div class="form-group col-12 field" *ngIf="!policyContactData.isEdit">
+          <label for="typeId" class="required">Contact Type</label>
+          <select class="form-control" id="typeId"
+            formControlName="typeId">
+            <option [ngValue]="null">Please Select</option>          
+            <option *ngFor="let entityType of policyContactData.policyContactTypesDropdown | orderBy: 'description'" [value]="entityType.id">
+              {{entityType.description}}
+            </option>
+          </select>
+          <app-validation-error [control]="fc.typeId" [inputName]="'Contact Type'"></app-validation-error>
+        </div>
+        <div class="form-group col-12 field">
+          <label for="address" class="required">Address</label>
+          <input type="text" class="form-control" id="address" maxlength="100" formControlName="address" />
+          <app-validation-error [control]="fc.address" [inputName]="'Address'"></app-validation-error>
+        </div>
+
+        <div class="container">
+          <div class="form-group row field">
+            <div class="col-md-6">
+              <label for="city" class="required">City</label>
+              <select id="city" class="form-control" formControlName="city" tabindex="-1" [attr.disabled]="cityDisabled ? true : null">
+                <option [ngValue]="null">Please Select</option>
+                <option *ngFor="let option of cityList | orderBy: 'label'" [value]="option">{{option}}</option>
+              </select>
+              <app-validation-error [control]="fc.city" [inputName]="'City'"></app-validation-error>
+            </div>
+            <div class="col-md-3">
+              <label class="required">State</label>
+              <input type="text" class="form-control" formControlName="state" readonly tabindex="-1"/>
+              <app-validation-error [control]="fc.state" [inputName]="'State'"></app-validation-error>
+            </div>
+            <div class="col-md-3">
+              <label class="required">Zip Code</label>
+              <input type="text" class="form-control" formControlName="zipCode" numberOnly maxLength="5" (change)="searchZipCode()" />
+              <app-validation-error [control]="fc.zipCode" [inputName]="'Zip Code'"></app-validation-error>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer sticky-modal-footer">
+        <button class="btn btn-primary" [disabled]="!form.valid" (click)="saveForm()">{{modalButton}}</button>
+        <button class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

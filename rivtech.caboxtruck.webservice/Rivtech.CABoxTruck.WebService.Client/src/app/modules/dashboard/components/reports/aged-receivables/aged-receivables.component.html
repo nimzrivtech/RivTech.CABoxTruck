@@ -1,0 +1,34 @@
+<div role="document">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title">Aged Receivables Report
+      </h5>
+      <button type="button" class="close" (click)="hideModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  
+    <form *ngIf="agedReceivablesData.agedReceivablesReportForm as agedReceivablesReportFormGroup" [formGroup]="agedReceivablesReportFormGroup">
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group col-lg-12 field">
+            <label class="required">To</label>
+            <div>
+              <app-date-picker [isInvalid]="agedReceivablesReportFormGroup.get('toDate').errors?.required"
+                formControlName="toDate" [options]="datePickerDateOption">
+              </app-date-picker>
+            </div>
+            <span class="invalid-feedback d-flex"
+              *ngIf="agedReceivablesReportFormGroup.get('toDate').errors?.required && agedReceivablesReportFormGroup.get('toDate').touched">
+              {{errorMessageConstant.genericRequiredErrorMessage}}
+            </span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal-footer sticky-modal-footer">
+        <button class="btn btn-primary" [disabled]="agedReceivablesReportFormGroup.invalid || isToDateLessThanfromDate"
+          (click)="exportAgedReceivablesReport()">Export to Excel</button>
+        <button class= "btn btn-danger" (click)="hideModal()">Cancel</button>
+      </div>
+    </form>
+</div>

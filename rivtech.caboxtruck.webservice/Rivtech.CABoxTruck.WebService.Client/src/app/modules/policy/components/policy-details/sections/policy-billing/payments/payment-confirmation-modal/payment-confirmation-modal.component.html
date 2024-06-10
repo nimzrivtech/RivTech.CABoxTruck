@@ -1,0 +1,24 @@
+<div style="margin: 10px;">
+  <div class="modal-body text-center p-4">
+    <p style="font-size: 16px;">{{ message }}</p>
+
+    <div class="form" [formGroup]="paymentActionForm">
+      <div>
+        <textarea type="text" class="form-control field-text-area" placeholder="" formControlName="comment"
+          maxlength="1000"
+          [ngClass]="paymentActionForm.get('comment').invalid && paymentActionForm.get('comment').touched ? 'is-invalid' :  ''">
+        </textarea>
+        <span class="invalid-feedback d-flex"
+          *ngIf="paymentActionForm.get('comment').errors?.required && paymentActionForm.get('comment').touched">
+          {{ErrorMessageConstant.requiredErrorMessage.format('Comment')}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer text-center d-block ">
+    <button type="button" (click)="confirm()" class="btn btn-primary savebutton"
+      [disabled]="!paymentActionForm.valid">Save</button>
+    <button type="button" class="btn btn-danger" (click)="decline()">Cancel</button>
+  </div>
+</div>

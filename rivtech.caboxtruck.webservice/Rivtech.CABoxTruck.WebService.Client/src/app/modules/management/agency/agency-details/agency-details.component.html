@@ -1,0 +1,59 @@
+<div class="card field">
+    <div class="card-header">
+      <i class="icon-arrow-down icons header-icon" (click)="toggleAgencyManagement()" *ngIf="isHidden"></i>
+      <i class="icon-arrow-up icons header-icon" (click)="toggleAgencyManagement()" *ngIf="!isHidden"></i>
+      <b>Agency Management</b>
+    </div>
+    <div class="card-body show" *ngIf="!isHidden">
+      <tabset #tab>
+        <tab heading="Details" class="mt-2" (select)="onSelect($event)">
+          <app-agency-info [formGroup]="agencyData.agencyFormGroup"></app-agency-info>
+          <div *ngIf="isFlat" class="d-none">
+            <app-agency-flat-commissions
+              [flatCommissionList]="agencyData.agencyFlatCommission"
+              [flatCommissionRowId]="agencyData.agencyFlatCommissionRowId"
+              [flatCommissionHeader]="agencyData.flatCommissionHeader"
+              [isLoading]="agencyData.isFlatCommissionLoading">
+            </app-agency-flat-commissions>
+          </div>
+          <div *ngIf="!isFlat">
+            <app-agency-schedule
+              [scheduleList]="agencyData.agencyScheduleList"
+              [scheduleRowId]="agencyData.agencyScheduleRowId"
+              [scheduleHeader]="agencyData.scheduleHeader"
+              [isLoading]="agencyData.isScheduleLoading">
+            </app-agency-schedule>
+          </div>
+        </tab>
+        <tab heading="Address" class="mt-2" (select)="onSelect($event)">
+          <app-agency-address
+            [addressList]="agencyData.addressList"
+            [addressHeaders]="agencyData.addressHeaders"
+            [isLoading]="agencyData.isAddressLoading"
+            [addressRowId]="agencyData.addressListRowId"></app-agency-address>
+        </tab>
+        <!-- <tab *ngIf="isEdit" heading="Program-State" class="mt-2" (select)="onSelect($event)">
+          <app-agency-program-state></app-agency-program-state>
+        </tab> -->
+        <tab *ngIf="isEdit" heading="Sub Agency" class="mt-2" (select)="onSelect($event)">
+          <app-agency-subagency></app-agency-subagency>
+        </tab>
+        <tab *ngIf="isEdit" heading="Agent" class="mt-2" (select)="onSelect($event)">
+          <app-agency-agent></app-agency-agent>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+
+  <div class="margin-top" *ngIf="showSaveCancel">
+    <app-mgt-next-back-button
+    [showNext]="agencyData.showNext"
+    [showBack]="false"
+    [showSave]="agencyData.showSave"
+    [showCancel]="true"
+    [showUpdate]="agencyData.showUpdate"
+    (clickType)="onClick($event)"
+    [disableSave] = "!agencyData.agencyFormGroup.valid || agencyData.isAddressListEmpty "
+    [disableUpdate] = "!agencyData.agencyFormGroup.valid || !isUpdated || agencyData.isAddressListEmpty"
+    ></app-mgt-next-back-button>
+  </div>

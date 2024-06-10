@@ -1,0 +1,97 @@
+<div role="document">
+  <div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">{{this.isRefund ? PostPaymentLabelConstants.titleRefund : PostPaymentLabelConstants.title}}
+    </h5>
+    <button type="button" class="close" (click)="hideModal()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <form *ngIf="billingData.postPaymentForm as postPaymentFormGroup" [formGroup]="postPaymentFormGroup">
+    <div class="modal-body" *ngIf="postPaymentFormGroup.value as vm">
+      <div class="row">
+
+        <div class="form-group col-md-4 field">
+          <label class="required">{{PostPaymentLabelConstants.method}}</label>
+          <div>
+            <select class="form-control full-width" formControlName="paymentMethod"
+              [ngClass]="postPaymentFormGroup.get('paymentMethod').invalid && postPaymentFormGroup.get('paymentMethod').touched ? 'is-invalid' :  ''">
+              <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+              <option *ngFor="let item of paymentMethods" [value]="item.code">
+                {{item.description}}</option>
+            </select>
+          </div>
+          <span class="invalid-feedback d-flex"
+            *ngIf="postPaymentFormGroup.get('paymentMethod').errors?.required && postPaymentFormGroup.get('paymentMethod').touched">
+            {{errorMessageConstant.genericRequiredErrorMessage}}
+          </span>
+        </div>
+
+        <div class="form-group col-md-4 field" *ngIf="!this.isRefund">
+          <label class="required">{{PostPaymentLabelConstants.postDate}}</label>
+          <div>
+            <app-date-picker [isInvalid]="postPaymentFormGroup.get('postDate').errors?.required"
+              formControlName="postDate" [isDisabled]="true" [options]="datePickerDateOption">
+            </app-date-picker>
+          </div>
+          <span class="invalid-feedback d-flex"
+            *ngIf="postPaymentFormGroup.get('postDate').errors?.required && postPaymentFormGroup.get('postDate').touched">
+            {{errorMessageConstant.genericRequiredErrorMessage}}
+          </span>
+        </div>
+
+        <div class="form-group col-md-4 field">
+          <label class="required">{{PostPaymentLabelConstants.amount}}</label>
+          <div>
+            <input type="text" class="form-control full-width" placeholder="" formControlName="amount" currencyMask
+              maxlength="11" [options]="currencySettings"
+              [ngClass]="postPaymentFormGroup.get('amount').invalid && postPaymentFormGroup.get('amount').touched ? 'is-invalid' :  ''">
+            <span class="invalid-feedback d-flex"
+              *ngIf="postPaymentFormGroup.get('amount').errors?.required && postPaymentFormGroup.get('amount').touched">
+              {{errorMessageConstant.genericRequiredErrorMessage}}
+            </span>
+            <span class="invalid-feedback d-flex" *ngIf="isAmountZero && postPaymentFormGroup.get('amount').touched">
+              {{errorMessageConstant.billingErrorMessage.makePaymentAmountCannotBeZeroErrorMessage}}
+            </span>
+            <span class="invalid-feedback d-flex"
+              *ngIf="isRefund && postPaymentFormGroup.get('amount').errors?.max && postPaymentFormGroup.get('amount').touched">
+              {{errorMessageConstant.billingErrorMessage.refundAmountMaximumErrorMessage}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <app-post-payment-check [checkPaymentForm]="postPaymentFormGroup.get('check')" [showIsIndividualToggle]="isRefund"
+        *ngIf="postPaymentFormGroup.get('paymentMethod').value === PaymentMethod.CashCheck">
+      </app-post-payment-check>
+
+      <!-- <app-post-payment-credit-card [hasEmail]="true" [ccPaymentForm]="postPaymentFormGroup.get('creditCard')" *ngIf="postPaymentFormGroup.get('paymentMethod').value === PaymentMethod.CreditCard ||
+        postPaymentFormGroup.get('paymentMethod').value === PaymentMethod.RecurringCreditCard">
+      </app-post-payment-credit-card>
+
+      <app-post-payment-eft [hasEmail]="true" [eftPaymentForm]="postPaymentFormGroup.get('eft')" *ngIf="postPaymentFormGroup.get('paymentMethod').value === PaymentMethod.EFT ||
+        postPaymentFormGroup.get('paymentMethod').value === PaymentMethod.RecurringECheck">
+      </app-post-payment-eft>
+
+      <app-payment-agreement [paymentForm]="postPaymentFormGroup"></app-payment-agreement> -->
+
+      <div class="row" *ngIf="isRefund">
+        <div class="form-group col-md-12 field">
+          <label>{{PostPaymentLabelConstants.comments}}</label>
+          <div>
+            <textarea type="text" class="form-control field-text-area" placeholder="" formControlName="comments"
+              maxlength="1000">
+            </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer sticky-modal-footer">
+      <button class="btn btn-primary" [disabled]="postPaymentFormGroup.invalid || isAmountZero"
+        (click)="onPostPayment()">{{PostPaymentLabelConstants.save}}</button>
+
+      <button class="btn btn-danger" (click)="hideModal()">{{PostPaymentLabelConstants.cancel}}</button>
+    </div>
+  </form>
+</div>

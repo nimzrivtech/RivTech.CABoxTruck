@@ -1,0 +1,71 @@
+.backdropStatic  {
+  background: rgba(0,0,0,0.3) !important;
+}
+
+.pointer {
+  cursor:pointer;
+}
+
+#fileName {
+  border: none !important;
+  background-color: unset !important;
+  width: unset !important;
+}
+
+.ellipse {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  span {
+    white-space: pre;
+  }
+  div {
+    font-style: italic
+  }
+}
+
+textarea#fileName {
+  resize: auto !important;
+}
+
+textarea#description {
+  outline: 0;
+  border: 0;
+  border-bottom: 1px solid #999999;
+  border-radius: 0;
+  padding: 0;
+  width: 100%;
+  background-image: none !important;
+  height: unset;
+  resize: none;
+}
+
+.btnUpload {
+  max-height: 30px;
+  min-height: 30px;
+  border-radius: revert;
+}
+
+.note {
+  font-size: 80% !important;
+}
+
+.drag-over-border {
+  border: 2px dashed #007bff;
+}
+
+.file-list {
+    list-style-type: none;
+}
+
+.ellipse {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  span {
+    white-space: pre;
+  }
+  div {
+    font-style: italic
+  }
+}

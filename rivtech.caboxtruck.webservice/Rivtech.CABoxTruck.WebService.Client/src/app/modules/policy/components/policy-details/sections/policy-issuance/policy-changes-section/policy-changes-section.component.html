@@ -1,0 +1,62 @@
+<div [formGroup]="this.form">
+    <!-- Endorsement Effective Date -->
+    <div class="card sticky-body">
+        <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideEndorsementEffectiveDate ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+            href="#endorsementEffectiveDate" (click)="ToggleEndorsementEffectiveDate()"></i>
+        <strong>Issue Policy Change(s)</strong>
+        </div>
+        <div id="endorsementEffectiveDate"  class="card-body standard-padding container-fluid show mt-3">
+            <div class="row">
+                <div class="input-container field" [style.min-width.px]="300">
+                    <label for="effectiveDate" class="required">Change Effective Date</label>  
+                    <app-date-picker 
+                        [options]="policyIssuanceData.datepickerOptions"
+                        formControlName="effectiveDate"
+                        [attr.title]="endorsementEffectiveDateTitle"
+                        [isInvalid]="form.get('effectiveDate').errors?.required" 
+                        customErrorMessage="Please enter a valid date"
+                        (dateChange)="endorsementEffectiveDateChanged()"
+                        [isDisabled]="!isPendingEndorsement"
+                        customRequiredErrorMessage="Effective Date is required">
+                    </app-date-picker>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Policy Changes -->
+    <div class="card sticky-body" *ngIf="isPendingEndorsement"> <!-- *ngIf="this.policyIssuanceData.policyChanges.length > 0" -->
+        <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hidePolicyChanges ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+            href="#policyChanges" (click)="TogglePolicyChanges()"></i>
+        <strong>Policy Changes</strong>
+        </div>
+        <div id="policyChanges" class="card-body standard-padding container-fluid show mt-3">
+            <div class="row">
+                <div class="col-lg-12 input-container field">
+                    <li class="policy-changes-list" *ngFor="let detail of this.policyIssuanceData.policyChanges">
+                        <label class="policy-change-label">{{detail}}</label>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Text for Endorsement Form -->
+    <div class="card sticky-body" *ngIf="isPendingEndorsement">
+        <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideEndorsementText ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+            href="#endorsementText" (click)="ToggleEndorsementText()"></i>
+        <strong>Text for Endorsement Form</strong>
+        </div>
+        <div id="endorsementText" class="card-body standard-padding container-fluid show mt-3">
+            <div class="row">
+                <div class="col-lg-12 input-container field">
+                    <label for="">Text For Endorsement Form</label>
+                    <textarea class="form-control field-text-area state-padding" type="textarea" formControlName="endorsementText" rows="{{ isPolicyChangesMoreThan10 ? 10 : policyChangesCount }}"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

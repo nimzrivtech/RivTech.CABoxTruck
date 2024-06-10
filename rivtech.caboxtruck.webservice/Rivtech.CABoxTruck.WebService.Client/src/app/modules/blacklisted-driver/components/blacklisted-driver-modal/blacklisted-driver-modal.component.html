@@ -1,0 +1,97 @@
+<!-- <div class="modal fade" id='blacklistedDrivers' tabindex="-1" role="dialog" aria-labelledby="#blacklistedDrivers" aria-hidden="true" style="display: block;" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-centered" role="document">
+    
+  </div>
+</div> -->
+
+<div role="document">
+  <div class="modal-content">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title">{{title}}</h5>
+      <button type="button" class="close" (click)="onClose()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  
+    <div class="modal-body" id="mdlBlacklistedDriver">
+      <div class="container-fluid">
+        <div class="form-group row">
+          <div class="col-md-3">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" #Search [(ngModel)]="searchFilter"
+                     title="Search First Name, Last Name or Driver's License"
+                     (keydown.enter)="onSearchDriverClick($event)">
+              <div class="input-group-append">
+                <button class="btn btn-secondary search-button" type="button" (click)="onSearchDriverClick($event)">
+                  <i class="fa fa-search customized-blue"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--      <div class="form-group row field">-->
+        <!--        <div class="col-lg-4">-->
+        <!--          <label [ngClass]="'required'">Driver Name</label>-->
+        <!--          <input type="text" class="form-control w-100" [(ngModel)]="driverName"/>-->
+        <!--        </div>-->
+
+        <!--        <div class="col-lg-4">-->
+        <!--          <label [ngClass]="'required'">License Number</label>-->
+        <!--          <input type="text" class="form-control w-100" [(ngModel)]="licenseNumber"/>-->
+        <!--        </div>-->
+
+        <!--        <div class="col-lg-4">-->
+        <!--          <button (click)="onSearchDriverClick()" class="btn btn-primary">Search Driver</button>-->
+        <!--        </div>-->
+        <!--      </div>-->
+
+        <div class="row" *ngIf="blacklistedDriverData.blacklistedDrivers.length > 0">
+          <div class="col-md-12">
+            <div class="table-responsive dynamic-table">
+              <table class="table table-striped border datatable" style="width:100%">
+                <thead>
+                <tr>
+                  <th (click)="blacklistedDriverData.sort($event.target)" data-order="desc" data-name="firstName" class="text-left">First Name
+                  </th>
+                  <th (click)="blacklistedDriverData.sort($event.target)" data-order="desc" data-name="lastName" class="text-left">Last Name
+                  </th>
+                  <th (click)="blacklistedDriverData.sort($event.target)" data-order="desc" data-name="driverLicenseNumber" class="text-left">License Number
+                  </th>
+                  <th (click)="blacklistedDriverData.sort($event.target)" data-order="desc" data-name="isActive" class="text-left">Status
+                  </th>
+                  <th class="text-center" style="padding:5px;">Action<br/>
+                    <div>
+                      <button tabindex="" type="button" class="btn btn-primary" data-placement="top"
+                              (click)='onAddDriverClick()' [tooltip]="TableConstants.add">
+                        <i class="icon-plus"></i>
+                      </button>
+                    </div>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of blacklistedDriverData.pagedItems">
+                    <td><span>{{item.firstName}}</span></td>
+                    <td><span>{{item.lastName}}</span></td>
+                    <td><span>{{item.driverLicenseNumber}}</span></td>
+                    <td><span>{{item.isActive ? 'Blacklisted' : ''}}</span></td>
+                    <td>
+                      <div class="table-button-fixed d-flex justify-content-center">
+                        <i class="icon-note" (click)="onEditDriverClick(item)" [tooltip]="TableConstants.edit"></i>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-table-pagination (setPage)="setPage($event)" [pager]="blacklistedDriverData.pager"
+                            [loading]="blacklistedDriverData.loading">
+      </app-table-pagination>
+    </div>
+  </div>
+</div>

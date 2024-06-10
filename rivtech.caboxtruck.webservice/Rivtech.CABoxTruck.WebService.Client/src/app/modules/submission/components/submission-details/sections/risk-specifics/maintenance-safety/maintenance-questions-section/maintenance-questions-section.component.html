@@ -1,0 +1,98 @@
+<div class="card sticky-body">
+  <div class="card-header">
+    <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#maintenanceQuestionCard" (click)="ToggleHiding()"></i>
+    <strong>{{MaintenanceQuestionConstants.maintenanceQuestionTitle}}</strong>
+  </div>
+
+  <div id="maintenanceQuestionCard" class="card-body standard-padding field show">
+    <div class="col">
+      <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+      <form [formGroup]="fg">
+        <div class="row">
+          <div class="col-lg-4 input-container">
+            <label for="safetyMeetings">{{MaintenanceQuestionConstants.safetyMeetings}}</label>
+            <select  id="safetyMeetings" formControlName="safetyMeetings">
+              <option [ngValue]="null">{{ GenericLabelConstants.pleaseSelect }}</option>
+              <option *ngFor="let option of dropdownList.safetyMeetingsList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+            </select>
+            <app-validation-error [control]="fc.safetyMeetings" ></app-validation-error>
+          </div>
+  
+          <div class="col-lg-4 input-container">
+            <label for="personInCharge">{{MaintenanceQuestionConstants.personInCharge}}</label>
+            <input type="text" id="personInCharge" formControlName="personInCharge" min="0" autocomplete="off"/>
+          </div>
+  
+          <div class="col-lg-4 input-container" *ngIf="riskSpecificsData?.hasPhysicalDamageCoverage">
+            <label for="garagingType">{{MaintenanceQuestionConstants.garagingType}}</label>
+            <ng-multiselect-dropdown id="garagingType" formControlName="garagingType"
+              placeholder="&nbsp;"
+              [data]="garagingTypeList"
+              [settings]="DropdownSettingsConstants"
+              tabindex="0"
+              (onFilterChange)="onFilterChange($event, 'garagingType')"
+              (onDropDownClose)="onDropDownClose('garagingType')" >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+      
+        <div class="row pt-4">
+          <div class="col-lg-4 input-container">
+            <label for="vehicleMaintenance" class="required-no-wrap">{{MaintenanceQuestionConstants.vehicleMaintenance}}</label>
+            <ng-multiselect-dropdown id="vehicleMaintenance" formControlName="vehicleMaintenance"
+              placeholder="&nbsp;"
+              [data]="dropdownList.vehicleMaintenanceList"
+              [settings]="DropdownSettingsConstants"
+              tabindex="0"
+              (onFilterChange)="onFilterChange($event, 'vehicleMaintenance')"
+              (onDropDownClose)="onDropDownClose('vehicleMaintenance')" >
+            </ng-multiselect-dropdown>
+            <app-validation-error [control]="fc.vehicleMaintenance" [inputName]="'Your vehicle maintenance program includes'" ></app-validation-error>
+          </div>
+        </div>
+  
+        <div class="row pt-4">
+          <div class="col-lg-4 input-container">
+            <div class="switch-wrapper">
+              <label >{{MaintenanceQuestionConstants.isMaintenanceProgramManagedByCompany}}</label>
+              <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="isMaintenanceProgramManagedByCompany"></toggle-switch>
+            </div>
+          </div>        
+          <div class="col-lg-4 input-container">
+            <div class="switch-wrapper">
+              <label >{{MaintenanceQuestionConstants.provideCompleteMaintenanceOnVehicles}}</label>
+              <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="provideCompleteMaintenanceOnVehicles"></toggle-switch>
+            </div>
+          </div>
+          <div class="col-lg-4 input-container">
+            <div class="switch-wrapper">
+              <label >{{MaintenanceQuestionConstants.areDriverFilesAvailableForReview}}</label>
+              <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="areDriverFilesAvailableForReview"></toggle-switch>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row pt-4">
+          <div class="col-lg-4 input-container">
+            <div class="switch-wrapper">
+              <label>{{MaintenanceQuestionConstants.areAccidentFilesAvailableForReview}}</label>
+              <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="areAccidentFilesAvailableForReview"></toggle-switch> 
+            </div>
+          </div>
+          <div class="col-lg-4 input-container">
+            <label for="companyPractice" class="required-no-wrap">{{MaintenanceQuestionConstants.companyPractice}}</label>
+            <ng-multiselect-dropdown id="companyPractice" formControlName="companyPractice" class="drop-up"
+              placeholder="&nbsp;"
+              [data]="companyPracticeList"
+              [settings]="DropdownSettingsConstants"
+              tabindex="0"
+              (onFilterChange)="onFilterChange($event, 'companyPractice')"
+              (onDropDownClose)="onDropDownClose('companyPractice')" >
+            </ng-multiselect-dropdown> 
+            <app-validation-error [control]="fc.companyPractice" [inputName]="'Company practices Include'" ></app-validation-error>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

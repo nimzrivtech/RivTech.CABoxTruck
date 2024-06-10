@@ -1,0 +1,182 @@
+<div class="card sticky-body">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#genInfoRSCard" (click)="ToggleHiding()"></i>
+        <strong>General Information</strong>
+    </div> <br> <br>
+    <div class="card-body" id="genInfoRSCard" class="show" [formGroup]="riskSpecificsData.riskSpecificsForms.generalInformationForm">
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="submissionType" class="form-field__label">Submission Type</label>
+                    <input id="submissionType" type="text" class="form-field__input" formControlName="submissionType" readonly/>
+                </div>
+            </div>
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="requestedQuoteDate" class="form-field__label required">Requested Quote Date</label>
+                    <input id="requestedQuoteDate" type="date" class="form-field__input" formControlName="requestedQuoteDate"/>
+                </div>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.requestedQuoteDate}"></ng-container>
+            </div>
+
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="effectiveDate" class="form-field__label required">Effective Date</label>
+                    <input id="effectiveDate" type="date" class="form-field__input" formControlName="effectiveDate"/>
+                    <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.effectiveDate}"></ng-container>
+                </div>
+            </div>
+
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="expirationDate" class="form-field__label required">Expiration Quote Date</label>
+                    <input id="expirationDate" type="date" class="form-field__input" formControlName="expirationDate"/>
+                    <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.expirationDate}"></ng-container>
+                </div>
+            </div>
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        <div class="form-group row margin-bottom0">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="col-md-3 form-field">
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <label class="col-form-label">Is this a new venture?</label>
+                    </div>
+                </div>
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <div class="form-check">
+                            <div class="form-group row margin-bottom0">
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="isNewVentureYes"
+                                        formControlName="isNewVenture" type="radio" [value]=true>
+                                    <label class="form-check-label" for="isNewVentureYes"> Yes </label>
+                                </div>
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="isNewVentureNo"
+                                        formControlName="isNewVenture" type="radio" [value]=false>
+                                    <label class="form-check-label" for="isNewVentureNo"> No </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.isNewVenture}"></ng-container>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="hoursOfService" class="form-field__label">Hours of service</label>
+                    <input id="hoursOfService" class="form-field__input" formControlName="hoursOfService" currencyMask [options]="CurrencyMaskConstants.HourPerDay"/>
+                </div>
+            </div>
+
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="daysOfService" class="form-field__label">Days of service</label>
+                    <select class="form-field__input" formControlName="daysOfService">
+                        <option hidden [value]="" selected>Please Select</option>
+                        <option *ngFor="let option of daysOfServiceList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="shiftsPerDay" class="form-field__label">How many shifts per day?</label>
+                    <input id="shiftsPerDay" type="text" class="form-field__input" formControlName="shiftsPerDay" currencyMask [options]="CurrencyMaskConstants.setMaxInput(24)"/>
+                </div>
+            </div>
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="zeroToFifty" class="form-field__label required">Radius of Operation ( % ) <br> 0 - 50 </label> <br>
+                    <input id="zeroToFifty" class="form-field__input" formControlName="zeroToFifty" currencyMask [options]="CurrencyMaskConstants.Percentage"
+                        [ngClass]="{ 'is-invalid': riskSpecificsData.radiusOfOperationNotEqualToHundred || (formControl.zeroToFifty.touched && formControl.zeroToFifty.errors) }"/>
+                </div>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.zeroToFifty}"></ng-container>
+                <span class="invalid-feedback" *ngIf="riskSpecificsData.radiusOfOperationNotEqualToHundred"> Total should sum up to 100% </span>
+            </div>
+
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="fiftyToHundred" class="form-field__label required"><br> 50 - 100 </label> <br>
+                    <input id="fiftyToHundred" type="text" class="form-field__input" formControlName="fiftyToHundred" currencyMask [options]="CurrencyMaskConstants.Percentage"
+                        [ngClass]="{ 'is-invalid': riskSpecificsData.radiusOfOperationNotEqualToHundred || (formControl.fiftyToHundred.touched && formControl.fiftyToHundred.errors) }"/>
+                </div>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.fiftyToHundred}"></ng-container>
+            </div>
+
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="twoHundredPlus" class="form-field__label required"><br> 200+ </label> <br>
+                    <input id="twoHundredPlus" type="text" class="form-field__input" formControlName="twoHundredPlus" currencyMask [options]="CurrencyMaskConstants.Percentage"
+                        [ngClass]="{ 'is-invalid': riskSpecificsData.radiusOfOperationNotEqualToHundred || (formControl.twoHundredPlus.touched && formControl.twoHundredPlus.errors) }"/>
+                </div>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.twoHundredPlus}"></ng-container>
+            </div>
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+
+        <div class="form-group row margin-bottom0" *ngIf="formControl.twoHundredPlus.value >= 1">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="col-md-3 form-field">
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <label class="col-form-label">Any operational exposure over a 300 mile radius?</label>
+                    </div>
+                </div>
+                <div class="form-group row margin-bottom0">
+                    <div class="col-md-12 margin-left2-8">
+                        <div class="form-check">
+                            <div class="form-group row margin-bottom0">
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="anyOperationalExposureOver300RadiusOperationYes"
+                                        formControlName="anyOperationalExposureOver300RadiusOperationSwitch" type="radio" [value]=true>
+                                    <label class="form-check-label" for="anyOperationalExposureOver300RadiusOperationYes"> Yes </label>
+                                </div>
+                                <div class="form-field col-md-2">
+                                    <input class="form-check-input" id="anyOperationalExposureOver300RadiusOperationNo"
+                                        formControlName="anyOperationalExposureOver300RadiusOperationSwitch" type="radio" [value]=false>
+                                    <label class="form-check-label" for="anyOperationalExposureOver300RadiusOperationNo"> No </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="offset-rivtech-md-1"></div>
+            <div class="form-field col-md-3">
+                <div class="form-field__control">
+                    <label for="percentageOfVehiclesOwnerOperated" class="form-field__label required">Owner-operated vehicle ( % )</label>
+                    <input id="percentageOfVehiclesOwnerOperated" type="text" class="form-field__input" formControlName="percentageOfVehiclesOwnerOperated" currencyMask [options]="CurrencyMaskConstants.Percentage"/>
+                </div>
+                <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{formControl: formControl.percentageOfVehiclesOwnerOperated}"></ng-container>
+            </div>
+            <div class="offset-rivtech-md-1"></div>
+        </div>
+    </div>
+</div>
+<app-next-back-button [isScrollPage]="false" (clickType)="onClick($event)"></app-next-back-button>
+
+<ng-template #validation let-formControl="formControl">
+  <app-validation-error [control]="formControl"></app-validation-error>
+</ng-template>

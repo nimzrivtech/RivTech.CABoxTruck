@@ -1,0 +1,14 @@
+<div class="card sticky-body">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+            href="#premiumMetricsCard" (click)="ToggleHiding()"></i>
+        <strong>Premium Metrics</strong>
+    </div>
+    <div id="premiumMetricsCard" class="show">
+        <div class="card-body standard-padding">
+            <form [formGroup]="quoteLimitsData.premiumAvgForm" style="padding-top: 0% !important;">
+                <app-policy-premium-vehicle-chart></app-policy-premium-vehicle-chart>
+            </form>
+        </div>
+    </div>
+</div>

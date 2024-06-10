@@ -1,0 +1,109 @@
+<div class="card sticky-body">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#generalLiabilityCard" (click)="ToggleHiding()"></i>
+        <strong>{{GeneralLiabilityConstants.generalLiabilityTitle}}</strong>
+    </div>
+        
+    <div id="generalLiabilityCard" class="card-body standard-padding field show">
+        <div class="col">
+            <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+            <form [formGroup]="fg">
+                <div class="row">
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper pb-2">
+                            <label >{{GeneralLiabilityConstants.contractuallyRequiredToCarryGeneralLiabilityInsurance}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="contractuallyRequiredToCarryGeneralLiabilityInsurance"></toggle-switch>
+                        </div>               
+                    </div>
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper pb-2">
+                            <label >{{GeneralLiabilityConstants.operationsAtStorageLotOrImpoundYard}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="operationsAtStorageLotOrImpoundYard"></toggle-switch>
+                        </div>               
+                    </div>
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper">
+                            <label >{{GeneralLiabilityConstants.anyStorageOfGoods}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="anyStorageOfGoods"></toggle-switch>
+                        </div>               
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper pb-2">
+                            <label >{{GeneralLiabilityConstants.anyWarehousing}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="anyWarehousing"></toggle-switch>
+                        </div>               
+                    </div>
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper pb-2">
+                            <label >{{GeneralLiabilityConstants.anyStorageOfVehiclesForOthers}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="anyStorageOfVehiclesForOthers"></toggle-switch>
+                        </div>               
+                    </div>
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper">
+                            <label >{{GeneralLiabilityConstants.anyLeasingSpaceToOthers}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="anyLeasingSpaceToOthers"></toggle-switch>
+                        </div>               
+                    </div>
+                </div>
+    
+                <div class="row pt-1">
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper pb-2">
+                            <label >{{GeneralLiabilityConstants.anyFreightForwarding}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="anyFreightForwarding"></toggle-switch>
+                        </div>               
+                    </div>
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper">
+                            <label >{{GeneralLiabilityConstants.anyStorageOfFuelsAndOrChemicals}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="anyStorageOfFuelsAndOrChemicals"></toggle-switch>
+                        </div>               
+                    </div>
+                    <div class="col-lg-4 input-container">     
+                        <label for="glAnnualPayroll" class="required">{{GeneralLiabilityConstants.glAnnualPayroll}}</label>
+                        <input id="glAnnualPayroll" type="text" formControlName="glAnnualPayroll" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> 
+                        <app-validation-error [control]="fc.glAnnualPayroll" [inputName]="'GL Annual Payroll'"></app-validation-error>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper">
+                            <label >{{GeneralLiabilityConstants.haveOperationsOtherThanTrucking}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="haveOperationsOtherThanTrucking"
+                            (change)="switchValidator($event.target.checked, 'haveOperationsOtherThanTruckingExplain')">                            
+                            </toggle-switch>
+                        </div>               
+                    </div>
+                    <div class="col-lg-4 input-container" *ngIf="fc.haveOperationsOtherThanTrucking.value">    
+                        <label for="haveOperationsOtherThanTruckingExplain" >{{GenericLabelConstants.explain}}</label>
+                        <textarea id='haveOperationsOtherThanTruckingExplain' class="field-text-area" 
+                            formControlName="haveOperationsOtherThanTruckingExplain" maxlength="1000"></textarea>
+                        <app-validation-error [control]="fc.haveOperationsOtherThanTruckingExplain" [inputName]="'Explain'"></app-validation-error>                        
+                    </div>
+                </div>
+    
+                <div class="row pt-1">
+                    <div class="col-lg-4 input-container">     
+                        <div class="switch-wrapper">
+                            <label >{{GeneralLiabilityConstants.hasApplicantHadGeneralLiabilityLoss}}</label>
+                            <toggle-switch [formGroup]="fg" [formName]="fn" fieldName="hasApplicantHadGeneralLiabilityLoss"
+                            (change)="switchValidator($event.target.checked, 'hasApplicantHadGeneralLiabilityLossExplain')">
+                            </toggle-switch>
+                        </div>               
+                    </div>
+                    <div class="col-lg-4 input-container" *ngIf="fc.hasApplicantHadGeneralLiabilityLoss.value">     
+                        <label for="hasApplicantHadGeneralLiabilityLossExplain" >{{GenericLabelConstants.explain}}</label>
+                        <textarea id='hasApplicantHadGeneralLiabilityLossExplain' class="field-text-area"                       
+                            formControlName="hasApplicantHadGeneralLiabilityLossExplain" maxlength="1000"></textarea>
+                        <app-validation-error [control]="fc.hasApplicantHadGeneralLiabilityLossExplain" [inputName]="'Explain'"></app-validation-error>
+                    </div>
+                </div> 
+            </form>
+        </div>
+    </div>
+</div>

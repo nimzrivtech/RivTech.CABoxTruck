@@ -1,0 +1,6 @@
+2023-10-09 17:50:54,707 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+      Insert into [LvDataset] values(1,'Light','Light, 1, '1,2,3,4,5,6', 'MainGWV', 1)
+      Insert into [LvDataset] values(2,'Medium','Medium, 2, '1,2,3,4,5,6', 'MainGWV', 1)
+      Insert into [LvDataset] values(3,'Heavy','Heavy, 3, '1,2,3,4,5,6', 'MainGWV', 1)
+      Insert into [LvDataset] values(4,'Extra Heavy','Extra Heavy, 4, '1,2,3,4,5,6', 'MainGWV', 1)

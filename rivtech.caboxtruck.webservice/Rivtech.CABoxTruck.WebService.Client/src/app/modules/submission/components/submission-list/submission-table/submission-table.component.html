@@ -1,0 +1,128 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col">
+        <strong>Submissions</strong>
+      </div>
+      <div class="col-3">
+        <a [routerLink]="['/submissions/new/applicant']"
+          class="pull-right text-primary text-decoration-none font-weight-bold">
+          Create Submission
+        </a>
+      </div>
+    </div>
+  </div>
+  <div [style.padding-top.px]="15">
+    <div class="col-2 input-group my-0 pull-right">
+      <input type="text" id="anyKeywordSearch" #anyKeywordSearch class="form-control" placeholder="Search" #Search  title="Search" (keydown.enter)="this.onSearchAnyKeyword(anyKeywordSearch.value)" >
+      <div class="input-group-append">
+        <button class="btn btn-secondary search-button" type="button" (click)="this.onSearchAnyKeyword(anyKeywordSearch.value)">
+          <i class="fa fa-search customized-blue"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body table-responsive" style="width:98%; margin-bottom: 10px; margin-left: 13px;">
+    <div class="spinner-border text-secondary spinner" role="status" *ngIf="submissionListData.loading">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <table class="table table-sm table-hover table-striped text-center" *ngIf="!submissionListData.loading" style="width:250%;margin-left:-20px;">
+      <thead>
+        <tr>
+          <th (click)="sort($event.target)" data-order="desc" data-name="policyNumber">Policy #</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="submissionNumber">Submission #</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="insuredName">Named Insured</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="insuredDBA">Insured DBA</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="broker">Broker</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="inceptionDate" data-type="date">Inception Date</th>
+          <!-- <th (click)="sort($event.target)" data-order="desc" data-name="expirationDate"data-type="date">Expiration Date</th> -->
+          <th (click)="sort($event.target)" data-order="desc" data-name="status">Status</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="assignedTo">Assigned to</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="cntPowerUnit">Power Units</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="cntTrailer">Trailers</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="cntOther">Other(s)</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="state">State</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="submissionType">Submission Type</th>
+          <th data-order="desc" data-name="policyLimit">Policy Limit</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="newVenture">New Venture</th>
+          <th data-order="desc" data-name="neededBy">Needed By</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="brokerContact">Broker Contact</th>
+          <th data-order="desc" data-name="qAC">QAC</th>
+          <th data-order="desc" data-name="midTerm">Mid Term</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="lastNoteAdded">Last Note Added</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="auSpecialist">Assistant Underwriter</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="auRep">AU Rep</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="aupsr">AU PSR</th>
+          <th data-order="desc" data-name="brokerZip">Broker Zip</th>
+          <th data-order="desc" data-name="brokerState">Broker State</th>
+          <th data-order="desc" data-name="brokerCity">Broker City</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="dateSubmitted" data-type="date">Date Submitted</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="underwriter">Underwriter</th>
+          <th data-order="desc" data-name="expiringPolicy">Expiring Policy</th>
+          <th (click)="sort($event.target)" data-order="desc" data-name="useClass">Use Class</th>
+          <th data-order="desc" data-name="lossRatio">Loss Ratio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="26" *ngIf="submissionListData.pagedItems.length == 0">No Results Found</td>
+        </tr>
+        <tr *ngFor="let risk of submissionListData.pagedItems">
+          <td><a [routerLink]="risk.isPolicy ? ['/policies/', risk.riskId, risk.currentRiskId, 'summary'] :['/submissions/', risk.currentRiskId, 'applicant']">{{risk.policyNumber}}</a></td>
+          <td><a [routerLink]="risk.isPolicy ? ['/policies/', risk.riskId, risk.currentRiskId, 'summary'] :['/submissions/', risk.currentRiskId, 'applicant']">{{risk.submissionNumber}}</a></td>
+          <td>{{risk.insuredName}}</td>
+          <td>{{risk.insuredDBA}}</td>
+          <td>{{risk.broker}}</td>
+          <td>{{risk.inceptionDate | date}}</td>
+          <!-- <td>{{risk.expirationDate | date}}</td> -->
+          <td>{{risk.status}}</td>
+          <td>{{risk.assignedToName}}</td>
+          <td>{{risk.cntPowerUnit}}</td>
+          <td>{{risk.cntTrailer}}</td>
+          <td>{{risk.cntOther}}</td>
+          <td>{{risk.state}}</td>
+          <td>{{risk.submissionType}}</td>
+          <td>{{risk.policyLimit}}</td>
+          <td>{{risk.newVenture}}</td>
+          <td>{{risk.neededBy}}</td>
+          <td>{{risk.brokerContact}}</td>
+          <td>{{risk.qAC}}</td>
+          <td>{{risk.midTerm}}</td>
+          <td>{{risk.lastNoteAdded | date}}</td>
+          <td>{{risk.auSpecialist}}</td>
+          <td>{{risk.auRep}}</td>
+          <td>{{risk.aupsr}}</td>
+          <td>{{risk.brokerZip}}</td>
+          <td>{{risk.brokerState}}</td>
+          <td>{{risk.brokerCity}}</td>
+          <td>{{risk.dateSubmitted | date}}</td>
+          <td>{{risk.underwriter}}</td>
+          <td>{{risk.expiringPolicy}}</td>
+          <td>{{risk.useClass}}</td>
+          <td>{{risk.lossRatio}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div [style.padding-top.px]="3" *ngIf="submissionListData.totalRowCount > 10">
+    <nav style="padding-top: 10px;" class="navbar navbar-light bg-light justify-content-between">
+        <div class="btn-group dropup" >
+            <div class="input-group-prepend">
+                <div class="input-group-text" id="btnGroupAddon">Show rows</div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-describedby="btnGroupAddon" aria-haspopup="true" aria-expanded="false">
+                {{ showRowsNumber }}
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" style="min-width: 3rem;">
+                <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber10)" class="dropdown-item">{{  TableConstants.Search.showRowsNumber10 }}</span>
+                <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber25)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber25 }}</span>
+                <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber50)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber50 }}</span>
+                <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber100)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber100 }}</span>
+            </div>
+        </div>
+        
+        <pagination class="vpaging text-center pagination-md ml-3" [boundaryLinks]="true" [directionLinks]="true" [totalItems]="submissionListData.totalRowCount" [itemsPerPage]="submissionListData.itemPerPage" [maxSize]="10" (pageChanged)="policyPageChanged($event)" 
+            [ngModel]="submissionListData.currentPage"></pagination>
+    </nav>
+  </div>
+</div>

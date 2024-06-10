@@ -1,0 +1,24 @@
+.active {
+  color: #fff;
+  background-color: #20a8d8;
+  border-color: #20a8d8;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  color: #c8ced3;
+  border-color: #dde3e8;
+}
+
+.hide {
+  display: none;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
+.card-body {
+  text-align: center;
+}

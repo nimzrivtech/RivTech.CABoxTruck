@@ -1,0 +1,15 @@
+
+.btn:not([disabled]) {
+	opacity: 0.90; // Set opacity to 90% to make the border lines between options visible.
+}
+
+.btn.disabled {
+  pointer-events: none;
+}
+
+.btn-group .btn:disabled,
+.btn-group .btn[disabled]
+{
+	cursor: not-allowed;
+	pointer-events: all !important;
+}

@@ -1,0 +1,185 @@
+<div class="page-position">
+  <div class="card sticky-body">
+    <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('dotInfoCard', $event)">
+      <app-toggle-collapse toggleName="dotInfoCard"></app-toggle-collapse>
+      <strong>&nbsp; DOT Information</strong>
+    </div>
+    <div class="card-body container-fluid standard-padding collapse show field" id="dotInfoCard">
+      <div class="col">
+        <div class="disable-overlay" [style.height.%]="105" *ngIf="this.submissionData?.isIssued"></div>
+        <form [formGroup]="fg">
+          <div class="row mt-4">
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper pb-2">
+                <label>Does applicant require a DOT number?</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="doesApplicantRequireDotNumber">
+                </toggle-switch>
+              </div>
+            </div>
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper">
+                <label>Does applicant plan to stay intrastate?</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="doesApplicantPlanToStayInterstate">
+                </toggle-switch>
+              </div>
+            </div>
+            <div class="input-container col-lg-4" *ngIf="!fc.doesApplicantPlanToStayInterstate.value">
+              <div class="switch-wrapper">
+                <label>Does applicant have interstate authority?</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="doesApplicantHaveInsterstateAuthority">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-container col-lg-4">
+              <div class="field">
+                <label for="dotRegistrationDate" class="required">DOT Registration</label>
+                <app-date-picker [options]="dotInfoData.datepickerOptions"
+                  [customRequiredErrorMessage]="'DOT Registration is required'"
+                  [isInvalid]="fc.dotRegistrationDate.errors?.required"
+                  [isDisabled]="this.submissionData?.isIssued"
+                  formControlName="dotRegistrationDate" ></app-date-picker>
+              </div>
+              <!-- <app-validation-error [control]="fc.dotRegistrationDate" [inputName]="'DOT Registration'"></app-validation-error> -->
+            </div>
+    
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper">
+                <label>DOT Currently Active?</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="isDotCurrentlyActive">
+                </toggle-switch>
+              </div>
+            </div>
+    
+            <div class="input-container col-lg-4">
+              <div class="field">
+                <label for="chameleonIssues" class="required">Any Chameleon Issues?</label>
+                <br>
+                <select class="w-100" formControlName="chameleonIssues">
+                  <option [ngValue]="null">Please Select</option>
+                  <option *ngFor="let option of chameleonIssuesOptions" [ngValue]="option">
+                    {{option.description}}</option>
+                </select>
+              </div>
+              <app-validation-error [control]="fc.chameleonIssues" [inputName]="'Any Chameleon Issues'"></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-4">
+              <div class="field">
+                <label for="currentSaferRating" class="required">Current SAFER rating</label>
+                <br>
+                <select class="w-100" formControlName="currentSaferRating">
+                  <option [ngValue]="null">Please Select</option>
+                  <option *ngFor="let option of saferRatingOptions" [ngValue]="option">
+                    {{option.description}}</option>
+                </select>
+              </div>
+              <app-validation-error [control]="fc.currentSaferRating" [inputName]="'Current SAFER rating'"></app-validation-error>
+            </div>
+    
+            <div class="input-container col-lg-4">
+              <div class="field">
+                <label for="issCabRating" class="required">ISS-CAB Rating</label>
+                <br>
+                <select class="w-100" formControlName="issCabRating">
+                  <option [ngValue]="null">Please Select</option>
+                  <option *ngFor="let option of trafficLightRatingOptions" [ngValue]="option">
+                    {{option.description}}</option>
+                </select>
+              </div>
+              <app-validation-error [control]="fc.issCabRating" [inputName]="'ISS-CAB Rating'"></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper">
+                <label>Any policy-level accidents (From other drivers not listed)</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="isThereAnyPolicyLevelAccidents" (change)="switchValidator($event.target.checked, 'numberOfPolicyLevelAccidents')">
+                </toggle-switch>
+              </div>
+            </div>
+            <div class="input-container col-lg-4" *ngIf="fc.isThereAnyPolicyLevelAccidents.value">
+              <div class="field">
+                <label for="numberOfPolicyLevelAccidents" class="required">How many?</label>
+                <input id="numberOfPolicyLevelAccidents" class="w-100" formControlName="numberOfPolicyLevelAccidents" mask="000000000" />
+              </div>
+              <app-validation-error [control]="fc.numberOfPolicyLevelAccidents" [inputName]="'How many?'"></app-validation-error>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container mt-4">
+              <h4>Basic Alert - Select Yes or No</h4>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper">
+                <label>Unsafe Driving</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="isUnsafeDrivingChecked">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper">
+                <label>Hours of Service</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="isHoursOfServiceChecked">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper">
+                <label>Driver Fitness</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="isDriverFitnessChecked">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper">
+                <label>Controlled Substance</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="isControlledSubstanceChecked">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper">
+                <label>Vehicle Maintenance</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="isVehicleMaintenanceChecked">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="input-container col-lg-4">
+              <div class="switch-wrapper">
+                <label>Crash</label>
+                <toggle-switch [formGroup]="fg" formName="dotInfoForm" fieldName="isCrashChecked">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+    
+        </form>
+      </div>
+    </div>
+  </div>
+  <app-next-back-btn [isScrollPage]="true" (clickType)="onClick($event)"></app-next-back-btn>
+</div>

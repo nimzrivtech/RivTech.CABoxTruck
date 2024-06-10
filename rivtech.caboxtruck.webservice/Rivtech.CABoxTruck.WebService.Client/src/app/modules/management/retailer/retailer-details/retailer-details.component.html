@@ -1,0 +1,30 @@
+<div class="card field">
+    <div class="card-header">
+      <i class="icon-arrow-down icons header-icon" (click)="toggleAgencyManagement()" *ngIf="isHidden"></i>
+      <i class="icon-arrow-up icons header-icon" (click)="toggleAgencyManagement()" *ngIf="!isHidden"></i>
+      <b>Retailer Management</b>
+    </div>
+    <div class="card-body show" *ngIf="!isHidden">
+      <tabset #tab>
+        <tab heading="Details" class="mt-2" (select)="onSelect($event)">
+          <app-retailer-info [formGroup]="retailerData.agencyFormGroup"></app-retailer-info>          
+        </tab>        
+        <tab *ngIf="isEdit" heading="Retail Agent" class="mt-2" (select)="onSelect($event)">
+          <app-retailer-agent></app-retailer-agent>
+        </tab>
+      </tabset>
+    </div>
+  </div>  
+
+  <div class="margin-top" *ngIf="showSaveCancel">
+    <app-mgt-next-back-button
+    [showNext]="retailerData.showNext"
+    [showBack]="false"
+    [showSave]="retailerData.showSave"
+    [showCancel]="true"
+    [showUpdate]="retailerData.showUpdate"
+    (clickType)="onClick($event)"
+    [disableSave] = "!retailerData.agencyFormGroup.valid"
+    [disableUpdate] = "!retailerData.agencyFormGroup.valid">
+  </app-mgt-next-back-button>
+  </div>

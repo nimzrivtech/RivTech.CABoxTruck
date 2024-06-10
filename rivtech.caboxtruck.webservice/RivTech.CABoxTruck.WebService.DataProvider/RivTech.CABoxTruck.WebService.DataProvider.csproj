@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Configurations>Debug;Release;Staging;DevTest;Test;ProdTest;Production</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Billing\**" />
+    <Compile Remove="Endorsement\**" />
+    <Compile Remove="IRepositories\Endorsements\**" />
+    <Compile Remove="NewFolder\**" />
+    <Compile Remove="Submission\**" />
+    <Compile Remove="User\**" />
+    <EmbeddedResource Remove="Billing\**" />
+    <EmbeddedResource Remove="Endorsement\**" />
+    <EmbeddedResource Remove="IRepositories\Endorsements\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <EmbeddedResource Remove="Submission\**" />
+    <EmbeddedResource Remove="User\**" />
+    <None Remove="Billing\**" />
+    <None Remove="Endorsement\**" />
+    <None Remove="IRepositories\Endorsements\**" />
+    <None Remove="NewFolder\**" />
+    <None Remove="Submission\**" />
+    <None Remove="User\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Repositories\Vehicles\RiskVehiclePremiumRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.6.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RivTech.CABoxTruck.WebService.Data\RivTech.CABoxTruck.WebService.Data.csproj" />
+    <ProjectReference Include="..\RivTech.CABoxTruck.WebService.DomainEntities\RivTech.CABoxTruck.WebService.DomainEntities.csproj" />
+    <ProjectReference Include="..\RivTech.CABoxTruck.WebService.DTO\RivTech.CABoxTruck.WebService.DTO.csproj" />
+  </ItemGroup>
+
+</Project>

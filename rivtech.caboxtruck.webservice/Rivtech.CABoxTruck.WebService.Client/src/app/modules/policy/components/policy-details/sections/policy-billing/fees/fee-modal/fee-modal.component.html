@@ -1,0 +1,56 @@
+<div role="document">
+  <div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+    <button type="button" class="close" (click)="hideModal()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <form [formGroup]="feeForm">
+    <div class="modal-body" *ngIf="feeForm.value as vm">
+
+      <div class="row">
+        <div class="form-group col-md-6 field">
+          <label class="required">{{FeeLabelConstants.addDate}}</label>
+          <div>
+            <app-date-picker [isInvalid]="feeForm.get('addDate').errors?.required"
+              formControlName="addDate" [options]="datePickerDateOption">
+            </app-date-picker>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-6 field">
+          <label for="feeType" class="required">{{FeeLabelConstants.description}}</label>
+          <select class="form-control full-width" formControlName="feeType"
+            [ngClass]="feeForm.get('feeType').invalid && feeForm.get('feeType').touched ? 'is-invalid' :  ''">
+            <option *ngFor="let item of billingData.feeTypes" [value]="item.code">
+              {{item.description}}</option>
+          </select>
+          <span class="invalid-feedback d-flex"
+            *ngIf="feeForm.get('feeType').errors?.required && feeForm.get('feeType').touched">
+            {{ErrorMessageConstant.genericRequiredErrorMessage}}
+          </span>
+        </div>
+
+        <div class="form-group col-6 field">
+          <label for="amount" class="required">{{FeeLabelConstants.amount}}</label>
+          <input type="text" class="form-control" formControlName="amount" id="amount-input" currencyMask maxlength="11"
+            autocomplete=off [options]="{ allowNegative: true, precision: 2, inputMode: currencyInputMode }" [ngClass]="{'is-invalid': (feeForm.get('amount').touched ||
+            feeForm.get('amount').dirty) && !feeForm.get('amount').valid }" />
+          <span *ngIf="feeForm.get('amount').errors?.required && feeForm.get('amount').touched;"
+            class="invalid-feedback">
+            {{ErrorMessageConstant.genericRequiredErrorMessage}}
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer sticky-modal-footer">
+      <button class="btn btn-primary" [disabled]="feeForm.invalid"
+        (click)="onSubmit()">{{FeeLabelConstants.Save}}</button>
+      <button class="btn btn-danger" (click)="hideModal()">{{FeeLabelConstants.Cancel}}</button>
+    </div>
+  </form>
+</div>

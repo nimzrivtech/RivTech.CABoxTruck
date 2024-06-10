@@ -1,0 +1,21 @@
+<div class="card mt-2 user-list">
+    <div class="card-header">
+        <i class="icon-arrow-down icons header-icon" (click)="toggleUsersList()" *ngIf="isListHidden"></i>
+        <i class="icon-arrow-up icons header-icon" (click)="toggleUsersList()" *ngIf="!isListHidden">
+        </i>
+        <b>User Type</b>
+    </div>
+    <div class="card-body show" *ngIf="!isListHidden">
+        <div class="col-auto">
+            <div class="d-flex flex-row-reverse">
+                <app-search-field (onInputSearch)="userData.searchUserType($event)"></app-search-field>
+            </div>
+            <app-table [tableHeaders]="userData.userTypeTableHeaders" [tableRows]="userData.userTypeTableRows"
+                [formControls]="userData.tableFormControls" [customAddEvent]="true" (customAddTableItem)="addUserType()"
+                [customEditEvent]="true" (customEditTableItem)="editUserType($event, 'userTypeTableRows')"
+                (deleteTableItem)="deleteUserType($event, 'userTypeTableRows')"
+                [tableName]="TableNameConstants.userTypeTable">
+            </app-table>
+        </div>
+    </div>
+</div>

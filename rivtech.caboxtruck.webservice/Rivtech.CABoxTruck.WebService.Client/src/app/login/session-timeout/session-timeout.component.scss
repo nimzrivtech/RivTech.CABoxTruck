@@ -1,0 +1,68 @@
+.custom-table-header {
+    background: #f0f3f5;
+  }
+
+  .headers {
+    vertical-align: middle;
+  }
+
+  .noresultfound {
+    text-align: center;
+  }
+
+  .control-icons {
+    button {
+      width: inherit;
+      height: auto;
+      display: inline;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+
+      &:focus {
+      outline: none;
+      }
+    }
+  }
+
+  td:last-child {
+    i {
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0 5px;
+    }
+
+    .icon-note {
+      color: #20a8d8;
+    }
+
+    .icon-trash {
+      color: #f86c6b;
+    }
+
+    .icon-task {
+      color: #696969;
+    }
+  }
+
+  .modal-footer {
+    justify-content: center!important;
+  }
+
+  .icon-size{
+    font-size: 1.5rem!important;
+    font-weight:bolder!important;
+  }
+
+  .topLabel{
+    margin-left: 18px!important;
+  }
+  .toplabel-icon{
+    float: left!important;
+  }
+
+  ::ng-deep .modal:has(.my-modal){
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2000;
+  }

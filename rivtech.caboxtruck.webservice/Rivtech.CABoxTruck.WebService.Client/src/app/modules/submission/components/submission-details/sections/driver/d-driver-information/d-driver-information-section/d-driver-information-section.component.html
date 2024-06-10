@@ -1,0 +1,265 @@
+<div [formGroup]="this.driverData.formDriverInfo" class="mt-2 mb-2 col">
+  <div class="modal-body field" id="mdlBodyDriverDetails">
+    <div class="row d-flex">
+      <div class="col-md-4 input-container">
+        <label class="required" for='firstName'>First Name</label>
+        <input tabindex="" id="firstName" type="text" (keypress)="alphaNumeric($event)" formControlName="firstName" autofocus (keydown.enter)="$event.preventDefault()"/>
+        <app-validation-error [control]="fc.firstName" [inputName]="'First Name'"></app-validation-error>
+        <div *ngIf="this.fg.errors?.invalidDuplicateDriverName" class="invalid-feedback">
+          There is an active driver information with the same Driver name
+        </div>
+      </div>
+
+      <div class="col-md-4 input-container">
+        <label class="required" for='lastName'>Last Name</label>
+        <input  tabindex="" id="lastName" type="text"  formControlName="lastName" (keypress)="alphaNumeric($event)" (keydown.enter)="$event.preventDefault()"/>
+        <app-validation-error [control]="fc.lastName" [inputName]="'Last Name'"></app-validation-error>
+        <div *ngIf="this.fg.errors?.invalidDuplicateDriverName" class="invalid-feedback">
+          There is an active driver information with the same Driver name
+        </div>
+        <div *ngIf="this.fc.lastName.errors?.invalidBlacklistedDriver" class="invalid-feedback">
+          There is a blacklisted driver with the same Last Name and Driver's License Number
+        </div>
+      </div>
+
+      <div class="col-md-4 input-container">
+        <label class="" for='lastName'>Middle Name /Initial</label>
+        <input  tabindex="" id="middleName" type="text"  formControlName="middleName" (keypress)="alphaNumeric($event)" (keydown.enter)="$event.preventDefault()"/>
+      </div>
+    </div>
+    <div class="row d-flex">
+      <div class="col-md-4 input-container">
+        <label class="required" for='birthDate'>DOB</label>
+
+        <app-date-picker #dtpbirthDate tabindex="" formControlName="birthDate"
+        [options]="this.driverData.dobOptions"
+        (dateChange)="ngOnChangesDOB($event.jsDate)" (keydown.enter)="$event.preventDefault()"
+        [customRequiredErrorMessage]="'DOB is required'"
+        [isInvalid]="this.driverData.formDriverInfo.get('birthDate').errors?.required"
+        [customId]="this.customId"
+        ></app-date-picker>
+
+      </div>
+
+      <div class="col-md-4 input-container">
+        <label class="" for='age'>Age</label>
+        <input  [attr.disabled]="true"  tabindex="" type="text"  id="age" formControlName="age"/>
+        <app-validation-error [control]="fc.age" [inputName]="'Age'"></app-validation-error>
+        <div *ngIf="this.fc.age.errors?.driverMinAge && (this.fg.touched || this.fg.dirty)" class="invalid-feedback">
+          Age should not be below 16 years old
+        </div>
+      </div>
+
+      <div class="col-md-4 input-container">
+        <label class="required" for='licenseNumber'>Driver's License Number</label>
+        <input  tabindex="" id="licenseNumber" type="text"  formControlName="licenseNumber" (keypress)="alphaNumeric($event)" maxlength="20" (keydown.enter)="$event.preventDefault()"/>
+        <app-validation-error [control]="fc.licenseNumber" [inputName]="'Driver\'s License Number'"></app-validation-error>
+        <div *ngIf="this.fg.errors?.invalidDuplicateDriverId" class="invalid-feedback">
+          There is an active driver information using the same Driver's License Number and State
+        </div>
+        <div *ngIf="this.fc.licenseNumber.errors?.invalidBlacklistedDriver" class="invalid-feedback">
+          There is a blacklisted driver with the same Last Name and Driver's License Number
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-flex">
+      <div class="col-md-4 input-container">
+        <label class="required" for='state'>State</label>
+          <select tabindex="" id="state" formControlName="state" (change)="onChangeState($event.target.value)" [disabled]="true">
+            <option [ngValue]="null">Please Select</option>
+            <option *ngFor="let option of this.driverData.getStatesFiltered(!(fc.id?.value?.length > 0), fc.isOutOfState.value) | orderBy: 'label' : false"  [value]='option.value' [disabled]="option.value===''">{{option.label}}</option>
+          </select>
+          <app-validation-error [control]="fc.state" [inputName]="'State'"></app-validation-error>
+          <div *ngIf="this.fg.errors?.invalidDuplicateDriverId" class="invalid-feedback">
+            There is an active driver information using the same Driver's License Number and State
+          </div>
+      </div>
+
+      <div class="col-md-4 input-container">
+        <div class="switch-wrapper">
+          <label class="" for='isOutOfState'>Out of State Driver?</label>
+          <toggle-switch  tabindex="-1" [tabIndex]="''" [formGroup]="this.fg" [formName]="'driverinfoGridDetails'" fieldName="isOutOfState" (change)="outStateDriverSwitch($event.target.checked)"></toggle-switch>
+        </div>
+      </div>
+
+      <div class="col-md-4 input-container">
+        <label class="required" for='mvrDate'>MVR Value Date</label>
+        <app-date-picker #dtpmvrDate formControlName="mvrDate" [options]="this.driverData.mvrOptions"
+        [customRequiredErrorMessage]="'MVR Value Date is required'"
+        (dateChange)="ngOnChangesMVRDate($event)" (keydown.enter)="$event.preventDefault()"
+        [isInvalid]="this.driverData.formDriverInfo.get('mvrDate').errors?.required"></app-date-picker>
+      </div>
+    </div>
+
+    <div class="row d-flex">
+      <div class="col-md-4 input-container">
+        <label class="" for='hireDate'>Hire Date</label>
+        <app-date-picker #dtphireDate formControlName="hireDate" [options]="this.driverData.hireOptions"
+        [customRequiredErrorMessage]="'Hire Date is required'" (keydown.enter)="$event.preventDefault()"
+        [isInvalid]="this.driverData.formDriverInfo.get('hireDate').errors?.required"></app-date-picker>
+      </div>
+
+      <div class="col-md-4 input-container">
+        <label class="" for='yrsDrivingExp'>Years Driving Experience</label>
+        <input tabindex="" type="text"id="yrsDrivingExp" formControlName="yrsDrivingExp" maxlength=3 numberOnly (ngModelChange)="onYrsDriveChange(fc.yrsDrivingExp, $event)" min="0" (keydown.enter)="$event.preventDefault()"/>
+        <div *ngIf="this.fc.yrsDrivingExp.errors?.driverMaxYrsExp && (this.fg.touched || this.fg.dirty)" class="invalid-feedback">
+          Years Driving Experience should not be more than 63 years
+        </div>
+      </div>
+
+      <div class="col-md-4 input-container">
+        <label class="required" for='yrsCommDrivingExp'>Years Commercial Driving Experience</label>
+        <input tabindex="" type="text" id="yrsCommDrivingExp" formControlName="yrsCommDrivingExp" maxlength=3 numberOnly min="0" (ngModelChange)="onTextChange(fc.yrsCommDrivingExp, $event)" (keydown.enter)="$event.preventDefault()"/>
+        <app-validation-error [control]="fc.yrsCommDrivingExp" [inputName]="'Years Commercial Driving Experience'"></app-validation-error>
+
+        <div *ngIf="this.fc.yrsCommDrivingExp.errors?.driverMaxYrsExp && (this.fg.touched || this.fg.dirty)" class="invalid-feedback">
+          Years Commercial Driving experience should not be more than 63 years
+        </div>
+
+        <div *ngIf="this.fc.yrsCommDrivingExp.errors?.driverYrsMin && (this.fg.touched || this.fg.dirty)" class="invalid-feedback">
+          Years Commercial Driving Experience should be 1 year or higher.
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-0" style="margin-top: 40px;">
+      <div class="row col-md-12 pr-0 mb-0">
+        <label style="position:absolute; top:12px; padding-left: 30px;"><h5>Incident Details</h5></label>
+        <div class="col-xl-12" id="dvAddButton">
+          <!--  -->
+          <button tabindex="" class="btn btn-primary pull-right" (click)='addNewIncident()'>
+            <i class="icon-plus" aria-hidden="true"></i>&nbsp;Add New Incident
+          </button>
+        </div>
+      </div>
+
+      <div  #btnAddIncident class="d-none" data-toggle="modal" data-target='#addUpdateIncident'></div>
+    </div>
+
+    <div class="col dynamic-table" style="padding: 0 1rem;">
+      <div class="clearfix"></div>
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" #tblDriverIncident class="shadow-sm table table-responsive-lg mt-2" style="width:100%">
+          <thead>
+          <tr>
+              <th>Incident Type</th>
+              <th>Incident Date</th>
+              <th>Conviction Date</th>
+              <th></th>
+          </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let driver of this.driverData.driverIncidentList" [ngTemplateOutlet]="driverIncidentRow" [ngTemplateOutletContext]="{driverIncidentObj : driver}"></ng-container>
+          </tbody>
+      </table>
+    </div>
+    <!-- <div class="row d-flex" *ngIf="this.showExcludeKO"> -->
+   <div class="row d-flex pt-4">
+      <div class="col-md-4 input-container">
+        <div class="switch-wrapper">
+          <label class="" for='isExcludeKO'>Exclude from KO rules?</label>
+          <toggle-switch  tabindex="-1" [tabIndex]="''" [formGroup]="this.fg" [formName]="'driverinfoGridDetails'" fieldName="isExcludeKO" (change)="isExcludeKOSwitch($event.target.checked ? true : false)"></toggle-switch>
+        </div>
+      </div>
+
+      <div class="col-md-4 input-container" *ngIf="this.fc.isExcludeKO.value">
+        <label class="required" for='koReason'>Explain Reasoning</label>
+        <textarea [tabIndex]="''" id='koReason' rows="2" cols="1" class="field-text-area-border" formControlName="koReason" maxlength="1000"></textarea>
+        <app-validation-error [control]="this.fc.koReason" [inputName]="'Explain Reasoning'"></app-validation-error>
+        </div>
+    </div>
+
+    <div class="row d-flex" style="margin-top: 40px;">
+      <div class="col-md-4 input-container">
+        <label for='yearPoint'>5 Year Points</label>
+        <input  [attr.disabled]="true" readonly tabindex="-1" type="text" id="yearPoint" formControlName="yearPoint" />
+      </div>
+
+      <div class="col-md-4 input-container">
+        <label for='totalFactor'>Total Factor</label>
+          <input  [attr.disabled]="true" readonly tabindex="-1" type="text" id="totalFactor" formControlName="totalFactor" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer text-right ">
+  <button tabindex="16" type="submit" class="btn btn-primary" [disabled]="this.driverData.formDriverInfo.invalid" (click)='onSubmit($event)'>{{modalButton}}</button>
+  <button tabindex="17" type="button" class="btn btn-danger" data-dismiss="modal" #btnCloseModal (click)='onCancel()'>Cancel</button>
+</div>
+
+<ng-template #labelTemplate let-labelText="labelText" let-labelObj="labelObj">
+  <label class="required" [htmlFor]='this.labelObj'>
+   {{this.labelText}}
+  </label>
+</ng-template>
+
+<ng-template #driverIncidentRow let-driverIncidentObj="driverIncidentObj" >
+  <tr>
+      <td><span class="ml-2">{{ this.getIncidentTypeText(driverIncidentObj.incidentType) }}</span></td>
+      <td><span class="ml-2">{{ driverIncidentObj.incidentDate | date: 'MM/dd/yyyy' }}</span></td>
+      <td><span class="ml-2">{{ driverIncidentObj.convictionDate | date: 'MM/dd/yyyy' }}</span></td>
+      <td>
+        <div class="table-button-fixed d-flex justify-content-end">
+          <i class="icon-note" (click)="editIncident(driverIncidentObj)" [tooltip]="TableConstants.edit"></i>
+          <i class="icon-trash" (click)="deleteIncident(driverIncidentObj)" [tooltip]="TableConstants.delete"></i>
+        </div>
+      </td>
+  </tr>
+  </ng-template>
+
+  <!-- Modal for driver incidents entry -->
+<div #modalIncident class="modal fade" id='addUpdateIncident' tabindex="-1" role="dialog" aria-labelledby="#addUpdateIncident" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content shadow-lg">
+      <div class="modal-header sticky-modal-header">
+        <h5 class="modal-title">Incident Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body field">
+        <div class="row" [formGroup]="this.driverData.formDriverIncident">
+          <div class="form-group col-md-12">
+            <ng-container [ngTemplateOutlet]="labelTemplate" [ngTemplateOutletContext]="{labelText: 'Incident Type', labelObj: 'incidentType'}"></ng-container>
+            <div class=" ">
+              <select #selectIncidentType class="" id="incidentType" formControlName="incidentType"  (change)="onChangeIncidentType($event.target.value)">
+                <option [ngValue]="null">Please Select</option>
+                <option *ngFor="let option of this.driverData.driverDropdownsList.incidentTypeList | orderBy: 'label'" [value]='option.value' [selected]="(option.value === '')" [disabled]="option.value===''">{{option.label}}</option>
+              </select>
+              <app-validation-error [control]="this.driverData.formDriverIncident.controls.incidentType" [inputName]="'Incident Type'"></app-validation-error>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12">
+            <ng-container [ngTemplateOutlet]="labelTemplate" [ngTemplateOutletContext]="{labelText: 'Incident Date', labelObj: 'incidentDate'}"></ng-container>
+            <div class="">
+              <app-date-picker #dtpIncidentDate formControlName="incidentDate" [options]="this.driverData.incidentOptions"
+              [customRequiredErrorMessage]="'Incident Date is required'" (keydown.enter)="$event.preventDefault()"
+              [isInvalid]="this.driverData.formDriverIncident.get('incidentDate').errors?.required"></app-date-picker>
+
+            </div>
+          </div>
+
+          <div class="form-group col-md-12" *ngIf="selectIncidentType.value !== '0: null' && selectIncidentType.value !== '4' && selectIncidentType.value !== '6'">
+            <ng-container [ngTemplateOutlet]="labelTemplate" [ngTemplateOutletContext]="{labelText: 'Conviction Date', labelObj: 'convictionDate'}"></ng-container>
+            <div class="">
+              <app-date-picker #dtpconvictionDate formControlName="convictionDate" [options]="this.driverData.convictionOptions"
+              [customRequiredErrorMessage]="'Conviction Date is required'" (keydown.enter)="$event.preventDefault()"
+              [isInvalid]="this.driverData.formDriverIncident.get('convictionDate').errors?.required"></app-date-picker>
+              <div *ngIf="this.driverData.formDriverIncident.errors?.invalidIncidentDate && (this.driverData.formDriverIncident.touched || this.driverData.formDriverIncident.dirty)" class="invalid-feedback">
+                Incident date should be prior to Conviction Date
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer text-right ">
+        <button tabindex="" type="submit" class="btn btn-primary" #btnSaveIncidentModal [disabled]="this.driverData.formDriverIncident.invalid" (click)='onSubmitIncident($event)'>Save</button>
+        <button tabindex="" type="button" class="btn btn-danger" #btnCloseIncidentModal (click)='onCancelIncident()'>Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

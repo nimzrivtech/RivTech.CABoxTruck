@@ -1,0 +1,362 @@
+<form [formGroup]="coverageData.coverageForms.historicalCoverageForm">
+    <div class="col-md-12 row table-responsive-lg dynamic-table pt-2">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th colspan="6">Historical Insurance Coverage</th>
+                </tr>
+                <tr>
+                    <th scope="col">Coverage</th>
+                    <th scope="col" class="w-15">Current/Expiring</th>
+                    <th scope="col" class="w-15">1st Prior</th>
+                    <th scope="col" class="w-15">2nd Prior</th>
+                    <th scope="col" class="w-15">3rd Prior</th>
+                    <th scope="col" class="w-15">4th Prior</th>
+                </tr>
+            </thead>
+            <tbody class="field">
+                <tr formArrayName="policyTermStartDate">
+                    <td scope="col" [class.required]="coverageData.required"> Policy Term Start Date</td>
+                    <td scope="row">
+                        <app-date-picker class="term-start-date" formControlName="0"
+                        [customRequiredErrorMessage]="'Policy Term Start Date is required'"
+                        [isInvalid]="f.policyTermStartDate.errors?.invalid0"
+                        [isTouched]="coverageData.isTouched"
+                        [isDisabled]="this.submissionData?.isIssued"
+                        [options]="coverageData.dateOptions" (dateChange)="setEndDate($event, 0)"></app-date-picker>
+                        <ng-container *ngTemplateOutlet="priorValidation; context:{invalidTerm: f.policyTermStartDate.errors?.invalidTerm0}"></ng-container>
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="term-start-date" formControlName="1" [options]="coverageData.dateOptions" (dateChange)="setEndDate($event, 1)" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <ng-container *ngTemplateOutlet="priorValidation; context: 
+                        {invalidTerm: f.policyTermStartDate.errors?.invalidTerm1, invalid: f.policyTermStartDate.errors?.invalidPrior1, prior: '1st'}"></ng-container>
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="term-start-date" formControlName="2" [options]="coverageData.dateOptions" (dateChange)="setEndDate($event, 2)" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <ng-container *ngTemplateOutlet="priorValidation; context: 
+                        {invalidTerm: f.policyTermStartDate.errors?.invalidTerm2, invalid: f.policyTermStartDate.errors?.invalidPrior2, prior: '2nd'}"></ng-container>
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="term-start-date" formControlName="3" [options]="coverageData.dateOptions" (dateChange)="setEndDate($event, 3)" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <ng-container *ngTemplateOutlet="priorValidation; context: 
+                        {invalidTerm: f.policyTermStartDate.errors?.invalidTerm3, invalid: f.policyTermStartDate.errors?.invalidPrior3, prior: '3rd'}"></ng-container>
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="term-start-date" formControlName="4" [options]="coverageData.dateOptions" (dateChange)="setEndDate($event, 4)" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <ng-container *ngTemplateOutlet="priorValidation; context: 
+                        {invalidTerm: f.policyTermStartDate.errors?.invalidTerm4, invalid: f.policyTermStartDate.errors?.invalidPrior4, prior: '4th'}"></ng-container>
+                    </td>
+                </tr>
+                <tr formArrayName="policyTermEndDate">
+                    <td scope="col" [class.required]="coverageData.required"> Policy Term End Date </td>
+                    <td scope="row">
+                        <app-date-picker class="term-end-date" formControlName="0" 
+                        [customRequiredErrorMessage]="'Policy Term End Date is required'"
+                        [isInvalid]="f.policyTermEndDate.errors?.invalid0"
+                        [isTouched]="coverageData.isTouched"
+                        [isDisabled]="this.submissionData?.isIssued"
+                        [options]="coverageData.dateOptions" ></app-date-picker>
+                        
+                        <ng-container *ngTemplateOutlet="priorEndValidation; 
+                        context: {invalidEnd: f.policyTermEndDate.errors?.invalidYear0, invalidTerm: f.policyTermEndDate.errors?.invalidTerm0}"></ng-container>
+
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="term-end-date" formControlName="1" [options]="coverageData.dateOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <ng-container *ngTemplateOutlet="priorEndValidation; 
+                        context: {invalidEnd: f.policyTermEndDate.errors?.invalidYear1, invalidTerm: f.policyTermEndDate.errors?.invalidTerm1, 
+                            invalid: f.policyTermEndDate.errors?.invalidPrior1, prior: '1st'}"></ng-container>
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="term-end-date" formControlName="2" [options]="coverageData.dateOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <ng-container *ngTemplateOutlet="priorEndValidation; 
+                        context: {invalidEnd: f.policyTermEndDate.errors?.invalidYear2, invalidTerm: f.policyTermEndDate.errors?.invalidTerm2, 
+                            invalid: f.policyTermEndDate.errors?.invalidPrior2, prior: '2nd'}"></ng-container>
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="term-end-date" formControlName="3" [options]="coverageData.dateOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <ng-container *ngTemplateOutlet="priorEndValidation; 
+                        context: {invalidEnd: f.policyTermEndDate.errors?.invalidYear3, invalidTerm: f.policyTermEndDate.errors?.invalidTerm3, 
+                            invalid: f.policyTermEndDate.errors?.invalidPrior3, prior: '3rd'}"></ng-container>
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="term-end-date" formControlName="4" [options]="coverageData.dateOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <ng-container *ngTemplateOutlet="priorEndValidation; 
+                        context: {invalidEnd: f.policyTermEndDate.errors?.invalidYear4, invalidTerm: f.policyTermEndDate.errors?.invalidTerm4, 
+                            invalid: f.policyTermEndDate.errors?.invalidPrior4, prior: '4th'}"></ng-container>
+                    </td>
+                </tr>
+                <tr formArrayName="insuranceCarrierOrBroker">
+                    <td scope="col"> Insurance Carrier / Broker </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" />
+                        <div *ngIf="f.insuranceCarrierOrBroker.touched && f.insuranceCarrierOrBroker.errors" class="invalid-feedback">
+                            <div *ngIf="f.insuranceCarrierOrBroker.errors?.invalid0">Insurance Carrier / Broker is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" /></td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" /></td>   
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" /></td>
+                </tr>
+                <tr formArrayName="liabilityLimits">
+                    <td scope="col" [class.required]="coverageData.required"> Liability Limits </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.liabilityLimits.touched && f.liabilityLimits.errors" class="invalid-feedback">
+                            <div *ngIf="f.liabilityLimits.errors?.invalid0">Liability Limits is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr formArrayName="liabilityDeductible">
+                    <td scope="col" [class.required]="coverageData.required"> Liability Deductible </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," 
+                            (keyup)="this.coverageData.onKeyUpEraseAtInputField($event, f.liabilityDeductible)" />
+                        <div *ngIf="f.liabilityDeductible.touched && f.liabilityDeductible.errors" class="invalid-feedback">
+                            <div *ngIf="f.liabilityDeductible.errors?.invalid0">Liability Deductible is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr formArrayName="autoLiabilityPremiumPerVehicle">
+                    <td scope="col"> AL Premium Per Vehicle  </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.autoLiabilityPremiumPerVehicle.touched && f.autoLiabilityPremiumPerVehicle.errors" class="invalid-feedback">
+                            <div *ngIf="f.autoLiabilityPremiumPerVehicle.errors?.invalid0">AL Premium Per Vehicle is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr formArrayName="physicalDamagePremiumPerVehicle">
+                    <td scope="col"> PD Premium Per Vehicle  </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.physicalDamagePremiumPerVehicle.touched && f.physicalDamagePremiumPerVehicle.errors" class="invalid-feedback">
+                            <div *ngIf="f.physicalDamagePremiumPerVehicle.errors?.invalid0">PD Premium Per Vehicle is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr formArrayName="totalPremiumPerVehicle">
+                    <td scope="col"> Total Premium Per Vehicle </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.totalPremiumPerVehicle.touched && f.totalPremiumPerVehicle.errors" class="invalid-feedback">
+                            <div *ngIf="f.totalPremiumPerVehicle.errors?.invalid0">Total Premium Per Vehicle is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr formArrayName="numberOfVehicles">
+                    <td scope="col"> Number of Vehicles </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.numberOfVehicles.touched && f.numberOfVehicles.errors" class="invalid-feedback">
+                            <div *ngIf="f.numberOfVehicles.errors?.invalid0">Number of Vehicles is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr formArrayName="lossRunDateForEachTerm">
+                    <td scope="col"> Loss Run Date for Each Term </td>
+                    <td scope="row">
+                        <app-date-picker class="loss-run-date" formControlName="0" [options]="coverageData.dateOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <!-- <div *ngIf="f.lossRunDateForEachTerm.touched && f.lossRunDateForEachTerm.errors" class="invalid-feedback">
+                            <div *ngIf="f.lossRunDateForEachTerm.errors?.invalid0">Loss Run Date for Each Term is required</div>
+                        </div>
+                        <div *ngIf="f.lossRunDateForEachTerm.errors" class="invalid-feedback">
+                            <div *ngIf="f.lossRunDateForEachTerm.errors?.invalidYear0">{{ ErrorMessageConstant.lossRunErrorMessage }}</div>
+                        </div> -->
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="loss-run-date" formControlName="1" [options]="coverageData.dateOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <!-- <div *ngIf="f.lossRunDateForEachTerm.errors" class="invalid-feedback">
+                            <div *ngIf="f.lossRunDateForEachTerm.errors?.invalidYear1">{{ ErrorMessageConstant.lossRunErrorMessage }}</div>
+                        </div> -->
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="loss-run-date" formControlName="2" [options]="coverageData.dateOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <!-- <div *ngIf="f.lossRunDateForEachTerm.errors" class="invalid-feedback">
+                            <div *ngIf="f.lossRunDateForEachTerm.errors?.invalidYear2">{{ ErrorMessageConstant.lossRunErrorMessage }}</div>
+                        </div> -->
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="loss-run-date" formControlName="3" [options]="coverageData.dateOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <!-- <div *ngIf="f.lossRunDateForEachTerm.errors" class="invalid-feedback">
+                            <div *ngIf="f.lossRunDateForEachTerm.errors?.invalidYear3">{{ ErrorMessageConstant.lossRunErrorMessage }}</div>
+                        </div> -->
+                    </td>
+                    <td scope="row">
+                        <app-date-picker class="loss-run-date" formControlName="4" [options]="coverageData.dateOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                        <!-- <div *ngIf="f.lossRunDateForEachTerm.errors" class="invalid-feedback">
+                            <div *ngIf="f.lossRunDateForEachTerm.errors?.invalidYear4">{{ ErrorMessageConstant.lossRunErrorMessage }}</div>
+                        </div> -->
+                    </td>
+                </tr>
+                <tr formArrayName="numberOfPowerUnits">
+                    <td scope="col" [class.required]="coverageData.required"> Number of Power Units </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.numberOfPowerUnits.touched && f.numberOfPowerUnits.errors" class="invalid-feedback">
+                            <div *ngIf="f.numberOfPowerUnits.errors?.invalid0">Number of Power Units is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr formArrayName="numberOfPowerUnitsAL">
+                    <td scope="col"> Number of Power Units (AL) </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15 readonly" readonly appReadOnly/>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15 readonly" readonly appReadOnly/></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15 readonly" readonly appReadOnly/> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15 readonly" readonly appReadOnly/> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15 readonly" readonly appReadOnly/> </td>
+                </tr>
+                <tr formArrayName="numberOfPowerUnitsAPD">
+                    <td scope="col"> Number of Power Units (APD) </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15 readonly" readonly appReadOnly/>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15 readonly" readonly appReadOnly/></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15 readonly" readonly appReadOnly/> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15 readonly" readonly appReadOnly/> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15 readonly" readonly appReadOnly/> </td>
+                </tr>
+                <tr *ngIf="coverageData.isVehicleGreaterThanTen" formArrayName="numberOfSpareVehicles">
+                    <td scope="col"> Number of Spare Vehicles </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.numberOfSpareVehicles.touched && f.numberOfSpareVehicles.errors" class="invalid-feedback">
+                            <div *ngIf="f.numberOfSpareVehicles.errors?.invalid0">Number of Spare Vehicles is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr *ngIf="coverageData.isDriverGreaterThanTen" formArrayName="numberOfDrivers">
+                    <td scope="col"> Number of Drivers </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.numberOfDrivers.touched && f.numberOfDrivers.errors" class="invalid-feedback">
+                            <div *ngIf="f.numberOfDrivers.errors?.invalid0">Number of Drivers is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="11" mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr *ngIf="limitsData.isCollision" formArrayName="collisionDeductible">
+                    <td scope="col"> Collision Deductible </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.collisionDeductible.touched && f.collisionDeductible.errors" class="invalid-feedback">
+                            <div *ngIf="f.collisionDeductible.errors?.invalid0">Collision Deductible is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr *ngIf="limitsData.isComprehensive" formArrayName="comprehensiveDeductible">
+                    <td scope="col"> Comprehensive Deductible </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.comprehensiveDeductible.touched && f.comprehensiveDeductible.errors" class="invalid-feedback">
+                            <div *ngIf="f.comprehensiveDeductible.errors?.invalid0">Comprehensive Deductible is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr *ngIf="limitsData.isCargo" formArrayName="cargoLimits">
+                    <td scope="col"> Cargo Limits </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.cargoLimits.touched && f.cargoLimits.errors" class="invalid-feedback">
+                            <div *ngIf="f.cargoLimits.errors?.invalid0">Cargo Limits is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+                <tr *ngIf="limitsData.isRefrigeration" formArrayName="refrigeratedCargoLimits">
+                    <td scope="col"> Refrigerated Cargo Limits </td>
+                    <td scope="row">
+                        <input type="text" formControlName="0" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+                        <div *ngIf="f.refrigeratedCargoLimits.touched && f.refrigeratedCargoLimits.errors" class="invalid-feedback">
+                            <div *ngIf="f.refrigeratedCargoLimits.errors?.invalid0">Refrigerated Cargo Limits is required</div>
+                        </div>
+                    </td>
+                    <td scope="row"><input type="text" formControlName="1" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /></td>
+                    <td scope="row"><input type="text" formControlName="2" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="3" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                    <td scope="row"><input type="text" formControlName="4" class="form-control wdate-15" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," /> </td>
+                </tr>
+           </tbody> 
+        </table>
+    </div>
+</form>
+
+<ng-template #priorValidation let-invalid="invalid" let-invalidTerm="invalidTerm" let-prior="prior">
+    <div *ngIf="f.policyTermStartDate.errors" class="invalid-feedback">
+        <div *ngIf="invalidTerm; else invalid_content">
+            Policy Term Start Date should be prior to Submission Effective Date
+        </div>
+        <ng-template #invalid_content>
+            <div *ngIf="invalid">Current/Expiring Policy Term Start Date should be later than {{prior}} Prior</div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #priorEndValidation let-invalid="invalid" let-invalidTerm="invalidTerm" let-invalidEnd="invalidEnd" let-prior="prior">
+    <div *ngIf="f.policyTermEndDate.errors" class="invalid-feedback">
+        <div *ngIf="invalidTerm; else invalid_content">
+            Policy Term End Date should be prior or equal to Submission Effective Date
+        </div>
+        <ng-template #invalid_content>
+            <div *ngIf="invalid; else invalid_end_content">Current/Expiring Policy Term End Date should be later than {{prior}} Prior</div>
+        </ng-template>
+        <ng-template #invalid_end_content>
+            <div *ngIf="invalidEnd">Policy Term End Date should be later than Policy Term Start Date</div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #lossRunValidation let-invalid="invalid" let-prior="prior">
+    <div *ngIf="f.lossRunDateForEachTerm.touched && f.lossRunDateForEachTerm.errors" class="invalid-feedback">
+        <div *ngIf="invalid">Current/Expiring Loss Run Date for Each Term should not be prior to {{prior}} Prior</div>
+    </div>
+</ng-template>

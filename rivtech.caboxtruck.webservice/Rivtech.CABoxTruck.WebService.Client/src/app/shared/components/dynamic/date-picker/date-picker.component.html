@@ -1,0 +1,54 @@
+<!-- if MM/DD/YYYY or DD/MM/YYYY Format Use this HTML with appMaskDate Directive -->
+<div *ngIf="!isMMYYYFormat" class="input-group">
+  <input type="text" class="w-100 custom-datepicker" placeholder="{{options.dateFormat}}"
+    appMaskDate angular-mydatepicker autocomplete="off" #val="ngModel" #dp="angular-mydatepicker"
+    (click)="toggleCalendar()" (onBlur)="onBlur()" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)"
+    [(ngModel)]="value" [options]="options" [attr.disabled]="isDisabled ? '' : null"
+    [attr.id]="this.customId"
+ />
+  <div [ngClass]="hasMarginRight ? 'input-group-append-right calendar-input' : 'input-group-append calendar-input'">
+    <button type="button" class="btn"
+            (click)="dp.toggleCalendar()"
+            [attr.disabled]="isDisabled ? '' : null">
+        <i class="fa fa-calendar-o"></i>
+    </button>
+  </div>
+  <span class="invalid-feedback">
+    <span *ngIf="(isInvalid && (val.touched || val.dirty || isTouched)) && !val.invalid">
+      {{customRequiredErrorMessage ? customRequiredErrorMessage : ErrorMessageConstant.genericRequiredErrorMessage}}
+    </span>
+  </span>
+  <span class="invalid-feedback">
+    <span *ngIf="val.invalid">
+      {{customErrorMessage ? customErrorMessage : ErrorMessageConstant.validData}}
+    </span>
+  </span>
+</div>
+
+<!-- if MM/YYYY Format Use this HTML with appMaskDateMMYYYY Directive -->
+<div *ngIf="isMMYYYFormat" class="input-group">
+  <input type="text" class="w-100" placeholder="{{options.dateFormat}}"
+  appMaskDateMMYYYY angular-mydatepicker autocomplete="off" #val="ngModel" #dp="angular-mydatepicker"
+    (click)="toggleCalendar()" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)"
+    [(ngModel)]="value" [options]="options" [attr.disabled]="isDisabled ? '' : null"
+    [ngClass]="{'is-invalid': (isInvalid || val.invalid) && (val.touched || val.dirty), 'dropdown-disabled state-padding': isDisabled }"
+    [id]="this.customId"
+    />
+  <div [ngClass]="hasMarginRight ? 'input-group-append-right calendar-input' : 'input-group-append calendar-input'">
+    <button type="button" class="btn"
+            (click)="dp.toggleCalendar()"
+            [attr.disabled]="isDisabled ? '' : null">
+        <i class="fa fa-calendar-o"></i>
+    </button>
+  </div>
+  <span class="invalid-feedback">
+    <span *ngIf="(isInvalid && (val.touched || val.dirty)) && !val.invalid">
+      {{customRequiredErrorMessage ? customRequiredErrorMessage : ErrorMessageConstant.genericRequiredErrorMessage}}
+    </span>
+  </span>
+  <span class="invalid-feedback">
+    <span *ngIf="val.invalid">
+      {{customErrorMessage ? customErrorMessage : ErrorMessageConstant.validData}}
+    </span>
+  </span>
+</div>

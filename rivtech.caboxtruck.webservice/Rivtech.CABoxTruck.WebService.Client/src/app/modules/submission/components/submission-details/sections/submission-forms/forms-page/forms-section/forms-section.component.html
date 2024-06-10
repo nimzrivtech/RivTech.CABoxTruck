@@ -1,0 +1,54 @@
+<div class="card sticky-body">
+  <div class="card-header">
+    <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+      href="#formsCard" (click)="ToggleHiding()"></i>
+    <strong>Forms Selection</strong>
+  </div>
+  <div id="formsCard" class="card-body standard-padding collapse show" [style.padding-top.px]="40">
+    <div class="col">
+      <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="bindOption">Bind Option</label>
+            <input type="text" class="form-control w-50 readonly" id="bindOption" [value]="formsData.bindOption" readonly/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-primary pull-right ml-2" (click)="viewForms()" [disabled]="this.submissionData?.isIssued || !this.reportData.canCalculatePremium">View Packet</button>
+          <button class="btn btn-primary pull-right" (click)='openAddFormDialog()' [disabled]="this.submissionData?.isIssued">Upload File</button>
+        </div>
+      </div>
+      <div class="table-responsive dynamic-table">
+        <table class="table" style="width:100%">
+          <thead>
+            <tr>
+              <th style="width: 55%" (click)="formsData.sort($event.target)" data-order="desc" data-name="form.name">Form</th>
+              <th style="width: 20%" (click)="formsData.sort($event.target)" data-order="desc" data-name="form.formNumber">Number</th>
+              <th class="text-center" style="width: 10%" (click)="formsData.sort($event.target)" data-order="desc" data-name="isSelected">Include</th>
+              <th class="text-center" style="width: 15%">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of formList">
+              <td><span [ngStyle]="{'cursor': (isDebugMode) ? 'pointer' : NULL}" (click)="viewFormDebugMode(item)">{{item.form.name}}</span></td>
+              <td>{{item.form.formNumber}}</td>
+              <td class="text-center">
+                <div>
+                  <input type="checkbox" (change)="includeChanged(item)" id="include" [(ngModel)]="item.isSelected" [disabled]="item.form.isMandatory || this.submissionData?.isIssued || item.form?.id === 'ManuscriptEndorsement'" />
+                </div>
+              </td>            
+              <td>
+                <div class="table-button-fixed" *ngIf="item?.form?.isSupplementalDocument">
+                  <i class="icon-doc" (click)="this.viewForm(item)" [tooltip]="TableConstants.view"></i>
+                  <i [className]="(this.actionsEnabled(item)) ? 'icon-trash' : 'icon-trash disable-button'" (click)="this.deleteUploadedForm(item)" [tooltip]="TableConstants.delete"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

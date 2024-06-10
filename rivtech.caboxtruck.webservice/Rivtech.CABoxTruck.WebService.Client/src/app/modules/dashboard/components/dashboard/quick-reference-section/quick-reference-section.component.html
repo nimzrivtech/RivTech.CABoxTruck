@@ -1,0 +1,50 @@
+<!-- *ngIf="userType === genericConstants.userType.external" -->
+<div >
+  <div class="card shadow-sm min-height-agent-dashboard customized-light-blue-agent-dashboard cards-margin quote-box-height">
+    <div class="pb-0 pt-1 card-header text-uppercase text-center font-weight-bold customized-light-blue-agent-dashboard customized-header-agent-dashboard">
+      <div class="">REFERENCES</div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="d-flex justify-content-center">
+          <select class="form-control mt-2 dashboard-dropdown w-50 dashboard-font">
+            <!-- This is still subject to change that is why it is not transferred to a constants file. -->
+            <!-- <option *ngFor="let state of dropDownStates" [value]="state" class="dashboard-dropdown-item">{{state}}</option> -->
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="card-body card-body-dashboard-padding ">
+      <!-- <ng-container *ngFor="let item of refData.dashboardReferenceListPagedItems">
+        <div class="text-light dashboard-font reference-list-margin-top"><a class="reference-list" [href]="item.url" target="_blank">{{item.description}}</a></div>
+      </ng-container>
+      <app-dashboard-pagination (setPage)="setPage($event)" [pager]="refData.dashboardReferenceListPager"
+        [loading]="false" [userType]="genericConstants.userType.external"></app-dashboard-pagination> -->
+    </div>
+  </div>
+</div>
+
+
+<!-- for internal -->
+<!-- <div *ngIf="1 == 2">
+  <div class="card shadow-sm customized-light-blue-agent-dashboard mb-1">
+    <div class="card-header internal-dashboard-reference text-uppercase text-center font-weight-bold customized-light-blue-agent-dashboard customized-header-agent-dashboard">
+      <div class="card-header-label pt-3">
+        REFERENCES
+      </div>
+      <div class="col-md-2">
+        <select  class="form-control dashboard-dropdown w-50 dashboard-font">
+          <option *ngFor="let state of dropDownStates" [value]="state" class="dashboard-dropdown-item">{{state}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="card-body card-body-dashboard-padding .internal-dashboard-reference-links-container">
+      <div class="row mt-4 internal-dashboard-reference-links">
+        <ng-container *ngFor="let item of refData.dashboardReferenceListPagedItems">
+          <div class="col-3 text-light dashboard-font reference-list-margin-top"><a class="reference-list" [href]="item.url" target="_blank">{{item.description}}</a></div>
+        </ng-container>
+      </div>
+      <app-dashboard-pagination (setPage)="setPage($event)" [pager]="refData.dashboardReferenceListPager" [loading]="false" [userType]="genericConstants.userType.internal"></app-dashboard-pagination>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,20 @@
+.customized-blue {
+    color: #20A8D8;
+    vertical-align: top;
+    margin-top: 3px;
+}
+
+.search-button {
+    background-color: white;
+}
+
+.table thead th {
+    vertical-align: middle !important;
+}
+
+.vpaging::ng-deep .page-item.disabled .page-link
+{
+  color :#c8ced3 !important;
+  border-color: #dde3e8;
+  opacity: 0.5!important;
+}

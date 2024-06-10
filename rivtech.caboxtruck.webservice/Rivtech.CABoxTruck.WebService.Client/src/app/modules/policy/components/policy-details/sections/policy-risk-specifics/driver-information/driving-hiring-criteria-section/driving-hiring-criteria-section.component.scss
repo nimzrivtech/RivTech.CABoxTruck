@@ -1,0 +1,15 @@
+form {
+  padding-top: 0;
+}
+
+.row {
+  margin-bottom: 30px;
+}
+
+:host ::ng-deep .multiselect-dropdown .dropdown-list {
+  bottom: 100%;
+}
+
+:host ::ng-deep .multiselect-dropdown .dropdown-btn {     
+  padding: 6px 34px 6px 12px !important;      
+}

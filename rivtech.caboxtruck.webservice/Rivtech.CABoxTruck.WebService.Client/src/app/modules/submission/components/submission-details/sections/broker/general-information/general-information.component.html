@@ -1,0 +1,153 @@
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('brokerInfo', $event)">
+    <app-toggle-collapse toggleName="brokerInfo"></app-toggle-collapse>
+        <strong> &nbsp; General Information</strong>
+  </div>
+  <div class="card-body standard-padding collapse show field" [formGroup]="this.Data.formInfo" id="brokerInfo" style="padding-top: 2%">
+    <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+    <div>
+      <div class="row d-flex">
+        <div class="col-md-4 input-container">
+          <label for='agencyId' [ngClass]="{'required': submissionData.isQuoteIssued || null}">Agency</label>
+          <select class="" id="agencyId" formControlName="agencyId" (change)="this.Data.onChangeAgency($event.target.value)" 
+            [attr.title]="setTooltip(this.Data.fc.agencyId.value, this.Data.dropdownList.agencyList, 'company')" >
+            <option [ngValue]="null">Please Select</option>
+            <option *ngFor="let option of this.Data.dropdownList.agencyList | orderBy: 'companyName'" [value]="option.id">
+              {{option.companyName}}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="this.Data.fg.errors?.requiredToBindAgencyId">Agency is required</div>
+        </div>
+
+        <div class="col-md-4 input-container">
+          <label class="" for='agencyPhone'>Agency Phone</label>
+          <input id="agencyPhone" type="text" class="readonly" readonly mask="(000) 000-0000"  formControlName="agencyPhone"/>
+        </div>
+      </div>
+
+      <div class="row d-flex">
+        <div class="col-md-4 input-container">
+          <label for='agentId' [ngClass]="{'required': submissionData.isQuoteIssued || null}">Agent Name</label>
+          <select class="" formControlName="agentId" id="agentId" (change)="this.Data.onChangeAgent($event.target.value)"
+            [attr.title]="setTooltip(this.Data.fc.agentId.value, this.Data.dropdownList.agentList, 'name')" >
+            <option [ngValue]="null">Please Select</option>
+            <option *ngFor="let option of this.Data.dropdownList.agentList | orderBy: 'Name'" [value]="option.id">{{option.Name}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="this.Data.fg.errors?.requiredToBindAgentId">Agency Name is required</div>
+        </div>
+
+        <div class="col-md-4 input-container">
+          <label class="" for='agentEmail'>Agent Email Address</label>
+          <input type="email" class="readonly " [attr.title]="this.Data.fc.agentEmail.value" readonly formControlName="agentEmail"/>
+        </div>
+
+        <div class="col-md-4 input-container">
+          <label class="" for='agentPhone'>Agent Phone</label>
+          <input type="text" class="readonly " readonly mask="(000) 000-0000" formControlName="agentPhone"/>
+        </div>
+      </div>
+
+      <div class="row d-flex">
+        <div class="col-md-4 input-container">
+          <div class="switch-wrapper">
+            <label>Is this a brokered account?</label>&nbsp;&nbsp;
+            <toggle-switch [formGroup]="this.Data.fg" [formName]="'brokerForm'" fieldName="isBrokeredAccount" (change)="this.Data.isBrokerAccountSwitch($event.target.checked ? 'on' : 'off')"></toggle-switch>
+          </div>
+        </div>
+        <div class="col-md-4 input-container" *ngIf="this.Data.fc.isBrokeredAccount.value">
+          <label for="exampleField" >Retailer</label>
+          <select class="" formControlName="subAgencyId" (change)="this.Data.onChangeRetail($event.target.value)"
+            [attr.title]="setTooltip(this.Data.fc.subAgencyId.value, this.Data.dropdownList.retailerList, 'company')" >
+            <option [ngValue]="null">Please Select</option>
+            <option *ngFor="let option of this.Data.dropdownList.retailerList | orderBy: 'companyName'" [value]="option.id">{{option.companyName}}</option>
+          </select>
+          <app-validation-error [control]="this.Data.fc.subAgencyId" [inputName]="'Retailer'"></app-validation-error>
+        </div>
+        <div class="col-md-4 input-container" *ngIf="this.Data.fc.isBrokeredAccount.value">
+          <label for="exampleField" >Retail Agent Name</label>
+          <select class="" formControlName="subAgentId" (change)="this.Data.onChangeRetailAgent($event.target.value)"
+            [attr.title]="setTooltip(this.Data.fc.subAgentId.value, this.Data.dropdownList.retailAgentList, 'name')" >
+            <option [ngValue]="null">Please Select</option>
+              <option *ngFor="let option of this.Data.dropdownList.retailAgentList | orderBy: 'Name'" [value]="option.id">{{option.Name}}</option>
+          </select>
+          <app-validation-error [control]="this.Data.fc.subAgentId" [inputName]="'Retail Agent Name'"></app-validation-error>
+        </div>
+      </div>
+
+      <div class="row d-flex">
+        <div class="col-md-4 input-container" *ngIf="this.Data.fc.isBrokeredAccount.value">
+        </div>
+        <div class="col-md-4 input-container" *ngIf="this.Data.fc.isBrokeredAccount.value">
+          <label for="exampleField" class="">Retail Agent Email Address</label>
+          <input type="email" class="readonly" [attr.title]="this.Data.fc.subAgentEmail.value" readonly formControlName="subAgentEmail"/>
+        </div>
+
+        <div class="col-md-4 input-container" *ngIf="this.Data.fc.isBrokeredAccount.value">
+          <label for="exampleField" class="">Retail Agent Phone</label>
+          <input id="subAgentPhone" type="text" readonly class="readonly" mask="(000) 000-0000"  formControlName="subAgentPhone"/>
+        </div>
+      </div>
+
+      <div class="row d-flex">
+        <div class="col-md-4 input-container">
+          <div class="switch-wrapper">
+            <label >Are you the incumbent agency?</label>&nbsp;&nbsp;
+            <toggle-switch [formGroup]="this.Data.fg" [formName]="'brokerForm'" fieldName="isIncumbentAgency" (change)="this.Data.IncumbentSwitchChanged($event.target.checked ? '' : 'off')"></toggle-switch>
+          </div>
+        </div>
+
+        <div class="col-md-4 input-container" *ngIf="this.Data.fc.isIncumbentAgency.value">
+          <label for="yearsWithAgency" >How long has your agency written this applicant?</label>
+          <input type="text" class="margin-top40" maxlength=3 numberOnly (change)="this.Data.IncumbentChanged()" formControlName="yearsWithAgency"/>
+          <app-validation-error [control]="this.Data.fc.yearsWithAgency"></app-validation-error>
+        </div>
+      </div>
+
+      <div class="row d-flex">
+        <div class="col-md-4 input-container">
+          <label for="effectiveDate" class="required">Effective Date: </label>
+          <app-date-picker #dtpeffectiveDate formControlName="effectiveDate" id="effectiveDate" [options]="this.Data.effectiveOptions"
+          (dateChange)="this.Data.onChangeDate($event, 'effectiveDate')"
+          (inputFieldChanged)="this.Data.onInputChangeDate($event, 'effectiveDate')"
+          [isDisabled]="this.submissionData?.isIssued"
+          ></app-date-picker>
+          <app-validation-error [style.margin-top.px]="-4" [control]="this.Data.fc.effectiveDate" [inputName]="'Effective Date'"></app-validation-error>
+        </div>
+        <div class="col-md-4 input-container" >
+          <label for="expirationDate" >Expiration Date:</label>
+          <app-date-picker #dtpexpirationDate formControlName="expirationDate" id="expirationDate" [options]="this.Data.expirationOptions"
+          [customRequiredErrorMessage]="'Expiration Date is required'"
+          [customErrorMessage]="'Please enter a valid date'"
+          [isInvalid]="this.Data.fg.get('expirationDate').errors?.required"
+          (dateChange)="this.Data.onChangeDate($event, 'expirationDate')"
+          (inputFieldChanged)="this.Data.onInputChangeDate($event, 'expirationDate')"
+          [isDisabled]="this.submissionData?.isIssued"
+          ></app-date-picker>
+          <div *ngIf="this.Data.fg.errors?.invalidEffectiveExpirationDate && (this.Data.fg.touched || this.Data.fg.dirty)" class="invalid-feedback">
+            Expiration Date should be later than Effective Date
+          </div>
+        </div>
+      </div>
+
+      <div class="row d-flex">
+        <div class="col-md-4 input-container">
+          <div class="switch-wrapper">
+            <label >Is this a midterm move?</label>&nbsp;&nbsp;
+            <toggle-switch [formGroup]="this.Data.fg" [formName]="'brokerForm'" fieldName="isMidtermMove" (change)="this.Data.MidTermChanged($event.target.checked)"></toggle-switch>
+          </div>
+        </div>
+
+        <div class="col-md-4 input-container" *ngIf="this.Data.fc.isMidtermMove.value">
+          <label for="reasonMoveId">Reason for Move</label>
+          <select class="" id="reasonMoveId" formControlName="reasonMoveId">
+            <option [ngValue]="null">Please Select</option>
+            <option *ngFor="let option of this.Data.dropdownList.reasonForMove | orderBy: 'Name'" [value]="option.value">
+              {{option.Name}}
+            </option>
+          </select>
+          <app-validation-error [control]="this.Data.fc.reasonMoveId" [inputName]="'Reason for Move'"></app-validation-error>
+        </div>
+      </div>
+    </div>
+  </div>
+

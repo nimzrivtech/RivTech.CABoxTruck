@@ -1,0 +1,205 @@
+<!-- HAYDEN: Revisit -->
+<div class="user-modal field">
+    <div class="alert-box">
+        <div class="modal-header sticky-modal-header">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="closeDialog()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="GenericFormAddress">
+                <div class="row">
+                    <div class="form-group col-md-6 field">
+                        <label class="required">{{ GenericAddressLabelConstants.addressType }}</label>
+                        <select class="form-control" id="addressType" formControlName="addressType"
+                            [ngClass]="{ 'is-invalid': GenericFormAddress.get('addressType').errors && GenericFormAddress.get('addressType').errors.dirty }">
+                            <option value=''>Please select</option>
+                            <option *ngFor="let addressType of genericAddressData.addressTypes"
+                                [value]="addressType.id">{{
+                                addressType.name }}
+                            </option>
+                        </select>
+                        <div *ngIf="GenericFormAddress.get('addressType').invalid && (GenericFormAddress.get('addressType').dirty || GenericFormAddress.get('addressType').touched)"
+                            class="invalid-feedback">
+                            <div *ngIf="GenericFormAddress.get('addressType').errors.required">Address Type is
+                                required.</div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-4 input-container">
+                        <label>{{ GenericAddressLabelConstants.effectiveDate }}</label>
+                        <app-date-picker [isInvalid]="GenericFormAddress.get('effectiveDate').errors?.required"
+                            [options]="effectiveDateOption" formControlName="effectiveDate"></app-date-picker>
+                    </div> -->
+                    <!-- <div class="form-group row">
+                        <label class="col-md-4 col-form-label" for="effectiveDate">Effective Date:</label>
+                        <div class="col-md-6">
+                            <input class="form-control" id="effectiveDate" type="date" formControlName="effectiveDate">
+                            <div *ngIf="GenericFormAddress.get('effectiveDate').invalid && (GenericFormAddress.get('effectiveDate').dirty || GenericFormAddress.get('effectiveDate').touched)"
+                                class="invalid-feedback">
+                                <div *ngIf="GenericFormAddress.get('effectiveDate').errors.required">Effective Date is required</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="col-md-4 input-container">
+                        <label>{{ GenericAddressLabelConstants.expirationDate }}</label>
+                        <app-date-picker [isInvalid]="GenericFormAddress.get('expirationDate').errors?.required"
+                            [options]="expirationDateOption" formControlName="expirationDate"></app-date-picker>
+                    </div> -->
+                    <!-- <div class="form-group row">
+                        <label class="col-md-4 col-form-label" for="expirationDate">Expiration Date:</label>
+                        <div class="col-md-6">
+                            <input class="form-control" id="expirationDate" type="date" formControlName="expirationDate">
+                            <div *ngIf="GenericFormAddress.get('expirationDate').invalid && (GenericFormAddress.get('expirationDate').dirty || GenericFormAddress.get('expirationDate').touched)"
+                                class="invalid-feedback">
+                                <div *ngIf="GenericFormAddress.get('expirationDate').errors.required">Expiration Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div formGroupName="address">
+                    <div class="row">
+                        <div class="form-group col-md-6 field">
+                            <label class="required">{{ GenericAddressLabelConstants.streetAddress1 }}</label>
+                            <input class="form-control" id="streetAddress1" type="text" formControlName="streetAddress1"
+                                maxlength="30"
+                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('streetAddress1').valid && (GenericFormAddress.get('address').get('streetAddress1').touched || GenericFormAddress.get('address').get('streetAddress1').dirty)}">
+                            <!-- <span class="invalid-feedback"
+                                *ngIf="GenericFormAddress.get('address').get('streetAddress1').errors?.required && GenericFormAddress.get('address').get('streetAddress1').touched;">
+                                Street Address 1 is required.
+                            </span> -->
+                        </div>
+
+                        <div class="form-group col-md-6 field">
+                            <label>{{ GenericAddressLabelConstants.streetAddress2 }}</label>
+                            <input class="form-control" id="streetAddress2" type="text" formControlName="streetAddress2"
+                                maxlength="30"
+                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('streetAddress2').valid && (GenericFormAddress.get('address').get('streetAddress2').touched || GenericFormAddress.get('address').get('streetAddress2').dirty)}">
+                            <!-- <span class="invalid-feedback"
+                                *ngIf="GenericFormAddress.get('address').get('streetAddress2').errors?.required && GenericFormAddress.get('address').get('streetAddress2').touched;">
+                                Street Address 2 is required.
+                            </span> -->
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 field">
+                            <label class="required">{{ GenericAddressLabelConstants.city }}</label>
+                            <select class="form-control" formControlName="city"
+                                [attr.disabled]="zipCodeData.cityList.length === 1 ? '' : null"
+                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('city').valid && (GenericFormAddress.get('address').get('city').touched || GenericFormAddress.get('address').get('city').dirty) }"
+                                tabindex="-1">
+                                <option value="" disabled selected hidden>Please Select</option>
+                                <option [value]="''">Please Select</option>
+                                <option *ngFor="let obj of zipCodeData.cityList" [value]="obj">{{ obj }}</option>
+                            </select>
+                            <span class="invalid-feedback"
+                                *ngIf="GenericFormAddress.get('address').get('city').errors?.required && GenericFormAddress.get('address').get('city').touched;">
+                                City is required.
+                            </span>
+                        </div>
+                        <div class="col-md-3 field">
+                            <label class="required">{{ GenericAddressLabelConstants.state }}</label>
+                            <input type="text" class="form-control" formControlName="state" style="border: 0;"
+                                tabindex="-2" readonly>
+
+                            <!-- <select class="form-control" (change)="stateChanged($event.target.value)">
+                                <option *ngFor="let state of states"
+                                    [selected]="currentZipCode != null && currentZipCode.stateFullName == state">
+                                    {{state}}</option>
+                            </select> -->
+                        </div>
+                        <div class="col-md-3 field">
+                            <label class="required">{{ GenericAddressLabelConstants.zipCode }}</label>
+                            <input type="text" class="form-control w-100" maxlength="10" formControlName="zipCode"
+                                numberOnly (change)="setZipCode()"
+                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('zipCode').valid && (GenericFormAddress.get('address').get('zipCode').touched || GenericFormAddress.get('address').get('zipCode').dirty)}">
+                            <span class="invalid-feedback"
+                                *ngIf="GenericFormAddress.get('address').get('zipCode').errors?.required && GenericFormAddress.get('address').get('zipCode').touched;">
+                                Zip Code is required.
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- <div class="card-padding card border-top-blue">
+                        <div class="card-header"><b>{{ GenericAddressLabelConstants.garage }}</b></div>
+                        <div class="card-body container">
+                            <div class="form-group row">
+                                <div class="col-md-4 input-container">
+                                    <div class="switch-wrapper">
+                                        <label class="required">{{ GenericAddressLabelConstants.isIndoor }}</label>
+                                        <label class="switch switch-pill switch-label switch-primary">
+                                            <input type="checkbox" class="switch-input" formControlName="isGarageIndoor"
+                                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('isGarageIndoor').valid && (GenericFormAddress.get('address').get('isGarageIndoor').touched || GenericFormAddress.get('address').get('isGarageIndoor').dirty) }">
+                                            <span class="switch-slider" data-checked="Yes" data-unchecked="No"
+                                                tabindex="0"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 input-container">
+                                    <div class="switch-wrapper">
+                                        <label class="required">{{ GenericAddressLabelConstants.isOutdoor }}</label>
+                                        <label class="switch switch-pill switch-label switch-primary">
+                                            <input type="checkbox" class="switch-input"
+                                                formControlName="isGarageOutdoor"
+                                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('isGarageOutdoor').valid && (GenericFormAddress.get('address').get('isGarageOutdoor').touched || GenericFormAddress.get('address').get('isGarageOutdoor').dirty) }">
+                                            <span class="switch-slider" data-checked="Yes" data-unchecked="No"
+                                                tabindex="0"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 input-container">
+                                    <div class="switch-wrapper">
+                                        <label class="required">{{ GenericAddressLabelConstants.isFenced }}</label>
+                                        <label class="switch switch-pill switch-label switch-primary">
+                                            <input type="checkbox" class="switch-input" formControlName="isGarageFenced"
+                                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('isGarageFenced').valid && (GenericFormAddress.get('address').get('isGarageFenced').touched || GenericFormAddress.get('address').get('isGarageFenced').dirty) }">
+                                            <span class="switch-slider" data-checked="Yes" data-unchecked="No"
+                                                tabindex="0"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4 input-container">
+                                    <div class="switch-wrapper">
+                                        <label class="required">{{ GenericAddressLabelConstants.isLighted }}</label>
+                                        <label class="switch switch-pill switch-label switch-primary">
+                                            <input type="checkbox" class="switch-input"
+                                                formControlName="isGarageLighted"
+                                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('isGarageLighted').valid && (GenericFormAddress.get('address').get('isGarageLighted').touched || GenericFormAddress.get('address').get('isGarageLighted').dirty) }">
+                                            <span class="switch-slider" data-checked="Yes" data-unchecked="No"
+                                                tabindex="0"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 input-container">
+                                    <div class="switch-wrapper">
+                                        <label class="required">{{ GenericAddressLabelConstants.isWithSecurityGuard
+                                            }}</label>
+                                        <label class="switch switch-pill switch-label switch-primary">
+                                            <input type="checkbox" class="switch-input"
+                                                formControlName="isGarageWithSecurityGuard"
+                                                [ngClass]="{'is-invalid': !GenericFormAddress.get('address').get('isGarageWithSecurityGuard').valid && (genericAddressData.isGarageWithSecurityGuard.get('isGarageOutdoor').touched || GenericFormAddress.get('address').get('isGarageOutdoor').dirty) }">
+                                            <span class="switch-slider" data-checked="Yes" data-unchecked="No"
+                                                tabindex="0"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer sticky-modal-footer">
+            <button type="button" class="btn btn-primary" (click)="saveAddress()"
+                [disabled]="!GenericFormAddress.get('address').get('zipCode').value || GenericFormAddress.get('addressType').invalid">
+                {{buttonText}}</button>
+            <button type="button" class="btn btn-secondary" (click)="closeDialog()">
+                {{GenericAddressLabelConstants.cancel}}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+<div class="page-position">
+    <app-maintenance-questions-section *ngIf="submissionData?.riskDetail?.vehicles?.length > 5"></app-maintenance-questions-section>
+    <app-safety-devices-section></app-safety-devices-section>
+    <app-next-back-button [disableCalculate]="riskSpecificsData.riskSpecificsForms.safetyDevicesForm.invalid" [isScrollPage]="true" (clickType)="onClick($event)"></app-next-back-button>
+</div>

@@ -1,0 +1,24 @@
+<div class="card shadow-sm min-height-agent-dashboard customized-header-agent-dashboard customized-blue-agent-dashboard cards-margin quote-box-height">
+  <div class="pb-0 pt-1 card-header text-uppercase text-center font-weight-bold customized-header-agent-dashboard customized-blue-agent-dashboard">
+    <div class="">POLICIES</div>
+  </div>
+  <div class="card-body card-body-dashboard-padding ">
+      <div><a [routerLink]="" (click)="onClick('Active')" class="text-light dashboard-font">Active Policies ({{this.dashboardData.dashboardCount.activePoliciesCount}})</a></div>
+      <div><a [routerLink]="" (click)="onClick('Canceled')" class="text-light dashboard-font">Canceled Policies ({{this.dashboardData.dashboardCount.cancelledPoliciesCount}})</a></div>
+      <div><a [routerLink]="" (click)="onClick('Expired')" class="text-light dashboard-font">Expired Policies ({{this.dashboardData.dashboardCount.expiredPoliciesCount}})</a></div>
+  </div>
+  <div class="pb-0 pt-1 card-header text-uppercase text-center font-weight-bold customized-header-agent-dashboard customized-blue-agent-dashboard">
+    <div class="">RENEWAL</div>
+  </div>
+  <div class="card-body card-body-dashboard-padding ">
+      <div><a [routerLink]="" class="text-light dashboard-font">Non-Renewed </a></div>
+      <div><a [routerLink]="" class="text-light dashboard-font">Conditional Renewal </a></div>
+  </div>
+  <div class="pb-0 pt-1 card-header text-uppercase text-center font-weight-bold customized-header-agent-dashboard customized-blue-agent-dashboard">
+    <div class="">PAYMENT</div>
+  </div>
+  <div class="card-body card-body-dashboard-padding ">
+      <div><a [routerLink]="" class="text-light dashboard-font">Payment Due </a></div>
+      <div><a [routerLink]="" class="text-light dashboard-font">Pending Cancel </a></div>
+  </div>
+</div>

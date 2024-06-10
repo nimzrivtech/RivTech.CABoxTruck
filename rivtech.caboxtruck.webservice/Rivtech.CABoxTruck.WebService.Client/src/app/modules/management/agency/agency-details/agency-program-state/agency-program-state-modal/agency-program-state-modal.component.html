@@ -1,0 +1,48 @@
+<div class="alert-box">
+    <div class="modal-header sticky-modal-header">
+        <h4 class="modal-title">{{modalTitle}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeProgramStateModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="d-flex flex-row-reverse">
+            <app-search-field (onInputSearch)="searchRecords($event)"></app-search-field>
+          </div>
+        <div class="agency-table">
+            <table class="table table-hover" [mfData]="programStateData.programStatesModalList" #mf="mfDataTable" [mfRowsOnPage]="10">
+                <thead class="custom-table-header">
+                    <th class="headers"><input type="checkbox" class="checkbox-input" (click)="isAllCheckBoxChecked($event)"></th>
+                    <th class="headers" *ngFor="let header of programStateData.programStateModalListHeader">
+                        <mfDefaultSorter by="{{header.columnName}}">{{ header.name }}</mfDefaultSorter>
+                    </th>
+                </thead>
+                <tbody class="custom-table-body">
+                    <ng-container *ngFor="let item of mf.data">
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="checkbox-input" (change)="addProgramState(item, $event)" [checked]="item.isSelected">
+                            </td>
+                            <td>{{item?.program?.masterProgramCode}}</td>
+                            <td>{{item?.program?.programName}}</td>
+                            <td>{{item?.program?.formTypeCode}}</td>
+                            <td>{{item?.stateCode}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <mfBootstrapPaginator style="display: flex;" class="justify-content-end text-center pt-3">
+                            </mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer sticky-modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveProgramStateModal()">{{ programStateConstants.programStateModalButtonLabels.save }}</button>
+        <button type="button" class="btn btn-danger" (click)="closeProgramStateModal()">{{ programStateConstants.programStateModalButtonLabels.cancel }}</button>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<div role="document">
+  <div class="modal-content">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title" id="addAdditionalStructureModalTitle">{{title}}</h5>
+      <button type="button" class="close" (click)="hideMyModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <form [formGroup]="processEndorsementFrm">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="form-group col-md-12 field">
+              <label for="" class="required">Policy Number</label>
+              <div>
+                <input type="text" class="form-control w-100 field state-padding" formControlName="policyNumber">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer sticky-modal-footer">
+        <button class="btn btn-primary" [disabled]="processEndorsementFrm.invalid"
+          (click)="okMyModal()">OK</button>
+        <button class="btn btn-danger" (click)="hideMyModal()">CANCEL</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

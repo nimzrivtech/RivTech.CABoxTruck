@@ -1,0 +1,35 @@
+<div class="agency-table">
+  <label class="label-title"><b>{{ AgentLabelConstants.subAgencies }}</b></label>
+  <div class="d-flex flex-row-reverse">
+    <app-search-field (onInputSearch)="searchRecords($event)"></app-search-field>
+  </div>
+  <div class="scroll-bar-appear">
+    <table class="table table-hover" [mfData]="agentData.agentSubAgenciesList" #mf="mfDataTable">
+      <thead class="custom-table-header">
+        <th class="headers" *ngFor="let header of agentData.agentSubAgenciesListHeaders">
+          <mfDefaultSorter by="{{header.columnName}}">{{ header.name }}</mfDefaultSorter>
+        </th>
+      </thead>
+      <tbody class="custom-table-body">
+        <tr class="noresultfound" *ngIf="mf.data.length === 0">
+          <td colspan="4" *ngIf="agentData.isAgentSubAgenciesLoading">
+            <div class="spinner-border text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </td>
+          <td colspan="4" *ngIf="!agentData.isAgentSubAgenciesLoading"> {{ genericLabel.noResultsFound }}</td>
+        </tr>
+        <ng-container *ngFor="let item of mf.data">
+          <tr>
+            <td><input class="w-auto" type="checkbox" [checked]="item.linked" (change)="onLinkedChecked(item, $event)">
+            </td>
+            <td>{{item?.entity?.companyName}} {{item?.subAgencyCity}}</td>
+            <td>{{item?.fullAddress}}</td>
+            <td><input class="w-auto" type="radio" [checked]="item.isPrimary" (change)="onPrimaryChecked(item)"
+                [attr.disabled]="!item.linked ? 'disabled' : null"></td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

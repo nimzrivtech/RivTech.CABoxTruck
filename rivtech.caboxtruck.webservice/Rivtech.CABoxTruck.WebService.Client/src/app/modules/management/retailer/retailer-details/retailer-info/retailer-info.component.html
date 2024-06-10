@@ -1,0 +1,304 @@
+<div class="agency-standard-padding">
+  <form [formGroup]="formGroup">
+    <div class="form-group row set-1">
+      <div *ngIf="!subAgencyData.isSubAgencyTab" class="d-none col-md-8 input-container">
+        <label class="required" for="agencyCode">{{AgencyLabelConstants.agencyCode}}</label>
+        <input type="email" class="form-control w-100" placeholder="" formControlName="agencyCode" maxlength="20"
+          [ngClass]="{'is-invalid': FormUtils.isControlValid('agencyCode', formGroup) }">
+          <span class="invalid-feedback" *ngIf="formGroup.get('agencyCode').errors?.required">
+            {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.agencyCode) }}
+          </span>
+      </div>
+
+      <div *ngIf="subAgencyData.isSubAgencyTab" class="col-md-8 input-container">
+        <label for="subAgencyCode">{{AgencyLabelConstants.agencyCode}}</label>
+        <input type="email" class="form-control w-100" placeholder="" formControlName="subAgencyCode" maxlength="20"
+          [ngClass]="{'is-invalid': FormUtils.isControlValid('subAgencyCode', formGroup) }">
+      </div>
+
+      <div class="col-md-8 mt-4 input-container">
+        <label class="required" for="companyName">{{AgencyLabelConstants.retailerCompanyName}}</label>
+        <input class="form-control w-100" id="companyName" type="text" formControlName="companyName" maxlength="100">
+        <app-validation-error [control]="fc.companyName" inputName="Retail Company Name"></app-validation-error>
+        <span class="invalid-feedback"
+          *ngIf="formGroup.get('companyName').errors?.pattern && (formGroup.get('companyName').touched || formGroup.get('companyName').dirty)">
+          {{ ErrorMessageConstant.validCompanyNameErrorMessage }}
+        </span>
+      </div>
+      <div class="d-none col-md-4 mt-4 input-container">
+        <label for="federalIDNumber">{{AgencyLabelConstants.federalIDNumber}}</label>
+        <input class="form-control w-100" id="federalIDNumber" type="text"  mask="00-0000000" formControlName="federalIDNumber"
+          [ngClass]="{ 'is-invalid': formGroup.get('federalIDNumber').errors && formGroup.get('federalIDNumber').dirty }">
+          <span class="invalid-feedback" *ngIf="formGroup.get('federalIDNumber').errors && formGroup.get('federalIDNumber').dirty">Federal Id Number
+            invalid Format
+          </span>
+      </div>
+
+      <div class="col-md-4 mt-4 input-container">
+        <label class="required" for="workEmailAddress">{{AgencyLabelConstants.emailAddress}}</label>
+        <input type="email" class="form-control w-100" placeholder="" formControlName="workEmailAddress" maxlength="100">
+        <app-validation-error [control]="fc.workEmailAddress" inputName="Email"></app-validation-error>
+        <span class="invalid-feedback"
+          *ngIf="formGroup.get('workEmailAddress').errors?.pattern && (formGroup.get('workEmailAddress').touched || formGroup.get('workEmailAddress').dirty)">
+          {{ErrorMessageConstant.validEmailAddressErrorMessage}}
+        </span>
+      </div>
+
+    </div>
+    <div class="form-group row set-2">
+      <div class="d-none col-md-8 input-container">
+        <label for="dba">{{AgencyLabelConstants.dba}}</label>
+        <input class="form-control w-100" id="dba" type="text" formControlName="dba"
+          [ngClass]="{ 'is-invalid': formGroup.get('dba').errors && formGroup.get('dba').dirty }" maxlength="60">
+      </div>
+      <div class="d-none col-md-4 input-container">
+        <label class="required" for="contactName">{{AgencyLabelConstants.contactName}}</label>
+        <input class="form-control w-100" id="contactName" type="text" formControlName="contactName"
+          [ngClass]="{ 'is-invalid': formGroup.get('contactName').errors && formGroup.get('contactName').dirty }"
+          maxlength="30">
+          <span class="invalid-feedback" *ngIf="formGroup.get('contactName').errors?.required">
+            {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.contactName) }}
+          </span>
+      </div>
+    </div>
+    <div class="form-group row set-3">
+      <div class="col-md-4 input-container">
+        <label for="workPhone">{{AgencyLabelConstants.workPhone}}</label>
+        <input class="form-control w-100" id="workPhone" type="text" mask="000 000-0000" formControlName="workPhone"
+          [ngClass]="{ 'is-invalid': formGroup.get('workPhone').errors && formGroup.get('workPhone').dirty }">
+        <span class="invalid-feedback" *ngIf="formGroup.get('workPhone').errors && formGroup.get('workPhone').dirty">Work
+          Phone invalid Format</span>
+      </div>
+      <div class="d-none col-md-4 input-container">
+        <label for="workFax">{{AgencyLabelConstants.workFax}}</label>
+        <input class="form-control w-100" id="workFax" type="text" mask="000 000-0000" formControlName="workFax"
+          [ngClass]="{ 'is-invalid': formGroup.get('workFax').errors && formGroup.get('workFax').dirty }">
+        <span class="invalid-feedback" *ngIf="formGroup.get('workFax').errors && formGroup.get('workFax').dirty">Work
+          Fax invalid Format</span>
+        </div>
+
+        <div class="col-md-4 input-container">
+          <div class="switch-wrapper">
+            <label class="required">{{AgencyLabelConstants.isActive}}</label>
+            <label class="switch switch-pill switch-label switch-primary">
+              <input type="checkbox" class="switch-input" formControlName="isActive">
+              <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+            </label>
+          </div>
+        </div>
+
+    </div>
+    <div class="d-none form-group row set-4">
+      <div class="col-md-4 input-container">
+        <label class="required" for="businessTypeID">{{AgencyLabelConstants.businessType}}</label>
+        <select class="form-control w-100" id="businessTypeID" formControlName="businessTypeID"
+          [ngClass]="{ 'is-invalid': formGroup.get('businessTypeID').errors && formGroup.get('businessTypeID').errors.dirty }">
+          <option value=''>Please select</option>
+          <option *ngFor="let businessType of agencyData.businessTypes" [value]="businessType.id">{{ businessType.name
+            }}</option>
+        </select>
+        <span class="invalid-feedback" *ngIf="formGroup.get('businessTypeID').errors?.required">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.businessType) }}
+        </span>
+      </div>
+    </div>
+    <div *ngIf="subAgencyData.isSubAgencyTab" class="form-group row set-5">
+      <div class="col-md-4 input-container">
+        <label for="" class="required">{{AgencyLabelConstants.licenseEffectiveDate}}</label>
+        <app-date-picker [options]="subAgencyData.licenseEffectiveDateOption" class="effective-date"
+          formControlName="licenseEffectiveDate"
+          [customRequiredErrorMessage]="ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.licenseEffectiveDate)"
+          [isInvalid]="formGroup.get('licenseEffectiveDate').errors?.required">
+        </app-date-picker>
+      </div>
+      <div class="col-md-4 input-container">
+        <label for="" class="required">{{AgencyLabelConstants.licenseExpirationDate}}</label>
+        <app-date-picker [options]="subAgencyData.licenseExpirationDateOption" class="effective-date"
+          formControlName="licenseExpirationDate"
+          [customRequiredErrorMessage]="!isValidExpirationDate ? 'License Expiration Date should be later than License Effective Date' : ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.licenseExpirationDate)"
+          [isInvalid]="formGroup.get('licenseExpirationDate').errors?.required || !isValidExpirationDate">
+        </app-date-picker>
+      </div>
+    </div>
+    <div class="d-none form-group row set-7">
+      <div class="col-md-4 input-container">
+        <div class="switch-wrapper">
+          <label>{{AgencyLabelConstants.eftAvailable}}</label>
+          <label class="switch switch-pill switch-label switch-primary">
+            <input type="checkbox" class="switch-input" formControlName="isEftAvailable" (change)="onEftChanged()">
+            <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+          </label>
+        </div>
+      </div>
+      <div class="col-md-4 input-container" *ngIf="formGroup.get('isEftAvailable')?.value">
+        <label class="required" for="eftAccountNumber">{{AgencyLabelConstants.accountNumber}}</label>
+        <input class="form-control w-100" id="eftAccountNumber" type="text" formControlName="eftAccountNumber"
+          maxlength="17" numberOnly>
+          <span class="invalid-feedback" *ngIf="formGroup.get('eftAccountNumber').errors?.required">
+            {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.accountNumber) }}
+          </span>
+      </div>
+      <div class="col-md-4 input-container" *ngIf="formGroup.get('isEftAvailable')?.value">
+        <label class="required">{{AgencyLabelConstants.accountType}}</label>
+        <select class="form-control form-control-special w-100" formControlName="eftAccountType">
+          <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+          <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+          <option *ngFor="let obj of agencyData.accountTypeList" [value]="obj.code">{{obj.description}}</option>
+        </select>
+        <span class="invalid-feedback" *ngIf="formGroup.get('eftAccountType').errors?.required">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.accountType) }}
+        </span>
+      </div>
+    </div>
+    <div class="d-none form-group row set-8" *ngIf="formGroup.get('isEftAvailable')?.value">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 input-container">
+        <label class="required" for="eftRoutingNumber">{{AgencyLabelConstants.routingNumber}}</label>
+        <input class="form-control w-100" id="eftRoutingNumber" type="text" formControlName="eftRoutingNumber"
+          maxlength="9" numberOnly>
+          <span class="invalid-feedback" *ngIf="formGroup.get('eftRoutingNumber').errors?.required">
+            {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.routingNumber) }}
+          </span>
+      </div>
+      <div class="col-md-4 input-container">
+        <label class="required" for="eftCommissionEmail">{{AgencyLabelConstants.commissionEmail}}</label>
+        <input class="form-control w-100" id="eftCommissionEmail" type="text" formControlName="eftCommissionEmail"
+          maxlength="100" [ngClass]="{'is-invalid': FormUtils.isControlValid('eftCommissionEmail', formGroup) }">
+        <span class="invalid-feedback"
+          *ngIf="formGroup.get('eftCommissionEmail').errors?.pattern && (formGroup.get('eftCommissionEmail').touched || formGroup.get('eftCommissionEmail').dirty)">
+          {{ErrorMessageConstant.validEmailAddressErrorMessage}}
+        </span>
+        <span class="invalid-feedback" *ngIf="formGroup.get('eftCommissionEmail').errors?.required">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.commissionEmail) }}
+        </span>
+      </div>
+    </div>
+    <div class="d-none form-group row set-8">
+      <div *ngIf="!subAgencyData.isSubAgencyTab" class="col-md-4 input-container">
+        <div class="switch-wrapper">
+          <label>{{AgencyLabelConstants.commissionPaidToAgency}}</label>
+          <label class="switch switch-pill switch-label switch-primary">
+            <input type="checkbox" class="switch-input" formControlName="isCommissionPaidToAgency">
+            <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+          </label>
+        </div>
+      </div>
+      <div class="col-md-4 input-container">
+        <div class="switch-wrapper">
+          <label>{{AgencyLabelConstants.hasBindingAuthority}}</label>
+          <label class="switch switch-pill switch-label switch-primary">
+            <input type="checkbox" class="switch-input" formControlName="hasBindingAuthority">
+            <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+          </label>
+        </div>
+      </div>
+      <div class="col-md-4 input-container">
+        <div class="switch-wrapper">
+          <label>{{AgencyLabelConstants.is1099Required}}</label>
+          <label class="switch switch-pill switch-label switch-primary">
+            <input type="checkbox" class="switch-input" formControlName="is1099Required">
+            <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="d-none form-group row set-9">
+      <div class="col-md-4 input-container">
+        <label class="required">{{SubAgencyLabelConstants.underwriter}}</label>
+        <select class="form-control form-control-special w-100" formControlName="underwriter"
+          [ngClass]="{'is-invalid': FormUtils.isControlValid('underwriter', formGroup) }">
+          <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+          <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+          <option *ngFor="let obj of agencyData.underwriterList" [value]="obj.code">{{obj.description}}
+          </option>
+        </select>
+        <span class="invalid-feedback"
+          *ngIf="formGroup.get('underwriter').errors?.required  && !formGroup.get('underwriter').valid">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(SubAgencyLabelConstants.underwriter) }}
+        </span>
+      </div>
+      <div class="col-md-4 input-container">
+        <label class="required">{{AgencyLabelConstants.regionalSalesManager}}</label>
+        <select class="form-control form-control-special w-100" formControlName="regionalSalesManager"
+          [ngClass]="{'is-invalid': FormUtils.isControlValid('regionalSalesManager', formGroup) }">
+          <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+          <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+          <option *ngFor="let obj of agencyData.regionalSalesManagerList" [value]="obj.code">{{obj.description}}
+          </option>
+        </select>
+        <span class="invalid-feedback"
+          *ngIf="formGroup.get('regionalSalesManager').errors?.required  && !formGroup.get('regionalSalesManager').valid">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.regionalSalesManager) }}
+        </span>
+      </div>
+      <div class="col-md-4 input-container">
+        <label>{{AgencyLabelConstants.agencyManagementSystem}}</label>
+        <select class="form-control form-control-special w-100" formControlName="agencyManagementSystem">
+          <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+          <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+          <option *ngFor="let obj of agencyData.agencyManagementSystemList" [value]="obj.code">{{obj.description}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="d-none form-group row set-10">
+      <div *ngIf="!subAgencyData.isSubAgencyTab" class="col-md-4 input-container">
+        <label class="required">{{AgencyLabelConstants.network}}</label>
+        <select class="form-control form-control-special w-100" formControlName="network"
+          [ngClass]="{'is-invalid': FormUtils.isControlValid('network', formGroup) }">
+          <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+          <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+          <option *ngFor="let obj of agencyData.networkList" [value]="obj.code">{{obj.description}}</option>
+        </select>
+        <span class="invalid-feedback"
+          *ngIf="formGroup.get('network').errors?.required  && !formGroup.get('network').valid">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.network) }}
+        </span>
+      </div>
+      <div class="col-md-4 input-container">
+        <label class="required">{{AgencyLabelConstants.commissionType}}</label>
+        <select class="form-control form-control-special w-100" formControlName="commissionType"
+          (change)="onCommissionTypeChanged()"
+          [ngClass]="{'is-invalid': FormUtils.isControlValid('commissionType', formGroup) }">
+          <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+          <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+          <option *ngFor="let obj of agencyData.commissionTypeList" [value]="obj.code">{{obj.description}}</option>
+        </select>
+        <span class="invalid-feedback"
+          *ngIf="formGroup.get('commissionType').errors?.required && !formGroup.get('commissionType').valid">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.commissionType) }}
+        </span>
+      </div>
+      <div class="col-md-4 input-container">
+        <label class="required">{{AgencyLabelConstants.commissionGroup}}</label>
+        <select class="form-control form-control-special w-100" formControlName="commissionGroup"
+          [attr.disabled]="isFlat ? 'disabled' : null"
+          [ngClass]="{'is-invalid': FormUtils.isControlValid('commissionGroup', formGroup) }">
+          <option value="" disabled selected hidden>{{ GenericLabel.pleaseSelect }}</option>
+          <option [value]="''">{{ GenericLabel.pleaseSelect }}</option>
+          <option *ngFor="let obj of agencyData.commissionGroupList" [value]="obj.code">{{obj.description}}</option>
+        </select>
+        <span class="invalid-feedback"
+          *ngIf="formGroup.get('commissionGroup').errors?.required && !formGroup.get('commissionGroup').valid">
+          {{ ErrorMessageConstant.requiredErrorMessage.format(AgencyLabelConstants.commissionGroup) }}
+        </span>
+      </div>
+    </div>
+    <div class="form-group row set-11">
+      <!-- <div *ngIf="subAgencyData.isSubAgencyTab" class="col-md-4 input-container">
+        <label for="subAgencyCode">{{AgencyLabelConstants.subAgencyCode}}</label>
+        <input type="email" class="form-control w-100" placeholder="" formControlName="subAgencyCode" maxlength="20"
+          [ngClass]="{'is-invalid': FormUtils.isControlValid('subAgencyCode', formGroup) }">
+      </div> -->
+      
+      <div *ngIf="subAgencyData.isSubAgencyTab" class="d-none col-md-4 input-container">
+        <label for="lexisNexisCode">{{AgencyLabelConstants.lexisNexisCode}}</label>
+        <input class="form-control w-100" id="lexisNexisCode" type="text" formControlName="lexisNexisCode"
+          [ngClass]="{ 'is-invalid': formGroup.get('lexisNexisCode').errors && formGroup.get('lexisNexisCode').dirty }"
+          maxlength="20">
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-retailer-info-agency></app-retailer-info-agency>

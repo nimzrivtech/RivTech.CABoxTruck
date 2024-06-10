@@ -1,0 +1,7 @@
+<div class="page-position">
+    <app-general-liability-section *ngIf="riskSpecificsData?.hasGLCoverage">        
+    </app-general-liability-section>
+    <app-cargo-section *ngIf="riskSpecificsData?.shouldShowCargoSection">        
+    </app-cargo-section>
+    <app-next-back-button [disableCalculate]="!riskSpecificsData.isGLCargoPageValid"  [isScrollPage]="scrollPage" (clickType)="onClick($event)"></app-next-back-button>
+</div>

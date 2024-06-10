@@ -1,0 +1,205 @@
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('driverInfoCard', $event)">
+    <app-toggle-collapse toggleName="driverInfoCard"></app-toggle-collapse>
+    <strong>&nbsp; Driver Information</strong>
+  </div>
+  <div class="card-body container-fluid standard-padding collapse show field" id="driverInfoCard">
+    <div class="col">
+      <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+      <form [formGroup]="fg">
+        <div class="row mt-4">
+          <div class="input-container col-lg-4">
+            <div class="field">
+              <label for="totalDrivers">Total number of drivers</label>
+              <input id="totalDrivers" formControlName="totalNumberOfDrivers" class="readonly" readonly />
+            </div>
+            <app-validation-error [control]="fc.totalNumberOfDrivers" [inputName]="'Total number of drivers'"></app-validation-error>
+          </div>
+          <div class=" input-container col-lg-4">
+            <div class="field">
+              <label for="pastYearDriverHired" >In the past year, how many drivers were Hired?</label>
+              <select formControlName="driversHired">
+                <option *ngFor="let option of numberOptions" [ngValue]="option">{{option}}</option>
+              </select>
+            </div>
+            <app-validation-error [control]="fc.driversHired" ></app-validation-error>
+          </div>
+          <div class="input-container col-lg-4">
+            <div class="field">
+              <label for="pastYearDriverTerminated" >In the past year, how many drivers were Terminated?</label>
+              <select formControlName="driversTerminated">
+                <option *ngFor="let option of numberOptions" [ngValue]="option">{{option}}</option>
+              </select>
+            </div>
+            <app-validation-error [control]="fc.driversTerminated"></app-validation-error>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-container col-lg-4">
+            <div class="field">
+              <label for="currentMVRspulled" >How often are current MVRs pulled?</label>
+              <br>
+              <select formControlName="mvrPullingFrequency">
+                <option [ngValue]="null">Please Select</option>
+                <option *ngFor="let option of mvrPullingFrequencyOptions" [ngValue]="option">
+                  {{option.description}}</option>
+              </select>
+            </div>
+            <app-validation-error [control]="fc.mvrPullingFrequency"></app-validation-error>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper pb-2">
+              <label >Is the business principal a driver on the policy?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="isBusinessPrincipalADriverInPolicy">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="fc.isBusinessPrincipalADriverInPolicy"></app-validation-error>
+          </div>
+  
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper">
+              <label >Are any volunteers used in your business?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="areVolunteersUsedInBusiness"></toggle-switch>
+              <!-- (change)="switchValidator($event.target.checked, 'percentageOfStaff')" -->
+            </div>
+            <app-validation-error [control]="fc.areVolunteersUsedInBusiness"></app-validation-error>
+          </div>
+  
+          <div class="input-container col-lg-4" *ngIf="fc.areVolunteersUsedInBusiness.value">
+            <div class="field">
+              <label for="percentageOfStaff" >Percentage of staff</label>
+              <input id="percentageOfStaff" formControlName="percentageOfStaff" currencyMask
+                [options]="CurrencyMaskConstants.Percentage" />
+            </div>
+            <app-validation-error [control]="fc.percentageOfStaff" [inputName]="'Percentage of staff'"></app-validation-error>
+          </div>
+        </div>
+  
+        <div class="row pt-1" *ngIf="symbols189selected">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper">
+              <label>Do you hire from others for your use?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="isHiringFromOthers"></toggle-switch>
+              <!-- (change)="switchValidator($event.target.checked, 'annualCostOfHire')" -->
+            </div>
+          </div>
+          <div class="input-container col-lg-4" *ngIf="fc.isHiringFromOthers.value">
+            <div class="field">
+              <label for="annualCostOfHireFromOthersForUse" >Annual cost of hire</label>
+              <input id="annualCostOfHireFromOthersForUse" formControlName="annualCostOfHire" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+            </div>
+            <app-validation-error [control]="fc.annualCostOfHire" [inputName]="'Annual cost of hire'"></app-validation-error>
+          </div>
+        </div>
+  
+        <div class="row" *ngIf="symbols189selected && fc.isHiringFromOthers.value">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper">
+              <label>Do you hire from others with a driver?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="isHiringFromOthersWithoutDriver"
+              (change)="switchValidator($event.target.checked, 'annualCostOfHireWithoutDriver')">
+              </toggle-switch>
+            </div>
+          </div>
+          <div class="input-container col-lg-4" *ngIf="fc.isHiringFromOthersWithoutDriver.value">
+            <div class="field">
+              <label for="annualCostOfHireFromOthersWithoutDriver" class="required">Annual cost of
+                hire</label>
+              <input id="annualCostOfHireFromOthersWithoutDriver" formControlName="annualCostOfHireWithoutDriver" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+            </div>
+            <app-validation-error [control]="fc.annualCostOfHireWithoutDriver" [inputName]="'Annual cost of hire'"></app-validation-error>
+          </div>
+  
+        </div>
+  
+        <div class="row" *ngIf="symbols189selected">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper">
+              <label>Do you lease to others for their use?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="isLeasingToOthers"></toggle-switch>
+              <!-- (change)="switchValidator($event.target.checked, 'annualIncomeDerivedFromLease')" -->
+            </div>
+          </div>
+          <div class="input-container col-lg-4" *ngIf="fc.isLeasingToOthers.value">
+            <div class="field">
+              <label for="annualIncomeDerivedUse" >Annual income derived</label>
+              <input id="annualIncomeDerivedUse" formControlName="annualIncomeDerivedFromLease" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+            </div>
+            <app-validation-error [control]="fc.annualIncomeDerivedFromLease" [inputName]="'Annual income derived'"></app-validation-error>
+          </div>
+        </div>
+  
+        <div class="row" *ngIf="symbols189selected && fc.isLeasingToOthers.value">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper">
+              <label>Do you lease to others without a driver?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="isLeasingToOthersWithoutDriver"></toggle-switch>
+              <!-- (change)="switchValidator($event.target.checked, 'annualIncomeDerivedFromLeaseWithoutDriver')" -->
+            </div>
+          </div>
+          <div class="input-container col-lg-4" *ngIf="fc.isLeasingToOthersWithoutDriver.value">
+            <div class="field">
+              <label for="annualIncomeDerivedLease" >Annual income derived</label>
+              <input id="annualIncomeDerivedLease" formControlName="annualIncomeDerivedFromLeaseWithoutDriver" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," />
+            </div>
+            <app-validation-error [control]="fc.annualIncomeDerivedFromLeaseWithoutDriver" [inputName]="'Annual income derived'"></app-validation-error>
+          </div>
+  
+        </div>
+  
+        <div class="row">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper">
+              <label class="col-form-label">Is there assumed liability by contract/agreement?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="isThereAssumedLiabilityByContract">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="fc.isThereAssumedLiabilityByContract"></app-validation-error>
+          </div>
+  
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper">
+              <label class="col-form-label ">Do drivers take vehicles home?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="doDriversTakeVehiclesHome">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="fc.doDriversTakeVehiclesHome"></app-validation-error>
+          </div>
+  
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper">
+              <label class="col-form-label">Are the vehicles solely owned by the applicant?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="areVehiclesSolelyOwnedByApplicant">
+              </toggle-switch>
+            </div>
+            <app-validation-error [control]="fc.areVehiclesSolelyOwnedByApplicant"></app-validation-error>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="input-container col-lg-4">
+            <div class="switch-wrapper">
+              <label class="col-form-label">Will you be adding or deleting vehicles during the policy
+                term?</label>
+              <toggle-switch [formGroup]="fg" formName="driverInfoForm" fieldName="willBeAddingDeletingVehiclesDuringTerm"></toggle-switch>
+              <!-- (change)="switchValidator($event.target.checked, 'addingDeletingVehiclesDuringTermDescription')" -->
+            </div>
+            <app-validation-error [control]="fc.willBeAddingDeletingVehiclesDuringTerm"></app-validation-error>
+          </div>
+  
+          <div class="input-container col-lg-4" *ngIf="fc.willBeAddingDeletingVehiclesDuringTerm.value">
+            <div class="field">
+              <label for="decsribeAddOrDeleteVehiclesDuringPolicyTerm" >Describe</label>
+              <textarea id="decsribeAddOrDeleteVehiclesDuringPolicyTerm" class="w-100 field-text-area"
+                formControlName="addingDeletingVehiclesDuringTermDescription" maxlength="1000"></textarea>
+            </div>
+            <app-validation-error [control]="fc.addingDeletingVehiclesDuringTermDescription" [inputName]="'Describe'"></app-validation-error>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

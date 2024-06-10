@@ -1,0 +1,13 @@
+<div class="form-group col-md-12 field">
+    <label for="menuCategory" >Menu Category</label>
+    <select class="form-control" [(ngModel)]="menuCategory" (change)="updateTree()">
+        <!-- <option value="1" selected>Quote</option>
+        <option value="2">Policy</option>
+        <option value="3">Dashboard</option> -->
+        <option *ngFor="let obj of userRoleData.menuCategoryList" [value]="obj.menuCategoryId">{{obj.description}}</option>
+    </select>
+</div>
+<div class="col-md-12">
+    <ngx-treeview [config]="config" [items]="userRoleData.treeviewItems" (selectedChange)="onSelectedChange($event)">
+    </ngx-treeview>
+</div>

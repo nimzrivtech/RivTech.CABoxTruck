@@ -1,0 +1,118 @@
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer"
+    (click)="this.toggleCollapse.clickExpandCollapse('driverHiringCriteriaCard', $event)">
+    <app-toggle-collapse toggleName="driverHiringCriteriaCard"></app-toggle-collapse>
+    <strong>&nbsp; Driver Hiring Criteria</strong>
+  </div>
+  <div class="card-body container-fluid standard-padding collapse show field" id="driverHiringCriteriaCard" [formGroup]="fg">
+    <div class="col">
+      <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+      <div class="row mt-4">
+        <div class="input-container col-lg-4">
+          <div class="switch-wrapper pb-2">
+            <label >Have all drivers been driving a similar vehicle commercially for 2+
+              years?</label>
+            <toggle-switch [formGroup]="fg" formName="driverHiringCriteriaForm"
+              fieldName="areDriversDrivingSimilarVehicleCommerciallyForMoreThan2Years"></toggle-switch>
+          </div>
+          <app-validation-error [control]="fc.areDriversDrivingSimilarVehicleCommerciallyForMoreThan2Years">
+          </app-validation-error>
+        </div>
+  
+        <div class="input-container col-lg-4">
+          <div class="switch-wrapper pb-2">
+            <label>Do all drivers have at least 5 years U.S. driving experience?</label>
+            <toggle-switch [formGroup]="fg" formName="driverHiringCriteriaForm"
+              fieldName="doDriversHave5YearsDrivingExperience">
+            </toggle-switch>
+          </div>
+          <app-validation-error [control]="fc.doDriversHave5YearsDrivingExperience"></app-validation-error>
+        </div>
+  
+        <div class="input-container col-lg-4">
+          <div class="switch-wrapper">
+            <label>Do you agree to report all drivers to Rivington?</label>
+            <toggle-switch [formGroup]="fg" formName="driverHiringCriteriaForm"
+              fieldName="isAgreedToReportAllDriversToRivington">
+            </toggle-switch>
+          </div>
+          <app-validation-error [control]="fc.isAgreedToReportAllDriversToRivington"></app-validation-error>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="input-container col-lg-4">
+          <div class="switch-wrapper pb-2">
+            <label>Are any family members under 21 primary drivers of a company
+              auto?</label>
+            <toggle-switch [formGroup]="fg" formName="driverHiringCriteriaForm"
+              fieldName="areFamilyMembersUnder21PrimaryDriversOfCompanyAuto"></toggle-switch>
+          </div>
+          <app-validation-error [control]="fc.areFamilyMembersUnder21PrimaryDriversOfCompanyAuto"></app-validation-error>
+        </div>
+  
+        <div class="input-container col-lg-4">
+          <div class="switch-wrapper pb-2">
+            <label>Are all drivers properly licensed and DOT Compliant?</label>
+            <toggle-switch [formGroup]="fg" formName="driverHiringCriteriaForm"
+              fieldName="areDriversProperlyLicensedDotCompliant">
+            </toggle-switch>
+          </div>
+          <app-validation-error [control]="fc.areDriversProperlyLicensedDotCompliant"></app-validation-error>
+        </div>
+  
+        <div class="input-container col-lg-4">
+          <div class="switch-wrapper">
+            <label>Is disciplinary plan documented for all drivers?</label>
+            <toggle-switch [formGroup]="fg" formName="driverHiringCriteriaForm" fieldName="isDisciplinaryPlanDocumented">
+            </toggle-switch>
+          </div>
+          <app-validation-error [control]="fc.isDisciplinaryPlanDocumented"></app-validation-error>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="input-container col-lg-4">
+          <div class="switch-wrapper">
+            <label>Is there a driver incentive program?</label>
+            <toggle-switch [formGroup]="fg" formName="driverHiringCriteriaForm" fieldName="isThereDriverIncentiveProgram">
+            </toggle-switch>
+          </div>
+          <app-validation-error [control]="fc.isThereDriverIncentiveProgram"></app-validation-error>
+        </div>
+  
+        <div class="input-container col-lg-4">
+          <label class="required">Background Check Includes: </label>
+            <ng-multiselect-dropdown 
+              id="backgroundCheckIncludes"
+              placeholder="&nbsp;"
+              formControlName="backGroundCheckIncludes"
+              [data]="backgroundCheckOptions" 
+              [settings]="DropdownOptionSettingsConstants"
+              (onFilterChange)="onFilterChange($event, 'backgroundCheckIncludes')"  
+              (onDropDownClose)="onDropDownClose('backgroundCheckIncludes')" 
+              (onSelect)="onItemSelect($event)"
+              (onDeSelect)="onItemDeSelect()"
+              (onSelectAll)="onSelectAll()">
+            </ng-multiselect-dropdown>
+            <app-validation-error [control]="fc.backGroundCheckIncludes" [inputName]="'Background Check Includes'"></app-validation-error>
+        </div>
+        <div class="input-container col-lg-4">
+          <label>Driver Training Includes: </label>
+          <ng-multiselect-dropdown 
+            id="driverTrainingIncludes"
+            placeholder="&nbsp;"
+            formControlName="driverTrainingIncludes"
+            [data]="driverTrainingOptions" 
+            [settings]="DropdownOptionSettingsConstants"
+            (onFilterChange)="onFilterChange($event, 'driverTrainingIncludes')"  
+            (onDropDownClose)="onDropDownClose('driverTrainingIncludes')" 
+            (onSelect)="onItemSelect2($event)"
+            (onDeSelect)="onItemDeSelect2()"
+            (onSelectAll)="onSelectAll2()">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="card sticky-body">
+    <div class="card-header">
+        <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse" href="#requestCoverageCard" (click)="ToggleHiding()"></i>
+        <strong>Requested Coverages</strong>
+    </div>
+    <div id="requestCoverageCard" class="show">
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div class="card-body standard-padding">
+            <form [formGroup]="limitsData.limitsForm.limitsPageForm">
+                <app-auto-liability-chart></app-auto-liability-chart>
+                <br>
+                <app-other-coverages-chart></app-other-coverages-chart>
+            </form>
+        </div>
+    </div>
+</div>
+

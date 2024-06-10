@@ -1,0 +1,215 @@
+<div class="card page-header-details-card position-relative">
+    <div class="card-body">
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-md-4 col-border">
+            <div class="row-2">
+              <h2 class="title">
+                {{ summaryData.name }}
+              </h2>
+              <label class="page-header-details-label text-primary">
+                {{ summaryData.address }}</label>
+            </div>
+            <div class="row-2 status-btn">
+              <div class="disable-overlay" *ngIf="this.submissionData.isIssued"></div>
+              <div class="row field mb-2" [formGroup]="summaryData.form">
+                <div class="col-md-6">
+                  <label for="status">Status</label>
+                  <select id="status" class="form-control" formControlName="status" (change)="onStatusChanged()">
+                    <option [ngValue]="null">Please Select</option>                    
+                    <option *ngFor="let option of summaryData.statusList | orderBy: 'label'" [value]="option.label">
+                      {{ option.label }}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="assignedTo">Assigned to</label>                  
+                  <select id="assignedTo" class="form-control" formControlName="assignedToId" (change)="onStatusChanged()"> 
+                    <option [ngValue]="null">Please Select</option>                   
+                    <option *ngFor="let option of summaryData.assignedToList | orderBy: 'label'" [value]="option.value">
+                      {{ option.label }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-border" style="flex: 0 0 13.83333325%;max-width: 13.83333325%;">
+            <div class="row">
+              <div class="col-12 form-type">
+                <label class="font-weight-light sub-title-label">Effective Date</label>
+                <h6 class="field-text">
+                  {{ summaryData.effectiveDate ? (summaryData.effectiveDate | date : 'MM/dd/yyyy') : '&nbsp;' }}
+                </h6>
+              </div>              
+            </div>
+            <div class="row">
+              <div class="col-lg-10 form-type">
+                <label class="font-weight-light sub-title-label">Submission Number</label>
+                <h6 class="field-text">
+                  {{ summaryData.quoteNumber ? summaryData.quoteNumber : '&nbsp;' }}
+                </h6>
+              </div>              
+            </div>
+            <div class="row">
+              <div class="col-lg-10 form-type">
+                <label class="font-weight-light sub-title-label">Policy Number</label>
+                <h6 *ngIf="submissionData.riskDetail.riskRelated?.length <= 1" class="field-text">
+                  {{ summaryData.policyNumber ? summaryData.policyNumber : '&nbsp;' }}
+                </h6>
+                <h6 *ngIf="submissionData.riskDetail.riskRelated?.length > 1" class="field-text">
+                  <select class="dropdown-policy field-text" (change)="onChangePolicyNumber($event)">
+                    <option *ngFor="let obj of submissionData.riskDetail.riskRelated" [selected]="submissionData.riskDetail.policyNumber === obj.policyNumber" [value]="obj.policyNumber">{{obj.policyNumber}}</option>
+                  </select>
+                </h6>
+              </div>              
+            </div>
+          </div>
+
+            <div class="col-md-3 col-border broker-commission-div">
+            <div class="row">
+              <div class="col-12 form-type">
+                <label class="font-weight-light sub-title-label">Agency</label>
+                <h6 class="field-text">
+                  {{ summaryData.agency ? summaryData.agency : '&nbsp;' }}
+                </h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 form-type">
+                <label class="font-weight-light sub-title-label">Producer</label>
+                <h6 class="field-text">
+                  {{ summaryData.producer ? summaryData.producer : '&nbsp;' }}
+                </h6>
+              </div>
+            </div>
+
+            <div *ngIf="summaryData.showHeaderCommission" class="row">
+              <div class="col-6 form-type">
+                <label class="font-weight-light sub-title-label broker-commission-label">AL Commission</label>
+                <h6 class="field-text">
+                  {{ summaryData.brokerCommisionAL !== null && summaryData.brokerCommisionAL !== undefined && summaryData.brokerCommisionAL !== 0 ? summaryData.brokerCommisionAL + '%' : '&nbsp;' }}
+                </h6>
+              </div>
+              <div class="col-6 form-type">
+                <label class="font-weight-light sub-title-label broker-commission-label">APD Commission</label>
+                <h6 class="field-text">
+                  {{ summaryData.brokerCommisionPD !== null && summaryData.brokerCommisionPD !== undefined && summaryData.brokerCommisionPD !== 0 ? summaryData.brokerCommisionPD + '%' : '&nbsp;' }}
+                </h6>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-md-2 col-border power-units-div">
+            <div class="row">
+              <div class="col-12 form-type">
+                <label class="font-weight-light sub-title-label">Power Units</label>
+                <h6 class="field-text">
+                  {{ this.summaryData.powerUnitsCount ? this.summaryData.powerUnitsCount : '0' }}
+                </h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 form-type">
+                <label class="font-weight-light sub-title-label">Trailer</label>
+                <h6 class="field-text">
+                  {{ this.summaryData.trailerCount ? this.summaryData.trailerCount : '0' }}
+                </h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 form-type">
+                <label class="font-weight-light sub-title-label">Other(s)</label>
+                <h6 class="field-text">
+                  {{ this.summaryData.otherCount ? this.summaryData.otherCount : '0' }}
+                </h6>
+              </div>
+            </div>      
+          </div>
+
+          <div class="col-md-2">
+            <div class="row-2">
+              <label class="font-weight-light sub-title-label">Estimated Premium</label>
+              <h6 class="est-field-text pl-0">
+                <div>
+                  {{ summaryData.estimatedPremium ? (summaryData.estimatedPremium | currency : 'USD' : 'symbol' : '1.0-0') : '&nbsp;' }}
+                </div>
+              </h6>
+            </div>
+            <div class="row">
+              <div class="col col-lg-6 col-md-12">
+                <div class="row-2">
+                  <label class="font-weight-light sub-title-label">Taxes</label>
+                  <h6 class="taxfee-field-text">
+                    {{ summaryData.taxes ? (summaryData.taxes | currency : 'USD' : 'symbol' : '1.0-2') : '&nbsp;' }}
+                  </h6>
+                </div>
+              </div>
+              <div class="col col-lg-5 col-md-12">
+                <div class="row-2">
+                  <label class="font-weight-light sub-title-label">Fees</label>
+                  <h6 class="taxfee-field-text">
+                    <div>
+                      {{ summaryData.fees ? (summaryData.fees | currency : 'USD' : 'symbol' : '1.0-2') : '&nbsp;' }}
+                    </div>
+                  </h6>
+                </div>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+              <div class="col col-lg-6 col-md-12">
+                <div class="row-2">
+                </div>
+              </div>
+              <div class="col">
+                <div class="row-2" style="color: red;">{{ submissionData?.riskDetail?.filingsInformation?.isFilingRequired == true ? 'Filings Required' : '&nbsp;' }}
+                </div>
+              </div>
+            </div>         
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isShow" class="card page-header-details-card fixed-top animated fadeIn">
+    <div class="card-body-header" [style.width.%]="106">
+      <div class="container-fluid" style="margin: auto; width: 100%;" >
+        <div class="row mt-2">
+          <div class="col-md-3">
+            <div class="row-2">
+              <p class="summary-title">Insured Name</p>
+              <div style="display: inline-block;width: 100%;word-break: break-all;">
+                <label class="field-text" style="margin-left: 15px;">
+                  {{ summaryData.name ? summaryData.name : '&nbsp;' }}</label>
+              </div>
+              
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row-2">
+              <p class="summary-title">Submission Number</p>
+              <label class="field-text">
+                {{ summaryData.quoteNumber ? summaryData.quoteNumber : '&nbsp;' }}</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row-2">
+              <p class="summary-title">Status</p>
+              <label class="field-text quote-status">
+                {{ summaryData.quoteStatus ? summaryData.quoteStatus : '&nbsp;' }}</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row-2">
+              <p class="summary-title">Estimated Premium</p>
+              <label class="est-field-text-2">
+                {{ summaryData.estimatedPremium ? (summaryData.estimatedPremium | currency :
+                'USD' : 'symbol' : '1.0-0') : '&nbsp;' }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

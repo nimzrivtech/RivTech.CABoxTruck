@@ -1,0 +1,25 @@
+<div class="user-modal">
+  <div class="alert-box">
+    <div class="modal-header sticky-modal-header">
+      <h4 class="modal-title">{{modalTitle}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <tabset>
+        <tab heading="{{usersLabelConstants.userInfoTitle}}">
+          <app-user-information></app-user-information>
+          <div class="align-right" *ngIf="this.isEdit">
+            <button class="btn btn-primary px-2 col-3" (click)="resetUserPassword()">{{usersLabelConstants.resetPassword}}</button>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+    <div class="modal-footer sticky-modal-footer">
+      <button [disabled]="!userInformation.valid" *ngIf="!isSavingSuccess" type="button" class="btn btn-primary"
+        (click)="saveUser()">{{modalButton}}</button>
+      <button type="button" class="btn btn-danger" (click)="closeModal()">{{genericUserLabels.cancel}}</button>
+    </div>
+  </div>
+</div>

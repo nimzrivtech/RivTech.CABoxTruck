@@ -1,0 +1,111 @@
+<div class="modal-header sticky-modal-header">
+    <h4 class="modal-title">{{modalTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeGroup()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" [ngClass]="{'height60vh': isEdit == true}">
+    <div class="">
+      <form [formGroup]="groupData.groupForm">
+        <div class="form-group row field pd-side">
+          <label class="col-md-4 col-form-label required" for="category">{{GroupConstant.name}}</label>
+          <div class="col-md-8">
+              <input id="type" type="text" class="form-control" maxlength="20"
+                  [ngClass]="{'is-invalid': (groupData.groupForm.get('name').touched || groupData.groupForm.get('name').dirty) && !groupData.groupForm.get('name').valid }"
+                  formControlName="name" [value]="groupData.groupForm.get('name').value">
+              <span class="invalid-feedback"
+                  *ngIf="groupData.groupForm.get('name').errors?.required && groupData.groupForm.get('name').touched">
+                  {{ ErrorMessageConstant.requiredErrorMessage.format(GroupConstant.name) }}
+              </span>
+          </div>
+        </div>
+        <div class="form-group row field pd-side">
+          <label class="col-md-4 col-form-label required" for="category">{{GroupConstant.description}}</label>
+          <div class="col-md-8">
+              <input id="type" type="text" class="form-control" maxlength="50"
+                  [ngClass]="{'is-invalid': (groupData.groupForm.get('description').touched || groupData.groupForm.get('description').dirty) && !groupData.groupForm.get('description').valid }"
+                  formControlName="description" [value]="groupData.groupForm.get('description').value">
+              <span class="invalid-feedback"
+                  *ngIf="groupData.groupForm.get('description').errors?.required && groupData.groupForm.get('description').touched">
+                  {{ ErrorMessageConstant.requiredErrorMessage.format(GroupConstant.description) }}
+              </span>
+          </div>
+        </div>
+        <div class="form-group col-md-12 field">
+          <div class="switch-wrapper">
+              <label class="" for="active">{{GroupConstant.isInternal}}</label>
+              <label id="active" class="switch switch-pill switch-label switch-primary">
+                <input type="checkbox" class="switch-input" formControlName="internal"
+                  [ngClass]="{'is-invalid': (groupData.groupForm.get('internal').touched || groupData.groupForm.get('internal').dirty) && !groupData.groupForm.get('internal').valid }"
+                  (change)="changeStatusInternal()">
+                <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+              </label>
+          </div>
+        </div>
+        <div class="form-group col-md-12 field">
+          <div class="switch-wrapper">
+              <label class="" for="active">{{GroupConstant.active}}</label>
+              <label id="active" class="switch switch-pill switch-label switch-primary">
+                <input type="checkbox" class="switch-input" formControlName="active"
+                  [ngClass]="{'is-invalid': (groupData.groupForm.get('active').touched || groupData.groupForm.get('active').dirty) && !groupData.groupForm.get('active').valid }"
+                  (change)="changeStatus()">
+                <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+              </label>
+          </div>
+        </div>
+      </form>
+      <form *ngIf="isEdit" [formGroup]="groupData.userGroupForm">
+        <hr>
+        <div class="form-group row field pd-side">
+          <label class="col-md-4 col-form-label required" for="category">{{GroupConstant.userName}}</label>
+          <div class="col-md-6">
+              <input id="type" type="text" class="form-control" maxlength="20" formControlName="userName" [value]="groupData.userGroupForm.get('userName').value">
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-primary" data-placement="top" (click)='addUsername()'>
+              <i class="icon-plus"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+      <div *ngIf="isEdit">
+        <div class="col-md-12 form-group field">
+          <div class="float-left">
+              <h4>User Group List</h4>
+          </div>
+          <div class="table-responsive dynamic-table">
+              <table class="table" style="width:100%">
+                  <thead>
+                      <tr>
+                          <th>Username</th>
+                          <th>Active</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of groupData.userGroupPageItems;let index = index;" > 
+                          <td>{{item.userName}}</td>
+                          <td>
+                            <label id="active" class="switch switch-pill switch-label switch-primary" >
+                              <input type="checkbox" class="switch-input" [(ngModel)]="item.isActive"
+                                (change)="changeStatusItem(item)">
+                              <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+                            </label>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <app-table-pagination (setPage)="setPage($event)" [pager]="groupData.userGroupPager" [loading]="isloading"></app-table-pagination>
+          </div>
+          <div *ngIf="groupData.userGroupList.length === 0" class="row">
+            <div class="text-center col-lg-12 no-data-message">
+              <span> No Data to Display </span>
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer sticky-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="saveGroup()" [disabled]="!groupForm.valid">Save</button>
+    <button type="button" class="btn btn-danger" (click)="closeGroup()">Cancel</button>
+  </div>

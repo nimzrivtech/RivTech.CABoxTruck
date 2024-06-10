@@ -1,0 +1,17 @@
+<div class="callout callout-info p-1 b-t-1 b-r-1 b-b-1 my-1 py-2" >
+    <a [routerLink]="model.linkUrl.url" [queryParams]="model.linkUrl.queryParams" class="streched-link text-decoration-none">
+
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-column justify-content-center mx-2">
+                <h2 class="text-primary mb-0"><i class="{{model.icon}} pull-right"></i></h2>
+            </div>
+            <div class="flex-fill d-flex flex-column">
+                <div  class="h6 text-muted text-truncate mb-0"> {{model.description}} </div>
+                <strong class="h4 text-dark mb-0"> {{model.count}} </strong>
+            </div>
+
+        </div>
+
+
+    </a>
+</div>

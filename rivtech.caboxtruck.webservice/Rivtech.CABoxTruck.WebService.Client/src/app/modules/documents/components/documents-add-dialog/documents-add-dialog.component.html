@@ -1,0 +1,65 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">{{isNew ? 'Upload Document' : 'Edit Document'}}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body" [formGroup]="frmDocument">
+    <div class="form-group col-md-12 field">
+        <label for="dateAdded" class="required">Date Added</label>
+        <app-date-picker [isDisabled]="true" [options]="documentData.datepickerOptions" formControlName="dateAdded">
+        </app-date-picker>
+    </div>
+
+    <div class="form-group col-md-12 field">
+        <label for="category" class="required">Category</label>
+        <input type="text" readonly value="Billing" *ngIf="category === 'Billing'" />
+        <select id='category' formControlName="fileCategoryId" class="form-control" *ngIf="category !== 'Billing'">
+            <option [ngValue]="null">Please Select</option>
+            <option *ngFor="let category of fileCategories | orderBy: 'description'" [value]="category.id">{{category.description}}
+            </option>
+        </select>
+        <app-validation-error [control]="f.fileCategoryId" inputName="Category"></app-validation-error>
+    </div>
+    <div class="form-group col-md-12 field">
+        <label for="description" class="required">Description</label>
+        <textarea id='description' rows="2" cols="1" class="field-text-area-border" formControlName="description" maxlength="100"></textarea>
+        <app-validation-error [control]="f.description" inputName="Description"></app-validation-error>
+    </div>
+    <div class="form-group field col-md-12">
+        <label class="note" for='isPreBind'>Maximum upload file size: 22MB</label>
+    </div>
+
+    <div class="form-group field col-md-12">
+
+    <div class="input-group mb-3" 
+     (dragover)="onDragOver($event)" 
+     (drop)="onDrop($event)"
+     (dragleave)="onDragLeave($event)"
+     [class.drag-over-border]="dragOver">
+    <label for="fileInput" class="btnUpload text-nowrap mr-2 pointer" 
+    (mouseenter)="onDragOver($event)" (mouseleave)="onDragLeave($event)">Drag & Drop files or Click here</label>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" multiple style="display:none;" [accept]="acceptedFileTypes">
+    <span *ngIf="selectedFiles.length > 0; else oldTemplateFileCount" >{{selectedFiles.length}} File(s) Chosen</span>
+    <ng-template #oldTemplateFileCount> <span>{{filesSelected}}</span></ng-template>
+    </div>
+
+    <div class="ellipse">
+        <div *ngIf="selectedFileName !== ''">Upload the following:</div>
+        <span [attr.title]="selectedFileName"> {{selectedFileName}}</span>
+        <div class="invalid-feedback" *ngIf="isInvalidFilename" >Filename exceeds max length of 500 characters.</div>
+    </div>
+
+    <div *ngIf="f.fileValidation.errors?.invalidFileType" class="invalid-feedback">
+            {{ invalidFileTypeErrorMessage }}
+    </div>
+    <div class="mt-3" *ngIf="f.fileValidation.errors?.invalidFileSize">
+            <div class="invalid-feedback" style="font-size:80%;">{{ invalidSizeNames }}</div>
+            <span class=invalid-feedback>{{ invalidFileSizeErrorMessage }}</span>
+    </div>
+    
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" (click)="save()" [disabled]="frmDocument.invalid || isInvalidFilename">Save</button>
+    <button class="btn btn-danger" data-dismiss="modal" (click)="close()">Cancel</button>
+</div>

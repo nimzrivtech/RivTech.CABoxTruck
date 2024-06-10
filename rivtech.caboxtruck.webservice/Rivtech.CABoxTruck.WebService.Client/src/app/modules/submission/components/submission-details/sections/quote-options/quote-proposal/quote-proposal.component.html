@@ -1,0 +1,22 @@
+<div class="modal-content shadow-lg">
+    <div class="modal-header">
+        <h5 class="modal-title">Please wait</h5>
+        <button *ngIf="showClose" type="button" class="close" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-md-12" style="margin-bottom:15px;">
+            <div *ngIf="showClose;else no_error">
+                <span class="text-error">
+                    {{currentTaskMessage}}
+                </span>
+            </div>
+            <ng-template #no_error>
+                <span class="text-info">
+                    {{currentTaskMessage + dotanimation}}
+                </span>
+            </ng-template>
+        </div>
+    </div>
+</div>

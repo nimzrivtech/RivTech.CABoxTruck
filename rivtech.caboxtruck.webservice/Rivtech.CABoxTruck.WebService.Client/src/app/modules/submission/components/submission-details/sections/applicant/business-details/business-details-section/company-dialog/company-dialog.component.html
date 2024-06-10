@@ -1,0 +1,28 @@
+<div class="modal-header sticky-modal-header">
+    <h4 class="modal-title">{{modalTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container-fluid field" [formGroup]="companyForm">
+        <div class="row">
+            <div class="col-md-12">
+                <label class="required">Company Name</label>
+                <input type="text" id='name' maxlength="100" formControlName="name"/>
+                <app-validation-error [control]="f.name" [inputName]="'Company Name'"></app-validation-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="required">Years in Operation</label>
+                <input type="text" id='nameYearOperations' numberOnly maxlength="3" formControlName="nameYearOperations"/>
+                <app-validation-error [control]="f.nameYearOperations" [inputName]="'Years in Operation'"></app-validation-error>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer" >
+    <button [disabled]="companyForm.invalid" type="button" class="btn btn-primary" (click)="saveCompany()">{{modalButton}}</button>
+    <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Cancel</button> 
+</div>

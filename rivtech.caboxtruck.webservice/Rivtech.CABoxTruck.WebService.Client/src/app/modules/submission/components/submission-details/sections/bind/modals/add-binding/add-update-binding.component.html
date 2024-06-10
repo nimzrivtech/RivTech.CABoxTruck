@@ -1,0 +1,93 @@
+<div role="document">
+  <div class="modal-content">
+    <div class="modal-header sticky-modal-header">
+      <h5 class="modal-title">{{modalTitle}}</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body" [formGroup]="this.fg">
+    
+        <div class="form-group col-md-12 field">
+          <label class="required" for="bindRequirementsOptionId">Requirements</label>
+          <div class=" ">
+            <select class="form-control" id="bindRequirementsOptionId" formControlName="bindRequirementsOptionId" #ddBindReq
+            [attr.title]="this.Data.showTruncateTitle(this.ddBindReq.value, this.Data.dropdownList.bindRequirementList)">
+              <option [ngValue]="null">Please Select</option>
+              <!-- <option *ngFor="let option of this.Data.dropdownList.bindRequirementList | orderBy: 'number(value)'" [value]='option.value'>{{option.label}}</option> -->
+              <option *ngFor="let option of this.Data.bindRequirementListFiltered(this.fc.bindRequirementsOptionId.value) | orderBy: 'label'"
+              [value]='option.value'
+              [attr.title]='option.label'
+              >{{ this.Data.truncate(option.label, 70) }}</option>
+            </select>
+            <app-validation-error [control]="this.fc.bindRequirementsOptionId" [inputName]="'Requirements'"></app-validation-error>
+          </div>
+        </div>
+    
+        <div class="form-group col-md-12 field" *ngIf="!this.isEdit">
+          <div class="switch-wrapper">
+            <label class="" for='isPreBind'>Pre-Bind?</label>
+            <toggle-switch tabindex="-1" [tabIndex]="''" [formGroup]="this.fg" [formName]="'bindRequirements'" fieldName="isPreBind"></toggle-switch>
+          </div>
+        </div>
+    
+        <div class="form-group col-md-12 field">
+          <label for="bindStatusId">Status</label>
+          <div class=" ">
+            <select class="form-control" id="bindStatusId" formControlName="bindStatusId">
+              <option [ngValue]="null">Please Select</option>
+              <option *ngFor="let option of this.Data.dropdownList.bindStatusList | orderBy: 'label'" [value]='option.value'>{{option.label}}</option>
+            </select>
+            <app-validation-error [control]="this.fc.bindStatusId" [inputName]="'Status'"></app-validation-error>
+          </div>
+        </div>
+    
+        <!-- 16	Other -->
+        <div class="form-group col-md-12 field" *ngIf="this.fc.bindRequirementsOptionId.value == 16">
+          <label for="comments" >Describe</label>
+          <div class="">
+              <textarea id='describe' 
+                [attr.rows]="fc.describe.value && fc.describe.value.length > 124 ? 4 : 2" 
+                [attr.cols]="fc.describe.value && fc.describe.value.length > 124 ? 3 : 1" 
+                class="field-text-area-border" formControlName="describe" maxlength="10000" [attr.title]="fc.describe.value">
+              </textarea>
+              <app-validation-error [control]="this.fc.describe" [inputName]="'Describe'"></app-validation-error>
+          </div>
+        </div>
+    
+        <div class="form-group col-md-12 field">
+          <label for="comments" >Comments</label>
+          <div class="">
+              <textarea id='comments' rows="2" cols="1" class="field-text-area-border" formControlName="comments" maxlength="1000"></textarea>
+              <app-validation-error [control]="this.fc.comments" [inputName]="'comments'"></app-validation-error>
+          </div>
+        </div>
+    
+        <div class="form-group col-md-12 field" *ngIf="this.isEdit">
+          <div class="input-group mb-3">
+            <button class="btn btn-primary text-nowrap mr-2 btnUpload" (click)='this.openUploadDocuModal()'>Upload Document</button>
+            <span [style.margin-top.px]="8">{{this.Data.getSelectedFileCount}}</span>
+          </div>
+          <div class="ellipse" *ngIf="this.Data.getFileName !== ''">
+            <span id="fileName" [formGroup]="this.fgF" [attr.title]="this.Data.getFileName">{{this.Data.getFileName}}</span>
+          </div>
+        </div>
+    
+        <div class="form-group col-md-12 field" *ngIf="this.isEdit">
+          <h5>Relevant Document</h5>
+          <label for="relevantDocumentDesc" >Description</label>
+          <div class="">
+              <textarea id='relevantDocumentDesc' rows="2" cols="1" class="field-text-area-border" formControlName="relevantDocumentDesc" maxlength="100"></textarea>
+              <app-validation-error [control]="this.fc.relevantDocumentDesc" [inputName]="'relevantDocumentDesc'"></app-validation-error>
+          </div>
+        </div>
+    
+    </div>
+    
+    <div class="modal-footer sticky-modal-footer">
+      <button type="button" class="btn btn-primary" (click)="this.SubmitBindRequirements()" [disabled]="!this.fg.valid">{{modalButton}}</button>
+      <button type="button" class="btn btn-danger" (click)="this.Cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('binding', $event)">
+    <app-toggle-collapse toggleName="binding"></app-toggle-collapse>
+        <strong> &nbsp; Binding</strong>
+    </div>
+    <div class="card-body standard-padding collapse show field" [formGroup]="this.fg" id="binding" style="padding-top: 2.5%">
+      <div class="col">
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div class="row d-flex">
+          <div class="col-md-4 input-container">
+            <label for='bindOptionId' [ngClass]="{'required': submissionData.isQuoteIssued || null}">Bind Option</label>
+            <select class="" id="bindOptionId" formControlName="bindOptionId" (change)="this.Data.onChangeBindOption($event.target.value)">
+              <option [ngValue]="null">Please Select</option>
+              <!-- <option *ngFor="let option of this.Data.dropdownList.bindOptionList | orderBy: 'label'" [value]="option.value">
+                {{option.label}}
+              </option> -->              
+              <option [value]="1">
+                Option 1
+              </option>
+            </select>
+            <app-validation-error [control]="this.fc.bindOptionId" [inputName]="'Bind Option'"></app-validation-error>
+          </div>
+  
+          <div class="col-md-4 input-container">
+            <label for='paymentTypesId' [ngClass]="{'required': submissionData.isQuoteIssued || null}">Payment Plan</label>
+            <select class="" id="paymentTypesId" formControlName="paymentTypesId" (change)="this.Data.onChangepaymentTypes($event.target.value)">
+              <option [ngValue]="null">Please Select</option>
+              <option *ngFor="let option of this.Data.dropdownList.paymentTypesList | orderBy: 'label'" [value]="option.value">
+                {{option.label}}
+              </option>
+            </select>
+            <app-validation-error [control]="this.fc.paymentTypesId" [inputName]="'Payment Plan'"></app-validation-error>
+          </div>
+  
+          <div class="col-md-4 input-container">
+            <label for="minimumEarned" [ngClass]="{'required': submissionData.isQuoteIssued || null}" >Minimum Earned</label>
+            <input type="text" formControlName="minimumEarned" [dropSpecialCharacters]="false" mask="percent.1" suffix="%" [validation]="false" (change)="this.Data.onMinimumEarnedInputChange($event)"/>
+            <app-validation-error [control]="this.fc.minimumEarned"></app-validation-error>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-bind-requirements></app-bind-requirements>
+<app-quote-condition></app-quote-condition>
+
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapseCarrierInfo.clickExpandCollapse('carrierInfo', $event)">
+    <app-toggle-collapse toggleName="carrierInfo"></app-toggle-collapse>
+        <strong> &nbsp; Carrier Info</strong>
+    </div>
+    <div class="card-body standard-padding collapse show field" [formGroup]="this.fg" id="carrierInfo" style="padding-top: 2.5%">
+      <div class="col">
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div class="row d-flex">
+          <div class="col-md-4 input-container">
+            <label for='creditedOfficeId'>Credited Office</label>
+            <select class="" id="creditedOfficeId" formControlName="creditedOfficeId" (change)="this.Data.onChangeCreditOffice($event.target.value)">
+              <option [ngValue]="null">Please Select</option>
+              <option *ngFor="let option of this.Data.dropdownList.creditOfficeList | orderBy: 'label'" [value]="option.value">
+                {{option.label}}
+              </option>
+            </select>
+            <app-validation-error [control]="this.fc.creditedOfficeId" [inputName]="'Credited Office'"></app-validation-error>
+          </div>
+  
+          <div class="col-md-4 input-container">
+            <label for="surplusLIneNum" [ngClass]="{'required': submissionData.isQuoteIssued || null}" >Surplus Lines Number</label>
+            <input type="text" formControlName="surplusLIneNum" maxlength="100"/> <!-- (change)="this.Data.surplusLIneNumChanged()"-->
+            <app-validation-error [control]="this.fc.surplusLIneNum"></app-validation-error>
+          </div>
+  
+          <div class="col-md-4 input-container" *ngIf="this.Data.showSLA">
+            <label for="slaNum" >NJ SLA Number</label>
+            <input type="text" (change)="this.Data.slaNumChanged()" formControlName="slaNum" maxlength="14"  mask="XXXXX-XX-XXXXX" />
+            <app-validation-error [control]="this.fc.slaNum"></app-validation-error>
+          </div>
+        </div>
+
+        <div class="row d-flex" *ngIf="this.Data.showARSCommissionFields">
+          <div class="col-md-4 input-container">
+            <label for="arsCommission" >ARS Commission</label>
+            <input type="text" id="arsCommission" class="readonly" readonly currencyMask 
+              [options]="this.Data.premiumCurrencySettings"
+              formControlName="arsCommission"/>
+          </div>
+  
+          <div class="col-md-4 input-container">
+            <label for="arsCommissionPercent" >ARS Commission %</label>
+            <input type="text" formControlName="arsCommissionPercent" [dropSpecialCharacters]="false" mask="percent.1" suffix="%" 
+              [validation]="false" class="readonly" readonly />
+          </div>
+        </div>
+  
+        <div class="" hidden>
+          <div class="col-md-4 input-container">
+            <label for="producerSLNumber" >Producer SL Number</label>
+            <input type="text" formControlName="producerSLNumber" maxlength="50"/>
+            <app-validation-error [control]="this.fc.producerSLNumber"></app-validation-error>
+          </div>
+  
+          <div class="col-md-4 input-container">
+            <label for="slState" >SL State</label>
+            <input type="text" formControlName="slState" maxlength="100"/>
+            <app-validation-error [control]="this.fc.slState"></app-validation-error>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

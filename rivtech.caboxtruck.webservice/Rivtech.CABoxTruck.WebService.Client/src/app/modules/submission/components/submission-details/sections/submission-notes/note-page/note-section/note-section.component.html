@@ -1,0 +1,106 @@
+<div class="table-responsive dynamic-table" [formGroup]="this.notesData.notesForm">
+    <div class="col">
+        <!-- <div class="disable-overlay" *ngIf="disableActionButton"></div> -->
+        <table class="table" style="width:100%">
+            <thead>
+                <tr>
+                    <th width="20%" (click)="notesData.sort($event.target)" data-order="desc" data-name="noteCategoryOption.description">Category</th>
+                    <th width="45%"(click)="notesData.sort($event.target)" data-order="desc" data-name="description">Description</th>
+                    <th (click)="notesData.sort($event.target)" data-order="desc" data-name="createdDate" style="width:15%">Date Added</th>
+                    <th (click)="notesData.sort($event.target)" data-order="desc" data-name="createdBy" >Added By</th>
+                    <th class="text-center" style="padding:5px; width: 120px;">
+                        Actions<br />
+                        <button type="button" class="btn btn-primary" data-placement="top" [disabled]="disableActionButton" (click)="onCreateNewItem()" [tooltip]="TableConstants.add" *ngIf="!addNewItem && !isEdit">
+                          <i class="icon-plus"></i>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="notesData.notes.length > 0 || addNewItem">
+                <ng-container *ngIf="!isEdit">
+                    <tr *ngFor="let item of notesData.pagedItems; let tableRowIndex = index" class="table-row-{{ tableRowIndex }}">
+                        <td>{{item.noteCategoryOption.description}}</td>
+                        <td class="description-col">{{item.description}}</td>
+                        <td>{{ formatDateOnGrid(item.createdDate) }}</td>
+                        <td>{{ item.createdByName }}</td> <!-- set to 'Carl Bersales' temporarily -->
+                        <td>
+                            <div class="table-button-fixed">
+                                <i [className]="(!this.addNewItem && item.sourcePage === this.notesData.sourcePage && item.createdBy == this.currentUser && !disableActionButton) ? 'icon-note' : 'icon-note disable-button'" (click)="openEditNoteModal(item, tableRowIndex)" [tooltip]="TableConstants.edit"></i>
+                                <i [className]="(item.sourcePage === this.notesData.sourcePage && this.actionsEnabled(item.createdDate, item.createdBy)) ? 'icon-trash' : 'icon-trash disable-button'" (click)="deleteNote(item, tableRowIndex)" [tooltip]="TableConstants.delete"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="isEdit">
+                    <tr *ngFor="let item of notesData.pagedItems; let tableRowIndex = index" class="table-row-{{ tableRowIndex }}">
+                        <ng-container *ngIf="(tableRowIndex === selectedRow); else tableRowNotForEdit">
+                            <ng-template [ngTemplateOutlet]="trForm"></ng-template>
+                            <td>
+                                <div class="table-button-fixed">
+                                    <i class="icon-note disable-button" [tooltip]="TableConstants.edit"></i>
+                                    <i [className]="(item.sourcePage === this.notesData.sourcePage && this.actionsEnabled(item.createdDate, item.createdBy)) ? 'icon-trash' : 'icon-trash disable-button'" (click)="deleteNote(item, tableRowIndex)" [tooltip]="TableConstants.delete"></i>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-template #tableRowNotForEdit>
+                            <td>{{item.noteCategoryOption.description}}</td>
+                            <td class="description-col">{{item.description}}</td>
+                            <td>{{ formatDateOnGrid(item.createdDate) }}</td>
+                            <td>{{ item.createdByName }}</td> <!-- set to 'Carl Bersales' temporarily -->
+                            <td>
+                                <div class="table-button-fixed">
+                                    <i [className]="(item.sourcePage === this.notesData.sourcePage && item.createdBy == this.currentUser) ? 'icon-note' : 'icon-note disable-button'" (click)="openEditNoteModal(item, tableRowIndex)" [tooltip]="TableConstants.edit"></i>
+                                    <i [className]="(item.sourcePage === this.notesData.sourcePage && this.actionsEnabled(item.createdDate, item.createdBy)) ? 'icon-trash' : 'icon-trash disable-button'" (click)="deleteNote(item, tableRowIndex)" [tooltip]="TableConstants.delete"></i>
+                                </div>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </ng-container>
+                <tr *ngIf="addNewItem">
+                    <ng-template [ngTemplateOutlet]="trForm"></ng-template>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-container>
+        <div>
+          <div class="control-buttons" *ngIf="addNewItem || isEdit">
+            <button type="submit" class="btn btn-primary mx-1" data-placement="top" (click)="saveNote()" [disabled]="!this.notesData.notesForm.valid">{{ addNewItem ? 'Save' : 'Update' }}</button>
+            <button type="button" class="btn btn-danger mx-1" data-placement="top" (click)="onCancel(true)">Cancel</button>
+          </div>
+        </div>
+    </ng-container>
+    <div *ngIf="notesData.notes.length < 1 && !addNewItem">
+        <div class="text-center col-lg-12 no-data-message">
+            <span>No Data To Display</span>
+        </div>
+    </div>
+    <div class="mt-2" *ngIf="!addNewItem && !isEdit">
+        <app-table-pagination (setPage)="this.notesData.setPage($event, this.notesData.notes)" [pager]="this.notesData.pager" [loading]="this.notesData.loading"></app-table-pagination>
+    </div>
+    <!-- TR Form Template -->
+    <ng-template #trForm>
+        <td>
+            <select id='categoryId' formControlName="categoryId" class="form-control">
+                <option [ngValue]="null">Please Select</option>
+                <option *ngFor="let option of notesData.categoryList | orderBy: 'description'" [value]="option.id">{{option.description}}</option>
+            </select>
+            <app-validation-error [control]="f.categoryId" [inputName]="'Category'"></app-validation-error>
+        </td>
+        <td>
+            <textarea id='description' formControlName="description" class="form-control field-text-area" type="textarea" maxlength="10000"></textarea>
+            <app-validation-error [control]="f.description" [inputName]="'Description'"></app-validation-error>
+        </td>
+        <td>
+            <app-date-picker 
+                [style.height.px]="34"
+                [options]="notesData.dateOptions" 
+                [isDisabled]="true"
+                formControlName="dateAdded">
+            </app-date-picker>
+        </td>
+        <td>{{ this.currentUserName }}</td>
+    </ng-template>
+    <!-- / TR Form Template -->
+</div>

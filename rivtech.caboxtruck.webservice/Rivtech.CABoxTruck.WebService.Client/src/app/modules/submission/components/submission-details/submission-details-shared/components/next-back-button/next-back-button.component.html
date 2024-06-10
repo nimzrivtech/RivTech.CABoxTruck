@@ -1,0 +1,17 @@
+<div *ngIf="showBack || showNext || showViewQuote || showIssue" (scroll)="onScroll()" id="card">
+    <div [ngClass]="isScrollPage ? 'sticky-bottom': 'default'" class="card-body" id="card-body">
+        <div class="row">
+            <button *ngIf="showBack" type="submit" class="btn btn-primary mx-2" (click)="onClick('back')" [disabled]="disableBack"><i class="icon-arrow-left-circle icons"></i> Back</button>
+            <button *ngIf="showNext" type="submit" class="btn btn-primary mx-2" (click)="onClick('next')"  [disabled]="disableNext">Next <i class="icon-arrow-right-circle icons"></i></button>
+            <app-submission-action-bar
+                [showViewQuote]="showViewQuote"
+                [disableCalculate]="disableCalculate"
+                [disableViewQuote]="disableViewQuote"
+                [disableIssue]="disableIssue"
+                [showIssue]="showIssue"
+                [showGeneratePolicyNumber]="showGeneratePolicyNumber"
+                [hideQuote]="hideQuote"
+                [showQuoteProposalOnly]="showQuoteProposalOnly" ></app-submission-action-bar>
+          </div>
+    </div>
+</div>

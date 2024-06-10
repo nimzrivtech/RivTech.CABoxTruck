@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Configurations>Debug;Release;Staging;DevTest;Test;Production</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="CommonValueObjects\**" />
+    <Compile Remove="Endorsement\EndorsementChangeItemModifiers\**" />
+    <Compile Remove="Endorsement\EndorsementData\**" />
+    <EmbeddedResource Remove="CommonValueObjects\**" />
+    <EmbeddedResource Remove="Endorsement\EndorsementChangeItemModifiers\**" />
+    <EmbeddedResource Remove="Endorsement\EndorsementData\**" />
+    <None Remove="CommonValueObjects\**" />
+    <None Remove="Endorsement\EndorsementChangeItemModifiers\**" />
+    <None Remove="Endorsement\EndorsementData\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="BaseEntity.cs" />
+    <Compile Remove="Class1.cs" />
+    <Compile Remove="Endorsement\EndorsementChangeItems\AddVehicleChangeItem.cs" />
+    <Compile Remove="Endorsement\EndorsementData.cs" />
+    <Compile Remove="Endorsement\IAmount.cs" />
+    <Compile Remove="Endorsement\ProcessStatusLogging\EndorsementProcessStatusLogConfig.cs" />
+    <Compile Remove="Endorsement\Proration\AmountFactory.cs" />
+    <Compile Remove="Endorsement\Proration\EndorsementDataPremiumProrator.cs" />
+    <Compile Remove="Endorsement\Proration\IAmountFactory.cs" />
+    <Compile Remove="ICreatedData.cs" />
+    <Compile Remove="IUpdatedData.cs" />
+    <Compile Remove="RiskDetail.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
+</Project>

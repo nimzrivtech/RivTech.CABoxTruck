@@ -1,0 +1,105 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Form Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="this.onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid field" [formGroup]="formsData.trailerInterchangeForm">
+        <div>            
+            <div class="form-group col-12 field">
+                <h5>Comprehensive</h5>
+                <label class="required">Limit of Insurance</label>
+                <input type="text" class="form-control w-100" formControlName="compreLimitOfInsurance" currencyMask [options]="formsData.currencySettings" maxlength="8" />
+                <app-validation-error [control]="f.compreLimitOfInsurance" inputName="Limit of Insurance"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Deductible</label>
+                <input type="text" class="form-control w-100" formControlName="compreDeductible" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.compreDeductible" inputName="Deductible"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Estimated Premium</label>
+                <input type="text" class="form-control w-100" formControlName="comprePremium" currencyMask [options]="formsData.currencySettings" maxlength="8" />
+                <app-validation-error [control]="f.comprePremium" inputName="Estimated Premium"></app-validation-error>
+            </div>
+        </div>
+        <div>            
+            <div class="form-group col-12 field">
+                <h5>Specified Cause of Loss</h5>
+                <label class="required">Limit of Insurance</label>
+                <input type="text" class="form-control w-100" formControlName="lossLimitOfInsurance" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.lossLimitOfInsurance" inputName="Limit of Insurance"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Deductible</label>
+                <input type="text" class="form-control w-100" formControlName="lossDeductible" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.lossDeductible" inputName="Deductible"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Estimated Premium</label>
+                <input type="text" class="form-control w-100" formControlName="lossPremium" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.lossPremium" inputName="Estimated Premium"></app-validation-error>
+            </div>
+        </div>
+        <div>            
+            <div class="form-group col-12 field">
+                <h5>Collision</h5>
+                <label class="required">Limit of Insurance</label>
+                <input type="text" class="form-control w-100" formControlName="collisionLimitOfInsurance" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.collisionLimitOfInsurance" inputName="Limit of Insurance"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Deductible</label>
+                <input type="text" class="form-control w-100" formControlName="collisionDeductible" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.collisionDeductible" inputName="Deductible"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Estimated Premium</label>
+                <input type="text" class="form-control w-100" formControlName="collisionPremium" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.collisionPremium" inputName="Estimated Premium"></app-validation-error>
+            </div>
+        </div>
+        <div>            
+            <div class="form-group col-12 field">
+                <h5>Fire</h5>
+                <label class="required">Limit of Insurance</label>
+                <input type="text" class="form-control w-100" formControlName="fireLimitOfInsurance" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.fireLimitOfInsurance" inputName="Limit of Insurance"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Deductible</label>
+                <input type="text" class="form-control w-100" formControlName="fireDeductible" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.fireDeductible" inputName="Deductible"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Estimated Premium</label>
+                <input type="text" class="form-control w-100" formControlName="firePremium" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.firePremium" inputName="Estimated Premium"></app-validation-error>
+            </div>
+        </div>
+        <div>
+            <div class="form-group col-12 field">
+                <h5>Fire & Theft</h5>            
+                <label class="required">Limit of Insurance</label>
+                <input type="text" class="form-control w-100" formControlName="fireTheftLimitOfInsurance" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.fireTheftLimitOfInsurance" inputName="Limit of Insurance"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Deductible</label>
+                <input type="text" class="form-control w-100" formControlName="fireTheftDeductible" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.fireTheftDeductible" inputName="Deductible"></app-validation-error>
+            </div>
+            <div class="form-group col-12 field">
+                <label class="required">Estimated Premium</label>
+                <input type="text" class="form-control w-100" formControlName="fireTheftPremium" currencyMask [options]="formsData.currencySettings" maxlength="8"/>
+                <app-validation-error [control]="f.fireTheftPremium" inputName="Estimated Premium"></app-validation-error>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="formsData.trailerInterchangeForm.invalid" type="button" class="btn btn-primary"
+        (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+</div>

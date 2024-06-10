@@ -1,0 +1,45 @@
+<div class="modal-header sticky-modal-header">
+    <h4 class="modal-title">{{modalTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container-fluid field" [formGroup]="subsidiaryForm">
+        <div class="row">
+            <div class="col-md-12">
+                <label class="required">Company Name</label>
+                <input type="text" id='name' maxlength="100" formControlName="name"/>
+                <app-validation-error [control]="f.name" [inputName]="'Company Name'"></app-validation-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="required">Type of Company</label>
+                <select id='typeOfBusinessId' formControlName="typeOfBusinessId">
+                    <option [ngValue]="null">Please Select</option>
+                    <option *ngFor="let option of businessTypeList | orderBy: 'label'" [value]="option.value">{{option.label}}</option>
+                </select>
+                <app-validation-error [control]="f.typeOfBusinessId" [inputName]="'Type of Company'"></app-validation-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="required">Number of Vehicles</label>
+                <input type="text" id='numVechSizeComp' numberOnly maxlength="9" formControlName="numVechSizeComp"/>
+                <app-validation-error [control]="f.numVechSizeComp" [inputName]="'Number of Vehicles'"></app-validation-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="required">Relationship</label>
+                <input type="text" id='relationship' maxlength="100" formControlName="relationship"/>
+                <app-validation-error [control]="f.relationship" [inputName]="'Relationship'"></app-validation-error>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer" >
+    <button [disabled]="subsidiaryForm.invalid" type="button" class="btn btn-primary" (click)="saveSubsidiary()">{{modalButton}}</button>
+    <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Cancel</button> 
+</div>

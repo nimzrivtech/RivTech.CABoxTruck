@@ -1,0 +1,787 @@
+<!-- <form [formGroup]="quoteLimitsData.quoteLimitsForm.limitsForm"> -->
+<form *ngIf="quoteOptionsForm != null" [formGroup]="quoteOptionsForm" >
+    <div class="col-md-12 row table-responsive dynamic-table">
+        <table class="table" [style.width.%]="99.9">
+            <thead formArrayName="optionItems">
+                <tr>
+                    <td scope="col" class="no-border no-border-top"></td>
+                    <td scope="col" class="no-border no-border-top"
+                        *ngFor="let fgOption of optionsArray.controls; let i = index">
+                        <input *ngIf="i < maxArray" type="button" class="btn btn-primary mr-2" value="Copy"
+                            (click)="copyOption(fgOption)" [disabled]="this.quoteLimitsData.has4RiskCoverages || this.submissionData?.isIssued">
+                        <input *ngIf="i > 0" type="button" class="btn btn-primary" value="Delete"
+                            [disabled]="this.raterApiData.disableDeletePremium || this.submissionData?.isIssued" (click)="deleteOption(fgOption)">
+                    </td>
+                </tr>
+            </thead>
+
+            <thead formArrayName="optionItems" class="text-left">
+                <tr>
+                    <th scope="col">Auto Liability Coverages </th>
+                    <th scope="col" style="min-width: 150px;" class="wd-25"
+                        *ngFor="let fgOption of optionsArray.controls; let i = index">Option {{fgOption.value.optionNumber}}</th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr formArrayName="optionItems" >
+                    <td scope="col"> Auto Liability <span class="required"></span></td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="autoBILimitId" class="form-control"
+                                [attr.disabled]="i == 0 || null" (change)="changeAL(true, i)"
+                                [attr.title]="setTooltip(fgOption.value.autoBILimitId, quoteLimitsData.biLimitList)">
+                                <option [ngValue]="null">Please Select </option>
+                                <option *ngFor="let option of quoteLimitsData.biLimitList" [value]="option.value">
+                                    {{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation"
+                                [ngTemplateOutletContext]="{form: fgOption.controls.autoBILimitId,label: 'Auto Liability', field: i}">
+                            </ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems" *ngIf="this.showPropertyDamageField">
+                    <td scope="col"> Property Damage <span class="required"></span></td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+<!-- 
+                            <select *ngIf="!quoteLimitsData.pdView[field]" class="readonly" disabled></select>
+                            <select *ngIf="quoteLimitsData.pdView[field]" [formControlName]="field" class="form-control" [attr.disabled]="field == 0 || null"
+ -->
+                            <select *ngIf="fgOption.controls['autoPDLimitId'].disabled" class="readonly" disabled></select>
+                            <select *ngIf="fgOption.controls['autoPDLimitId'].enabled" formControlName="autoPDLimitId" class="form-control" [attr.disabled]="i == 0 || null"
+                            [attr.title]="setTooltip(fgOption.value.autoPDLimitId, quoteLimitsData.pdLimitList)" >
+                                <option [ngValue]="null">Please Select </option>
+                                <option *ngFor="let option of quoteLimitsData.pdLimitList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <div *ngIf="fgOption.controls.autoPDLimitId.touched && fgOption.controls.autoPDLimitId.errors" class="invalid-feedback">
+                                <div *ngIf="f.autoPDLimitId.errors?.req1 && field == 0 && !f.autoBILimitId.errors?.req1">Property Damage is required</div>
+                                <div *ngIf="f.autoPDLimitId.errors?.req2 && field == 1 && !f.autoBILimitId.errors?.req2">Property Damage is required</div>
+                                <div *ngIf="f.autoPDLimitId.errors?.req3 && field == 2 && !f.autoBILimitId.errors?.req3">Property Damage is required</div>
+                                <div *ngIf="f.autoPDLimitId.errors?.req4 && field == 3 && !f.autoBILimitId.errors?.req4">Property Damage is required</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> AL Symbols <span class="required"></span></td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="alSymbolId" class="form-control" [attr.disabled]="i == 0 || null"
+                            (change)="changeAL(false, i)" [attr.title]="setTooltip(fgOption.value.alSymbolId, quoteLimitsData.alSymbolList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.alSymbolList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.alSymbolId,label: 'AL Symbols', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Uninsured Motorist - BI <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select *ngIf="quoteLimitsData.umBiLimitList == null || quoteLimitsData.umBiLimitList?.length == 0 || null" class="readonly" disabled>
+                                <option>NONE</option>
+                            </select>
+                            <select formControlName="umbiLimitId" class="form-control" [attr.disabled]="i == 0 || null" *ngIf="quoteLimitsData.umBiLimitList?.length > 0"
+                                [attr.title]="setTooltip(fgOption.value.umbiLimitId, quoteLimitsData.umBiLimitList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.umBiLimitList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.umbiLimitId,label: 'Uninsured Motorist - BI', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Uninsured Motorist - PD <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select *ngIf="quoteLimitsData.umPdLimitList == null || quoteLimitsData.umPdLimitList?.length == 0 || null" class="readonly" disabled>
+                                <option>NONE</option>
+                            </select>
+                            <select formControlName="umpdLimitId" class="form-control" [attr.disabled]="i == 0 || null" *ngIf="quoteLimitsData.umPdLimitList?.length > 0"
+                                [attr.title]="setTooltip(fgOption.value.umpdLimitId, quoteLimitsData.umPdLimitList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.umPdLimitList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.umpdLimitId,label: 'Uninsured Motorist - PD', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Underinsured Motorist - BI <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select *ngIf="quoteLimitsData.uimBiLimitList == null || quoteLimitsData.uimBiLimitList?.length == 0 || null" class="readonly" disabled>
+                                <option>NONE</option>
+                            </select>
+                            <select formControlName="uimbiLimitId" class="form-control" [attr.disabled]="i == 0 || null" *ngIf="quoteLimitsData.uimBiLimitList?.length > 0"
+                                [attr.title]="setTooltip(fgOption.value.uimbiLimitId, quoteLimitsData.uimBiLimitList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.uimBiLimitList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.uimbiLimitId,label: 'Underinsured Motorist - BI', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Underinsured Motorist - PD <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select *ngIf="quoteLimitsData.disabledField('uimpdLimits') || quoteLimitsData.uimPdLimitList == null || quoteLimitsData.uimPdLimitList?.length == 0 || null" 
+                            class="readonly" disabled>
+                                <option>NONE</option>
+                            </select>
+                            <!-- <select *ngIf="quoteLimitsData.cityState == 'CA' || quoteLimitsData.cityState == 'TX'" class="form-control" [attr.disabled]="i == 0 || null">
+                                <option *ngFor="let option of quoteLimitsData.uimPdLimitList" [value]="option.value">{{option.label}}</option>
+                            </select>     -->
+                            <select formControlName="uimpdLimitId" class="form-control" [attr.disabled]="i == 0 || null" 
+                            *ngIf="quoteLimitsData.uimPdLimitList?.length > 0 && !quoteLimitsData.disabledField('uimpdLimits')"
+                                [attr.title]="setTooltip(fgOption.value.uimpdLimitId, quoteLimitsData.uimPdLimitList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.uimPdLimitList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.uimpdLimitId,label: 'Underinsured Motorist - PD', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Medical Payments <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select *ngIf="quoteLimitsData.disabledField('medPayLimits')" class="readonly" disabled>
+                                <option value="110">NONE</option>
+                            </select>
+                            <select formControlName="medPayLimitId" class="form-control" [attr.disabled]="i == 0 || null" *ngIf="quoteLimitsData.medpayList?.length > 0 && !quoteLimitsData.disabledField('medPayLimits')"
+                                [attr.title]="setTooltip(fgOption.value.medPayLimitId, quoteLimitsData.medpayList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.medpayList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.medPayLimitId,label: 'Medical Payments', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Personal Injury Protection (PIP) <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select *ngIf="quoteLimitsData.disabledField('pipLimits') || quoteLimitsData.pipList == null || quoteLimitsData.pipList?.length == 0 || null" class="readonly" disabled>
+                                <option>NONE</option>
+                            </select>
+                            <!-- <select *ngIf="quoteLimitsData.cityState == 'CA'" class="form-control" [attr.disabled]="i == 0 || null">
+                                <option *ngFor="let option of quoteLimitsData.pipList" [value]="option.value">{{option.label}}</option>
+                            </select>     -->
+                            <select *ngIf="quoteLimitsData.cityState == 'NJ'" class="readonly" disabled>
+                                <option *ngFor="let option of limitsData.pipList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <select formControlName="pipLimitId" class="form-control" [attr.disabled]="i == 0 || null" 
+                            *ngIf="quoteLimitsData.pipList?.length > 0 && !quoteLimitsData.disabledField('pipLimits') &&
+                            quoteLimitsData.cityState != 'NJ'"
+                                [attr.title]="setTooltip(fgOption.value.pipLimitId, quoteLimitsData.pipList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.pipList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.pipLimitId,label: 'Personal Injury Protection (PIP)', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Liability Deductible <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="liabilityDeductibleId" class="form-control" [attr.disabled]="i == 0 || null"
+                            [attr.title]="setTooltip(fgOption.value.liabilityDeductibleId, quoteLimitsData.liabDeductibleList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.liabDeductibleList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.liabilityDeductibleId,label: 'Liability Deductible', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+
+            <thead class="text-left">
+                <tr>
+                    <th scope="col" >Physical Damage </th>
+                    <th scope="col" class="wd-25" *ngFor="let opt of optionsArray.controls; let i = index"></th>
+                </tr>
+                <tr formArrayName="optionItems" >
+                    <th scope="col"></th>
+                    <th scope="col" class="wd-25" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div *ngIf="i > 0" class="radio-group" >
+                            <div class="d-flex justify-content-start">
+                                <div class="radio">
+                                    <div class="form-check form-check-inline mr-2">
+                                        <input class="form-check-input"
+                                            [id]="'comprehensive_'.concat(i)"
+                                            formControlName="comprehensiveFire"
+                                            type="radio" [value]="true"  >
+                                        <label class="form-check-label" disabled> Comp </label>
+                                    </div>
+                                </div>
+                                <div class="radio">
+                                    <div class="form-check form-check-inline mr-2">
+                                        <input class="form-check-input"
+                                            [id]="'fire_'.concat(i)"
+                                            formControlName="comprehensiveFire"
+                                            type="radio" [value]="false" >
+                                        <label class="form-check-label" disabled> FT </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr formArrayName="optionItems">
+                    <td  scope="col" >
+                        <div class="radio-group" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                            <div class="d-flex justify-content-start" *ngIf="i==0">
+                                <div class="radio">
+                                    <div class="form-check form-check-inline mr-2">
+                                        <input class="form-check-input"
+                                            [id]="'comprehensive_'.concat(i)"
+                                            formControlName="comprehensiveFire" disabled
+                                            type="radio" [value]="true" >
+                                        <label class="form-check-label radio-label-reset-color" for="comprehensive_0" disabled> Comprehensive </label>
+                                    </div>
+                                </div>
+                                <div class="radio">
+                                    <div class="form-check form-check-inline mr-2">
+                                        <input class="form-check-input"
+                                            [id]="'fire_'.concat(i)"
+                                            formControlName="comprehensiveFire" disabled
+                                            type="radio" [value]="false" >
+                                        <label class="form-check-label radio-label-reset-color" for="fire_0" disabled> Fire / Theft </label>
+                                        &nbsp;<span class="required"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="compFireTheftDeductibleId" class="form-control" [attr.disabled]="i == 0 || null"
+                            [attr.title]="setTooltip(fgOption.value.compFireTheftDeductibleId, quoteLimitsData.ComprehensiveList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.ComprehensiveList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.compFireTheftDeductibleId,label: 'Comprehensive or Fire/Theft', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col">Collision <span class="required"></span></td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="collDeductibleId" class="form-control" [attr.disabled]="i == 0 || null"
+                            [attr.title]="setTooltip(fgOption.value.collDeductibleId, quoteLimitsData.CollisionList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.CollisionList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.collDeductibleId,label: 'Collision', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+
+            <thead class="text-left">
+                <tr>
+                    <th scope="col">Other Coverages</th>
+                    <th scope="col" class="wd-25" *ngFor="let fgOption of optionsArray.controls; let i = index"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> General Liability - Bodily Injury <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="glbiLimitId" class="form-control" [attr.disabled]="i == 0 || null"
+                            [attr.title]="setTooltip(fgOption.value.glbiLimitId, quoteLimitsData.glList)" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.glList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.glbiLimitId,label: 'General Liability - Bodily Injury', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Cargo <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="cargoLimitId" class="form-control" 
+                            [attr.disabled]="i == 0 || optionsArray.controls[0].value.cargoLimitId == 53 || null"
+                            [attr.title]="setTooltip(fgOption.value.cargoLimitId, quoteLimitsData.cargoList)"
+                            (change)="cargoChanged(fgOption)">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.cargoList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.cargoLimitId,label: 'Cargo', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Refrigeration Breakdown <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="refCargoLimitId" class="form-control" 
+                            [attr.disabled]="i == 0 || optionsArray.controls[0].value.refCargoLimitId == 157 || fgOption.value.cargoLimitId == 53 || null"
+                            [attr.title]="fgOption.value.cargoLimitId" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.refBreakList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.refCargoLimitId,label: 'Refrigeration Breakdown', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="quoteLimitsData.raterVersionSupport()" formArrayName="optionItems">
+                    <td scope="col"> Trailer Interchange <span *ngIf="quoteLimitsData.raterVersionSupport()" class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="trailerInterchangeLimitId" class="form-control" [attr.disabled]="i == 0 || null"
+                            [attr.title]="fgOption.value.trailerInterchangeLimitId" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.trailerInterchangeList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.trailerInterchangeLimitId,label: 'Trailer Interchange', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="quoteLimitsData.raterVersionSupport()" formArrayName="optionItems">
+                    <td scope="col"> Non-Owned Trailer <span *ngIf="quoteLimitsData.raterVersionSupport()" class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="nonOwnedTrailerLimitId" class="form-control" [attr.disabled]="i == 0 || null"      
+                            [attr.title]="fgOption.value.nonOwnedTrailerLimitId" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.nonOwnedTrailerList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.nonOwnedTrailerLimitId,label: 'Non-Owned Trailer', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="quoteLimitsData.raterVersionSupport()" formArrayName="optionItems">
+                    <td scope="col"> Pollution Coverage <span *ngIf="quoteLimitsData.raterVersionSupport()" class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <select formControlName="pollutionCovLimitId" class="form-control" [attr.disabled]="i == 0 || null"
+                            [attr.title]="fgOption.value.pollutionCovLimitId" >
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of quoteLimitsData.pollutionCovList" [value]="option.value">{{option.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.pollutionCovLimitId,label: 'Pollution Coverage', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+
+            <thead class="text-left">
+                <tr>
+                    <th scope="col" >Miscellaneous</th>
+                    <th scope="col" class="wd-25" *ngFor="let fgOption of optionsArray.controls; let i = index"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Broker Commission - AL <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="brokerCommisionAL" maxlength="5" mask="percent" suffix="%" [dropSpecialCharacters]="false" pattern="^\d*(\.\d{0,1})?$" >
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.brokerCommisionAL,label: 'Broker Commission - AL', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Broker Commission - PD <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="brokerCommisionPD" maxlength="5" mask="percent" suffix="%" [dropSpecialCharacters]="false" pattern="^\d*(\.\d{0,1})?$" >
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.brokerCommisionPD,label: 'Broker Commission - PD', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead class="text-left">
+                <tr>
+                    <th scope="col" >Factor Mods</th>
+                    <th scope="col" class="wd-25" *ngFor="let fgOption of optionsArray.controls; let i = index"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Liability Schedule RF </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" [attr.disabled]="i == 0 || null" formControlName="liabilityScheduleRatingFactor"  currencyMask [options]="this.quoteLimitsData.factorModsSettings" (focusout)="onLiabilityScheduleRFChange($event, i)" />
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Liability Experience RF </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" [attr.disabled]="i == 0 || null" formControlName="liabilityExperienceRatingFactor"  currencyMask [options]="this.quoteLimitsData.factorModsSettings" (focusout)="onLiabilityExperienceRFChange($event, i)" />
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> GL Schedule RF <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="glScheduleRF" currencyMask [options]="this.quoteLimitsData.factorModsSettings" >
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.glScheduleRF,label: 'GL Schedule RF', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> GL Experience RF <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="glExperienceRF" currencyMask [options]="this.quoteLimitsData.factorModsSettings">
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.glExperienceRF,label: 'GL Experience RF', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Cargo Schedule RF <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="cargoScheduleRF" currencyMask [options]="this.quoteLimitsData.factorModsSettings">
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.cargoScheduleRF,label: 'Cargo Schedule RF', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Cargo Experience RF <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="cargoExperienceRF" currencyMask [options]="this.quoteLimitsData.factorModsSettings">
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.cargoExperienceRF,label: 'Cargo Experience RF', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> APD Schedule RF <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="apdScheduleRF" currencyMask [options]="this.quoteLimitsData.factorModsSettings">
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.apdScheduleRF,label: 'APD Schedule RF', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> APD Experience RF <span class="required"></span> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="apdExperienceRF" currencyMask [options]="this.quoteLimitsData.factorModsSettings">
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.apdExperienceRF,label: 'APD Experience RF', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead>
+                <tr>
+                    <td class="no-border"></td>
+                    <td class="no-border" *ngFor="let fgOption of optionsArray.controls; let i = index">
+                        <!-- <input type="button" class="btn btn-primary text-nowrap" value="Price"
+                        triggers="pointerenter:pointerout"
+                        [attr.title]="(!this.quoteLimitsData.validateRequiredToRateModules() ? this.raterApiData.showRequiredtoRateToolTip : '').length > 0 ?
+                                        (!this.quoteLimitsData.validateRequiredToRateModules() ? this.raterApiData.showRequiredtoRateToolTip : '') :
+                                        this.raterApiData.showPremiumToolTipPreload"
+                        (click)="computePrice(fgOption)"
+                        [disabled]="this.raterApiData.disableCalculatePremium  || !this.quoteLimitsData.validateRequiredToRateModules()"
+                        > -->
+                    </td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td class="no-border no-border-bot no-border-top"></td>
+                    <td class="no-border no-border-bot no-border-top" *ngFor="let fgOption of optionsArray.controls; let i = index"></td>
+                </tr>
+            </thead>
+
+            <thead class="no-border">
+                <h4>Premium & Fees</h4>
+            </thead>
+
+            <thead class="text-left">
+                <tr>
+                    <th scope="col" >Premiums</th>
+                    <th scope="col" class="wd-25" *ngFor="let fgOption of optionsArray.controls; let i = index">Option {{i + 1}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Auto Liability </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="autoLiabilityPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Cargo </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="cargoPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col" > Physical Damage </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="physicalDamagePremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> <strong>Vehicle Level Premium</strong> </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="vehicleLevelPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Average Per Vehicle </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="avgPerVehicle" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> General Liability </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="generalLiabilityPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="quoteLimitsData.raterVersionSupport()" formArrayName="optionItems">
+                    <td scope="col"> Trailer Interchange </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="trailerInterchangePremiumAL" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="quoteLimitsData.raterVersionSupport()" formArrayName="optionItems">
+                    <td scope="col"> Non-Owned Trailer </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="nonOwnedTrailerPremium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Additional Insured </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="additionalInsuredPremium" currencyMask [options]="this.quoteLimitsData.feesCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Waiver of Subrogation </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="waiverOfSubrogationPremium" currencyMask [options]="this.quoteLimitsData.feesCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Primary & Non Contributory </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" >
+                            <input type="text" class="form-control readonly" readonly formControlName="primaryNonContributoryPremium" currencyMask [options]="this.quoteLimitsData.feesCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead class="text-left">
+                <tr>
+                    <th scope="col" > Fees & Payment </th>
+                    <th scope="col" class="wd-25" *ngFor="let fgOption of optionsArray.controls; let i = index"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Service Fee - AL </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="riskMgrFeeAL" currencyMask [options]="this.quoteLimitsData.feesCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Service Fee - PD </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="riskMgrFeePD" currencyMask [options]="this.quoteLimitsData.feesCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+
+            <thead class="text-left">
+                <tr>
+                    <th scope="col" > Policy Totals </th>
+                    <th scope="col" class="wd-25" *ngFor="let fgOption of optionsArray.controls; let i = index"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Premium  </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="premium" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Fees  </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="fees" currencyMask [options]="this.quoteLimitsData.feesCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Taxes & Stamping fee </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="taxesAndStampingFees" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Total Amount Due (Full Pay) </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="totalAmounDueFull" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead class="text-left">
+                <tr>
+                    <th scope="col" > Installment Options </th>
+                    <th scope="col" class="wd-25" *ngFor="let fgOption of optionsArray.controls; let i = index"></th>
+                </tr>
+            </thead>
+            <tbody>
+               <tr formArrayName="optionItems">
+                    <td scope="col"> Deposit % </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="depositPct" maxlength="5" mask="percent.1" suffix="%" [dropSpecialCharacters]="false"  [validation]="false"
+                                (blur)="depositPercentageChanged(fgOption)" [readonly]="disableFieldsByPaymentPlan(i)"
+                                (keyup)="onDepositPercentageKeyup(fgOption)" >
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: fgOption.controls.depositPct,label: 'Deposit %', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Deposit Premium </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control" formControlName="depositPremium" currencyMask [options]="currencySettings" maxlength="10" 
+                                (blur)="depositPremiumChanged(fgOption)" [readonly]="disableFieldsByPaymentPlan(i)"
+                                (keyup)="onDepositPremiumKeyup(fgOption)"
+                                >
+
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: f.depositPremium,label: 'Deposit Premium', field: i}"></ng-container>
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col">Total Deposit Amount </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="depositAmount" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Number of Installments </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field" *ngIf="showInstallmentDropdown(fgOption)">
+                            <select class="form-control numberOfInstallment_{{i}}" formControlName="numberOfInstallments" (change)="numberOfInstallmentChanged(fgOption)">
+                                <option *ngFor="let item of quoteLimitsData.installmentCountList" [value]="item.value">{{item.label}}</option>
+                            </select>
+                            <ng-container [ngTemplateOutlet]="validation" [ngTemplateOutletContext]="{form: f.numberOfInstallments,label: 'Number of Installments', field: field}"></ng-container>
+                        </div>
+                        <div class="field" *ngIf="!showInstallmentDropdown(fgOption)">
+                            <input type="text" class="form-control readonly" readonly value="0" >
+                        </div>
+                    </td>
+                </tr>
+
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Installment Fee  </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="installmentFee" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Per Installment  </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="perInstallment" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr formArrayName="optionItems">
+                    <td scope="col"> Total Amount Due (Installments) </td>
+                    <td scope="col" *ngFor="let fgOption of optionsArray.controls; let i = index" [formGroupName]="i">
+                        <div class="field">
+                            <input type="text" class="form-control readonly" readonly formControlName="totalAmountDueInstallment" currencyMask [options]="this.quoteLimitsData.premiumCurrencySettings" >
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<ng-template #validation let-form="form" let-label="label" let-field="field">
+    <div *ngIf="form.errors" class="invalid-feedback">
+        <div *ngIf="(form.errors?.req1 || form.errors?.min) && field == 0">{{label}} is required</div>
+        <div *ngIf="(form.errors?.req2 || form.errors?.min) && field == 1">{{label}} is required</div>
+        <div *ngIf="(form.errors?.req3 || form.errors?.min) && field == 2">{{label}} is required</div>
+        <div *ngIf="(form.errors?.req4 || form.errors?.min) && field == 3">{{label}} is required</div>
+    </div>
+</ng-template>

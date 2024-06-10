@@ -1,0 +1,48 @@
+<div class="card field">
+    <div class="card-header">
+      <i class="icon-arrow-down icons header-icon" (click)="toggleFlatCommission()" *ngIf="isFlatHidden"></i>
+      <i class="icon-arrow-up icons header-icon" (click)="toggleFlatCommission()" *ngIf="!isFlatHidden"></i>
+      <b>Flat Commission</b>
+    </div>
+    <div class="card-body show" *ngIf="!isFlatHidden">
+      <app-custom-table>
+        <thead class="custom-table-header">
+            <th class="headers" *ngFor="let header of flatCommissionHeader">{{header}}</th>
+            <th class="headers text-center">
+              Actions
+              <div>
+                  <button type="button" class="btn btn-primary mx-1" [tooltip]="TableConstants.add"
+                    data-placement="top" (click)="addFlatCommission()"><i class="icon-plus"></i></button>
+              </div>
+            </th>
+        </thead>
+        <tbody class="custom-table-body">
+            <tr class="noresultfound" *ngIf="flatCommissionList.length === 0">
+                <td colspan="5" *ngIf="isLoading"><div class="spinner-border text-secondary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div></td>
+                <td colspan="5" *ngIf="!isLoading"> {{ genericLabel.noResultsFound }}</td>
+            </tr>
+            <ng-container *ngFor="let item of flatCommissionList">
+                <tr *ngIf="filter(item)">
+                    <td>{{item.nbCommissionPercent}}%</td>
+                    <td>{{item.rnCommissionPercent}}%</td>
+                    <td>{{item.effectiveDate | date: 'MM/dd/yyyy'}}</td>
+                    <td>{{item.expirationDate | date: 'MM/dd/yyyy'}}</td>
+                    <!-- <td>{{item.isActive ? 'Active' : 'Inactive'}}</td> -->
+                    <td><div class="control-icons text-center">
+                      <button type="button" [tooltip]="TableConstants.edit" (click)="editFlatCommission(item)">
+                        <i class="icon-note"
+                          readonly></i>
+                      </button>
+                      <button type="button" [tooltip]="TableConstants.delete" (click)="deleteFlatCommission(item)">
+                        <i class="icon-trash"
+                          readonly></i>
+                      </button>
+                    </div></td>
+                </tr>
+            </ng-container>
+        </tbody>
+      </app-custom-table>
+    </div>
+  </div>

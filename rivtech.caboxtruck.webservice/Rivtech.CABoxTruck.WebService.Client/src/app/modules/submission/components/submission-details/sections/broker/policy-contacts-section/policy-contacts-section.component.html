@@ -1,0 +1,64 @@
+<div class="card sticky-body">
+  <div class="card-header">
+    <i class="icons header-icon" [ngClass]="hideMe ? 'icon-arrow-down': 'icon-arrow-up'" data-toggle="collapse"
+      href="#policyContactCard" (click)="ToggleHiding()"></i>
+    <strong>Policy Contacts</strong>
+  </div>
+  <div id="policyContactCard" class="show mt-3">
+    <div class="card-body">
+      <div class="col">
+        <h4>Contacts</h4>
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div class="table-responsive dynamic-table" [style.padding-top.px]="0" [style.padding-bottom.px]="0">
+          <table class="table mb-2" style="width:100%;" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" #tbVehicle>
+            <thead>
+              <tr>
+                <th (click)="policyContactsData.sortPolicyContacts($event.target)" data-order="desc" data-name="type">Type</th>
+                <th (click)="policyContactsData.sortPolicyContacts($event.target)" data-order="desc" data-name="name">Name</th>
+                <th (click)="policyContactsData.sortPolicyContacts($event.target)" data-order="desc" data-name="email">Email</th>
+                <th (click)="policyContactsData.sortPolicyContacts($event.target)" data-order="desc" data-name="phone">Phone</th>
+                <th (click)="policyContactsData.sortPolicyContacts($event.target)" data-order="desc" data-name="address">Address</th>
+                <th style="text-align: center;padding:5px;">Actions<br />
+                  <button type="button" class="btn btn-primary mx-2" [disabled]="this.submissionData?.isIssued || contacts.length >= 5" data-placement="top" (click)='addPolicyContact()' [tooltip]="TableConstants.add">
+                    <i class="icon-plus"></i>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let contacts of this.policyContactsData.pagedItems" [ngTemplateOutlet]="contactsRow"
+                [ngTemplateOutletContext]="{contacts : contacts, index: i}"></ng-container>
+            </tbody>
+          </table>
+          <div *ngIf="(this.submissionData?.isQuoteIssued || this.submissionData?.isIssued) && !hasBillingContact">
+            <div class="text-center col-lg-12 no-data-message-red">
+              <span>Billing Contact is required</span>
+            </div>
+          </div>
+          <div *ngIf="contacts.length < 1 && !(this.submissionData?.isQuoteIssued || this.submissionData?.isIssued)">
+            <div class="text-center col-lg-12 no-data-message">
+              <span>No Data To Display</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-table-pagination (setPage)="this.policyContactsData.setPage($event, this.policyContactsData.policyContacts)" [pager]="this.policyContactsData.pager" [loading]="this.policyContactsData.loading"></app-table-pagination>
+    </div>
+  </div>
+</div>
+<ng-template #contactsRow let-contacts="contacts">
+  <tr>
+    <td><span >{{ contacts.type }}</span></td>
+    <td><span >{{ contacts.firstName }} {{ contacts.lastName }}</span></td>
+    <td><span >{{ contacts.email }}</span></td>
+    <!-- <td><span >{{contacts.phone | slice: 0:3}} {{contacts.phone | slice: 3:6}}-{{contacts.phone | slice: 6:10}}</span></td> -->
+    <td><span >{{ contacts.phone | mask: '(000) 000-0000' }}</span></td>
+    <td><span >{{ contacts.address }}, {{ contacts.city }}, {{ contacts.state }}, {{ contacts.zipCode }}</span></td>
+    <td>
+      <div class="table-button-fixed d-flex justify-content-end">
+        <i class="icon-note" (click)="editPolicyContact(contacts)" [tooltip]="TableConstants.edit"></i>
+        <i class="icon-trash" (click)="deletePolicyContact(contacts)" [tooltip]="TableConstants.delete"></i>
+      </div>
+    </td>
+  </tr>
+</ng-template>

@@ -1,0 +1,1468 @@
+2023-12-11 14:52:32,043 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-12-11 14:52:36,165 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 14:52:36,181 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 14:52:41,656 [1] FATAL Microsoft.AspNetCore.Hosting.Diagnostics [(null)] - Application startup exception
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'dbo.GenerateBrokerCommission'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQuery(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at RivTech.CABoxTruck.WebService.Web.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, AppDbContext appDbContext, AppDbExternalContext appDbExternalContext, ILogger`1 logger) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Startup.cs:line 273
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISServerSetupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+ClientConnectionId:f6a11e39-fa50-4df7-8e9c-4aba10c36e99
+Error Number:208,State:6,Class:16
+2023-12-11 14:52:41,659 [1] FATAL Microsoft.AspNetCore.Hosting.Diagnostics [(null)] - Application startup exception
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'dbo.GenerateBrokerCommission'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQuery(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at RivTech.CABoxTruck.WebService.Web.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, AppDbContext appDbContext, AppDbExternalContext appDbExternalContext, ILogger`1 logger) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Startup.cs:line 273
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISServerSetupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+ClientConnectionId:f6a11e39-fa50-4df7-8e9c-4aba10c36e99
+Error Number:208,State:6,Class:16
+2023-12-11 14:52:41,702 [1] ERROR Microsoft.Extensions.Hosting.Internal.Host [(null)] - BackgroundService failed
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at RivTech.CABoxTruck.WebService.BackgroundServices.EndorsementProcessBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\BackgroundServices\EndorsementProcessBackgroundService.cs:line 56
+   at Microsoft.Extensions.Hosting.Internal.Host.TryExecuteBackgroundServiceAsync(BackgroundService backgroundService)
+2023-12-11 14:52:41,703 [1] ERROR Microsoft.Extensions.Hosting.Internal.Host [(null)] - BackgroundService failed
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at RivTech.CABoxTruck.WebService.BackgroundServices.EndorsementProcessBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\BackgroundServices\EndorsementProcessBackgroundService.cs:line 56
+   at Microsoft.Extensions.Hosting.Internal.Host.TryExecuteBackgroundServiceAsync(BackgroundService backgroundService)
+2023-12-11 14:52:41,707 [1] FATAL Microsoft.Extensions.Hosting.Internal.Host [(null)] - The HostOptions.BackgroundServiceExceptionBehavior is configured to StopHost. A BackgroundService has thrown an unhandled exception, and the IHost instance is stopping. To avoid this behavior, configure this to Ignore; however the BackgroundService will not be restarted.
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at RivTech.CABoxTruck.WebService.BackgroundServices.EndorsementProcessBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\BackgroundServices\EndorsementProcessBackgroundService.cs:line 56
+   at Microsoft.Extensions.Hosting.Internal.Host.TryExecuteBackgroundServiceAsync(BackgroundService backgroundService)
+2023-12-11 14:52:41,708 [1] FATAL Microsoft.Extensions.Hosting.Internal.Host [(null)] - The HostOptions.BackgroundServiceExceptionBehavior is configured to StopHost. A BackgroundService has thrown an unhandled exception, and the IHost instance is stopping. To avoid this behavior, configure this to Ignore; however the BackgroundService will not be restarted.
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at RivTech.CABoxTruck.WebService.BackgroundServices.EndorsementProcessBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\BackgroundServices\EndorsementProcessBackgroundService.cs:line 56
+   at Microsoft.Extensions.Hosting.Internal.Host.TryExecuteBackgroundServiceAsync(BackgroundService backgroundService)
+2023-12-11 14:52:41,711 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application is shutting down...
+2023-12-11 14:52:41,712 [1] INFO  Microsoft.Hosting.Lifetime [(null)] - Application is shutting down...
+2023-12-11 14:52:57,591 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-12-11 14:53:01,530 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 14:53:01,549 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 14:54:09,077 [1] FATAL Microsoft.AspNetCore.Hosting.Diagnostics [(null)] - Application startup exception
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'dbo.GenerateBrokerCommission'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQuery(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at RivTech.CABoxTruck.WebService.Web.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, AppDbContext appDbContext, AppDbExternalContext appDbExternalContext, ILogger`1 logger) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Startup.cs:line 273
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISServerSetupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+ClientConnectionId:4737c555-498f-430a-9506-0edce58fb9a8
+Error Number:208,State:6,Class:16
+2023-12-11 14:54:09,080 [1] FATAL Microsoft.AspNetCore.Hosting.Diagnostics [(null)] - Application startup exception
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'dbo.GenerateBrokerCommission'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQuery(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at RivTech.CABoxTruck.WebService.Web.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, AppDbContext appDbContext, AppDbExternalContext appDbExternalContext, ILogger`1 logger) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Startup.cs:line 273
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISServerSetupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+ClientConnectionId:4737c555-498f-430a-9506-0edce58fb9a8
+Error Number:208,State:6,Class:16
+2023-12-11 14:55:44,345 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-12-11 14:55:48,137 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 14:55:48,158 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 14:58:59,013 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-12-11 14:59:02,788 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 14:59:02,809 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 14:59:34,763 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-12-11 14:59:38,523 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 14:59:38,541 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 15:01:12,817 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 15:01:34,448 [1] INFO  RivTech.CABoxTruck.WebService.Web.Program [(null)] - Starting Database Migration for AppDbContext.
+2023-12-11 15:01:38,531 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 15:01:38,548 [1] ERROR Microsoft.EntityFrameworkCore.Database.Command [(null)] - Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+
+            ALTER   PROCEDURE [dbo].[GenerateBrokerCommission]
+
+				@fromDate datetime = NULL,
+				@toDate datetime = NULL,
+				@sql nvarchar(max) = null
+			AS
+			BEGIN
+
+			SET NOCOUNT ON;
+
+			set @sql = 
+			'
+				select 
+					rpd.Id,
+					rpd.PolicyNumber,
+					rpd.Broker,
+					rpd.CompanyName,
+					rpd.CheckNumber,
+					rpd.VoidDate,
+					rpd.PaymentDate,
+					rpd.BrokerCommisionAL,
+					rpd.BrokerCommisionPD,
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) as PaymentAmount,
+					ISNULL(commalcommision.Amount, 0) as CommisionALAmount,
+					ISNULL(commpdcommision.Amount, 0) as CommisionPDAmount,
+					ISNULL(commarscommision.Amount,0) as CommissionARS,
+					rpd.PercentageARS
+				from
+					(select rr.*
+						from
+						(
+							select 
+								r.Id, 
+								p.Id as PaymentId,
+								r.PolicyNumber,
+								ae.CompanyName as Broker,
+								ie.CompanyName,
+								p.Reference as CheckNumber,
+								p.Amount as PaymentAmount,
+								p.VoidDate,
+								p.CreatedDate as PaymentDate,
+								rc.BrokerCommisionAL,
+								rc.BrokerCommisionPD,
+								rc.ARSCommission as PercentageARS
+							from Billing_Payment p
+							left join Risk r on r.Id = p.RiskId
+							left join Binding b on r.Id = b.RiskId
+							left join BrokerInfo bi on bi.RiskId = p.RiskId
+							left join RiskDetail rd on rd.RiskId = r.Id
+										AND rd.Id =
+										(
+											SELECT top 1 z.Id
+											FROM RiskDetail z 
+											WHERE z.RiskId = r.Id ORDER BY z.UpdatedDate DESC
+										)
+							left join Insured i on rd.InsuredId = i.Id
+							left join Entity ie on i.EntityId = ie.Id
+							left join Agency_Agency agency on agency.Id = bi.AgencyId
+							left join Agency_Entity ae on ae.Id = agency.EntityId
+							left join RiskCoverage rc on rd.Id = rc.RiskDetailId and rc.OptionNumber = b.BindOptionId
+							where b.PaymentTypesId != 3
+						) rr
+					) rpd
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''ALP''
+						group by pdp.PaymentId
+					) paymentpremiumAL on paymentpremiumAL.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetail pdp
+						where pdp.AmountTypeId = ''P'' and pdp.AmountSubTypeId = ''PDP''
+						group by pdp.PaymentId
+					) paymentpremiumPD on paymentpremiumPD.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ALC'')
+						group by pdp.PaymentId
+					) commalcommision on commalcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''PDC'')
+						group by pdp.PaymentId
+					) commpdcommision on commpdcommision.PaymentId = rpd.PaymentId
+					left join (
+						select pdp.PaymentId,SUM(pdp.Amount) as Amount from Billing_PaymentDetailCommission pdp
+						where pdp.AmountTypeId = ''C'' AND (pdp.AmountSubTypeId = ''ARSC'')
+						group by pdp.PaymentId
+					) commarscommision on commarscommision.PaymentId = rpd.PaymentId
+				where PaymentDate >= @fromDate and PaymentDate <= @toDate AND 
+					(ISNULL(paymentpremiumAL.Amount, 0 ) + ISNULL(paymentpremiumPD.Amount, 0)) != 0
+			'
+				
+			SET @sql = REPLACE(@sql, '@fromDate', ISNULL('''' +  CONVERT(VARCHAR(20), @fromDate) + '''', 'NULL'));
+			SET @sql = REPLACE(@sql, '@toDate', ISNULL('''' +  CONVERT(VARCHAR(20), @toDate) + '''', 'NULL'));
+
+			print(@sql)
+				EXEC sp_executesql @sql
+			END
+2023-12-11 15:01:42,067 [1] FATAL Microsoft.AspNetCore.Hosting.Diagnostics [(null)] - Application startup exception
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'dbo.GenerateBrokerCommission'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQuery(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at RivTech.CABoxTruck.WebService.Web.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, AppDbContext appDbContext, AppDbExternalContext appDbExternalContext, ILogger`1 logger) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Startup.cs:line 273
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISServerSetupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+ClientConnectionId:b4187a13-7b62-49f2-98d4-ad3f98681288
+Error Number:208,State:6,Class:16
+2023-12-11 15:01:42,069 [1] FATAL Microsoft.AspNetCore.Hosting.Diagnostics [(null)] - Application startup exception
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'dbo.GenerateBrokerCommission'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQuery(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at RivTech.CABoxTruck.WebService.Web.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, AppDbContext appDbContext, AppDbExternalContext appDbExternalContext, ILogger`1 logger) in C:\RivTech.CABoxTruck\rivtech.caboxtruck.webservice\RivTech.CABoxTruck.WebService.Web\Startup.cs:line 273
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISServerSetupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+ClientConnectionId:b4187a13-7b62-49f2-98d4-ad3f98681288
+Error Number:208,State:6,Class:16

@@ -1,0 +1,50 @@
+﻿using Microsoft.EntityFrameworkCore;
+using RivTech.CABoxTruck.WebService.Data.Context;
+using RivTech.CABoxTruck.WebService.DataProvider.IRepositories;
+using RivTech.CABoxTruck.WebService.DTO;
+using System.Collections.Generic;
+using System.Data;
+using Microsoft.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
+using Dapper;
+
+namespace RivTech.CABoxTruck.WebService.DataProvider.Repositories
+{
+    public class PreBindPaymentRepository : IPreBindPaymentRepository
+    {
+        private readonly AppDbContext _context;
+        public PreBindPaymentRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<PreBindPaymentDTO>> GeneratePreBindPaymentAsync(PreBindPaymentInputDTO data)
+        {
+            using (SqlConnection conn = new SqlConnection(_context.Database.GetDbConnection().ConnectionString))
+            {
+                await conn.OpenAsync();
+                try
+                {
+                    data.ToDate = data.ToDate.Value.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    var param = new DynamicParameters();
+                    param.Add("@fromDate", data.FromDate);
+                    param.Add("@toDate", data.ToDate);
+                    var result = await conn.QueryAsync<PreBindPaymentDTO>("GeneratePreBindPayments @fromDate, @toDate",
+                                                                            param, commandType: CommandType.Text, commandTimeout: 300
+                                                                            );
+
+
+                    return result.ToList();
+                }
+                catch (System.Exception)
+                {
+                    throw;
+                }
+            }
+        }
+        
+    }
+}
+
+

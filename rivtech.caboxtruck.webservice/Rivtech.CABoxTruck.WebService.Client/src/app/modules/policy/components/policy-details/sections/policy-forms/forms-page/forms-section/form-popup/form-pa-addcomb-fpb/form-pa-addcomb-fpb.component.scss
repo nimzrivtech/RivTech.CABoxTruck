@@ -1,0 +1,10 @@
+.field input, .field select {
+    width: 100% !important;
+}
+
+label.checkbox-inline {
+    margin-right: 40px;
+    input {
+      margin-right: 7px;
+    }
+  }

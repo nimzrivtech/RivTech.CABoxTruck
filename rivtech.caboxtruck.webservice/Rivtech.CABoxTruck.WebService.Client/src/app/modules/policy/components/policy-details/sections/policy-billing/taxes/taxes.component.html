@@ -1,0 +1,46 @@
+<div class="card sticky-body">
+  <div class="card-header">
+      <i [ngClass]="isOpen ? 'icon-arrow-up' : 'icon-arrow-down'" class="icons header-icon" data-toggle="collapse"
+        data-target="#taxes-section" aria-expanded="true" aria-controls="taxes-section" (click)="collapse()">
+      </i>
+    <strong>{{taxesConstants.header}}</strong>
+  </div>
+  <div id="taxes-section" class="card-body standard-padding container-fluid show">
+    <div class="row">
+      <div class="col-md-12 row dynamic-table">
+        <table class="table">
+          <thead>
+            <th [appSort]="billingData.taxListPagedItems" data-order="desc" data-name="addDate" data-type="date">
+              {{taxesConstants.addDate}}</th>
+            <th [appSort]="billingData.taxListPagedItems" data-order="desc" data-name="description">
+              {{this.taxesConstants.description}}</th>
+            <th [appSort]="billingData.taxListPagedItems" data-order="desc" data-name="amount">
+              {{this.taxesConstants.amount}}</th>
+            <!--<th [appSort]="billingData.taxListPagedItems" data-order="desc" data-name="voidDate" data-type="date">
+              {{this.taxesConstants.voidDate}}</th>
+             <th></th> -->
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of billingData.taxListPagedItems">
+              <tr>
+                <td>{{item.addDate | date:'MM/dd/yyyy'}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.amount | currency}}</td>
+                <!--<td>{{item.voidDate | date:'MM/dd/yyyy'}}</td>
+                 <td>
+                  <button type="submit" *ngIf="!item.voidDate" class="btn btn-danger btn-sm pull-right mr-2"
+                    (click)="onVoidFee(item.id)">{{taxesConstants.void}}</button>
+                </td> -->
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <div *ngIf="billingData?.taxListPagedItems?.length < 1" class="text-center col-lg-12 no-data-message">
+            <span>No Data To Display</span>
+        </div>
+      </div>
+      <app-table-pagination (setPage)="billingData.taxListSetPage($event)" [pager]="billingData.taxListPager"
+        [loading]="false"></app-table-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,310 @@
+<div [formGroup]="this.Data.formDriverHeader">
+<div class="card sticky-body" >
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('driverHeader', $event)">
+    <app-toggle-collapse toggleName="driverHeader"></app-toggle-collapse>
+     <strong> &nbsp; Driver Rater&nbsp;</strong>
+    </div>
+    <div class="card-body collapse show" id="driverHeader">
+      <!-- fix width of table below contradict to standard-padding class -->
+      <div class="col">
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div style="padding: 1rem 12%;" >
+          <div class="row field">
+            <div class="col-md-4 input-container">
+              <div class="row mb-0">
+                <label class="col-md-9" for="driverRatingTab">Use driver rating tab?</label>
+                <toggle-switch tabindex="-1" class="col-md-2 pl-0" id="driverRatingTab" [formGroup]="this.Data.formDriverHeader" [formName]="'driverinfoGrid'" fieldName="driverRatingTab"  (change)="driverRatingTabSwitch($event.target.checked)"></toggle-switch>
+              </div>
+              <div class="row mb-0 pt-4">
+                <label class="col-md-9" for="accidentInfo">Use accidents/violations info?</label>
+                <toggle-switch tabindex="-1" class="col-md-2 pl-0" id="accidentInfo" [formGroup]="this.Data.formDriverHeader" [formName]="'driverinfoGrid'" fieldName="accidentInfo"  (change)="useAccidentInfoSwitch($event.target.checked)"></toggle-switch>
+              </div>
+            </div>
+            <div class="col-md-4 input-container">
+              <div class="row mb-0">
+                <div>
+                  <label for="applyFilter">Driver List Filter</label>
+                </div>
+                <div style="width: 95%;" class="filterDiv">
+                    <ng-multiselect-dropdown
+                      placeholder="&nbsp;" id="applyFilter" formControlName="applyFilter"
+                      [data]="applyFilterList"
+                      [settings]="DropdownSettingsConstants"
+                      (onFilterChange)="onFilterChange($event)" (onDropDownClose)="onDropDownClose()" 
+                      (onSelect)="onItemSelectDeSelect($event, true)" (onDeSelect)="onItemSelectDeSelect($event, false)"
+                      (onSelectAll)="onDeSelectDeselectAll($event)" (onDeSelectAll)="onDeSelectDeselectAll($event)"
+    
+                      tabindex="-1">
+                    </ng-multiselect-dropdown>
+                    <app-validation-error [control]="fh.applyFilter" [inputName]="'Driver List Filter'"></app-validation-error>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 input-container">
+              <div class="row mb-0">
+                <div>
+                  <label for="accDriverFactor">Account Driver Factor</label>
+                </div>
+                <div style="width: 95%;">
+                  <input id="accDriverFactor" tabindex="-1" type="text" class="form-field__input ml-0 mt-0 w-100" readonly formControlName="accDriverFactor"
+                    currencyMask [options]="{ precision: 3, prefix: '', align: 'left' }"/>
+                </div>
+              </div>
+              <div class="row mb-0 pt-4">
+                <div>
+                  <label for="driverVehicleRatio">Driver/Vehicle</label>
+                </div>
+                <div style="width: 95%;">
+                  <input id="driverVehicleRatio" tabindex="-1" type="text" class="form-field__input ml-0 mt-0 w-100" readonly formControlName="driverVehicleRatio"
+                    currencyMask [options]="{ precision: 3, prefix: '', align: 'left' }" />
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row pt-4 field">
+  
+          </div>
+          <div class="row mb-0" style="margin-top: 20px;">
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="card sticky-body">
+  <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('driverList', $event)">
+    <app-toggle-collapse toggleName="driverList"></app-toggle-collapse>
+     <strong> &nbsp; Driver Information&nbsp;</strong>
+     <span class="badge badge-pill badge-secondary text-white">{{ driverCount }}</span>
+    </div>
+<!-- <div class="card-body container-fluid collapse show field" id="driverList"> -->
+  <div class="card-body collapse show" id="driverList">
+    <div class="col">
+      <div class="row pt-3">
+        <div class="col-md-4" style="padding-top: 15px;">
+          <div class="input-group">
+            <input type="text" id="Search" class="form-control col-md-9" placeholder="Search" #Search formControlName="filter" title="Search First Name, Last Name or Driver's License" (keydown.enter)="searchFilter($event)" >
+            <div class="input-group-append">
+              <button class="btn btn-secondary search-button" type="button" (click)="searchFilter($event)">
+                <i class="fa fa-search customized-blue"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-4">
+          <label for="Search">Search</label>
+          <input type="text" class="form-control col-md-9" id="Search" #Search formControlName="filter" title="Search Firstname, Lastname or Drivers License"  (keydown.enter)="searchFilter($event)" />
+        </div> -->
+        <div class="col-md-4 field " >
+          <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+          <div class="col-md-10 offset-md-1 mvrdiv">
+            <div>
+              <label for="mvrHeaderDate" >MVR Value Date</label>
+            </div>
+            <div>
+              <app-date-picker #dtpmvrHeaderDate formControlName="mvrHeaderDate" [options]="this.Data.mvrHeaderOptions" (keydown.enter)="$event.preventDefault()"
+              [customRequiredErrorMessage]="''" [isDisabled]="this.submissionData?.isIssued"
+              [isInvalid]="this.Data.formDriverHeader.get('mvrHeaderDate').errors?.required" (dateChange)="ngOnChangesHeaderMVRDate($event)"></app-date-picker>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+      <div class="row">
+        <div class="col-md-8 pb-2">
+          <h4 style="padding-top: 1rem; margin-bottom: 0rem;">Driver Information</h4>
+        </div>
+
+        <div class="col-md-4 pb-2">
+          <div class="btn-group" role="group" style="float: right; padding-top: 3px;">
+            <input type="file" #fileSelection placeholder="Choose File" class="d-none"
+            (change)="this.uploadFile(this.fileSelection.files)"
+            [accept]="this.acceptedFileTypes">
+
+
+            <button type="button" class="btn btn-primary text-nowrap mr-1" style="border-radius: 0.25rem;"
+            (click)='generateExcelReportV1()' [disabled]="this.submissionData?.isIssued"
+            >Export to Excel
+              <!-- <i class="fa fa-file-excel-o" ></i> -->
+            </button>
+            <button type="button" class="btn btn-primary text-nowrap mr-1" style="border-radius: 0.25rem;"
+            (click)='selectFile()' [disabled]="this.submissionData?.isIssued"
+            >Upload
+              <!-- <i class="fa fa-upload" ></i> -->
+            </button>
+            <button type="button" class="btn btn-primary text-nowrap" style="border-radius: 0.25rem;"
+            (click)='deleteAllDriver()' [disabled]="this.submissionData?.isIssued || this.Data.pagedItems.length < 1 "
+            >Delete All
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- <div class="row pb-2" style="margin-bottom: -15px;">
+        <div class="col-9">
+          <label style="padding-top: 1rem;"><h4>Driver Information</h4></label>
+        </div>
+      </div> -->
+      <div class="table-responsive dynamic-table" [style.padding-top.px]="0" [style.padding-bottom.px]="0">
+        <table id='tblDriver' datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" #tblDriver class="table mb-2">
+          <thead>
+          <tr>
+              <!-- <th>Id</th> -->
+              <th><span [style.margin-left.px]="4">OPTION</span><br /><span class="options">1234</span></th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="lastName" style="width: 200px;" class="text-left">Last Name</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="firstName" style="width: 200px;" class="text-left">First Name</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="birthDate" style="width: 150px;" class="text-left">DOB</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="age" class="text-center">Age</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="state" style="width: 100px;" class="text-left">State</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="licenseNumber" style="width: 200px;" class="text-left">Driver's License Number</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="yrsDrivingExp" style="width: 150px;" class="text-left">Years Driving Experience</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="yrsCommDrivingExp" style="width: 170px;" class="text-left">Years Commercial Driving Experience</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="isMvr" class="text-center">MVR</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="yearPoint" style="width: 50px;" class="text-left">5 Year Points</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="ageFactor" style="width: 50px;" class="text-left">Age Factor</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="totalFactor" style="width: 50px;" class="text-left">Total Factor</th>
+              <th (click)="Data.sort($event.target)" data-order="desc" data-name="isOutOfState" style="width: 80px;" class="text-center">Out of State</th>
+              <th class="text-center" style="padding:5px;">Actions<br/>
+                <button tabindex="" type="button" class="btn btn-primary mx-2" data-placement="top" (click)='addNewDriver()' [tooltip]="TableConstants.add" [disabled]="this.submissionData?.isIssued">
+                  <i class="icon-plus"></i>
+                </button>
+                <div #btnAddDriver class="d-none" data-toggle="modal" data-target='#addUpdateDriver'></div>
+              </th>
+          </tr>
+          </thead>
+          <tbody>
+            <!-- <ng-container *ngFor="let driver of this.Data.driverInfoList | driverFilter: this.Data.filterValue" [ngTemplateOutlet]="driverRow" [ngTemplateOutletContext]="{driverObj : driver}"></ng-container> -->
+            <ng-container *ngFor="let driver of this.Data.pagedItems" [ngTemplateOutlet]="driverRow" [ngTemplateOutletContext]="{driverObj : driver}"></ng-container>
+          </tbody>
+        </table>
+        <div *ngIf="this.Data.pagedItems.length < 1">
+          <div class="text-center col-lg-12 no-data-message">
+              <span>No Data To Display</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="this.Data.currentTotalItems > 10">
+        <nav style="margin-top: 7px;" class="navbar navbar-light bg-light justify-content-between">
+          <div class="btn-group dropup" >
+              <div class="input-group-prepend">
+                  <div class="input-group-text" id="btnGroupAddon">Show rows</div>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-describedby="btnGroupAddon" aria-haspopup="true" aria-expanded="false">
+                  {{ Data.showRowsNumber }}
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" style="min-width: 3rem;">
+                  <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber10)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber10 }}</span>
+                  <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber25)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber25 }}</span>
+                  <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber50)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber50 }}</span>
+                  <span (click)="changeShowRowsNumber(TableConstants.Search.showRowsNumber100)" class="dropdown-item">{{ TableConstants.Search.showRowsNumber100 }}</span>
+              </div>
+          </div>
+          <app-table-pagination-mod (setPage)="this.setPage($event)" [pager]="this.Data.pager" [loading]="this.Data.loading"></app-table-pagination-mod>
+          <!-- <pagination class="text-center pagination-md ml-3" [boundaryLinks]="true" [directionLinks]="false" [totalItems]="documentData.totalRowCount" [itemsPerPage]="documentData.itemPerPage" [maxSize]="10" (pageChanged)="policyPageChanged($event)" 
+              [ngModel]="documentData.currentPage"></pagination> -->
+        </nav>    
+      </div>
+    </div>
+    <!-- <div class="clearfix"></div> -->
+  </div>
+</div>
+
+</div>
+<!-- {{ this.Data | json }} -->
+<!-- Driver info grid template -->
+<ng-template #driverRow let-driverObj="driverObj" >
+  <tr [hidden]="this.hiddenViaFilter(this.driverObj)">
+      <td>
+        <span title='Please update the information' *ngIf="this.driverObj.isValidated == false " class="badge badge-warning" style="z-index: 2; margin-left: -35px;  position: absolute; cursor: pointer;">!</span>
+        <div style="display: inline-flex; margin-left: 3px;">
+          <input class="optInlcude" tabindex="-1" type="checkbox" #opt1 [id]="'opt1' + this.driverObj.id"
+            [checked]="isOptionChecked(this.driverObj.options).indexOf(opt1.value) != -1"
+            value="1"
+            [attr.title]="this.quoteLimitsData.optionIsDisabled(1) ? this.quoteLimitsData.optionDisabledMsg : ''"
+            [disabled]="this.DisabledViaFilter(this.driverObj) || this.submissionData?.isIssued"
+            (change)="optionChanged(this.driverObj, 1)">
+            <!-- [disabled]="this.quoteLimitsData.optionIsDisabled(1)" -->
+          &nbsp;
+          <input class="optInlcude" tabindex="-1" type="checkbox" #opt2 [id]="'opt2' + this.driverObj.id"
+            [checked]="isOptionChecked(this.driverObj.options).indexOf(opt2.value) != -1"
+            value="2"
+            [attr.title]="this.quoteLimitsData.optionIsDisabled(2) ? this.quoteLimitsData.optionDisabledMsg : ''"
+            [disabled]="this.DisabledViaFilter(this.driverObj) || this.optionsDisabled(this.driverObj) || this.quoteLimitsData.optionIsDisabled(2) || this.submissionData?.isIssued"
+            (change)="optionChanged(this.driverObj, 2)">
+          &nbsp;
+          <input class="optInlcude" tabindex="-1" type="checkbox" #opt3 [id]="'opt3' + this.driverObj.id"
+            [checked]="isOptionChecked(this.driverObj.options).indexOf(opt3.value) != -1"
+            value="3"
+            [attr.title]="this.quoteLimitsData.optionIsDisabled(3) ? this.quoteLimitsData.optionDisabledMsg : ''"
+            [disabled]="this.DisabledViaFilter(this.driverObj) || this.optionsDisabled(this.driverObj) || this.quoteLimitsData.optionIsDisabled(3) || this.submissionData?.isIssued"
+            (change)="optionChanged(this.driverObj, 3)">
+          &nbsp;
+          <input class="optInlcude" tabindex="-1" type="checkbox" #opt4 [id]="'opt4' + this.driverObj.id"
+            [checked]="isOptionChecked(this.driverObj.options).indexOf(opt4.value) != -1"
+            value="4"
+            [attr.title]="this.quoteLimitsData.optionIsDisabled(4) ? this.quoteLimitsData.optionDisabledMsg : ''"
+            [disabled]="this.DisabledViaFilter(this.driverObj) || this.optionsDisabled(this.driverObj) || this.quoteLimitsData.optionIsDisabled(4) || this.submissionData?.isIssued"
+            (change)="optionChanged(this.driverObj, 4)">
+        </div>
+      </td>
+
+      <td class="text-left"><span class="mtext-left">{{ driverObj.lastName }}</span></td>
+      <td class="text-left"><span class="text-left">{{ driverObj.firstName }}</span></td>
+      <td class="text-left"><span class="text-left">{{ driverObj.birthDate | date: 'MM/dd/yyyy'  }}</span></td>
+      <td class="text-left"><span class="text-left">{{ driverObj.age }}</span></td>
+      <td><span class="text-left">{{ driverObj.state|stateIdToCode:this.Data.driverDropdownsList.stateList }}</span></td>
+      <td class="text-left"><span class="text-left">{{ driverObj.licenseNumber }}</span></td>
+
+      <td class="text-left"><span class="text-left">{{ driverObj.yrsDrivingExp }}</span></td>
+      <td class="text-left"><span class="text-left">{{ driverObj.yrsCommDrivingExp }}</span>
+      <td class="text-center">
+        <input tabindex="-1" type="checkbox" [disabled]="this.submissionData?.isIssued" [id]="'isMvr' + this.driverObj.id" [checked]="driverObj.isMvr" (change)="mvrChanged(this.driverObj, $event.target.checked)">
+      </td>
+      <td><span class="text-left">{{ driverObj.yearPoint }}</span></td>
+      <td><span class="text-left">{{ driverObj.ageFactor }}</span></td>
+      <td><span class="text-left">{{ driverObj.totalFactor }}</span></td>
+      <td class="text-center">
+        <input tabindex="-1" type="checkbox" [disabled]="this.submissionData?.isIssued" [id]="'isOutOfState' + this.driverObj.id" [checked]="driverObj.isOutOfState" (change)="outStateChanged(this.driverObj, $event.target.checked)">
+      </td>
+      <td>
+        <div class="table-button-fixed d-flex justify-content-end">
+          <i class="icon-note" (click)="editDriver(driverObj)" [tooltip]="TableConstants.edit"></i>
+          <i class="icon-trash" (click)="deleteDriver(driverObj)" [tooltip]="TableConstants.delete"></i>
+        </div>
+      </td>
+  </tr>
+  </ng-template>
+
+<!-- Modal for driver info entry -->
+<div [formGroup]="this.Data.formDriverInfo" >
+  <div class="modal fade" id='addUpdateDriver' tabindex="-1" role="dialog" aria-labelledby="#addUpdateDriver" aria-hidden="true"  data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header sticky-modal-header">
+          <h5 class="modal-title">{{modalHeader}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)='this.driverInfoSec.onCancel()'>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <app-d-driver-information-section #child [modalButton]="modalButton" (btnModalDriverRef)='this.fn_openDriverInfo()'></app-d-driver-information-section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #btnAddDriversFromExcel class="d-none" data-toggle="modal" data-target='#addDriversFromExcel'></div>
+
+<div class="modal fade" id='addDriversFromExcel' tabindex="-1" role="dialog" aria-labelledby="#addDriversFromExcel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <app-driver-excel-upload [excelDrivers]="excelDrivers"></app-driver-excel-upload>
+    </div>
+  </div>
+</div>

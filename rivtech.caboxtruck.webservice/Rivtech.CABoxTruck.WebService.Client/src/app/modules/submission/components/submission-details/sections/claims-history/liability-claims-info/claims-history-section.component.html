@@ -1,0 +1,283 @@
+<div class="card sticky-body">
+    <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('liabilityClaims', $event)">
+      <app-toggle-collapse toggleName="liabilityClaims"></app-toggle-collapse>
+          <strong> &nbsp; Claims History</strong>
+      </div>      
+      <div class="card-body standard-padding collapse show field" [formGroup]="this.Data.formInfo" id="liabilityClaims" style="padding-top: 2%">
+        <div class="col">
+            <div class="disable-overlay" [style.margin-left.px]="-20" *ngIf="this.submissionData?.isIssued"></div>
+            <div class="col-md-12 row table-responsive-lg dynamic-table">
+                <table class="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th colspan="6">Liability Claims Info</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Loss Info</th>
+                            <th scope="col" class="w-15">Current/Expiring</th>
+                            <th scope="col" class="w-15">1st Prior</th>
+                            <th scope="col" class="w-15">2nd Prior</th>
+                            <th scope="col" class="w-15">3rd Prior</th>
+                            <th scope="col" class="w-15">4th Prior</th>
+                        </tr>
+                    </thead>
+                    <tbody class="field">
+                        <tr formArrayName="lossRunDate">
+                            <td scope="col" [class.required]="Data.required"> Loss Run Date </td>
+                            <td scope="row">
+                                <app-date-picker class="loss-run-date" formControlName="0" [options]="Data.datePickerOptions"
+                                customRequiredErrorMessage="Loss Run Date is required"
+                                [isInvalid]="f.lossRunDate.errors?.invalid0"
+                                [isDisabled]="this.submissionData?.isIssued"
+                                [isTouched]="Data.isTouched"></app-date-picker>
+                                <div *ngIf="f.lossRunDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.lossRunDate.errors?.invalidYear0">{{ lossRunErrorMessage }}</div>
+                                </div>
+                            </td>
+                            <td scope="row">
+                                <app-date-picker class="loss-run-date" formControlName="1" [options]="Data.datePickerOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                                <div *ngIf="f.lossRunDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.lossRunDate.errors?.invalidYear1">{{ lossRunErrorMessage }}</div>
+                                </div>
+                            </td>
+                            <td scope="row">
+                                <app-date-picker class="loss-run-date" formControlName="2" [options]="Data.datePickerOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                                <div *ngIf="f.lossRunDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.lossRunDate.errors?.invalidYear2">{{ lossRunErrorMessage }}</div>
+                                </div>
+                            </td>
+                            <td scope="row">
+                                <app-date-picker class="loss-run-date" formControlName="3" [options]="Data.datePickerOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                                <div *ngIf="f.lossRunDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.lossRunDate.errors?.invalidYear3">{{ lossRunErrorMessage }}e</div>
+                                </div>
+                            </td>
+                            <td scope="row">
+                                <app-date-picker class="loss-run-date" formControlName="4" [options]="Data.datePickerOptions" [isDisabled]="this.submissionData?.isIssued"></app-date-picker>
+                                <div *ngIf="f.lossRunDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.lossRunDate.errors?.invalidYear4">{{ lossRunErrorMessage }}</div>
+                                </div>
+                            </td>
+                        </tr>
+      
+                        <tr formArrayName="groundUpNet">
+                            <td scope="col">Gross or Net Losses?</td>
+                            <td scope="row">
+                                <select class="w-100" formControlName="0">
+                                <option *ngFor="let option of groundUpNetOptions" [ngValue]="option.value">{{option.label}}</option>
+                                </select>
+                            </td>
+                            <td scope="row">
+                            <select class="w-100" formControlName="1">
+                                <option *ngFor="let option of groundUpNetOptions" [ngValue]="option.value">{{option.label}}</option>
+                            </select>
+                            </td>
+                            <td scope="row">
+                                <select class="w-100" formControlName="2">
+                                <option *ngFor="let option of groundUpNetOptions" [ngValue]="option.value">{{option.label}}</option>
+                                </select>
+                            </td>
+                            <td scope="row">
+                                <select class="w-100" formControlName="3">
+                                <option *ngFor="let option of groundUpNetOptions" [ngValue]="option.value">{{option.label}}</option>
+                                </select>
+                            </td>
+                            <td scope="row">
+                                <select class="w-100" formControlName="4">
+                                <option *ngFor="let option of groundUpNetOptions" [ngValue]="option.value">{{option.label}}</option>
+                                </select>
+                            </td>
+                        </tr>
+      
+                        <tr formArrayName="biPiPmpIncLossTotal">
+                            <td scope="col"> BI/PIP/MP Inc Loss - Total </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+      
+                        <tr formArrayName="biPiPmpIncLoss100KCap">
+                            <td scope="col"> BI/PIP/MP Inc Loss - $100k Cap </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+      
+                        <tr formArrayName="propertyDamageIncLoss">
+                            <td scope="col"> Property Damage Inc Loss </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+      
+                        <tr formArrayName="claimCountBiPip">
+                            <td scope="col"> Claim Count with BI/PIP </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+      
+                        <tr formArrayName="claimCountPropertyDamage">
+                            <td scope="col"> Claim Count (Property Damage Only) </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+      
+                        <tr formArrayName="openClaimsUnder500">
+                            <td scope="col"> Open Claims Under $400 </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <div class="col-md-12 row table-responsive dynamic-table">
+                <table class="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th colspan="6">Physical Damage Claims Info</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Loss Info</th>
+                            <th scope="col" class="w-15">Current/Expiring</th>
+                            <th scope="col" class="w-15">1st Prior</th>
+                            <th scope="col" class="w-15">2nd Prior</th>
+                            <th scope="col" class="w-15">3rd Prior</th>
+                            <th scope="col" class="w-15">4th Prior</th>
+                        </tr>
+                    </thead>
+                    <tbody class="field">
+                        <tr formArrayName="physicalDamageNetLoss">
+                            <td scope="col"> Net Loss </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+                        <tr formArrayName="physicalDamageClaimCount">
+                            <td scope="col"> Total Claim Count </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+      
+            <div class="col-md-12 row table-responsive dynamic-table">
+                <table class="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th colspan="6">Cargo Claims Info </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Loss Info</th>
+                            <th scope="col" class="w-15">Current/Expiring</th>
+                            <th scope="col" class="w-15">1st Prior</th>
+                            <th scope="col" class="w-15">2nd Prior</th>
+                            <th scope="col" class="w-15">3rd Prior</th>
+                            <th scope="col" class="w-15">4th Prior</th>
+                        </tr>
+                    </thead>
+                    <tbody class="field">
+                        <tr formArrayName="cargoNetLoss">
+                            <td scope="col"> Net Loss </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+                        <tr formArrayName="cargoClaimCount">
+                            <td scope="col"> Total Claim Count </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+      
+            <div class="col-md-12 row table-responsive dynamic-table">
+                <table class="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th colspan="6">General Liability Claims Info </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Loss Info</th>
+                            <th scope="col" class="w-15">Current/Expiring</th>
+                            <th scope="col" class="w-15">1st Prior</th>
+                            <th scope="col" class="w-15">2nd Prior</th>
+                            <th scope="col" class="w-15">3rd Prior</th>
+                            <th scope="col" class="w-15">4th Prior</th>
+                        </tr>
+                    </thead>
+                    <tbody class="field">
+                        <tr formArrayName="generalLiabilityNetLoss">
+                            <td scope="col"> Net Loss </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="15" prefix="$ " mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+                        <tr formArrayName="generalLiabilityClaimCount">
+                            <td scope="col"> Total Claim Count </td>
+                            <td scope="row">
+                                <input type="text" formControlName="0" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" />
+                            </td>
+                            <td scope="row"><input type="text" formControlName="1" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="2" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="3" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                            <td scope="row"><input type="text" formControlName="4" maxlength="11" mask="separator.0" thousandSeparator="," class="form-control wdate-15" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+  

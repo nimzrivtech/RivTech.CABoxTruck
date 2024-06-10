@@ -1,0 +1,94 @@
+<div class="card sticky-body">
+    <div class="card-header cursor-pointer" (click)="this.toggleCollapse.clickExpandCollapse('policyContacts', $event)">
+        <app-toggle-collapse toggleName="policyContacts"></app-toggle-collapse>
+        <strong> &nbsp; Applied Contacts</strong>
+    </div>
+    <div class="card-body standard-padding collapse show field" [formGroup]="this.brokerData.formInfo" id="policyContacts" style="padding-top: 2%">
+        <div class="disable-overlay" *ngIf="this.submissionData?.isIssued"></div>
+        <div class="col-lg-12 row dynamic-table" style="margin: auto; width: 70%;">
+            <table class="table" [style.width.%]="100">
+                <thead>
+                    <tr class="text-center">
+                        <th colspan="6">Applied Contacts</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Role</th>
+                        <th scope="col">Name</th>
+                        <th scope="col" style="border-right:1px solid #c8ced3;">Email</th>
+                    </tr>
+                </thead>
+                <tbody class="field">
+                    <tr>
+                        <td scope="col" style="vertical-align: middle;">Assistant Underwriter</td>
+                        <td scope="col">
+                            <select name="assistantUnderwriterId" formControlName="assistantUnderwriterId" id="assistantUnderwriterId" (change)="this.brokerData.onChangeSubmissionContact($event.target.value)">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of submissionSpecialistContacts | orderBy: 'name'" [value]="option.id">
+                                    {{ option.name }}</option>
+                            </select>
+                        </td>
+                        <td scope="col" style="border-right:1px solid #c8ced3;">
+                            <input type="text" id='submissionSpecialistEmail' class="form-control wdate-15 readonly" readonly formControlName="submissionSpecialistEmail" maxlength="100" /> 
+                            <app-validation-error [control]="this.brokerData.fc.submissionSpecialistEmail" [inputName]="'Email'"></app-validation-error>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col" style="vertical-align: middle;">PSR </td>
+                        <td scope="col">
+                            <select name="psrUserId" id="psrUserId" formControlName="psrUserId" (change)="this.brokerData.onChangePSRContact($event.target.value)">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of psrContacts | orderBy: 'name'" [value]="option.id">
+                                    {{ option.name }}</option>
+                            </select>
+                        </td>
+                        <td scope="col" style="border-right:1px solid #c8ced3;">
+                            <input type="text" id='psrEmail' class="form-control wdate-15 readonly" readonly formControlName="psrEmail" maxlength="100" /> 
+                            <app-validation-error [control]="this.brokerData.fc.psrEmail" [inputName]="'Email'"></app-validation-error>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col" style="vertical-align: middle;">Team Leader </td>
+                        <td scope="col">
+                            <select name="teamLeadUserId" id="teamLeadUserId" formControlName="teamLeadUserId" (change)="this.brokerData.onChangeTeamLeadContact($event.target.value)">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of teamLeaderContacts | orderBy: 'name'" [value]="option.id">
+                                    {{ option.name }}</option>
+                            </select>
+                        </td>
+                        <td scope="col" style="border-right:1px solid #c8ced3;">
+                            <input type="text" id='teamLeadEmail' class="form-control wdate-15 readonly" formControlName="teamLeadEmail" maxlength="100" readonly /> 
+                            <app-validation-error [control]="this.brokerData.fc.teamLeadEmail" [inputName]="'Email'"></app-validation-error>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col" style="vertical-align: middle;">Internal Underwriter <span id="internalUWIsRequired" class="required" [hidden]="!this.isInternalUWRequired"></span></td>
+                        <td scope="col">
+                            <select name="internalUWUserId" id="internalUWUserId" formControlName="internalUWUserId" (change)="this.brokerData.onChangeInternalUWContact($event.target.value)">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of internalUWContacts | orderBy: 'name'" [value]="option.id">
+                                    {{ option.name }}</option>
+                            </select>
+                        </td>
+                        <td scope="col" style="border-right:1px solid #c8ced3;">
+                            <input type="text" id='internalUWEmail' class="form-control wdate-15 readonly" readonly formControlName="internalUWEmail" maxlength="100" /> 
+                            <app-validation-error [control]="this.brokerData.fc.internalUWEmail" [inputName]="'Email'"></app-validation-error>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col" style="vertical-align: middle;">Product Underwriter </td>
+                        <td scope="col">
+                            <select name="productUWUserId" id="productUWUserId" formControlName="productUWUserId" (change)="this.brokerData.onChangeProductUWContact($event.target.value)">
+                                <option [ngValue]="null">Please Select</option>
+                                <option *ngFor="let option of productUWContacts | orderBy: 'name'" [value]="option.id">
+                                    {{ option.name }}</option>
+                            </select>
+                        </td>
+                        <td scope="col" style="border-right:1px solid #c8ced3;">
+                            <input type="text" id='productUWEmail' class="form-control wdate-15 readonly" readonly formControlName="productUWEmail" maxlength="100" /> 
+                            <app-validation-error [control]="this.brokerData.fc.productUWEmail" [inputName]="'Email'"></app-validation-error>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

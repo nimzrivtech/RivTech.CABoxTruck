@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.Proration.RiskAmounts">
+    <Position X="1.25" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEAiAAAAQQAAAEAAAAAYBEAAABKAAIAEAAIAAAAEEAA=</HashCode>
+      <FileName>Services\Endorsement\Proration\RiskAmounts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.Proration.ProratedPremium">
+    <Position X="4.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAgCJAABQAAAAgAEAAAIABCGAACBAAKAAAAAIAAAEQA=</HashCode>
+      <FileName>Services\Endorsement\Proration\ProratedPremium.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.Proration.FullyEarnedPremium">
+    <Position X="8" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAAAAAEAAAAAACAAACBAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Services\Endorsement\Proration\FullyEarnedPremium.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.Proration.IPremium">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAACAAACBAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Endorsement\Proration\IPremium.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="RivTech.CABoxTruck.WebService.Service.Services.Endorsement.Proration.PremiumKind">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEBAAQAAAAAAAAAAAAAAAAAAAAAACAAAACAAACAAAA=</HashCode>
+      <FileName>Services\Endorsement\Proration\PremiumKind.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

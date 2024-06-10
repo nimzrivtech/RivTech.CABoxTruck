@@ -1,0 +1,102 @@
+<form *ngIf="agentData.agentFormGroup as formGroup" [formGroup]="formGroup">
+    <input type="hidden"  formControlName="oldUserName" [value]="" />
+    <div class="row form-group field mt-2">
+        <div class="col-md-4 input-container" *ngIf="formGroup.get('isSystemUser').value">
+            <label class="required" for="username">{{AgentLabelConstants.username}}</label>
+            <input class="form-control w-100" id="username" type="text" formControlName="username" maxlength="100"
+                [ngClass]="{ 'is-invalid': formGroup.get('username').errors && formGroup.get('username').dirty }">
+            <span class="invalid-feedback" *ngIf="formGroup.get('username').errors?.required && formGroup.get('username').touched">
+              {{ ErrorMessageConstant.requiredErrorMessage.format(AgentLabelConstants.username) }}
+            </span>
+            <span class="invalid-feedback" *ngIf="formGroup.get('username').errors?.usernameExists && formGroup.get('username').touched">
+              {{ ErrorMessageConstant.usernameAlreadyExists }}
+            </span>
+        </div>
+        <div class="col-md-4 input-container">
+          <label class="required" for="lastName">{{AgentLabelConstants.lastName}}</label>
+          <input class="form-control w-100" id="lastName" type="text" formControlName="lastName"
+              [ngClass]="{ 'is-invalid': formGroup.get('lastName').errors && formGroup.get('lastName').dirty }"
+              maxlength="30">
+          <span class="invalid-feedback" *ngIf="formGroup.get('lastName').errors?.required && formGroup.get('lastName').touched">
+            {{ ErrorMessageConstant.requiredErrorMessage.format(AgentLabelConstants.lastName) }}
+          </span>
+        </div>
+        <div class="col-md-4 input-container">
+            <label class="required" for="firstName">{{AgentLabelConstants.firstName}}</label>
+            <input class="form-control w-100" id="firstName" type="text" formControlName="firstName"
+                [ngClass]="{ 'is-invalid': formGroup.get('firstName').errors && formGroup.get('firstName').dirty }"
+                maxlength="30">
+            <span class="invalid-feedback" *ngIf="formGroup.get('firstName').errors?.required && formGroup.get('firstName').touched">
+              {{ ErrorMessageConstant.requiredErrorMessage.format(AgentLabelConstants.firstName) }}
+            </span>
+        </div>
+        <div class="col-md-4 input-container">
+          <label class="required" for="emailAddress">{{AgentLabelConstants.email}}</label>
+          <input type="email" class="form-control w-100" placeholder="" formControlName="emailAddress" maxlength="100"
+              [ngClass]="{'is-invalid': formGroup.get('emailAddress').errors && formGroup.get('emailAddress').dirty }">
+            <span class="invalid-feedback" *ngIf="formGroup.get('emailAddress').errors?.required && formGroup.get('emailAddress').touched">
+                {{ ErrorMessageConstant.requiredErrorMessage.format(AgentLabelConstants.emailAddress) }}
+            </span>
+          <span class="invalid-feedback"
+              *ngIf="formGroup.get('emailAddress').errors?.pattern && (formGroup.get('emailAddress').touched || formGroup.get('emailAddress').dirty)">
+              {{ErrorMessageConstant.validEmailAddressErrorMessage}}
+          </span>
+        </div>
+    </div>
+    <div class="row form-group field mt-2">      
+      <div class="col-md-4 input-container">
+        <label>{{AgentLabelConstants.workphone}}</label>
+        <input class="form-control w-100" id="workPhone" type="text" mask="000 000-0000" formControlName="workPhone"
+          [ngClass]="{'is-invalid': formGroup.get('workPhone').errors && formGroup.get('workPhone').dirty }">
+        <span class="invalid-feedback" *ngIf="formGroup.get('workPhone').errors && formGroup.get('workPhone').dirty">
+          {{ErrorMessageConstant.validPhoneNumberErrorMessage}}
+        </span>
+      </div>
+      <div class="d-none col-md-4 input-container">
+        <label>{{AgentLabelConstants.workfax}}</label>
+        <input class="form-control w-100" id="workFax" type="text" mask="000 000-0000" formControlName="workFax"
+          [ngClass]="{ 'is-invalid': formGroup.get('workFax').errors && formGroup.get('workFax').dirty }">
+        <div class="invalid-feedback" *ngIf="formGroup.get('workFax').errors && formGroup.get('workFax').dirty">
+          {{AgentLabelConstants.workFaxFormatError}}</div>
+      </div>
+      <div class="col-md-4 input-container mt-4">
+        <div class="switch-wrapper">
+            <label>{{AgentLabelConstants.active}}</label>
+            <label class="switch switch-pill switch-label switch-primary">
+            <input type="checkbox" class="switch-input" formControlName="isActive">
+            <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+            </label>
+        </div>
+      </div>
+    </div>
+    <div class="d-none row form-group field mt-2">
+      <div class="col-md-4 input-container">
+        <label>{{AgentLabelConstants.torrentUsername}}</label>
+        <input class="form-control w-100" id="torrentUsername" type="text" formControlName="torrentUsername" maxlength="60"
+          [ngClass]="{ 'is-invalid': formGroup.get('torrentUsername').errors && formGroup.get('torrentUsername').dirty }">
+      </div>
+    </div>
+    <div class="d-none row form-group field mt-2">
+      <div class="col-md-4 input-container">
+        <div class="switch-wrapper">
+            <label>{{AgentLabelConstants.systemUser}}</label>
+            <label class="switch switch-pill switch-label switch-primary">
+            <input type="checkbox" class="switch-input" formControlName="isSystemUser" (change)="onSystemUserChanged()">
+            <span class="switch-slider" data-checked="Yes" data-unchecked="No" tabindex="0"></span>
+            </label>
+        </div>
+      </div>
+    </div>
+    <div class="d-none">
+      <div class="align-right" *ngIf="this.isEdit">
+        <button class="btn btn-primary px-4 col-2" (click)="resetAgentPassword()">{{AgentLabelConstants.resetPassword}}</button>
+      </div>
+    </div>
+    <app-agent-details-subagency></app-agent-details-subagency>
+    <!-- <app-agent-details-licenses
+      [licenseList]="agentData.agentLicenseList"
+      [licenseRowId]="agentData.agentLicenseRowId"
+      [licenseListHeader]="agentData.agentLicenseListHeaders"
+      [isLoading]="agentData.isAgentLicenseLoading">
+    </app-agent-details-licenses> -->
+  </form>

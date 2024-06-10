@@ -1,0 +1,35 @@
+<div class="modal-header sticky-modal-header">
+    <h5 class="modal-title">Form Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="this.onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body row">
+    <div class="container-fluid field" [formGroup]="formsData.coveredAutoDesignationForm">
+        <div class="col-md-12 field form-group">
+            <div class="">
+                <label class="required">Covered Auto Text</label>
+                <select formControlName="coveredAutoText" class="form-control" id="coveredAutoText" name="coveredAutoText" 
+                    [attr.title]="setTooltip(f.coveredAutoText.value, coveredAutoTexts)"
+                    [(ngModel)]="selectedCoveredAutoText"
+                    (change)="onCoveredAutoTextChange()">
+                    <option [ngValue]="null">Please Select</option>
+                    <option *ngFor="let option of coveredAutoTexts" [value]="option.value" [title]="option.label">{{ shortenTextWithEllipsis(option.label, 65) }}</option>
+                </select>
+                <app-validation-error [control]="f.coveredAutoText" inputName="Covered Auto Text"></app-validation-error>
+            </div>
+        </div>
+        <div *ngIf="selectedCoveredAutoText == 6" class="col-md-12 field form-group">
+            <div class="">
+                <label class="required">Text for Endorsement</label>
+                <input type="text" class="form-control w-100" formControlName="textForEndorsement" maxLength="1000"/>
+                <app-validation-error [control]="f.textForEndorsement" inputName="Text for Endorsement"></app-validation-error>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer sticky-modal-footer">
+    <button [disabled]="formsData.coveredAutoDesignationForm.invalid" type="button" class="btn btn-primary"
+        (click)="saveForm()">Save</button>
+    <button type="button" class="btn btn-danger" (click)="this.onCancel()">Cancel</button>
+</div>
